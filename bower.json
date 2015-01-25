@@ -1,0 +1,26 @@
+{
+  "name": "web-polymer",
+  "version": "0.1.0",
+  "authors": [
+    "Serhii Hordiichuk <kingnlo@gmail.com>"
+  ],
+  "description": "Polymer Project",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.4",
+    "app-router": "~2.0.4",
+    "font-roboto": "Polymer/font-roboto#~0.5.2",
+    "paper-shadow": "Polymer/paper-shadow#~0.5.2",
+    "paper-input": "Polymer/paper-input#~0.5.4",
+    "paper-checkbox": "Polymer/paper-checkbox#~0.5.4",
+    "core-label": "Polymer/core-label#~0.5.4"
+  }
+}

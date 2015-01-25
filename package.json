@@ -1,0 +1,21 @@
+{
+  "name": "web-polymer",
+  "description": "Polymer Project",
+  "version": "0.1.0",
+  "author": {
+    "name": "Serhii Hordiichuk <kingnlo@gmail.com>",
+    "url": "http://pascalium.com"
+  },
+  "root": "./app",
+  "projectRoot": "./",
+  "dependencies": {},
+  "devDependencies": {
+    "bower": "^1.3.12",
+    "gulp": "^3.8.10",
+    "gulp-util": "latest",
+    "gulp-compass": "^2.0.3",
+    "gulp-sass": "^1.2.4",
+    "gulp-minify-css": "^0.3.11",
+    "gulp-rename": "^1.2.0"
+  }
+}
