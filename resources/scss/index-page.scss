@@ -13,7 +13,7 @@
   .content{
     margin: 15px;
     font-size: $font-size-mobile;
-    paper-shadow{
+    > paper-shadow{
       background-color: $color-grey-medium-light;
       border-radius: 4px;
       padding: 30px;
@@ -39,7 +39,7 @@
             }
           }
         }
-        .login{
+        .login-button{
           margin: 20px auto 20px;
           .submit{
             margin: 0;
@@ -48,6 +48,7 @@
           }
           core-label{
             background-color: $color-grey-medium;
+            cursor: pointer;
             color: $color-white;
             padding: 1px 15px;
             height: 30px;
@@ -62,7 +63,22 @@
             .remember{
               margin-right: 10px;
             }
+            paper-checkbox /deep/ #checkbox{
+              border-color: $color-grey-dark;
+              &.checked{
+                background-color: $color-red;
+                border-color: $color-red;
+              }
+            }
           }
+        }
+      }
+      > div{
+        padding: 10px 0;
+        text-align: center;
+        a{
+          color: #fff;
+          font-size: $font-size-mobile-small;
         }
       }
     }
@@ -73,6 +89,10 @@
       paper-button{
         background-color: $color-red;
         margin: 15px 0 0;
+        a{
+          color: $color-white;
+          text-decoration: none;
+        }
       }
     }
   }
@@ -89,13 +109,18 @@
       }
     }
     .content{
-      margin: 30px;
+      margin: 0 30px;
       font-size: $font-size-desktop;
-      paper-shadow{
+      > paper-shadow{
         padding: 30px;
         form{
           width: 320px;
           margin: auto;
+        }
+        > div{
+          a{
+            font-size: $font-size-mobile;
+          }
         }
       }
     }
@@ -110,7 +135,7 @@
     }
     .content{
       width: 708px;
-      margin: 30px auto;
+      margin: 0 auto;
     }
   }
 }

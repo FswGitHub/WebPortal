@@ -9,47 +9,48 @@
   margin: 15px;
   font-size: 16px;
 }
-.login-page .content paper-shadow {
+.login-page .content > paper-shadow {
   background-color: #D8D8D8;
   border-radius: 4px;
   padding: 30px;
 }
-.login-page .content paper-shadow form paper-input-decorator {
+.login-page .content > paper-shadow form paper-input-decorator {
   /* Firefox 19+ */
   /* Firefox 18- */
 }
-.login-page .content paper-shadow form paper-input-decorator ::-webkit-input-placeholder {
+.login-page .content > paper-shadow form paper-input-decorator ::-webkit-input-placeholder {
   color: #000000;
 }
-.login-page .content paper-shadow form paper-input-decorator ::-moz-placeholder {
+.login-page .content > paper-shadow form paper-input-decorator ::-moz-placeholder {
   color: #000000;
 }
-.login-page .content paper-shadow form paper-input-decorator :-moz-placeholder {
+.login-page .content > paper-shadow form paper-input-decorator :-moz-placeholder {
   color: #000000;
 }
-.login-page .content paper-shadow form paper-input-decorator :-ms-input-placeholder {
+.login-page .content > paper-shadow form paper-input-decorator :-ms-input-placeholder {
   color: #000000;
 }
-.login-page .content paper-shadow form paper-input-decorator /deep/ .label-text {
+.login-page .content > paper-shadow form paper-input-decorator /deep/ .label-text {
   font-size: 16px;
   color: #DD1F29;
 }
-.login-page .content paper-shadow form paper-input-decorator /deep/ .unfocused-underline {
+.login-page .content > paper-shadow form paper-input-decorator /deep/ .unfocused-underline {
   background-color: #000000;
 }
-.login-page .content paper-shadow form paper-input-decorator /deep/ .focused-underline {
+.login-page .content > paper-shadow form paper-input-decorator /deep/ .focused-underline {
   background-color: #DD1F29;
 }
-.login-page .content paper-shadow form .login {
+.login-page .content > paper-shadow form .login-button {
   margin: 20px auto 20px;
 }
-.login-page .content paper-shadow form .login .submit {
+.login-page .content > paper-shadow form .login-button .submit {
   margin: 0;
   background-color: #DD1F29;
   color: #FFFFFF;
 }
-.login-page .content paper-shadow form .login core-label {
+.login-page .content > paper-shadow form .login-button core-label {
   background-color: #979797;
+  cursor: pointer;
   color: #FFFFFF;
   padding: 1px 15px;
   height: 30px;
@@ -61,8 +62,23 @@
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-.login-page .content paper-shadow form .login core-label .remember {
+.login-page .content > paper-shadow form .login-button core-label .remember {
   margin-right: 10px;
+}
+.login-page .content > paper-shadow form .login-button core-label paper-checkbox /deep/ #checkbox {
+  border-color: #4A4A4A;
+}
+.login-page .content > paper-shadow form .login-button core-label paper-checkbox /deep/ #checkbox.checked {
+  background-color: #DD1F29;
+  border-color: #DD1F29;
+}
+.login-page .content > paper-shadow > div {
+  padding: 10px 0;
+  text-align: center;
+}
+.login-page .content > paper-shadow > div a {
+  color: #fff;
+  font-size: 14px;
 }
 .login-page .content .create {
   margin: 30px 0 0;
@@ -72,6 +88,10 @@
 .login-page .content .create paper-button {
   background-color: #DD1F29;
   margin: 15px 0 0;
+}
+.login-page .content .create paper-button a {
+  color: #FFFFFF;
+  text-decoration: none;
 }
 .login-page .footer {
   margin: 15px 15px 35px;
@@ -83,15 +103,18 @@
     margin: 30px;
   }
   .login-page .content {
-    margin: 30px;
+    margin: 0 30px;
     font-size: 20px;
   }
-  .login-page .content paper-shadow {
+  .login-page .content > paper-shadow {
     padding: 30px;
   }
-  .login-page .content paper-shadow form {
+  .login-page .content > paper-shadow form {
     width: 320px;
     margin: auto;
+  }
+  .login-page .content > paper-shadow > div a {
+    font-size: 16px;
   }
   .login-page .footer {
     margin: 30px 30px 35px;
@@ -104,6 +127,6 @@
   }
   .login-page .content {
     width: 708px;
-    margin: 30px auto;
+    margin: 0 auto;
   }
 }

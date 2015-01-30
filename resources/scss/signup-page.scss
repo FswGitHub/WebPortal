@@ -1,0 +1,11 @@
+@import "_variables";
+@import "index-page";
+
+.signup-page{
+  @extend .login-page;
+  .content{
+    form{
+//      margin-bottom: 20px!important;
+    }
+  }
+}

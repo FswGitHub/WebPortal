@@ -1,0 +1,46 @@
+<polymer-element name="signup-page">
+    <template>
+        <link rel="stylesheet" href="../../../css/signup-page.css">
+        <div vertical layout class="signup-page">
+            <div class="header">
+                <div class="logo"><img src="../../../img/logo-light.png"></div>
+            </div>
+            <div class="content">
+                <paper-shadow z="1">
+                    <form vertical layout>
+                        <paper-input-decorator label="First Name" floatingLabel error="Please enter First Name">
+                            <input is="core-input" required type="text">
+                        </paper-input-decorator>
+                        <paper-input-decorator label="Last Name" floatingLabel error="Please enter Last Name">
+                            <input is="core-input" required type="text">
+                        </paper-input-decorator>
+                        <paper-input-decorator label="Email" floatingLabel error="Please enter valid Email">
+                            <input is="core-input" required type="email">
+                        </paper-input-decorator>
+                        <paper-input-decorator label="Password" floatingLabel error="Please enter Password">
+                            <input is="core-input" required type="password">
+                        </paper-input-decorator>
+                        <div class="login-button" horizontal layout center>
+                            <paper-button class="submit" raised>Sign Up</paper-button>
+                        </div>
+                    </form>
+                </paper-shadow>
+                <div class="create">
+                    <div>Already have an account?</div>
+                    <paper-button raised>
+                        <a href="#!/login">Login</a>
+                    </paper-button>
+                </div>
+            </div>
+            <div class="footer">
+                <hr>
+                2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer('signup-page', {
+
+        });
+    </script>
+</polymer-element>
