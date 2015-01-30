@@ -25,7 +25,7 @@ gulp.task('sass', function(ready) {
             sass: 'resources/scss'
         }))
         .pipe(minifyCss({
-            //keepSpecialComments: 0
+            keepSpecialComments: 0
         }))
         .pipe(rename({ extname: '.min.css' }))
         .pipe(gulp.dest('./app/css/'))

@@ -21,6 +21,7 @@
     "paper-shadow": "Polymer/paper-shadow#~0.5.2",
     "paper-input": "Polymer/paper-input#~0.5.4",
     "paper-checkbox": "Polymer/paper-checkbox#~0.5.4",
-    "core-label": "Polymer/core-label#~0.5.4"
+    "core-label": "Polymer/core-label#~0.5.4",
+    "core-animated-pages": "Polymer/core-animated-pages#~0.5.4"
   }
 }
