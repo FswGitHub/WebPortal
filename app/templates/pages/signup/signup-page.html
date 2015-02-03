@@ -8,20 +8,26 @@
             <div class="content">
                 <paper-shadow z="1">
                     <form vertical layout>
-                        <paper-input-decorator label="First Name" floatingLabel error="Please enter First Name">
+                        <paper-input-decorator id="firstName" label="First Name"
+                                               floatingLabel error="Please enter First Name">
                             <input is="core-input" required type="text">
                         </paper-input-decorator>
-                        <paper-input-decorator label="Last Name" floatingLabel error="Please enter Last Name">
+                        <paper-input-decorator id="lastName" label="Last Name"
+                                               floatingLabel error="Please enter Last Name">
                             <input is="core-input" required type="text">
                         </paper-input-decorator>
-                        <paper-input-decorator label="Email" floatingLabel error="Please enter valid Email">
+                        <paper-input-decorator id="email" label="Email"
+                                               floatingLabel error="Please enter valid Email">
                             <input is="core-input" required type="email">
                         </paper-input-decorator>
-                        <paper-input-decorator label="Password" floatingLabel error="Please enter Password">
+                        <paper-input-decorator id="password" label="Password"
+                                               floatingLabel error="Please enter Password">
                             <input is="core-input" required type="password">
                         </paper-input-decorator>
                         <div class="login-button" horizontal layout center>
-                            <paper-button class="submit" raised>Sign Up</paper-button>
+                            <paper-button class="submit"
+                                          on-tap="{{signUpSubmit}}"
+                                          raised>Sign Up</paper-button>
                         </div>
                     </form>
                 </paper-shadow>
@@ -36,11 +42,34 @@
                 <hr>
                 2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
             </div>
+
+            <core-ajax id="signUpSubmitRequest" on-core-response="{{signUpResponse}}"></core-ajax>
         </div>
     </template>
     <script>
         Polymer('signup-page', {
+            ready: function(){
+                this.$.signUpSubmitRequest.url = '../resources/json/login.json'
+            },
+            signUpSubmit: function(){
+                var firstName = this.$.firstName, lastName = this.$.lastName, email = this.$.email, password = this.$.password;
 
+                firstName.validate();
+                lastName.validate();
+                if(firstName.validate() && lastName.validate() && email.validate() && password.validate()){
+                    this.$.signUpSubmitRequest.params = {
+                        firstName: firstName.input.value,
+                        lastName: lastName.input.value,
+                        email: email.input.value,
+                        password: password.input.value
+                    };
+                    this.$.loginSubmitRequest.go();
+                }
+            },
+            signUpResponse: function(e, data){
+                console.log(data.response);
+//                document.querySelector('app-router').go('!/main');
+            }
         });
     </script>
 </polymer-element>

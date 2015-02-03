@@ -7,19 +7,21 @@
             </div>
             <div class="content">
                 <paper-shadow z="1">
-                    <form vertical layout>
-                        <paper-input-decorator label="Email"
+                    <form vertical layout on-submit="{{loginSubmit}}">
+                        <paper-input-decorator id="email" label="Email"
                                                floatingLabel
                                                error="Please enter valid Email">
-                            <input id="email" required type="email">
+                            <input required type="email">
                         </paper-input-decorator>
-                        <paper-input-decorator label="Password"
+                        <paper-input-decorator id="password" label="Password"
                                                floatingLabel
                                                error="Please enter Password">
-                            <input is="core-input" required type="password">
+                            <input required type="password">
                         </paper-input-decorator>
                         <div class="login-button" horizontal layout center>
-                            <paper-button class="submit" raised>Submit</paper-button>
+                            <paper-button class="submit"
+                                          on-tap="{{loginSubmit}}"
+                                          raised>Submit</paper-button>
                             <core-label horizontal layout center>
                                 <div class="remember">Remember Me</div>
                                 <paper-checkbox for checked></paper-checkbox>
@@ -27,7 +29,7 @@
                         </div>
                     </form>
                     <div>
-                        <a href="#!/forgot">Help! I forgot my password</a>
+                        <a href="#!/">Help! I forgot my password</a>
                     </div>
                 </paper-shadow>
                 <div class="create">
@@ -41,12 +43,29 @@
                 <hr>
                 2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
             </div>
+
+            <core-ajax id="loginSubmitRequest" on-core-response="{{loginResponse}}"></core-ajax>
         </div>
     </template>
     <script>
         Polymer('index-page', {
             ready: function(){
-//                this.$.login.toggle();
+                this.$.loginSubmitRequest.url = '../resources/json/login.json'
+            },
+            loginSubmit: function(){
+                var email = this.$.email, password = this.$.password;
+
+                if(email.validate() && password.validate()){
+                    this.$.loginSubmitRequest.params = {
+                        email: email.input.value,
+                        password: password.input.value
+                    };
+                    this.$.loginSubmitRequest.go();
+                }
+            },
+            loginResponse: function(e, data){
+                console.log(data.response);
+                document.querySelector('app-router').go('!/main');
             }
         });
     </script>
