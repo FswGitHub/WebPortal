@@ -1,3 +1,8 @@
+.core-toolbar {
+  background-color: #DD1F29;
+  color: #FFFFFF;
+}
+
 .login-page .header .logo, .signup-page .header .logo {
   width: 200px;
   margin: 15px;
@@ -128,5 +133,11 @@
   .login-page .content, .signup-page .content {
     width: 708px;
     margin: 0 auto;
+  }
+  .login-page .footer, .signup-page .footer {
+    width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 30px;
   }
 }

@@ -1,0 +1,32 @@
+<polymer-element name="dashboard-page">
+    <template>
+        <link rel="stylesheet" href="../../../css/dashboard-page.css">
+        <core-scaffold class="dashboard-page"
+                       responsiveWidth="1280px"
+                       mode="waterfall">
+            <core-header-panel navigation flex>
+                <core-toolbar></core-toolbar>
+                <core-selector valueattr="url" selected="{{url}}">
+
+                </core-selector>
+                {{url}}
+                <!--<core-menu selectedItem="{{item}}">-->
+                    <!--<core-item icon="dashboard" label="Dashboard"></core-item>-->
+                    <!--<core-submenu icon="perm-media" label="Portfolio">-->
+                        <!--<core-item label="Topic 1"></core-item>-->
+                        <!--<core-item label="Topic 2"></core-item>-->
+                    <!--</core-submenu>-->
+                <!--</core-menu>-->
+            </core-header-panel>
+            <div tool>Dashboard</div>
+            <div>
+                dashboard
+            </div>
+        </core-scaffold>
+    </template>
+    <script>
+        Polymer('dashboard-page', {
+
+        })
+    </script>
+</polymer-element>

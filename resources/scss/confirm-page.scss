@@ -1,0 +1,6 @@
+@import "_variables";
+@import "login-page";
+
+.confirm-page{
+  @extend .login-page;
+}

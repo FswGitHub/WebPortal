@@ -42,14 +42,24 @@
                 <hr>
                 2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
             </div>
-
-            <core-ajax id="signUpSubmitRequest" on-core-response="{{signUpResponse}}"></core-ajax>
         </div>
+        <paper-action-dialog id="signUpDialog"
+                             heading="Error"
+                             transition="core-transition-center"
+                             backdrop
+                             style="width: 300px;"
+                             layered="false">
+            <p>{{dialogText}}</p>
+            <paper-button affirmative autofocus>Ok</paper-button>
+        </paper-action-dialog>
+        <core-ajax id="signUpSubmitRequest"
+                   on-core-error="{{signUpError}}"
+                   on-core-response="{{signUpResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('signup-page', {
             ready: function(){
-                this.$.signUpSubmitRequest.url = '../resources/json/login.json'
+                this.$.signUpSubmitRequest.url = '../resources/json/signup.json'
             },
             signUpSubmit: function(){
                 var firstName = this.$.firstName, lastName = this.$.lastName, email = this.$.email, password = this.$.password;
@@ -66,9 +76,16 @@
                     this.$.loginSubmitRequest.go();
                 }
             },
+            signUpError: function(){
+                this.dialogText = 'Something wrong, try again later';
+                this.$.signUpDialog.toggle();
+            },
             signUpResponse: function(e, data){
-                console.log(data.response);
-//                document.querySelector('app-router').go('!/main');
+                if(data.response.success){
+                    document.querySelector('app-router').go('!/confirm');
+                }else{
+                    this.signUpError();
+                }
             }
         });
     </script>
