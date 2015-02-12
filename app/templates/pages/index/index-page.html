@@ -83,7 +83,7 @@
             },
             loginResponse: function(e, data){
                 if(data.response.success){
-                    document.querySelector('app-router').go('!/main');
+                    document.querySelector('app-router').go('/main');
                 }else{
                     this.loginError();
                 }

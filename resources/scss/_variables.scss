@@ -16,4 +16,35 @@ $font-size-desktop: 20px;
 .core-toolbar{
   background-color: $color-red;
   color: $color-white;
+  .logo{
+    height: 100%;
+    line-height: 64px;
+    img{
+      width: 100%;
+      vertical-align: middle;
+    }
+  }
+}
+core-selector{
+  core-icon {
+    margin-right: 0.5em;
+  }
+  .child{
+    padding-left: 38px;
+  }
+  .core-selected{
+    background-color: $color-grey-medium-light;
+    border-left: 7px solid $color-red;
+    /deep/ .button-content{
+      padding-left: 9px;
+    }
+    &.child{
+      border-left: 30px solid $color-red;
+      padding-left: 15px;
+    }
+  }
+  h3{
+    padding: 0 1em;
+    font-weight: normal;
+  }
 }

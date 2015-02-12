@@ -82,7 +82,7 @@
             },
             signUpResponse: function(e, data){
                 if(data.response.success){
-                    document.querySelector('app-router').go('!/confirm');
+                    document.querySelector('app-router').go('/confirm');
                 }else{
                     this.signUpError();
                 }

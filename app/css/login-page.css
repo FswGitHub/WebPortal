@@ -2,6 +2,36 @@
   background-color: #DD1F29;
   color: #FFFFFF;
 }
+.core-toolbar .logo {
+  height: 100%;
+  line-height: 64px;
+}
+.core-toolbar .logo img {
+  width: 100%;
+  vertical-align: middle;
+}
+
+core-selector core-icon {
+  margin-right: 0.5em;
+}
+core-selector .child {
+  padding-left: 38px;
+}
+core-selector .core-selected {
+  background-color: #D8D8D8;
+  border-left: 7px solid #DD1F29;
+}
+core-selector .core-selected /deep/ .button-content {
+  padding-left: 9px;
+}
+core-selector .core-selected.child {
+  border-left: 30px solid #DD1F29;
+  padding-left: 15px;
+}
+core-selector h3 {
+  padding: 0 1em;
+  font-weight: normal;
+}
 
 .login-page .header .logo {
   width: 200px;

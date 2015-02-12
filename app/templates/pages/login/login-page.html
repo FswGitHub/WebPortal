@@ -1,6 +1,6 @@
 <polymer-element name="index-page">
     <template>
-        <link rel="stylesheet" href="../../../css/index-page.css">
+        <link rel="stylesheet" href="../../../css/login-page.css">
         <div vertical layout class="login-page">
             <div class="header">
                 <div class="logo"><img src="../../../img/logo-light.png"></div>
@@ -83,7 +83,7 @@
             },
             loginResponse: function(e, data){
                 if(data.response.success){
-                    document.querySelector('app-router').go('!/main');
+                    document.querySelector('app-router').go('/main');
                 }else{
                     this.loginError();
                 }

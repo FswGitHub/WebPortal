@@ -1,0 +1,72 @@
+<polymer-element name="side-menu" attributes="pageClass pageUrl pageTitle">
+    <template>
+        <link rel="stylesheet" href="../../css/dashboard-page.css">
+        <core-scaffold responsiveWidth="1280px"
+                       mode="waterfall">
+            <core-header-panel navigation flex>
+                <core-toolbar>
+                    <div class="logo"><img src="../../img/logo-light.png"></div>
+                </core-toolbar>
+                <core-selector valueattr="label"
+                               excludedLocalNames="h3"
+                               selected="{{pageUrl}}">
+
+                    <paper-item label="dashboard"
+                                on-tap="{{menuGo}}">
+                        <core-icon icon="dashboard"></core-icon>
+                        Dashboard
+                    </paper-item>
+
+                    <paper-item label="portfolio"
+                                on-tap="{{menuGo}}">
+                        <core-icon icon="perm-media"></core-icon>
+                        Portfolio
+                    </paper-item>
+                    <!--<h3><core-icon icon="perm-media"></core-icon>Portfolio</h3>-->
+                    <template repeat="{{val in menuContent}}">
+                        <paper-item class="child"
+                                    label="portfolio/{{val.url}}"
+                                    on-tap="{{menuGo}}">{{val.title}}</paper-item>
+                    </template>
+
+
+                    <paper-item label="profile"
+                                on-tap="{{menuGo}}">
+                        <core-icon icon="dashboard"></core-icon>
+                        Profile
+                    </paper-item>
+                    <paper-item label="settings"
+                                on-tap="{{menuGo}}">
+                        <core-icon icon="dashboard"></core-icon>
+                        Settings
+                    </paper-item>
+                </core-selector>
+            </core-header-panel>
+            <div tool>{{pageTitle}}</div>
+            <div class="content">
+                <content></content>
+            </div>
+        </core-scaffold>
+
+        <core-ajax auto
+                   url="../../../resources/json/sidemenu.json"
+                   on-core-response="{{contentResponse}}"></core-ajax>
+    </template>
+    <script>
+        Polymer('side-menu', {
+            menuContent: [],
+            menuGo: function(e){
+                var link = e.currentTarget.attributes.label.value;
+                if(this.url != link){
+                    document.querySelector('app-router').go('/'+link, {replace: false});
+                }
+            },
+            contentResponse: function(e, data){
+                var me = this;
+                if(data.response.success){
+                    this.menuContent = data.response.content;
+                }
+            }
+        });
+    </script>
+</polymer-element>

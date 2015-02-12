@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "content": [
+    {
+      "title": "Cash Segregated",
+      "url": "cash"
+    },{
+      "title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+      "url": "ipsum"
+    },{
+      "title": "Tag 1",
+      "url": "tag"
+    }
+  ]
+}

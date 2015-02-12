@@ -5,14 +5,20 @@
     core-toolbar{
       @extend .core-toolbar
     }
-
-  }
-  core-menu{
-    .core-selected{
-      background-color: $color-grey-medium-light;
-      margin: 0 -12px;
-      padding: 0 12px 0 5px;
-      border-left: 7px solid $color-red;
+    .content{
+      padding: 26px;
+    }
+    paper-fab{
+      position: absolute;
+      right: 26px;
+      top: 26px;
+    }
+    @media screen and (max-width: $size-tablet) {
+      paper-fab{
+        top: auto;
+        right: 13px;
+        bottom: 13px;
+      }
     }
   }
 }
