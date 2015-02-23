@@ -1,92 +1,14 @@
 <polymer-element name="index-page">
     <template>
-        <link rel="stylesheet" href="../../../css/login-page.css">
-        <div vertical layout class="login-page">
-            <div class="header">
-                <div class="logo"><img src="../../../img/logo-light.png"></div>
-            </div>
-            <div class="content">
-                <paper-shadow z="1">
-                    <form vertical layout on-submit="{{loginSubmit}}">
-                        <paper-input-decorator id="email" label="Email"
-                                               floatingLabel
-                                               error="Please enter valid Email">
-                            <input required
-                                   value="kingnlo@gmail.com"
-                                   type="email">
-                        </paper-input-decorator>
-                        <paper-input-decorator id="password" label="Password"
-                                               floatingLabel
-                                               error="Please enter Password">
-                            <input required
-                                   value="123456"
-                                   type="password">
-                        </paper-input-decorator>
-                        <div class="login-button" horizontal layout center>
-                            <paper-button class="submit"
-                                          on-tap="{{loginSubmit}}"
-                                          raised>Submit</paper-button>
-                            <core-label horizontal layout center>
-                                <div class="remember">Remember Me</div>
-                                <paper-checkbox for checked></paper-checkbox>
-                            </core-label>
-                        </div>
-                    </form>
-                    <div>
-                        <a href="#!/">Help! I forgot my password</a>
-                    </div>
-                </paper-shadow>
-                <div class="create">
-                    <div>Don't have an account?</div>
-                    <paper-button raised>
-                        <a href="#!/signup">Sign Up Here</a>
-                    </paper-button>
-                </div>
-            </div>
-            <div class="footer">
-                <hr>
-                2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
-            </div>
-        </div>
-        <paper-action-dialog id="loginDialog"
-                             heading="Error"
-                             transition="core-transition-center"
-                             backdrop
-                             style="width: 300px;"
-                             layered="false">
-            <p>{{dialogText}}</p>
-            <paper-button affirmative autofocus>Ok</paper-button>
-        </paper-action-dialog>
-        <core-ajax id="loginSubmitRequest"
-                   on-core-error="{{loginError}}"
-                   on-core-response="{{loginResponse}}"></core-ajax>
+        <h1 style="padding: 16px; text-align: center;">
+            <a href="#/login">Login</a>
+            <a href="#/dashboard">Dashboard</a>
+        </h1>
     </template>
     <script>
         Polymer('index-page', {
             ready: function(){
-                this.$.loginSubmitRequest.url = '../resources/json/login.json'
-            },
-            loginSubmit: function(){
-                var email = this.$.email, password = this.$.password;
 
-                if(email.validate() && password.validate()){
-                    this.$.loginSubmitRequest.params = {
-                        email: email.input.value,
-                        password: password.input.value
-                    };
-                    this.$.loginSubmitRequest.go();
-                }
-            },
-            loginError: function(){
-                this.dialogText = 'Wrong login or password.';
-                this.$.loginDialog.toggle();
-            },
-            loginResponse: function(e, data){
-                if(data.response.success){
-                    document.querySelector('app-router').go('/main');
-                }else{
-                    this.loginError();
-                }
             }
         });
     </script>

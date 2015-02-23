@@ -8,6 +8,7 @@
                     <div class="logo"><img src="../../img/logo-light.png"></div>
                 </core-toolbar>
                 <core-selector valueattr="label"
+                               class="menu"
                                excludedLocalNames="h3"
                                selected="{{pageUrl}}">
 
@@ -48,12 +49,16 @@
             </div>
         </core-scaffold>
 
+        <app-globals id="globals"></app-globals>
         <core-ajax auto
-                   url="../../../resources/json/sidemenu.json"
+                   id="portfolioItems"
                    on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('side-menu', {
+            ready: function(){
+                this.$.portfolioItems.url = this.$.globals.url+'resources/json/sidemenu.json';
+            },
             menuContent: [],
             menuGo: function(e){
                 var link = e.currentTarget.attributes.label.value;

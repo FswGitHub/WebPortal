@@ -1,13 +1,29 @@
+<link rel="import" href="chart-board.html">
 <polymer-element name="dashboard-page">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}">
-            dashboard
+            <template repeat="{{val in dashboardContent}}">
+                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
+            </template>
             <paper-fab icon="add"></paper-fab>
         </side-menu>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+                   id="dashboardItems"
+                   on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('dashboard-page', {
+            ready: function(){
+                this.$.dashboardItems.url = this.$.globals.url+'resources/json/charts.json';
+            },
+            contentResponse: function(e, data){
+                var me = this;
+                if(data.response.success){
+                    this.dashboardContent = data.response.content;
+                }
+            },
             page: {
                 class: 'dashboard-page',
                 url: 'dashboard',

@@ -29,6 +29,8 @@
     "core-menu": "Polymer/core-menu#~0.5.4",
     "d-calendar": "~1.0.1",
     "paper-item": "Polymer/paper-item#~0.5.4",
-    "paper-fab": "Polymer/paper-fab#~0.5.4"
+    "paper-fab": "Polymer/paper-fab#~0.5.4",
+    "chart-elements": "~0.1.1",
+    "core-drag-drop": "Polymer/core-drag-drop#~0.5.5"
   }
 }

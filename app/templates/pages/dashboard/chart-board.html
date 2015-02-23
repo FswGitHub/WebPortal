@@ -1,0 +1,76 @@
+<polymer-element name="chart-board" attributes="name type values">
+    <template>
+        <link rel="stylesheet" href="../../../css/dashboard-page.css">
+        <div class="chart-board" id="board">
+            <paper-shadow z="1">
+                <div class="title" horizontal layout center>
+                    <div flex>{{name}}</div>
+                    <paper-icon-button icon="settings"></paper-icon-button>
+                    <paper-icon-button icon="close" on-tap="{{removeChart}}"></paper-icon-button>
+                </div>
+                <div class="chart">
+                    <canvas id="canvas"></canvas>
+                </div>
+            </paper-shadow>
+        </div>
+        <paper-action-dialog id="dialog"
+                             heading="Confirm"
+                             transition="core-transition-center"
+                             backdrop
+                             style="width: 300px;"
+                             layered="false">
+            <p>Remove chart?</p>
+            <paper-button affirmative>Cancel</paper-button>
+            <paper-button affirmative autofocus>Ok</paper-button>
+        </paper-action-dialog>
+    </template>
+    <script>
+        Polymer('chart-board', {
+            ready: function(){
+                var me = this;
+                if (me.chart) me.chart.destroy();
+
+                setTimeout(function(){
+                    me.data = me.values || {};
+                    me.options = {};
+
+                    Chart.defaults.global.responsive = true;
+                    me.ctx = me.$.canvas.getContext('2d');
+                    switch (me.type){
+                        case (0):
+//                            LINE
+                            me.options = {
+                                bezierCurve: false
+                            };
+                            me.chart = new Chart(me.ctx).Line(me.data, me.options);
+                            break;
+                        case (1):
+//                            BAR
+                            me.chart = new Chart(me.ctx).Bar(me.data, me.options);
+                            break;
+                        case (2):
+//                            RADAR
+                            me.chart = new Chart(me.ctx).Radar(me.data, me.options);
+                            break;
+                        case (3):
+//                            POLAR
+                            me.chart = new Chart(me.ctx).PolarArea(me.data, me.options);
+                            break;
+                        case (4):
+//                            PIE
+                            me.chart = new Chart(me.ctx).Pie(me.data, me.options);
+                            break;
+                        case (5):
+                            me.chart = new Chart(me.ctx).Doughnut(me.data, me.options);
+                            break;
+                        default:
+                            break;
+                    }
+                }, 100);
+            },
+            removeChart: function(){
+                this.$.dialog.toggle();
+            }
+        });
+    </script>
+</polymer-element>

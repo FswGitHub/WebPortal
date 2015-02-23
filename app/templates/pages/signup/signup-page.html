@@ -52,6 +52,7 @@
             <p>{{dialogText}}</p>
             <paper-button affirmative autofocus>Ok</paper-button>
         </paper-action-dialog>
+        <app-globals id="globals"></app-globals>
         <core-ajax id="signUpSubmitRequest"
                    on-core-error="{{signUpError}}"
                    on-core-response="{{signUpResponse}}"></core-ajax>
@@ -59,7 +60,7 @@
     <script>
         Polymer('signup-page', {
             ready: function(){
-                this.$.signUpSubmitRequest.url = '../resources/json/signup.json'
+                this.$.signUpSubmitRequest.url = this.$.globals.url+'resources/json/signup.json'
             },
             signUpSubmit: function(){
                 var firstName = this.$.firstName, lastName = this.$.lastName, email = this.$.email, password = this.$.password;
@@ -73,7 +74,7 @@
                         email: email.input.value,
                         password: password.input.value
                     };
-                    this.$.loginSubmitRequest.go();
+                    this.$.signUpSubmitRequest.go();
                 }
             },
             signUpError: function(){
