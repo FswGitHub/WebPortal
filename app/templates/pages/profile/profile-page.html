@@ -1,0 +1,71 @@
+<polymer-element name="profile-page">
+    <template>
+        <link rel="stylesheet" href="../../../css/profile-page.css">
+        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}">
+            <div class="header">
+                <h2>Profile: "{{user.name}}"</h2>
+            </div>
+            <div horizontal start layout>
+                <form>
+                    <paper-input-decorator id="firstName"
+                                           label="First Name"
+                                           floatingLabel>
+                        <input type="text">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="lastName"
+                                           label="Last Name"
+                                           floatingLabel>
+                        <input type="text">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="email"
+                                           label="E-mail"
+                                           floatingLabel>
+                        <input type="email">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="cellphone"
+                                           label="Cellphone"
+                                           floatingLabel>
+                        <input type="tel">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="id_number"
+                                           label="ID Number"
+                                           floatingLabel>
+                        <input type="number">
+                    </paper-input-decorator>
+                </form>
+                <core-image src="../../../img/profile_photo.jpg" sizing="cover" style="width: 200px; height: 200px"></core-image>
+            </div>
+            <div class="footer">
+                <hr>
+                2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
+            </div>
+        </side-menu>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+                   id="profileContent"
+                   on-core-response="{{contentResponse}}"></core-ajax>
+    </template>
+    <script>
+        Polymer('profile-page',{
+            ready: function (){
+                this.$.profileContent.url = this.$.globals.url+'resources/json/user.json';
+            },
+            contentResponse: function(e, data){
+                var me = this;
+                if(data.response.success){
+                    me.userData = data.response.user;
+                    me.user.name = me.userData.firstName + ' ' + me.userData.lastName;
+                    console.log( me.user.name);
+                }
+            },
+            page: {
+                class: 'profile-page',
+                url: 'profile',
+                title: 'Profile'
+            },
+            user:{
+                name: 'User name'
+            }
+        })
+    </script>
+</polymer-element>
