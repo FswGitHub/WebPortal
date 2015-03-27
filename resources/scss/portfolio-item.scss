@@ -1,0 +1,49 @@
+@import "_variables";
+
+.portfolio-item {
+  /deep/{
+    core-toolbar{
+      @extend .core-toolbar
+    }
+
+    .content{
+      padding: 26px;
+      padding-left: 52px;
+    }
+    chart-board{
+      &:nth-child(even){
+        /deep/ .chart-board{
+          padding-right: 26px;
+          margin-left: -26px;
+        }
+      }
+    }
+    paper-fab{
+      position: fixed;
+      right: 26px;
+      top: 35px;
+      z-index: 2;
+    }
+    @media screen and (max-width: $size-tablet) {
+      chart-board{
+        &:nth-child(even){
+          /deep/ .chart-board{
+            padding-right: 0;
+            margin-left: 0;
+          }
+        }
+      }
+      .content{
+        padding-left: 26px;
+      }
+      paper-fab{
+        top: auto;
+        right: 13px;
+        bottom: 13px;
+      }
+    }
+    @media screen and (max-width: $size-mobile) {
+
+    }
+  }
+}

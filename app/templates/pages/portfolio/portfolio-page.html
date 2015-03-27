@@ -1,0 +1,58 @@
+<polymer-element name="portfolio-page">
+    <template>
+        <link rel="stylesheet" href="../../../css/portfolio-page.css">
+        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" >
+            <div class="portfolio-table">
+                <ul class="table-header-list">
+                    <li class="col-padding table-header col-4">Code</li>
+                    <li class="col-padding table-header col-5">Name</li>
+                    <li class="col-padding table-header col-3">Status</li>
+                    <li class="col-padding table-header col-5">Tax Currency</li>
+                    <li class="col-padding table-header col-7">Residency</li>
+                </ul>
+                <div class="table-row">
+                    <template repeat="{{val in portfolioPageContent}}">
+                        <a class="portfolio-link" label="portfolio/item/{{val.id}}" name="{{val.name}}" on-tap="{{portfolioGo}}">
+                            <ul class="col-content">
+                                <li class="col-padding table-item col-4">{{val.code}}</li>
+                                <li class="col-padding table-item col-5">{{val.name}}</li>
+                                <li class="col-padding table-item col-3">{{val.status}}</li>
+                                <li class="col-padding table-item col-5">{{val.taxCurrency}}</li>
+                                <li class="col-padding table-item col-7">{{val.residency}}</li>
+                            </ul>
+                        </a>
+                    </template>
+                </div>
+            </div>
+        </side-menu>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+                   id="portfolioPageItems"
+                   on-core-response="{{contentResponse}}"></core-ajax>
+    </template>
+    <script>
+        Polymer('portfolio-page',{
+            ready: function(){
+                this.$.portfolioPageItems.url = this.$.globals.url+'resources/json/portfolio.json';
+            },
+            contentResponse: function(e, data){
+                var me = this;
+                if(data.response.success){
+                    console.log(data.response.item);
+                    me.portfolioPageContent = data.response.item;
+                }
+            },
+            page: {
+                class: 'portfolio-page',
+                url: 'portfolio',
+                title: 'Portfolio'
+            },
+            portfolioGo: function(e){
+                var link = e.currentTarget.attributes.label.value;
+                if(this.url != link){
+                    document.querySelector('app-router').go('/'+link, {replace: false});
+                }
+            }
+        })
+    </script>
+</polymer-element>

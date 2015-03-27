@@ -1,0 +1,41 @@
+<link rel="import" href="../dashboard/chart-board.html">
+<polymer-element name="portfolio-item">
+    <template>
+        <link rel="stylesheet" href="../../../css/portfolio-item.css">
+        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" tabSelected="dashboard">
+            <template repeat="{{val in portfolioCharts}}">
+                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
+            </template>
+            <template>
+
+            </template>
+        </side-menu>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+                   id="portfolioItem"
+                   on-core-response="{{contentResponse}}"></core-ajax>
+    </template>
+    <script>
+        Polymer('portfolio-item',{
+            ready: function(){
+                this.$.portfolioItem.url = this.$.globals.url+'resources/json/portfolio-item.json';
+            },
+            contentResponse: function(e, data){
+                var me = this;
+                if(data.response.success){
+                    console.log(data.response.item.charts);
+                    me.portfolioItemContent = data.response.item;
+                    me.portfolioCharts =  data.response.item.charts;
+                    me.page.title = "Portfolio > "+ me.portfolioItemContent.title;
+                }
+            },
+            page: {
+                class: 'portfolio-item',
+                url: 'portfolio/item',
+                title: 'Portfolio > ...',
+                tabs: true
+            },
+            tabs: ['dashboard', 'holdings']
+        })
+    </script>
+</polymer-element>
