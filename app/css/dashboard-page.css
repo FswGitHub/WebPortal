@@ -33,6 +33,29 @@ core-selector.menu h3 {
   font-weight: normal;
 }
 
+.ul-reset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+}
+
+.tabs {
+  background-color: #DD1F29;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+.tabs /deep/ #ink {
+  color: #FFFFFF;
+}
+.tabs /deep/ #selectionBar {
+  background-color: #FFFFFF;
+}
+
+.tabs-panel /deep/ core-toolbar.tabs-toolbar {
+  background-color: #979797;
+}
+
 .dashboard-page /deep/ .content {
   padding: 26px;
   padding-left: 52px;

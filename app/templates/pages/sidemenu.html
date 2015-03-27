@@ -1,4 +1,4 @@
-<polymer-element name="side-menu" attributes="pageClass pageUrl pageTitle">
+<polymer-element name="side-menu" attributes="pageClass pageUrl pageTitle pageTabs tabsArray tabSelected">
     <template>
         <link rel="stylesheet" href="../../css/dashboard-page.css">
         <core-scaffold responsiveWidth="1280px"
@@ -44,10 +44,33 @@
                 </core-selector>
             </core-header-panel>
             <div tool>{{pageTitle}}</div>
+            <div class="tabs">
+                <template if="{{pageTabs}}">
+                    <paper-shadow z="1">
+                    <core-toolbar horizontal layout start>
+                        <paper-tabs selected="{{tabSelected}}" id="portfolio-tabs" noink>
+                            <template repeat="{{val in tabsArray}}">
+                                <paper-tab name="{{val}}">{{val}}</paper-tab>
+                            </template>
+                        </paper-tabs>
+                    </core-toolbar>
+                    </paper-shadow>
+                </template>
+            </div>
+            <div class="tabs-panel">
+                <template if="{{pageTabs}}">
+                    <paper-shadow z="1">
+                        <core-toolbar class="tabs-toolbar">
+
+                        </core-toolbar>
+                    </paper-shadow>
+                </template>
+            </div>
             <div class="content">
                 <content></content>
             </div>
         </core-scaffold>
+
 
         <app-globals id="globals"></app-globals>
         <core-ajax auto
@@ -58,6 +81,12 @@
         Polymer('side-menu', {
             ready: function(){
                 this.$.portfolioItems.url = this.$.globals.url+'resources/json/sidemenu.json';
+                /*var tabs = document.querySelector('#portfolio-tabs');
+                var list = document.querySelector('post-list');
+
+                tabs.addEventListener('core-select', function() {
+                    list.show = tabs.selected;
+                });*/
             },
             menuContent: [],
             menuGo: function(e){

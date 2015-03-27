@@ -1,6 +1,7 @@
 $color-red: #DD1F29;
 $color-grey-dark: #4A4A4A;
 $color-grey-medium: #979797;
+$color-grey-medium-pre: #b3b3b3;
 $color-grey-medium-light: #D8D8D8;
 $color-grey-light: #EDEDED;
 $color-white: #FFFFFF;
@@ -12,6 +13,7 @@ $size-tablet: 768px;
 $font-size-mobile: 16px;
 $font-size-mobile-small: 14px;
 $font-size-desktop: 20px;
+$font-size-desktop-small: 18px;
 
 .core-toolbar{
   background-color: $color-red;
@@ -25,6 +27,7 @@ $font-size-desktop: 20px;
     }
   }
 }
+
 core-selector.menu{
   core-icon {
     margin-right: 0.5em;
@@ -46,5 +49,35 @@ core-selector.menu{
   h3{
     padding: 0 1em;
     font-weight: normal;
+  }
+}
+
+.ul-reset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0;
+}
+
+.tabs {
+  background-color: $color-red;
+  color: $color-white;
+  text-transform: uppercase;
+  /deep/ {
+    #ink {
+      color: $color-white;
+    }
+
+    #selectionBar {
+      background-color: $color-white;
+    }
+  }
+}
+
+.tabs-panel {
+  /deep/ {
+    core-toolbar.tabs-toolbar {
+      background-color: $color-grey-medium;
+    }
   }
 }
