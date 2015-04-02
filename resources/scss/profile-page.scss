@@ -1,29 +1,29 @@
 @import "_variables";
 
 .profile-page {
-  /deep/{
+  /deep/ {
     .header{
-      h2 {
-        margin: 5px 0 60px 0;
-        padding: 3px 0;
-        font-size: $font-size-desktop-small;
-        border-bottom: 1px solid $color-grey-medium-pre;
-      }
+      margin-bottom: 55px;
     }
-    core-image {
-      margin: 0.75em 0;
+    .profile-form-wrapper {
+      //display: inline-block;
+      //width: 100%;
     }
-    core-toolbar{
+    .profile-photo {
+      margin: 0 0 0 8%;
+      //margin: 10px 65px;
+      //float: right;
+    }
+    core-toolbar {
       @extend .core-toolbar
     }
-    .content{
-      padding: 26px;
-      padding-left: 52px;
-      position: relative;
+    .content {
+      padding: 26px 26px 26px 52px;
     }
-    form {
-      width: 60%;
-      margin-right: 10%;
+    .user-data {
+      width: 50%;
+      margin-bottom: 150px;
+      margin-right: 5%;
       paper-input-decorator{
         /deep/ {
           .label-text {
@@ -50,35 +50,38 @@
           input {
             font-size: $font-size-desktop-small;
             color: $color-black;
+            @include placeholder($color-gray-dark-light)
           }
-
-          input::-webkit-input-placeholder {color: $color-gray-dark-light}
-          input::-moz-placeholder          {color: $color-gray-dark-light}// Firefox 19+
-          input:-moz-placeholder           {color: $color-gray-dark-light}// Firefox 18-
-          input:-ms-input-placeholder      {color: $color-gray-dark-light}
         }
       }
     }
+    /*
+        @media screen and (max-width: $size-mobile) {
+          .content {
+            padding-left: 30px;
+          }
 
-    .footer {
-      width: 92%;
-      position: fixed;
-      bottom: 15px;
-      font-size: 12px;
-      color:$color-grey-medium-pre;
-      hr {
-        color:$color-grey-medium-pre;
-        margin-bottom: 10px;
-      }
-    }
+          .header {
+            .profile-name {
+              margin: 5px 0 35px 0;
+            }
+          }
 
-    @media screen and (max-width: $size-mobile) {
-      .content {
-        padding-left: 30px;
-      }
-      .footer {
-        width: 85%;
-      }
-    }
+          .user-data {
+            width: 100%;
+            clear: both;
+            margin-right: 10%;
+          }
+
+          .profile-photo {
+            float: left;
+            display: inline-block;
+            margin: 10px 0;
+          }
+
+          .profile-form-wrapper {
+            width: 100%;
+          }
+        }*/
   }
 }

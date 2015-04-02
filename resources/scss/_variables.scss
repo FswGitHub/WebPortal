@@ -16,6 +16,14 @@ $font-size-mobile-small: 14px;
 $font-size-desktop: 20px;
 $font-size-desktop-small: 18px;
 
+@mixin placeholder($color) {
+  ::-webkit-input-placeholder {color: $color}
+  ::-moz-placeholder          {color: $color}// Firefox 19+
+  :-moz-placeholder           {color: $color}// Firefox 18-
+  :-ms-input-placeholder      {color: $color}
+}
+
+//Main toolbar
 .core-toolbar{
   background-color: $color-red;
   color: $color-white;
@@ -28,7 +36,7 @@ $font-size-desktop-small: 18px;
     }
   }
 }
-
+//side menu
 core-selector.menu{
   core-icon {
     margin-right: 0.5em;
@@ -59,7 +67,7 @@ core-selector.menu{
   list-style: none;
   font-size: 0;
 }
-
+//Tabs styles
 .tabs {
   background-color: $color-red;
   color: $color-white;
@@ -74,11 +82,28 @@ core-selector.menu{
     }
   }
 }
-
+//panel under tubs
 .tabs-panel {
   /deep/ {
     core-toolbar.tabs-toolbar {
       background-color: $color-grey-medium;
     }
+  }
+}
+
+//item like title of page(profile name, settings item)
+.title-item {
+  margin: 5px 0;
+  padding: 3px 0;
+  font-size: $font-size-desktop-small;
+  border-bottom: 1px solid $color-grey-medium-pre;
+}
+//copyright footer
+.footer {
+  width: 100%;
+  color:$color-grey-medium-pre;
+  hr {
+    color:$color-grey-medium-pre;
+    margin-bottom: 10px;
   }
 }

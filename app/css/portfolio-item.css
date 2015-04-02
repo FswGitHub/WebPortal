@@ -56,9 +56,24 @@ core-selector.menu h3 {
   background-color: #979797;
 }
 
+.title-item {
+  margin: 5px 0;
+  padding: 3px 0;
+  font-size: 18px;
+  border-bottom: 1px solid #b3b3b3;
+}
+
+.footer {
+  width: 100%;
+  color: #b3b3b3;
+}
+.footer hr {
+  color: #b3b3b3;
+  margin-bottom: 10px;
+}
+
 .portfolio-item /deep/ .content {
-  padding: 26px;
-  padding-left: 52px;
+  padding: 26px 26px 26px 52px;
 }
 .portfolio-item /deep/ chart-board:nth-child(even) /deep/ .chart-board {
   padding-right: 26px;

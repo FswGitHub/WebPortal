@@ -1,4 +1,4 @@
-<polymer-element name="side-menu" attributes="pageClass pageUrl pageTitle pageTabs tabsArray tabSelected">
+<polymer-element name="side-menu" attributes="pageClass pageUrl pageTitle pageTabs tabsArray selected pagePanel">
     <template>
         <link rel="stylesheet" href="../../css/dashboard-page.css">
         <core-scaffold responsiveWidth="1280px"
@@ -47,18 +47,18 @@
             <div class="tabs">
                 <template if="{{pageTabs}}">
                     <paper-shadow z="1">
-                    <core-toolbar horizontal layout start>
-                        <paper-tabs selected="{{tabSelected}}" id="portfolio-tabs" noink>
-                            <template repeat="{{val in tabsArray}}">
-                                <paper-tab name="{{val}}">{{val}}</paper-tab>
-                            </template>
-                        </paper-tabs>
-                    </core-toolbar>
+                        <core-toolbar>
+                            <paper-tabs selected="{{selected}}" noink horizontal layout center>
+                                <template repeat="{{val in tabsArray}}">
+                                    <paper-tab inline flex center-center horizontal layout name="{{val}}" on-tap="{{tabGo}}">{{val}}</paper-tab>
+                                </template>
+                            </paper-tabs>
+                        </core-toolbar>
                     </paper-shadow>
                 </template>
             </div>
             <div class="tabs-panel">
-                <template if="{{pageTabs}}">
+                <template if="{{pagePanel}}">
                     <paper-shadow z="1">
                         <core-toolbar class="tabs-toolbar">
 
@@ -81,12 +81,6 @@
         Polymer('side-menu', {
             ready: function(){
                 this.$.portfolioItems.url = this.$.globals.url+'resources/json/sidemenu.json';
-                /*var tabs = document.querySelector('#portfolio-tabs');
-                var list = document.querySelector('post-list');
-
-                tabs.addEventListener('core-select', function() {
-                    list.show = tabs.selected;
-                });*/
             },
             menuContent: [],
             menuGo: function(e){
@@ -100,6 +94,10 @@
                 if(data.response.success){
                     this.menuContent = data.response.content;
                 }
+            },
+            tabGo: function(e){
+                var selected = e.currentTarget.attributes.name.value;
+                console.log(selected);
             }
         });
     </script>

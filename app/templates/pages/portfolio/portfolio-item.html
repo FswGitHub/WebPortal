@@ -2,12 +2,9 @@
 <polymer-element name="portfolio-item">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
-        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" tabSelected="dashboard">
+        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}" pagePanel="{{page.panel}}">
             <template repeat="{{val in portfolioCharts}}">
                 <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
-            </template>
-            <template>
-
             </template>
         </side-menu>
         <app-globals id="globals"></app-globals>
@@ -33,9 +30,11 @@
                 class: 'portfolio-item',
                 url: 'portfolio/item',
                 title: 'Portfolio > ...',
-                tabs: true
+                tabs: true,
+                panel: true
             },
-            tabs: ['dashboard', 'holdings']
+            tabs: ['dashboard', 'holdings'],
+            selected:'dashboard'
         })
     </script>
 </polymer-element>

@@ -3,10 +3,10 @@
         <link rel="stylesheet" href="../../../css/profile-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}">
             <div class="header">
-                <h2>Profile: "{{user.name}}"</h2>
+                <h2 class="profile-name title-item">Profile: "{{user.name}}"</h2>
             </div>
-            <div horizontal start layout>
-                <form>
+            <div class="profile-form-wrapper" horizontal start layout>
+                <form class="user-data">
                     <paper-input-decorator id="firstName"
                                            label="First Name"
                                            floatingLabel>
@@ -33,7 +33,7 @@
                         <input type="number">
                     </paper-input-decorator>
                 </form>
-                <core-image src="../../../img/profile_photo.jpg" sizing="cover" style="width: 200px; height: 200px"></core-image>
+                <core-image class="profile-photo" src="../../../img/profile_photo.jpg" sizing="cover" style="width: 200px; height: 200px"></core-image>
             </div>
             <div class="footer">
                 <hr>

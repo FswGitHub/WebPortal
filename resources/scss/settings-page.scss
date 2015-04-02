@@ -1,0 +1,141 @@
+@import "_variables";
+
+.settings-page {
+  /deep/ {
+    core-toolbar {
+      @extend .core-toolbar
+    }
+
+    .content {
+      padding: 26px 26px 26px 52px;
+    }
+
+    .design-settings-list {
+      @extend .ul-reset;
+      font-size: $font-size-desktop-small;
+      color: $color-grey-medium;
+    }
+
+    .settings-label {
+      font-weight: bold;
+      display: block;
+      margin: 0.5em 0 0.25em;
+    }
+
+    .theme-color {
+      color: $color-red;
+    }
+
+    paper-input-decorator {
+      /deep/ {
+        .focused-underline {
+          /* line color when the input is focused */
+          background-color: $color-red;
+        }
+      }
+    }
+
+    .upload-logo-button {
+      color: $color-red;
+      text-transform: none;
+      margin: 0 0 5px 0;
+    }
+
+    .upload-logo-button-icon {
+      color: $color-grey-medium;
+    }
+
+    .col-5 {
+      //width: 23%;
+      width: 220px;
+      padding: 0.75em 0;
+    }
+
+    .col-7 {
+      //width: 17%;
+      width: 157px;
+    }
+
+    .logo-size {
+      display: block;
+    }
+    .theme-radio-group {
+      padding: 0.75em 0;
+      /deep/ {
+        paper-radio-button {
+          margin: 0.5em 0.5em 0.25em 0;
+        }
+        paper-radio-button::shadow #onRadio {
+          background-color: $color-red;
+        }
+
+        paper-radio-button[checked]::shadow #offRadio {
+          border-color: $color-red;
+        }
+
+        paper-radio-button::shadow #ink[checked] {
+          color: $color-red;
+        }
+      }
+    }
+    .settings-panel {
+      margin-bottom: 20px;
+    }
+    .email-settings-list {
+      //width: 55%;
+      width: 520px;
+      paper-input-decorator {
+        /deep/ {
+          .label-text,.error {
+            /* inline label,  floating label, error message and error icon color when the input is unfocused */
+            color: $color-red;
+            font-size: $font-size-desktop-small;
+            font-weight: bold;
+          }
+
+          ::-webkit-input-placeholder {
+            /* platform specific rules for placeholder text */
+            color: $color-grey-medium;
+            font-size: $font-size-desktop-small;
+            font-weight: bold;
+          }
+
+          ::-moz-placeholder {
+            color: $color-grey-medium;
+            font-size: $font-size-desktop-small;
+            font-weight: bold;
+          }
+
+          :-ms-input-placeholder {
+            color: $color-grey-medium;
+            font-size: $font-size-desktop-small;
+            font-weight: bold;
+          }
+
+          .unfocused-underline {
+            /* line color when the input is unfocused */
+            background-color: $color-grey-medium;
+          }
+
+          .focused-underline {
+            /* line color when the input is focused */
+            background-color: $color-red;
+          }
+        }
+      }
+    }
+
+    .optional-label {
+      color: $color-grey-medium;
+      font-size: $font-size-desktop-small;
+      display: block;
+      padding-top: 29px;
+    }
+
+    @media screen and (max-width: $size-mobile) {
+      .content {
+        padding: 26px;
+      }
+    }
+  }
+}

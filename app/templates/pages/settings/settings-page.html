@@ -1,0 +1,106 @@
+<polymer-element name="settings-page">
+    <template>
+        <link rel="stylesheet" href="../../../css/settings-page.css">
+        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}">
+            <div class="design-settings-panel settings-panel">
+                <h2 class="title-item">Design</h2>
+                <ul class="design-settings-list">
+                    <li class="row" horizontal layout start>
+                        <div class="col-5 label-block">
+                            <span class="settings-label">Theme</span>
+                        </div>
+                        <div class="col-7 theme-radio-group">
+                            <paper-radio-group valueattr="label" selected="dark" multi="false">
+                                <paper-radio-button name="light" label="light"></paper-radio-button>
+                                <paper-radio-button name="dark" label="dark"></paper-radio-button>
+                            </paper-radio-group>
+                        </div>
+                    </li>
+                    <li class="row" horizontal layout start>
+                        <div class="col-5 label-block">
+                            <span class="settings-label">Colour</span>
+                        </div>
+                        <div class="col-7">
+                            <paper-input-decorator id="theme-color"
+                                                   label="Set color">
+                                <input type="text" value="#DD1F29" class="theme-color">
+                            </paper-input-decorator>
+                        </div>
+                    </li>
+                    <li class="row" horizontal layout start>
+                        <div class="col-5 label-block">
+                            <span class="settings-label">Logo</span>
+                        </div>
+                        <div class="col-7 upload-photo-group">
+                            <paper-button class="upload-logo-button">
+                                <core-icon icon="file-upload" class="upload-logo-button-icon"></core-icon>
+                                Upload Logo
+                            </paper-button>
+                            <span class="logo-size">100px X 50px(.png)</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="email-settings-panel settings-panel">
+                <h2 class="title-item">Email</h2>
+                <form class="email-settings-list">
+                    <paper-input-decorator id="smtpddress"
+                                           label="SMTP Server Address"
+                                           floatingLabel>
+                        <input type="text">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="smtpPort"
+                                           label="SMTP Server Port"
+                                           floatingLabel>
+                        <input type="text">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="ssl"
+                                           label="SSL"
+                                           floatingLabel>
+                        <input type="text">
+                    </paper-input-decorator>
+                    <span class="optional-label">Optional</span>
+                    <paper-input-decorator id="username"
+                                           label="Username"
+                                           floatingLabel>
+                        <input type="text">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="password"
+                                           label="Password"
+                                           floatingLabel>
+                        <input type="password">
+                    </paper-input-decorator>
+                </form>
+            </div>
+            <div class="footer">
+                <hr>
+                2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
+            </div>
+        </side-menu>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+                   id="settingsContent"
+                   on-core-response="{{contentResponse}}"></core-ajax>
+    </template>
+    <script>
+        Polymer('settings-page',{
+            ready: function (){
+                this.$.settingsContent.url = this.$.globals.url+'resources/json/user.json';
+            },
+            contentResponse: function(e, data){
+                var me = this;
+                if(data.response.success){
+                    me.userData = data.response.user;
+                }
+            },
+            page: {
+                class: 'settings-page',
+                url: 'settings',
+                title: 'Settings',
+                tabs: true
+            },
+            tabs:['general', 'fpm config', 'users'],
+            selected:'general'
+        })
+    </script>
+</polymer-element>

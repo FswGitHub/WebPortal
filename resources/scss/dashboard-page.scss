@@ -5,10 +5,11 @@
     core-toolbar{
       @extend .core-toolbar
     }
-    .content{
-      padding: 26px;
-      padding-left: 52px;
+
+    .content {
+      padding: 26px 26px 26px 52px;
     }
+
     chart-board{
       &:nth-child(even){
         /deep/ .chart-board{
