@@ -100,8 +100,9 @@ core-selector.menu h3 {
   color: #979797;
 }
 .settings-page /deep/ .col-5 {
-  width: 220px;
+  width: 185px;
   padding: 0.75em 0;
+  margin-right: 20px;
 }
 .settings-page /deep/ .col-7 {
   width: 157px;
@@ -124,39 +125,42 @@ core-selector.menu h3 {
 .settings-page /deep/ .theme-radio-group /deep/ paper-radio-button::shadow #ink[checked] {
   color: #DD1F29;
 }
+.settings-page /deep/ .theme-radio-group /deep/ paper-radio-button::shadow #offRadio {
+  border-color: #979797;
+}
 .settings-page /deep/ .settings-panel {
   margin-bottom: 20px;
 }
-.settings-page /deep/ .email-settings-list {
+.settings-page /deep/ .settings-list-form {
   width: 520px;
 }
-.settings-page /deep/ .email-settings-list paper-input-decorator /deep/ .label-text, .settings-page /deep/ .email-settings-list paper-input-decorator /deep/ .error {
+.settings-page /deep/ .settings-list-form paper-input-decorator /deep/ .label-text, .settings-page /deep/ .settings-list-form paper-input-decorator /deep/ .error {
   /* inline label,  floating label, error message and error icon color when the input is unfocused */
   color: #DD1F29;
   font-size: 18px;
   font-weight: bold;
 }
-.settings-page /deep/ .email-settings-list paper-input-decorator /deep/ ::-webkit-input-placeholder {
+.settings-page /deep/ .settings-list-form paper-input-decorator /deep/ ::-webkit-input-placeholder {
   /* platform specific rules for placeholder text */
   color: #979797;
   font-size: 18px;
   font-weight: bold;
 }
-.settings-page /deep/ .email-settings-list paper-input-decorator /deep/ ::-moz-placeholder {
+.settings-page /deep/ .settings-list-form paper-input-decorator /deep/ ::-moz-placeholder {
   color: #979797;
   font-size: 18px;
   font-weight: bold;
 }
-.settings-page /deep/ .email-settings-list paper-input-decorator /deep/ :-ms-input-placeholder {
+.settings-page /deep/ .settings-list-form paper-input-decorator /deep/ :-ms-input-placeholder {
   color: #979797;
   font-size: 18px;
   font-weight: bold;
 }
-.settings-page /deep/ .email-settings-list paper-input-decorator /deep/ .unfocused-underline {
+.settings-page /deep/ .settings-list-form paper-input-decorator /deep/ .unfocused-underline {
   /* line color when the input is unfocused */
   background-color: #979797;
 }
-.settings-page /deep/ .email-settings-list paper-input-decorator /deep/ .focused-underline {
+.settings-page /deep/ .settings-list-form paper-input-decorator /deep/ .focused-underline {
   /* line color when the input is focused */
   background-color: #DD1F29;
 }
@@ -165,6 +169,28 @@ core-selector.menu h3 {
   font-size: 18px;
   display: block;
   padding-top: 29px;
+}
+.settings-page /deep/ .configuration-settings-panel {
+  margin-bottom: 119px;
+}
+.settings-page /deep/ .configuration-checkbox {
+  padding: 0.75em 0;
+}
+.settings-page /deep/ .configuration-checkbox paper-checkbox {
+  margin: 0.5em 0 0.25em;
+}
+.settings-page /deep/ .configuration-checkbox paper-checkbox::shadow #ink[checked] {
+  color: #DD1F29;
+}
+.settings-page /deep/ .configuration-checkbox paper-checkbox::shadow #checkbox.checked {
+  background-color: #DD1F29;
+  border-color: #DD1F29;
+}
+.settings-page /deep/ .configuration-checkbox paper-checkbox::shadow #checkbox {
+  border-color: #979797;
+}
+.settings-page /deep/ .domain-aut {
+  padding: 0.75em 0 0 0;
 }
 @media screen and (max-width: 480px) {
   .settings-page /deep/ .content {
