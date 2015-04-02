@@ -26,7 +26,7 @@
                     <!--<h3><core-icon icon="perm-media"></core-icon>Portfolio</h3>-->
                     <template repeat="{{val in menuContent}}">
                         <paper-item class="child"
-                                    label="portfolio/{{val.url}}"
+                                    label="portfolio/item/{{val.id}}"
                                     on-tap="{{menuGo}}">{{val.title}}</paper-item>
                     </template>
 
@@ -44,33 +44,39 @@
                 </core-selector>
             </core-header-panel>
             <div tool>{{pageTitle}}</div>
-            <div class="tabs">
-                <template if="{{pageTabs}}">
-                    <paper-shadow z="1">
-                        <core-toolbar>
-                            <paper-tabs selected="{{selected}}" noink horizontal layout center>
-                                <template repeat="{{val in tabsArray}}">
-                                    <paper-tab inline flex center-center horizontal layout name="{{val}}" on-tap="{{tabGo}}">{{val}}</paper-tab>
-                                </template>
-                            </paper-tabs>
-                        </core-toolbar>
-                    </paper-shadow>
-                </template>
-            </div>
-            <div class="tabs-panel">
-                <template if="{{pagePanel}}">
-                    <paper-shadow z="1">
-                        <core-toolbar class="tabs-toolbar">
-
-                        </core-toolbar>
-                    </paper-shadow>
-                </template>
-            </div>
+            <template if="{{pageTabs}}">
+                <core-toolbar>
+                    <div class="bottom fit indent" horizontal layout>
+                        <paper-tabs flex selected="{{tabSelected}}">
+                            <template repeat="{{val in tabsArray}}">
+                                <paper-tab>{{val.label}}</paper-tab>
+                            </template>
+                        </paper-tabs>
+                    </div>
+                </core-toolbar>
+            </template>
+            <content select="[subheader]"></content>
+            <core-pages selected="{{tabSelected}}">
+                <div class="content">
+                    <content select="[tab0]"></content>
+                </div>
+                <div class="content">
+                    <content select="[tab1]"></content>
+                </div>
+                <div class="content">
+                    <content select="[tab2]"></content>
+                </div>
+                <div class="content">
+                    <content select="[tab3]"></content>
+                </div>
+                <div class="content">
+                    <content select="[tab4]"></content>
+                </div>
+            </core-pages>
             <div class="content">
                 <content></content>
             </div>
         </core-scaffold>
-
 
         <app-globals id="globals"></app-globals>
         <core-ajax auto
@@ -83,6 +89,7 @@
                 this.$.portfolioItems.url = this.$.globals.url+'resources/json/sidemenu.json';
             },
             menuContent: [],
+            tabSelected: 0,
             menuGo: function(e){
                 var link = e.currentTarget.attributes.label.value;
                 if(this.url != link){

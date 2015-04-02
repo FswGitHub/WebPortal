@@ -68,10 +68,13 @@ core-selector.menu{
   font-size: 0;
 }
 //Tabs styles
-.tabs {
+paper-tabs{
   background-color: $color-red;
   color: $color-white;
   text-transform: uppercase;
+  paper-tab{
+    max-width: 150px;
+  }
   /deep/ {
     #ink {
       color: $color-white;

@@ -3,9 +3,17 @@
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}" pagePanel="{{page.panel}}">
-            <template repeat="{{val in portfolioCharts}}">
-                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
-            </template>
+            <div subheader>
+                subheader
+            </div>
+            <div tab0>
+                <template repeat="{{val in portfolioCharts}}">
+                    <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
+                </template>
+            </div>
+            <div tab1>
+                tab 2
+            </div>
         </side-menu>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
@@ -28,12 +36,12 @@
             },
             page: {
                 class: 'portfolio-item',
-                url: 'portfolio/item',
+                url: 'portfolio/item/1',
                 title: 'Portfolio > ...',
                 tabs: true,
                 panel: true
             },
-            tabs: ['dashboard', 'holdings'],
+            tabs: [{name: 'dashboard', label: 'Dashboard'}, {name:'holdings', label: 'Holdings'}],
             selected:'dashboard'
         })
     </script>
