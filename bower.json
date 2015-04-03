@@ -32,8 +32,9 @@
     "paper-fab": "Polymer/paper-fab#~0.5.4",
     "chart-elements": "~0.1.1",
     "core-drag-drop": "Polymer/core-drag-drop#~0.5.5",
-    "paper-tabs":"Polymer/paper-tabs#~0.5.5",
-    "core-image":"Polymer/core-image#~0.5.5",
-    "paper-radio-group":"Polymer/paper-radio-group#~0.5.5"
+    "paper-tabs": "Polymer/paper-tabs#~0.5.5",
+    "core-image": "Polymer/core-image#~0.5.5",
+    "paper-radio-group": "Polymer/paper-radio-group#~0.5.5",
+    "core-pages": "Polymer/core-pages#~0.5.5"
   }
 }

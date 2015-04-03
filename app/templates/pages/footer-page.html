@@ -1,0 +1,19 @@
+<polymer-element name="footer-page" margin>
+    <template>
+        <link rel="stylesheet" href="../../css/footer-page.css">
+        <div class="footer" id="footer">
+            <hr>
+            2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
+        </div>
+    </template>
+    <script>
+        Polymer('footer-page', {
+            ready: function(){
+                var margin = this.getAttribute('margin');
+                if (margin) {
+                    this.$.footer.classList.add('footer-with-margin');
+                }
+            }
+        });
+    </script>
+</polymer-element>

@@ -3,9 +3,29 @@
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}" pagePanel="{{page.panel}}">
-            <template repeat="{{val in portfolioCharts}}">
-                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
-            </template>
+            <div subheader class="fit indent subheader" layout horizontal start>
+                <paper-button class="calendar-button">
+                    <core-icon icon="event" class="open-calendar-icon"></core-icon>
+                    7 Dec 2014
+                    <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
+                </paper-button>
+                <paper-fab class="open" icon="add"></paper-fab>
+                <paper-button class="calendar-button">
+                    <core-icon icon="description" class="open-calendar-icon"></core-icon>
+                    ICB
+                    <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
+                </paper-button>
+                </div>
+                <!--<d-calendar class="portfolio-item-calendar"></d-calendar>-->
+            </div>
+            <div tab0 class="dashboard-view">
+                <template repeat="{{val in portfolioCharts}}">
+                    <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
+                </template>
+            </div>
+            <div tab1>
+                tab 2
+            </div>
         </side-menu>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
@@ -28,13 +48,12 @@
             },
             page: {
                 class: 'portfolio-item',
-                url: 'portfolio/item',
+                url: 'portfolio/item/1',
                 title: 'Portfolio > ...',
                 tabs: true,
                 panel: true
             },
-            tabs: ['dashboard', 'holdings'],
-            selected:'dashboard'
+            tabs: [{name: 'dashboard', label: 'Dashboard'}, {name:'holdings', label: 'Holdings'}]
         })
     </script>
 </polymer-element>

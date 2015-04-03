@@ -2,9 +2,9 @@
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}">
-            <div class="design-settings-panel settings-panel">
-                <h2 class="title-item">Design</h2>
-                <ul class="design-settings-list">
+            <div class="design-settings-panel settings-panel" tab0>
+                    <h2 class="title-item">Design</h2>
+                    <ul class="design-settings-list">
                     <li class="row" horizontal layout start>
                         <div class="col-5 label-block">
                             <span class="settings-label">Theme</span>
@@ -41,7 +41,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="email-settings-panel settings-panel">
+            <div class="email-settings-panel settings-panel" tab0>
                 <h2 class="title-item">Email</h2>
                 <form class="email-settings-list settings-list-form">
                     <paper-input-decorator id="smtpddress"
@@ -72,7 +72,7 @@
                     </paper-input-decorator>
                 </form>
             </div>
-            <div class="configuration-settings-panel settings-panel">
+            <div class="configuration-settings-panel settings-panel" tab1>
                 <h2 class="title-item">Configuration</h2>
                 <ul class="design-settings-list">
                     <li class="row" horizontal layout start>
@@ -127,10 +127,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="footer">
-                <hr>
-                2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
-            </div>
         </side-menu>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
@@ -154,8 +150,21 @@
                 title: 'Settings',
                 tabs: true
             },
-            tabs:['general', 'fpm config', 'users'],
-            selected:'general'
+            tabs: [
+                {
+                    name: 'general',
+                    label: 'General'
+                },
+                {
+                    name:'fpm config',
+                    label: 'FPM config'
+                },
+                {
+                    name:'users',
+                    label: 'Users'
+                }
+            ],
+            selected: 0
         })
     </script>
 </polymer-element>

@@ -11,19 +11,21 @@
     }
 
     chart-board{
+      position: relative;
       &:nth-child(even){
         /deep/ .chart-board{
           padding-right: 26px;
           margin-left: -26px;
         }
       }
+      paper-fab{
+        position: fixed;
+        right: 26px;
+        top: 35px;
+        z-index: 2;
+      }
     }
-    paper-fab{
-      position: fixed;
-      right: 26px;
-      top: 35px;
-      z-index: 2;
-    }
+
     @media screen and (max-width: $size-tablet) {
       chart-board{
         &:nth-child(even){
@@ -44,6 +46,67 @@
     }
     @media screen and (max-width: $size-mobile) {
 
+    }
+    .subheader {
+      position: relative;
+    }
+    paper-fab.open{
+      position: absolute;
+      bottom: -50%;
+      right: 10%;
+      background: $color-grey-medium-light;
+      color: $color-black;
+    }
+
+    core-toolbar.portfolio-item-panel {
+      background: $color-grey-medium;
+      //position: relative;
+      /deep/ {
+        .fit {
+          top: 0;
+        }
+      }
+    }
+  }
+}
+
+// Calendar
+.portfolio-item-calendar {
+  position: absolute;
+  top: 10px;
+  background: #fff;
+  /deep/ {
+    #wrapper {
+      display: inline-block;
+      #calendar-selection {
+        float: left;
+        display: inline-block;
+      }
+      #calendar {
+        float: left;
+        display: inline-block;
+      }
+    }
+
+    #selectedWeekdayHeader {
+      background: $color-dark-red;
+    }
+
+    #selectedDateHeader {
+      background: $color-red;
+      height: 216px;
+    }
+
+    .day[selected]:after, .day:after {
+      background: $color-red;
+    }
+
+    .viewingMonthYear, .weekday-name, .day, paper-icon-button {
+      color: $color-black;
+    }
+
+    #dateView {
+      background: $color-white;
     }
   }
 }

@@ -1,4 +1,5 @@
 $color-red: #DD1F29;
+$color-dark-red: #90141a;
 $color-grey-dark: #4A4A4A;
 $color-gray-dark-light: #8e8e9a;
 $color-grey-medium: #979797;
@@ -68,10 +69,13 @@ core-selector.menu{
   font-size: 0;
 }
 //Tabs styles
-.tabs {
+paper-tabs{
   background-color: $color-red;
   color: $color-white;
   text-transform: uppercase;
+  paper-tab{
+    max-width: 150px;
+  }
   /deep/ {
     #ink {
       color: $color-white;
@@ -98,6 +102,7 @@ core-selector.menu{
   font-size: $font-size-desktop-small;
   border-bottom: 1px solid $color-grey-medium-pre;
 }
+
 //copyright footer
 .footer {
   width: 100%;
@@ -106,4 +111,8 @@ core-selector.menu{
     color:$color-grey-medium-pre;
     margin-bottom: 10px;
   }
+}
+
+.footer-with-margin {
+  margin-bottom: 26px;
 }

@@ -3,12 +3,15 @@
   "content": [
     {
       "title": "Cash Segregated",
+      "id": 1,
       "url": "cash"
     },{
       "title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
+      "id": 1,
       "url": "ipsum"
     },{
       "title": "Tag 1",
+      "id": 1,
       "url": "tag"
     }
   ]
