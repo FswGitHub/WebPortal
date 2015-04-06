@@ -75,6 +75,11 @@ paper-tabs /deep/ #selectionBar {
   margin-bottom: 10px;
 }
 
+@media screen and (max-width: 480px) {
+  .footer {
+    font-size: 12px;
+  }
+}
 .footer-with-margin {
   margin-bottom: 26px;
 }
@@ -90,12 +95,18 @@ paper-tabs /deep/ #selectionBar {
   padding: 26px 26px 26px 52px;
 }
 
+.table-wrapper {
+  margin-bottom: 80px;
+}
+
 .table-row {
   font-size: 0;
   background: #FFFFFF;
   border-top: 1px solid #b3b3b3;
   border-bottom: 1px solid #b3b3b3;
   padding: 0 0 44px 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .col-padding {
@@ -127,12 +138,6 @@ paper-tabs /deep/ #selectionBar {
   background: #4A4A4A;
   border-top: 1px solid #979797;
   border-bottom: 1px solid #979797;
-}
-
-.table-row {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  margin-bottom: 80px;
 }
 
 .portfolio-link {
@@ -173,4 +178,14 @@ paper-tabs /deep/ #selectionBar {
 .col-7 {
   min-width: 200px;
   max-width: 200px;
+}
+
+@media screen and (max-width: 480px) {
+  .portfolio-page /deep/ .content {
+    padding: 26px;
+  }
+  .portfolio-page .table-wrapper {
+    width: 100%;
+    overflow-x: scroll;
+  }
 }

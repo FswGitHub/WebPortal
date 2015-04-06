@@ -1,27 +1,51 @@
 <link rel="import" href="../dashboard/chart-board.html">
+<link rel="import" href="calendar-dialog.html">
 <polymer-element name="portfolio-item">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}" pagePanel="{{page.panel}}">
             <div subheader class="fit indent subheader" layout horizontal start>
-                <paper-button class="calendar-button">
+                <paper-button class="calendar-button" on-tap="{{openCalendar}}">
                     <core-icon icon="event" class="open-calendar-icon"></core-icon>
                     7 Dec 2014
                     <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
                 </paper-button>
-                <paper-fab class="open" icon="add"></paper-fab>
+                <calendar-dialog id="calendarDialogWrapper"></calendar-dialog>
                 <paper-button class="calendar-button">
                     <core-icon icon="description" class="open-calendar-icon"></core-icon>
                     ICB
                     <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
                 </paper-button>
+                <div class="search-block">
+                    <core-field class="search-field">
+                        <input placeholder="Filter by name" flex>
+                        <core-icon icon="search"></core-icon>
+                    </core-field>
                 </div>
-                <!--<d-calendar class="portfolio-item-calendar"></d-calendar>-->
             </div>
             <div tab0 class="dashboard-view">
-                <template repeat="{{val in portfolioCharts}}">
-                    <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
-                </template>
+                <paper-fab class="open" icon="add" on-tap="{{openMenu}}"></paper-fab>
+                <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown">
+                    <div class="menu-list menu">
+                        <paper-item class="item">
+                            <div class="label">Holding Charts</div>
+                            <paper-ripple fit></paper-ripple>
+                        </paper-item>
+                        <paper-item class="item">
+                            <div class="label" >Corporate Events</div>
+                            <paper-ripple fit></paper-ripple>
+                        </paper-item>
+                        <paper-item class="item">
+                            <div class="label">Calendar Events</div>
+                            <paper-ripple fit></paper-ripple>
+                        </paper-item>
+                    </div>
+                </paper-dropdown>
+                <div class="chart-boards-wrapper">
+                    <template repeat="{{val in portfolioCharts}}">
+                        <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
+                    </template>
+                </div>
             </div>
             <div tab1>
                 tab 2
@@ -40,11 +64,18 @@
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success){
-                    console.log(data.response.item.charts);
                     me.portfolioItemContent = data.response.item;
                     me.portfolioCharts =  data.response.item.charts;
                     me.page.title = "Portfolio > "+ me.portfolioItemContent.title;
                 }
+            },
+            openMenu: function(e){
+                var me = this;
+                me.menuStatus = true;
+            },
+            menuStatus: false,
+            openCalendar: function(e) {
+                this.$.calendarDialogWrapper.classList.add('show');
             },
             page: {
                 class: 'portfolio-item',

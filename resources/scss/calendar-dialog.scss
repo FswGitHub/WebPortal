@@ -1,0 +1,89 @@
+@import "_variables";
+
+// Calendar
+
+d-calendar.portfolio-item-calendar {
+  display: block;
+  background: $color-white;
+  /deep/ {
+    #wrapper {
+      display: inline-block;
+      #calendar-selection {
+        float: left;
+        display: inline-block;
+      }
+      #calendar {
+        float: left;
+        display: inline-block;
+      }
+    }
+
+    #selectedWeekdayHeader {
+      background: $color-dark-red;
+    }
+
+    #selectedDateHeader {
+      background: $color-red;
+      height: 264px;
+    }
+
+    .day[selected]:after, .day:after {
+      background: $color-red;
+    }
+
+    .viewingMonthYear, .weekday-name, .day, paper-icon-button {
+      color: $color-black;
+    }
+
+    #dateView {
+      background: $color-white;
+    }
+
+    .day.currentday {
+      color: $color-red;
+    }
+
+    #selectedDateHeader > div {
+      margin: 10px 0;
+    }
+    #years {
+      paper-button {
+        /deep/ {
+          .button-content {
+            color: $color-black;
+          }
+        }
+      }
+    }
+    paper-button::shadow #ripple {
+      color: $color-red;
+    }
+  }
+}
+
+.dialog-wrapper {
+  background: $color-white;
+  display: inline-block;
+}
+
+.actions {
+  float: right;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+paper-button.closeCalendar {
+  /deep/ {
+    .button-content {
+      color: $color-red;
+    }
+  }
+}
+
+paper-button.setDate {
+  /deep/ {
+    .button-content {
+      color: $color-red;
+    }
+  }
+}

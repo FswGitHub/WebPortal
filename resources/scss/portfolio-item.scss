@@ -7,7 +7,14 @@
     }
 
     .content {
-      padding: 26px 26px 26px 52px;
+      padding: 26px;
+    }
+
+    paper-fab{
+      position: fixed;
+      right: 26px;
+      top: 162px;
+      z-index: 2;
     }
 
     chart-board{
@@ -18,12 +25,10 @@
           margin-left: -26px;
         }
       }
-      paper-fab{
-        position: fixed;
-        right: 26px;
-        top: 35px;
-        z-index: 2;
-      }
+    }
+
+    .chart-boards-wrapper {
+      padding-left: 26px;
     }
 
     @media screen and (max-width: $size-tablet) {
@@ -35,78 +40,48 @@
           }
         }
       }
+
       .content{
         padding-left: 26px;
       }
+
       paper-fab{
         top: auto;
         right: 13px;
         bottom: 13px;
       }
-    }
-    @media screen and (max-width: $size-mobile) {
 
+      .chart-boards-wrapper {
+        padding-left: 0;
+      }
     }
+
     .subheader {
       position: relative;
-    }
-    paper-fab.open{
-      position: absolute;
-      bottom: -50%;
-      right: 10%;
-      background: $color-grey-medium-light;
-      color: $color-black;
     }
 
     core-toolbar.portfolio-item-panel {
       background: $color-grey-medium;
-      //position: relative;
       /deep/ {
         .fit {
           top: 0;
         }
       }
     }
-  }
-}
-
-// Calendar
-.portfolio-item-calendar {
-  position: absolute;
-  top: 10px;
-  background: #fff;
-  /deep/ {
-    #wrapper {
-      display: inline-block;
-      #calendar-selection {
-        float: left;
-        display: inline-block;
-      }
-      #calendar {
-        float: left;
-        display: inline-block;
-      }
-    }
-
-    #selectedWeekdayHeader {
-      background: $color-dark-red;
-    }
-
-    #selectedDateHeader {
-      background: $color-red;
-      height: 216px;
-    }
-
-    .day[selected]:after, .day:after {
-      background: $color-red;
-    }
-
-    .viewingMonthYear, .weekday-name, .day, paper-icon-button {
-      color: $color-black;
-    }
-
-    #dateView {
+    .search-field {
       background: $color-white;
     }
   }
+}
+
+//Calendar position
+#calendarDialogWrapper {
+  display: none;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+}
+
+#calendarDialogWrapper.show {
+  display: block;
 }

@@ -75,12 +75,23 @@ paper-tabs /deep/ #selectionBar {
   margin-bottom: 10px;
 }
 
+@media screen and (max-width: 480px) {
+  .footer {
+    font-size: 12px;
+  }
+}
 .footer-with-margin {
   margin-bottom: 26px;
 }
 
 .portfolio-item /deep/ .content {
-  padding: 26px 26px 26px 52px;
+  padding: 26px;
+}
+.portfolio-item /deep/ paper-fab {
+  position: fixed;
+  right: 26px;
+  top: 162px;
+  z-index: 2;
 }
 .portfolio-item /deep/ chart-board {
   position: relative;
@@ -89,11 +100,8 @@ paper-tabs /deep/ #selectionBar {
   padding-right: 26px;
   margin-left: -26px;
 }
-.portfolio-item /deep/ chart-board paper-fab {
-  position: fixed;
-  right: 26px;
-  top: 35px;
-  z-index: 2;
+.portfolio-item /deep/ .chart-boards-wrapper {
+  padding-left: 26px;
 }
 @media screen and (max-width: 768px) {
   .portfolio-item /deep/ chart-board:nth-child(even) /deep/ .chart-board {
@@ -108,16 +116,12 @@ paper-tabs /deep/ #selectionBar {
     right: 13px;
     bottom: 13px;
   }
+  .portfolio-item /deep/ .chart-boards-wrapper {
+    padding-left: 0;
+  }
 }
 .portfolio-item /deep/ .subheader {
   position: relative;
-}
-.portfolio-item /deep/ paper-fab.open {
-  position: absolute;
-  bottom: -50%;
-  right: 10%;
-  background: #D8D8D8;
-  color: #000000;
 }
 .portfolio-item /deep/ core-toolbar.portfolio-item-panel {
   background: #979797;
@@ -125,36 +129,17 @@ paper-tabs /deep/ #selectionBar {
 .portfolio-item /deep/ core-toolbar.portfolio-item-panel /deep/ .fit {
   top: 0;
 }
-
-.portfolio-item-calendar {
-  position: absolute;
-  top: 10px;
-  background: #fff;
-}
-.portfolio-item-calendar /deep/ #wrapper {
-  display: inline-block;
-}
-.portfolio-item-calendar /deep/ #wrapper #calendar-selection {
-  float: left;
-  display: inline-block;
-}
-.portfolio-item-calendar /deep/ #wrapper #calendar {
-  float: left;
-  display: inline-block;
-}
-.portfolio-item-calendar /deep/ #selectedWeekdayHeader {
-  background: #90141a;
-}
-.portfolio-item-calendar /deep/ #selectedDateHeader {
-  background: #DD1F29;
-  height: 216px;
-}
-.portfolio-item-calendar /deep/ .day[selected]:after, .portfolio-item-calendar /deep/ .day:after {
-  background: #DD1F29;
-}
-.portfolio-item-calendar /deep/ .viewingMonthYear, .portfolio-item-calendar /deep/ .weekday-name, .portfolio-item-calendar /deep/ .day, .portfolio-item-calendar /deep/ paper-icon-button {
-  color: #000000;
-}
-.portfolio-item-calendar /deep/ #dateView {
+.portfolio-item /deep/ .search-field {
   background: #FFFFFF;
+}
+
+#calendarDialogWrapper {
+  display: none;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+}
+
+#calendarDialogWrapper.show {
+  display: block;
 }

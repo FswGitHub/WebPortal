@@ -75,6 +75,11 @@ paper-tabs /deep/ #selectionBar {
   margin-bottom: 10px;
 }
 
+@media screen and (max-width: 480px) {
+  .footer {
+    font-size: 12px;
+  }
+}
 .footer-with-margin {
   margin-bottom: 26px;
 }

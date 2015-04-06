@@ -14,6 +14,7 @@ $size-tablet: 768px;
 
 $font-size-mobile: 16px;
 $font-size-mobile-small: 14px;
+$font-size-mobile-footer: 12px;
 $font-size-desktop: 20px;
 $font-size-desktop-small: 18px;
 
@@ -110,6 +111,12 @@ paper-tabs{
   hr {
     color:$color-grey-medium-pre;
     margin-bottom: 10px;
+  }
+}
+
+@media  screen and (max-width: $size-mobile){
+  .footer {
+    font-size: $font-size-mobile-footer;
   }
 }
 

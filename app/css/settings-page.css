@@ -75,15 +75,15 @@ paper-tabs /deep/ #selectionBar {
   margin-bottom: 10px;
 }
 
+@media screen and (max-width: 480px) {
+  .footer {
+    font-size: 12px;
+  }
+}
 .footer-with-margin {
   margin-bottom: 26px;
 }
 
-.settings-page /deep/ {
-  /*.configuration-settings-panel {
-    margin-bottom: 119px;
-  }*/
-}
 .settings-page /deep/ .content {
   padding: 26px 26px 26px 52px;
 }
@@ -100,7 +100,6 @@ paper-tabs /deep/ #selectionBar {
   color: #DD1F29;
 }
 .settings-page /deep/ paper-input-decorator /deep/ .focused-underline {
-  /* line color when the input is focused */
   background-color: #DD1F29;
 }
 .settings-page /deep/ .upload-logo-button {
@@ -148,13 +147,11 @@ paper-tabs /deep/ #selectionBar {
   width: 520px;
 }
 .settings-page /deep/ .settings-list-form paper-input-decorator /deep/ .label-text, .settings-page /deep/ .settings-list-form paper-input-decorator /deep/ .error {
-  /* inline label,  floating label, error message and error icon color when the input is unfocused */
   color: #DD1F29;
   font-size: 18px;
   font-weight: bold;
 }
 .settings-page /deep/ .settings-list-form paper-input-decorator /deep/ ::-webkit-input-placeholder {
-  /* platform specific rules for placeholder text */
   color: #979797;
   font-size: 18px;
   font-weight: bold;
@@ -170,11 +167,9 @@ paper-tabs /deep/ #selectionBar {
   font-weight: bold;
 }
 .settings-page /deep/ .settings-list-form paper-input-decorator /deep/ .unfocused-underline {
-  /* line color when the input is unfocused */
   background-color: #979797;
 }
 .settings-page /deep/ .settings-list-form paper-input-decorator /deep/ .focused-underline {
-  /* line color when the input is focused */
   background-color: #DD1F29;
 }
 .settings-page /deep/ .optional-label {
@@ -205,5 +200,11 @@ paper-tabs /deep/ #selectionBar {
 @media screen and (max-width: 480px) {
   .settings-page /deep/ .content {
     padding: 26px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tab-content {
+    font-size: 12px;
   }
 }

@@ -29,7 +29,6 @@
     paper-input-decorator {
       /deep/ {
         .focused-underline {
-          /* line color when the input is focused */
           background-color: $color-red;
         }
       }
@@ -47,14 +46,12 @@
     }
 
     .col-5 {
-      //width: 23%;
       width: 185px;
       padding: 0.75em 0;
       margin-right: 20px;
     }
 
     .col-7 {
-      //width: 17%;
       width: 157px;
     }
 
@@ -88,19 +85,16 @@
       margin-bottom: 20px;
     }
     .settings-list-form {
-      //width: 55%;
       width: 520px;
       paper-input-decorator {
         /deep/ {
           .label-text,.error {
-            /* inline label,  floating label, error message and error icon color when the input is unfocused */
             color: $color-red;
             font-size: $font-size-desktop-small;
             font-weight: bold;
           }
 
           ::-webkit-input-placeholder {
-            /* platform specific rules for placeholder text */
             color: $color-grey-medium;
             font-size: $font-size-desktop-small;
             font-weight: bold;
@@ -119,12 +113,10 @@
           }
 
           .unfocused-underline {
-            /* line color when the input is unfocused */
             background-color: $color-grey-medium;
           }
 
           .focused-underline {
-            /* line color when the input is focused */
             background-color: $color-red;
           }
         }
@@ -137,10 +129,6 @@
       display: block;
       padding-top: 29px;
     }
-
-    /*.configuration-settings-panel {
-      margin-bottom: 119px;
-    }*/
 
     .configuration-checkbox {
       padding: 0.75em 0;
@@ -171,5 +159,11 @@
       }
     }
 
+  }
+}
+
+@media  screen and (max-width: $size-mobile){
+  .tab-content {
+    font-size: $font-size-mobile-footer;
   }
 }

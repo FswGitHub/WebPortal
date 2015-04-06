@@ -35,6 +35,8 @@
     "paper-tabs": "Polymer/paper-tabs#~0.5.5",
     "core-image": "Polymer/core-image#~0.5.5",
     "paper-radio-group": "Polymer/paper-radio-group#~0.5.5",
-    "core-pages": "Polymer/core-pages#~0.5.5"
+    "core-pages": "Polymer/core-pages#~0.5.5",
+    "paper-dropdown":"Polymer/paper-dropdown#^0.5",
+    "core-field":"Polymer/core-field#^0.5"
   }
 }
