@@ -184,7 +184,8 @@ paper-tabs /deep/ #selectionBar {
   .portfolio-page /deep/ .content {
     padding: 26px;
   }
-  .portfolio-page .table-wrapper {
+
+  .table-wrapper {
     width: 100%;
     overflow-x: scroll;
   }

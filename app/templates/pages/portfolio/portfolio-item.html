@@ -11,11 +11,25 @@
                     <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
                 </paper-button>
                 <calendar-dialog id="calendarDialogWrapper"></calendar-dialog>
-                <paper-button class="calendar-button">
-                    <core-icon icon="description" class="open-calendar-icon"></core-icon>
-                    ICB
-                    <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
-                </paper-button>
+                <div class="holding-view">
+                    <paper-button class="holding-table-view-button" on-tap="{{tableView}}">
+                        <core-icon icon="description" class="open-calendar-icon"></core-icon>
+                        ICB
+                        <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
+                    </paper-button>
+                    <paper-dropdown opened="{{viewStatus}}" class="dashboard-menu-dropdown">
+                        <div class="menu-list menu">
+                            <paper-item class="item">
+                                <div class="label">Holding Charts</div>
+                                <paper-ripple fit></paper-ripple>
+                            </paper-item>
+                            <paper-item class="item">
+                                <div class="label" >Corporate Events</div>
+                                <paper-ripple fit></paper-ripple>
+                            </paper-item>
+                        </div>
+                    </paper-dropdown>
+                </div>
                 <div class="search-block">
                     <core-field class="search-field">
                         <input placeholder="Filter by name" flex>
@@ -24,31 +38,111 @@
                 </div>
             </div>
             <div tab0 class="dashboard-view">
-                <paper-fab class="open" icon="add" on-tap="{{openMenu}}"></paper-fab>
-                <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown">
-                    <div class="menu-list menu">
-                        <paper-item class="item">
-                            <div class="label">Holding Charts</div>
-                            <paper-ripple fit></paper-ripple>
-                        </paper-item>
-                        <paper-item class="item">
-                            <div class="label" >Corporate Events</div>
-                            <paper-ripple fit></paper-ripple>
-                        </paper-item>
-                        <paper-item class="item">
-                            <div class="label">Calendar Events</div>
-                            <paper-ripple fit></paper-ripple>
-                        </paper-item>
-                    </div>
-                </paper-dropdown>
+                <div>
+                    <paper-fab class="open" icon="add" on-tap="{{openMenu}}"></paper-fab>
+                    <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown">
+                        <div class="menu-list menu">
+                            <paper-item class="item">
+                                <div class="label">Holding Charts</div>
+                                <paper-ripple fit></paper-ripple>
+                            </paper-item>
+                            <paper-item class="item">
+                                <div class="label" >Corporate Events</div>
+                                <paper-ripple fit></paper-ripple>
+                            </paper-item>
+                            <paper-item class="item">
+                                <div class="label">Calendar Events</div>
+                                <paper-ripple fit></paper-ripple>
+                            </paper-item>
+                        </div>
+                    </paper-dropdown>
+                </div>
                 <div class="chart-boards-wrapper">
                     <template repeat="{{val in portfolioCharts}}">
                         <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
                     </template>
                 </div>
             </div>
-            <div tab1>
-                tab 2
+            <div tab1 class="holdings-view" id="holdings">
+                <div class="holding-table-navigation" layout horizontal start>
+                    <button class="holding-nav-button">First</button>
+                    <button class="holding-nav-button">&#60;&#60;Prev</button>
+                    <div class="holding-table-page">
+                        <ul class="holding-table-page-list">
+                            <li class="table-page-item active-page">1</li>
+                            <li class="table-page-item">2</li>
+                            <li class="table-page-item">3</li>
+                            <li class="table-page-item">4</li>
+                        </ul>
+                    </div>
+                    <button class="holding-nav-button">Next&#62;&#62;</button>
+                    <button class="holding-nav-button">Last</button>
+                    <div class="size-menu-wrapper">
+                        <button class="holding-size-button" on-tap="{{openSizeMenu}}">
+                            Size <span class="size">50</span>
+                            <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
+                        </button>
+                        <paper-dropdown opened="{{sizeMenuStatus}}" class="holding-size-dropdown">
+                            <div class="size-menu-list menu">
+                                <paper-item class="item">
+                                    <div class="label current">50</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item">
+                                    <div class="label" >100</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item">
+                                    <div class="label">200</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                            </div>
+                        </paper-dropdown>
+                    </div>
+                </div>
+                <div class="table-wrapper">
+                    <div class="portfolio-table">
+                        <ul class="table-header-list">
+                            <li class="col-padding table-header col-5">Name</li>
+                            <li class="col-padding table-header col-4">Nominal</li>
+                            <li class="col-padding table-header col-4">Cost Price</li>
+                            <li class="col-padding table-header col-5">Book value (R)</li>
+                            <li class="col-padding table-header col-5">Market Price</li>
+                            <li class="col-padding table-header col-5">Market Value</li>
+                            <li class="col-padding table-header col-3">%MV</li>
+                            <li class="col-padding table-header col-6">Exposure Value (R)</li>
+                        </ul>
+                        <template repeat="{{val in portfolioHoldings}}">
+                            <div class="table-row">
+                                <ul class="portfolio-link collapse-category" on-tap="{{toggle}}" toggleId="{{val.id}}">
+                                    <li class="col-padding table-item col-13">
+                                        <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
+                                        {{val.category}}
+                                    </li>
+                                    <li class="col-padding table-item col-5">{{val.averageBookVal}}</li>
+                                    <li class="col-padding table-item col-5">{{val.averageMarcPrice}}</li>
+                                    <li class="col-padding table-item col-5">{{val.averageMacVal}}</li>
+                                    <li class="col-padding table-item col-3">{{val.averageMV}}</li>
+                                    <li class="col-padding table-item col-6">{{val.averageExpVal}}</li>
+                                </ul>
+                                <core-collapse id="collapse{{val.id}}">
+                                    <template repeat="{{item in val.categoryItems}}">
+                                        <ul class="col-content portfolio-link">
+                                            <li class="col-padding table-item col-5">{{item.name}}</li>
+                                            <li class="col-padding table-item col-4">{{item.nominal}}</li>
+                                            <li class="col-padding table-item col-4">{{item.costPrice}}</li>
+                                            <li class="col-padding table-item col-5">{{item.bookValue}}</li>
+                                            <li class="col-padding table-item col-5">{{item.marketPrice}}</li>
+                                            <li class="col-padding table-item col-5">{{item.marketValue}}</li>
+                                            <li class="col-padding table-item col-3">{{item.MV}}</li>
+                                            <li class="col-padding table-item col-6">{{item.exposureValue}}</li>
+                                        </ul>
+                                    </template>
+                                </core-collapse>
+                            </div>
+                        </template>
+                    </div>
+                </div>
             </div>
         </side-menu>
         <app-globals id="globals"></app-globals>
@@ -67,6 +161,7 @@
                     me.portfolioItemContent = data.response.item;
                     me.portfolioCharts =  data.response.item.charts;
                     me.page.title = "Portfolio > "+ me.portfolioItemContent.title;
+                    me.portfolioHoldings = data.response.item.holdings;
                 }
             },
             openMenu: function(e){
@@ -84,7 +179,21 @@
                 tabs: true,
                 panel: true
             },
-            tabs: [{name: 'dashboard', label: 'Dashboard'}, {name:'holdings', label: 'Holdings'}]
+            tabs: [{name: 'dashboard', label: 'Dashboard'}, {name:'holdings', label: 'Holdings'}],
+            toggle: function(e) {
+                var id = e.currentTarget.attributes.toggleId.value;
+                this.$.holdings.querySelectorAll('#collapse'+id)[0].toggle();
+            },
+            openSizeMenu: function(e){
+                var me = this;
+                me.sizeMenuStatus = true;
+            },
+            sizeMenuStatus:false,
+            tableView:function(e){
+                var me = this;
+                me.viewStatus = true;
+            },
+            viewStatus:false
         })
     </script>
 </polymer-element>
