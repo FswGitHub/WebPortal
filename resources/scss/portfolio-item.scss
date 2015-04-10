@@ -75,21 +75,18 @@
       }
 
       //Holding table navigation
-      .holding-table-navigation[layout][horizontal][start] {
-        display: inline-block;
-      }
-      .holding-table-page, .holding-table-page-list {
-        display: inline-block;
-      }
-
       .nav-style, .table-page-item, .holding-nav-button {
         font-size: $font-size-mobile-footer;
       }
 
       .size-menu-wrapper {
-        display: inline-block;
-        float: left;
         margin: 10px 0 0 0;
+      }
+    }
+
+    @media screen and (max-width: 320px) {
+      .hide-nav {
+        display: none;
       }
     }
 
@@ -150,10 +147,14 @@
   line-height: 19px;
 }
 
+.holding-item-button {
+  display: inline-block;
+  float: left;
+}
+
 .table-page-item {
   width: 19px;
   height: 19px;
-  display: inline-block;
   text-align: center;
   background: $color-grey-medium;
   @extend .nav-style;

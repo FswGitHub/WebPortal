@@ -133,7 +133,7 @@ paper-tabs /deep/ #selectionBar {
   margin-bottom: 10px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 640px) {
   .content {
     padding: 26px 26px 0 26px;
     margin-bottom: 62px;
@@ -153,36 +153,6 @@ paper-tabs /deep/ #selectionBar {
     margin-left: 26px;
   }
 }
-.profile-page /deep/ {
-    /*
-        @media screen and (max-width: $size-mobile) {
-          .content {
-            padding-left: 30px;
-          }
-
-          .header {
-            .profile-name {
-              margin: 5px 0 35px 0;
-            }
-          }
-
-          .user-data {
-            width: 100%;
-            clear: both;
-            margin-right: 10%;
-          }
-
-          .profile-photo {
-            float: left;
-            display: inline-block;
-            margin: 10px 0;
-          }
-
-          .profile-form-wrapper {
-            width: 100%;
-          }
-        }*/
-}
 .profile-page /deep/ core-pages {
   display: none;
 }
@@ -190,10 +160,10 @@ paper-tabs /deep/ #selectionBar {
   margin-bottom: 55px;
 }
 .profile-page /deep/ .profile-photo {
-  margin: 0 0 0 8%;
+  margin: 0 0 0 20%;
 }
 .profile-page /deep/ .user-data {
-  width: 50%;
+  width: 100%;
   margin-bottom: 150px;
   margin-right: 5%;
 }
@@ -229,4 +199,19 @@ paper-tabs /deep/ #selectionBar {
 }
 .profile-page /deep/ .user-data paper-input-decorator /deep/ input :-ms-input-placeholder {
   color: #8e8e9a;
+}
+@media screen and (max-width: 640px) {
+  .profile-page /deep/ .profile-form-wrapper[layout][vertical] {
+    display: table;
+    width: 100%;
+  }
+  .profile-page /deep/ .profile-image {
+    display: table-header-group;
+  }
+  .profile-page /deep/ .profile-photo {
+    margin: 0;
+  }
+  .profile-page /deep/ .profile-form {
+    display: table-footer-group;
+  }
 }

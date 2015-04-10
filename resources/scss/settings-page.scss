@@ -160,18 +160,6 @@
       z-index: 2;
     }
 
-    //----------Dialogs styles
-    paper-action-dialog {
-      paper-button.apply,
-      paper-button.cancel {
-        .button-content {
-          color: $color-red;
-        }
-      }
-    }
-
-
-
     @media screen and (max-width: $size-mobile) {
       .theme-radio-group {
         /deep/ {

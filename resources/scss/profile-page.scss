@@ -11,13 +11,11 @@
     }
 
     .profile-photo {
-      margin: 0 0 0 8%;
-      //margin: 10px 65px;
-      //float: right;
+      margin: 0 0 0 20%;
     }
 
     .user-data {
-      width: 50%;
+      width: 100%;
       margin-bottom: 150px;
       margin-right: 5%;
       paper-input-decorator{
@@ -47,33 +45,23 @@
         }
       }
     }
-    /*
-        @media screen and (max-width: $size-mobile) {
-          .content {
-            padding-left: 30px;
-          }
+    @media screen and (max-width: $size-mobile) {
+      .profile-form-wrapper[layout][vertical] {
+        display: table;
+        width: 100%;
+      }
 
-          .header {
-            .profile-name {
-              margin: 5px 0 35px 0;
-            }
-          }
+      .profile-image {
+        display: table-header-group;
+      }
 
-          .user-data {
-            width: 100%;
-            clear: both;
-            margin-right: 10%;
-          }
+      .profile-photo {
+        margin: 0;
+      }
 
-          .profile-photo {
-            float: left;
-            display: inline-block;
-            margin: 10px 0;
-          }
-
-          .profile-form-wrapper {
-            width: 100%;
-          }
-        }*/
+      .profile-form {
+        display: table-footer-group;
+      }
+    }
   }
 }

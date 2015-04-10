@@ -133,7 +133,7 @@ paper-tabs /deep/ #selectionBar {
   margin-bottom: 10px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 640px) {
   .content {
     padding: 26px 26px 0 26px;
     margin-bottom: 62px;
@@ -241,7 +241,7 @@ paper-tabs /deep/ #selectionBar {
   max-width: 200px;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 640px) {
   .table-wrapper {
     width: 100%;
     overflow-x: scroll;
@@ -302,19 +302,16 @@ paper-tabs /deep/ #selectionBar {
   .portfolio-item /deep/ #wrapper {
     width: 276px;
   }
-  .portfolio-item /deep/ .holding-table-navigation[layout][horizontal][start] {
-    display: inline-block;
-  }
-  .portfolio-item /deep/ .holding-table-page, .portfolio-item /deep/ .holding-table-page-list {
-    display: inline-block;
-  }
   .portfolio-item /deep/ .nav-style, .portfolio-item /deep/ .table-page-item, .portfolio-item /deep/ .holding-nav-button, .portfolio-item /deep/ .table-page-item, .portfolio-item /deep/ .holding-nav-button {
     font-size: 12px;
   }
   .portfolio-item /deep/ .size-menu-wrapper {
-    display: inline-block;
-    float: left;
     margin: 10px 0 0 0;
+  }
+}
+@media screen and (max-width: 320px) {
+  .portfolio-item /deep/ .hide-nav {
+    display: none;
   }
 }
 .portfolio-item /deep/ .subheader {
@@ -359,10 +356,14 @@ paper-tabs /deep/ #selectionBar {
   line-height: 19px;
 }
 
+.holding-item-button {
+  display: inline-block;
+  float: left;
+}
+
 .table-page-item {
   width: 19px;
   height: 19px;
-  display: inline-block;
   text-align: center;
   background: #979797;
 }

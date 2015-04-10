@@ -62,42 +62,55 @@
                 </template>
             </div>
             <div tab1 class="holdings-view tab-page-content" fit id="holdings">
-                <div class="holding-table-navigation" layout horizontal start>
-                    <button class="holding-nav-button">First</button>
-                    <button class="holding-nav-button">&#60;&#60;Prev</button>
-                    <div class="holding-table-page">
-                        <ul class="holding-table-page-list">
-                            <li class="table-page-item active-page">1</li>
-                            <li class="table-page-item">2</li>
-                            <li class="table-page-item">3</li>
-                            <li class="table-page-item">4</li>
-                        </ul>
+                <template is="auto-binding">
+                    <core-media-query query="max-width: 640px"
+                                      queryMatches="{{phoneScreen}}"></core-media-query>
+                    <div layout vertical?="{{phoneScreen}}"
+                         horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}" class="holding-table-navigation">
+                        <div class="holding-table-page">
+                            <ul class="holding-table-page-list">
+                                <li class="holding-item-button">
+                                    <button class="holding-nav-button">First</button>
+                                </li>
+                                <li class="holding-item-button">
+                                    <button class="holding-nav-button">&#60;&#60;<span class="hide-nav">Prev</span></button>
+                                </li>
+                                <li class="holding-item-button table-page-item active-page">1</li>
+                                <li class="holding-item-button table-page-item">2</li>
+                                <li class="holding-item-button table-page-item">3</li>
+                                <li class="holding-item-button table-page-item">4</li>
+                                <li class="holding-item-button">
+                                    <button class="holding-nav-button"><span class="hide-nav">Next</span>&#62;&#62;</button>
+                                </li>
+                                <li class="holding-item-button">
+                                    <button class="holding-nav-button">Last</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="size-menu-wrapper" relative>
+                            <button class="holding-size-button" on-tap="{{openSizeMenu}}">
+                                Size <span class="size">50</span>
+                                <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
+                            </button>
+                            <paper-dropdown opened="{{sizeMenuStatus}}" class="holding-size-dropdown">
+                                <div class="size-menu-list menu">
+                                    <paper-item class="item">
+                                        <div class="label current">50</div>
+                                        <paper-ripple fit></paper-ripple>
+                                    </paper-item>
+                                    <paper-item class="item">
+                                        <div class="label" >100</div>
+                                        <paper-ripple fit></paper-ripple>
+                                    </paper-item>
+                                    <paper-item class="item">
+                                        <div class="label">200</div>
+                                        <paper-ripple fit></paper-ripple>
+                                    </paper-item>
+                                </div>
+                            </paper-dropdown>
+                        </div>
                     </div>
-                    <button class="holding-nav-button">Next&#62;&#62;</button>
-                    <button class="holding-nav-button">Last</button>
-                    <div class="size-menu-wrapper">
-                        <button class="holding-size-button" on-tap="{{openSizeMenu}}">
-                            Size <span class="size">50</span>
-                            <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
-                        </button>
-                        <paper-dropdown opened="{{sizeMenuStatus}}" class="holding-size-dropdown">
-                            <div class="size-menu-list menu">
-                                <paper-item class="item">
-                                    <div class="label current">50</div>
-                                    <paper-ripple fit></paper-ripple>
-                                </paper-item>
-                                <paper-item class="item">
-                                    <div class="label" >100</div>
-                                    <paper-ripple fit></paper-ripple>
-                                </paper-item>
-                                <paper-item class="item">
-                                    <div class="label">200</div>
-                                    <paper-ripple fit></paper-ripple>
-                                </paper-item>
-                            </div>
-                        </paper-dropdown>
-                    </div>
-                </div>
+                </template>
                 <div class="table-wrapper">
                     <div class="portfolio-table">
                         <ul class="table-header-list">
