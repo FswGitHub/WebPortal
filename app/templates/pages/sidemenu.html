@@ -59,33 +59,28 @@
                 <content select="[subheader]"></content>
             </core-toolbar>
             <!--Tabs content will be here -->
-            <core-pages selected="{{tabSelected}}">
-                <div class="content">
+            <core-pages selected="{{tabSelected}}" id="tab-views" fit>
+                <div>
                     <content select="[tab0]"></content>
-                    <footer-page hidden?="{{!pageTabs}}" margin="{{true}}"></footer-page>
                 </div>
-                <div class="content">
+                <div>
                     <content select="[tab1]"></content>
-                    <footer-page hidden?="{{!pageTabs}}" margin="{{true}}"></footer-page>
                 </div>
-                <div class="content">
+                <div>
                     <content select="[tab2]"></content>
-                    <footer-page hidden?="{{!pageTabs}}" margin="{{true}}"></footer-page>
                 </div>
-                <div class="content">
+                <div>
                     <content select="[tab3]"></content>
-                    <footer-page hidden?="{{!pageTabs}}" margin="{{true}}"></footer-page>
                 </div>
-                <div class="content">
+                <div>
                     <content select="[tab4]"></content>
-                    <footer-page hidden?="{{!pageTabs}}" margin="{{true}}"></footer-page>
                 </div>
             </core-pages>
             <!--Page content wil be here-->
-            <div class="content">
+            <div class="content" fit>
                 <content></content>
-                <footer-page hidden?="{{pageTabs}}"></footer-page>
             </div>
+            <footer-page></footer-page>
         </core-scaffold>
 
         <app-globals id="globals"></app-globals>

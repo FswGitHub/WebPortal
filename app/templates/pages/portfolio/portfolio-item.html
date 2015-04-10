@@ -4,7 +4,7 @@
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}" pagePanel="{{page.panel}}">
-            <div subheader class="fit indent subheader" layout horizontal start>
+            <div subheader class="indent subheader" layout horizontal start>
                 <paper-button class="calendar-button" on-tap="{{openCalendar}}">
                     <core-icon icon="event" class="open-calendar-icon"></core-icon>
                     7 Dec 2014
@@ -17,30 +17,30 @@
                         ICB
                         <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
                     </paper-button>
-                    <paper-dropdown opened="{{viewStatus}}" class="dashboard-menu-dropdown">
-                        <div class="menu-list menu">
+                    <paper-dropdown opened="{{viewStatus}}" class="holding-view-dropdown">
+                        <div class="holding-view-list menu">
                             <paper-item class="item">
-                                <div class="label">Holding Charts</div>
+                                <div class="label active-view">ICB</div>
                                 <paper-ripple fit></paper-ripple>
                             </paper-item>
                             <paper-item class="item">
-                                <div class="label" >Corporate Events</div>
+                                <div class="label">Statutory</div>
                                 <paper-ripple fit></paper-ripple>
                             </paper-item>
                         </div>
                     </paper-dropdown>
                 </div>
-                <div class="search-block">
+                <div class="search-block" layout horizontal center-center>
                     <core-field class="search-field">
                         <input placeholder="Filter by name" flex>
                         <core-icon icon="search"></core-icon>
                     </core-field>
                 </div>
             </div>
-            <div tab0 class="dashboard-view">
-                <div>
-                    <paper-fab class="open" icon="add" on-tap="{{openMenu}}"></paper-fab>
-                    <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown">
+            <div tab0 class="dashboard-view tab-page-content" fit>
+                <div class="dashboard-dropdown">
+                    <paper-fab class="open" icon="add" on-tap="{{openMenu}}" relatedTarget></paper-fab>
+                    <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="top">
                         <div class="menu-list menu">
                             <paper-item class="item">
                                 <div class="label">Holding Charts</div>
@@ -57,13 +57,11 @@
                         </div>
                     </paper-dropdown>
                 </div>
-                <div class="chart-boards-wrapper">
-                    <template repeat="{{val in portfolioCharts}}">
-                        <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
-                    </template>
-                </div>
+                <template repeat="{{val in portfolioCharts}}">
+                    <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
+                </template>
             </div>
-            <div tab1 class="holdings-view" id="holdings">
+            <div tab1 class="holdings-view tab-page-content" fit id="holdings">
                 <div class="holding-table-navigation" layout horizontal start>
                     <button class="holding-nav-button">First</button>
                     <button class="holding-nav-button">&#60;&#60;Prev</button>
@@ -113,7 +111,7 @@
                             <li class="col-padding table-header col-6">Exposure Value (R)</li>
                         </ul>
                         <template repeat="{{val in portfolioHoldings}}">
-                            <div class="table-row">
+                            <div class="table-body">
                                 <ul class="portfolio-link collapse-category" on-tap="{{toggle}}" toggleId="{{val.id}}">
                                     <li class="col-padding table-item col-13">
                                         <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>

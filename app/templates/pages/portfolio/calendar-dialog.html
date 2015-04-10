@@ -1,15 +1,13 @@
 <polymer-element name="calendar-dialog">
     <template>
         <link rel="stylesheet" href="../../../css/calendar-dialog.css">
-        <paper-shadow z="1">
-            <div class="dialog-wrapper">
-                <d-calendar class="portfolio-item-calendar"></d-calendar>
-                <div class="actions">
-                    <paper-button role="button" class="closeCalendar" on-tap="{{closeCalendarDialog}}">Cancel</paper-button>
-                    <paper-button role="button" class="setDate"  on-tap="{{closeCalendarDialog}}">OK</paper-button>
-                </div>
+        <div class="dialog-wrapper">
+            <d-calendar class="portfolio-item-calendar"></d-calendar>
+            <div class="actions">
+                <paper-button role="button" class="closeCalendar" on-tap="{{closeCalendarDialog}}">Cancel</paper-button>
+                <paper-button role="button" class="setDate"  on-tap="{{closeCalendarDialog}}">OK</paper-button>
             </div>
-        </paper-shadow>
+        </div>
     </template>
     <script>
         Polymer('calendar-dialog',{

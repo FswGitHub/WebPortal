@@ -1,14 +1,29 @@
-.core-toolbar {
+side-menu /deep/ core-toolbar {
   background-color: #DD1F29;
   color: #FFFFFF;
 }
-.core-toolbar .logo {
+side-menu /deep/ core-toolbar .logo {
   height: 100%;
   line-height: 64px;
 }
-.core-toolbar .logo img {
+side-menu /deep/ core-toolbar .logo img {
   width: 100%;
   vertical-align: middle;
+}
+side-menu /deep/ div[tool] {
+  margin-left: 0;
+}
+side-menu /deep/ chart-board:nth-child(even) /deep/ .chart-board {
+  padding-right: 4%;
+}
+side-menu /deep/ chart-board:nth-child(even) .chart-board:nth-child(even) {
+  padding-right: 0;
+}
+@media screen and (max-width: 768px) {
+  side-menu /deep/ chart-board:nth-child(even) /deep/ .chart-board {
+    padding-right: 0;
+    margin-left: 0;
+  }
 }
 
 core-selector.menu core-icon {
@@ -31,6 +46,45 @@ core-selector.menu .core-selected.child {
 core-selector.menu h3 {
   padding: 0 1em;
   font-weight: normal;
+}
+
+.chart-board {
+  width: 48%;
+  float: left;
+}
+.chart-board paper-shadow {
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  margin: 8px auto 16px;
+  padding: 8px 0 16px 0;
+}
+.chart-board paper-shadow .title {
+  padding: 0 8px 0 16px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.chart-board paper-shadow .chart {
+  margin: 0 16px;
+}
+@media screen and (max-width: 768px) {
+  .chart-board {
+    width: 100%;
+  }
+  .chart-board paper-shadow .title {
+    font-size: 16px;
+  }
+}
+
+.content {
+  padding: 26px 26px 0 60px;
+  overflow-y: scroll;
+  margin-bottom: 52px;
+}
+
+.tab-page-content {
+  overflow-y: auto;
+  padding: 26px 26px 0 60px;
+  margin-bottom: 52px;
 }
 
 .ul-reset {
@@ -67,7 +121,11 @@ paper-tabs /deep/ #selectionBar {
 }
 
 .footer {
-  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 10px 26px 10px 60px;
   color: #b3b3b3;
 }
 .footer hr {
@@ -76,10 +134,22 @@ paper-tabs /deep/ #selectionBar {
 }
 
 @media screen and (max-width: 480px) {
+  .content {
+    padding: 26px 26px 0 26px;
+    margin-bottom: 62px;
+  }
+
   .footer {
     font-size: 12px;
+    padding: 10px 26px;
   }
-}
-.footer-with-margin {
-  margin-bottom: 26px;
+
+  .tab-page-content {
+    padding: 26px 26px 0 26px;
+    margin-bottom: 62px;
+  }
+
+  core-toolbar /deep/ .bottom.fit.indent {
+    margin-left: 26px;
+  }
 }

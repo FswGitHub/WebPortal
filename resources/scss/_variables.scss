@@ -25,20 +25,49 @@ $font-size-desktop-small: 18px;
   :-ms-input-placeholder      {color: $color}
 }
 
-//Main toolbar
-.core-toolbar{
-  background-color: $color-red;
-  color: $color-white;
-  .logo{
-    height: 100%;
-    line-height: 64px;
-    img{
-      width: 100%;
-      vertical-align: middle;
+//----------Side menu changes
+
+side-menu {
+  /deep/ {
+    core-toolbar{
+      background-color: $color-red;
+      color: $color-white;
+      .logo{
+        height: 100%;
+        line-height: 64px;
+        img{
+          width: 100%;
+          vertical-align: middle;
+        }
+      }
+    }
+    div[tool] {
+      margin-left: 0;
+    }
+    chart-board{
+      &:nth-child(even){
+        /deep/ .chart-board{
+          padding-right: 4%;
+        }
+        .chart-board:nth-child(even){
+          padding-right: 0;
+        }
+      }
+    }
+
+    @media screen and (max-width: $size-tablet) {
+      chart-board {
+        &:nth-child(even) {
+          /deep/ .chart-board {
+            padding-right: 0;
+            margin-left: 0;
+          }
+        }
+      }
     }
   }
 }
-//side menu
+
 core-selector.menu{
   core-icon {
     margin-right: 0.5em;
@@ -63,13 +92,59 @@ core-selector.menu{
   }
 }
 
+//----------Chart boards
+
+.chart-board{
+  width: 48%;
+  float: left;
+
+  paper-shadow{
+    border-radius: 2px;
+    background-color: $color-white;
+    margin: 8px auto 16px;
+    padding: 8px 0 16px 0;
+    .title{
+      padding: 0 8px 0 16px;
+      font-weight: bold;
+      font-size: $font-size-desktop;
+    }
+    .chart{
+      margin: 0 16px;
+    }
+  }
+
+
+  @media screen and (max-width: $size-tablet) {
+    width: 100%;
+    paper-shadow{
+      .title{
+        font-size: $font-size-mobile;
+      }
+    }
+  }
+}
+
+.content {
+  padding: 26px 26px 0 60px;
+  overflow-y: scroll;
+  margin-bottom: 52px;
+}
+
+.tab-page-content {
+  overflow-y: auto;
+  padding: 26px 26px 0 60px;
+  margin-bottom: 52px;
+}
+
 .ul-reset {
   margin: 0;
   padding: 0;
   list-style: none;
   font-size: 0;
 }
-//Tabs styles
+
+//----------Tabs styles
+
 paper-tabs{
   background-color: $color-red;
   color: $color-white;
@@ -87,7 +162,9 @@ paper-tabs{
     }
   }
 }
-//panel under tubs
+
+//----------Panel under tabs
+
 .tabs-panel {
   /deep/ {
     core-toolbar.tabs-toolbar {
@@ -96,7 +173,8 @@ paper-tabs{
   }
 }
 
-//item like title of page(profile name, settings item)
+//----------Page subtitle (profile name, settings item)
+
 .title-item {
   margin: 5px 0;
   padding: 3px 0;
@@ -104,9 +182,14 @@ paper-tabs{
   border-bottom: 1px solid $color-grey-medium-pre;
 }
 
-//copyright footer
+//----------Copyright footer
+
 .footer {
-  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 10px 26px 10px 60px;
   color:$color-grey-medium-pre;
   hr {
     color:$color-grey-medium-pre;
@@ -114,12 +197,29 @@ paper-tabs{
   }
 }
 
-@media  screen and (max-width: $size-mobile){
+//----------Mobile size styles
+
+@media  screen and (max-width: $size-mobile) {
+  .content {
+    padding: 26px 26px 0 26px;
+    margin-bottom: 62px;
+  }
+
   .footer {
     font-size: $font-size-mobile-footer;
+    padding: 10px 26px;
   }
-}
 
-.footer-with-margin {
-  margin-bottom: 26px;
+  .tab-page-content {
+    padding: 26px 26px 0 26px;
+    margin-bottom: 62px;
+  }
+
+  core-toolbar {
+    /deep/ {
+      .bottom.fit.indent {
+        margin-left: 26px;
+      }
+    }
+  }
 }

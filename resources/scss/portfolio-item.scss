@@ -3,12 +3,8 @@
 
 .portfolio-item {
   /deep/{
-    core-toolbar{
-      @extend .core-toolbar
-    }
-
     .content {
-      padding: 26px;
+      display: none;
     }
 
     paper-fab{
@@ -19,17 +15,18 @@
     }
 
     chart-board{
-      position: relative;
+      /deep/ .chart-board {
+        padding-right: 4%;
+      }
       &:nth-child(even){
         /deep/ .chart-board{
-          padding-right: 26px;
-          margin-left: -26px;
+          padding-right: 0;
         }
       }
     }
 
-    .chart-boards-wrapper {
-      padding-left: 26px;
+    .indent.subheader  {
+      margin-left: 52px;
     }
 
     @media screen and (max-width: $size-tablet) {
@@ -42,23 +39,24 @@
         }
       }
 
-      .fit.subheader {
-        height: 110px;
-        top: 10px;
-        display: inline-block;
-      }
-
-      .search-block {
-        width: 93%;
-        margin: 16px 7% 0 0;
-      }
-
-      core-toolbar.portfolio-item-panel {
-        height: 128px;
-      }
-
-      .content{
-        padding-left: 26px;
+      .indent.subheader {
+        margin-left: 18px;
+        margin-right: 0;
+        paper-button {
+          margin-left: 0;
+          /deep/ {
+            .button-content {
+              padding: 0.7em 0.3em;
+            }
+          }
+        }
+        .search-block {
+          padding: 0.4em 0;
+          margin-left: 5%;
+          core-icon {
+            margin: 4px;
+          }
+        }
       }
 
       paper-fab{
@@ -67,21 +65,31 @@
         bottom: 13px;
       }
 
-      .chart-boards-wrapper {
-        padding-left: 0;
-      }
-
       .button-content {
         font-size: $font-size-mobile-small;
-      }
-
-      .holding-table-navigation {
-        padding-left: 0;
       }
 
       // Calendar
       #wrapper {
         width: 276px;
+      }
+
+      //Holding table navigation
+      .holding-table-navigation[layout][horizontal][start] {
+        display: inline-block;
+      }
+      .holding-table-page, .holding-table-page-list {
+        display: inline-block;
+      }
+
+      .nav-style, .table-page-item, .holding-nav-button {
+        font-size: $font-size-mobile-footer;
+      }
+
+      .size-menu-wrapper {
+        display: inline-block;
+        float: left;
+        margin: 10px 0 0 0;
       }
     }
 
@@ -91,19 +99,29 @@
 
     core-toolbar.portfolio-item-panel {
       background: $color-grey-medium;
-      /deep/ {
-        .fit {
-          top: 0;
-        }
-      }
     }
+
+    .search-block {
+      padding: 0.25em 0.57em;
+    }
+
     .search-field {
       background: $color-white;
     }
   }
 }
 
-//Calendar position
+.holding-view-list {
+  .label {
+    color: $color-black;
+  }
+  .active-view {
+    color: $color-red;
+  }
+}
+
+//----------Calendar position
+
 #calendarDialogWrapper {
   display: none;
   position: absolute;
@@ -115,10 +133,10 @@
   display: block;
 }
 
-// Holdings navigation
+//----------Holdings navigation
+
 .holding-table-navigation {
   margin-bottom: 10px;
-  padding-left: 35px;
 }
 
 .holding-table-page-list {
@@ -147,13 +165,13 @@
 }
 
 .nav-button {
-  outline: 0;
   padding: 0 6px;
   text-transform: uppercase;
 }
 
 .holding-nav-button {
   background: $color-grey-medium-light;
+  outline-color: $color-grey-medium;
   @extend .nav-button;
   @extend .nav-style;
 }
@@ -166,6 +184,7 @@
   @extend .nav-button;
   background: none;
   border: 0;
+  outline: 0;
   line-height: 21px;
   core-icon {
     margin-top: -5px;
@@ -184,7 +203,8 @@
   }
 }
 
-//Table styles
+//----------Table styles
+
 .collapse-category {
   background: $color-grey-medium-light;
   padding: 0;
@@ -208,13 +228,13 @@
   width: 903px;
 }
 
-.table-row {
+.table-body {
   border-top: 0;
   padding: 0;
   border-bottom: 1px solid $color-grey-light;
 }
 
-.table-row:last-child {
+.table-body:last-child {
   border-bottom: 1px solid $color-grey-medium-pre;
 }
 
@@ -240,6 +260,7 @@
 .col-padding:last-child {
   padding: 15px 15px 15px 7px;
 }
+
 .col-padding:first-child {
   padding: 15px 7px 15px 15px;
 }
@@ -269,6 +290,7 @@
   max-width: 313px;
   vertical-align: baseline;
 }
+
 .col-padding:first-child.col-13 {
   padding: 15px 7px 15px 0;
   core-icon {

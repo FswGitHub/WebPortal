@@ -2,130 +2,224 @@
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}">
-            <div class="design-settings-panel settings-panel" tab0>
+            <div tab0 fit class="tab-page-content">
+                <div class="design-settings-panel settings-panel">
                     <h2 class="title-item">Design</h2>
                     <ul class="design-settings-list">
-                    <li class="row" horizontal layout start>
-                        <div class="col-5 label-block">
-                            <span class="settings-label">Theme</span>
-                        </div>
-                        <div class="col-7 theme-radio-group">
-                            <paper-radio-group valueattr="label" selected="dark" multi="false">
-                                <paper-radio-button name="light" label="light"></paper-radio-button>
-                                <paper-radio-button name="dark" label="dark"></paper-radio-button>
-                            </paper-radio-group>
-                        </div>
-                    </li>
-                    <li class="row" horizontal layout start>
-                        <div class="col-5 label-block">
-                            <span class="settings-label">Colour</span>
-                        </div>
-                        <div class="col-7">
-                            <paper-input-decorator id="theme-color"
-                                                   label="Set color">
-                                <input type="text" value="#DD1F29" class="theme-color">
-                            </paper-input-decorator>
-                        </div>
-                    </li>
-                    <li class="row" horizontal layout start>
-                        <div class="col-5 label-block">
-                            <span class="settings-label">Logo</span>
-                        </div>
-                        <div class="col-7 upload-photo-group">
-                            <paper-button class="upload-logo-button">
-                                <core-icon icon="file-upload" class="upload-logo-button-icon"></core-icon>
-                                Upload Logo
-                            </paper-button>
-                            <span class="logo-size">100px X 50px(.png)</span>
-                        </div>
-                    </li>
-                </ul>
+                        <li class="row" horizontal layout start>
+                            <div class="col-5 label-block">
+                                <span class="settings-label">Theme</span>
+                            </div>
+                            <div class="col-7 theme-radio-group">
+                                <paper-radio-group valueattr="label" selected="dark" multi="false">
+                                    <paper-radio-button name="light" label="light"></paper-radio-button>
+                                    <paper-radio-button name="dark" label="dark"></paper-radio-button>
+                                </paper-radio-group>
+                            </div>
+                        </li>
+                        <li class="row" horizontal layout start>
+                            <div class="col-5 label-block">
+                                <span class="settings-label">Colour</span>
+                            </div>
+                            <div class="col-7">
+                                <paper-input-decorator id="theme-color"
+                                                       label="Set color">
+                                    <input type="text" value="#DD1F29" class="theme-color">
+                                </paper-input-decorator>
+                            </div>
+                        </li>
+                        <li class="row" horizontal layout start>
+                            <div class="col-5 label-block">
+                                <span class="settings-label">Logo</span>
+                            </div>
+                            <div class="col-7 upload-photo-group">
+                                <paper-button class="upload-logo-button">
+                                    <core-icon icon="file-upload" class="upload-logo-button-icon"></core-icon>
+                                    Upload Logo
+                                </paper-button>
+                                <span class="logo-size">100px X 50px(.png)</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div  class="email-settings-panel settings-panel">
+                    <h2 class="title-item">Email</h2>
+                    <form class="email-settings-list settings-list-form">
+                        <paper-input-decorator id="smtpddress"
+                                               label="SMTP Server Address"
+                                               floatingLabel>
+                            <input type="text">
+                        </paper-input-decorator>
+                        <paper-input-decorator id="smtpPort"
+                                               label="SMTP Server Port"
+                                               floatingLabel>
+                            <input type="text">
+                        </paper-input-decorator>
+                        <paper-input-decorator id="ssl"
+                                               label="SSL"
+                                               floatingLabel>
+                            <input type="text">
+                        </paper-input-decorator>
+                        <span class="optional-label">Optional</span>
+                        <paper-input-decorator id="username"
+                                               label="Username"
+                                               floatingLabel>
+                            <input type="text">
+                        </paper-input-decorator>
+                        <paper-input-decorator id="password"
+                                               label="Password"
+                                               floatingLabel>
+                            <input type="password">
+                        </paper-input-decorator>
+                    </form>
+                </div>
             </div>
-            <div class="email-settings-panel settings-panel" tab0>
-                <h2 class="title-item">Email</h2>
-                <form class="email-settings-list settings-list-form">
-                    <paper-input-decorator id="smtpddress"
-                                           label="SMTP Server Address"
-                                           floatingLabel>
-                        <input type="text">
-                    </paper-input-decorator>
-                    <paper-input-decorator id="smtpPort"
-                                           label="SMTP Server Port"
-                                           floatingLabel>
-                        <input type="text">
-                    </paper-input-decorator>
-                    <paper-input-decorator id="ssl"
-                                           label="SSL"
-                                           floatingLabel>
-                        <input type="text">
-                    </paper-input-decorator>
-                    <span class="optional-label">Optional</span>
-                    <paper-input-decorator id="username"
-                                           label="Username"
-                                           floatingLabel>
-                        <input type="text">
-                    </paper-input-decorator>
-                    <paper-input-decorator id="password"
-                                           label="Password"
-                                           floatingLabel>
-                        <input type="password">
-                    </paper-input-decorator>
-                </form>
+            <div tab1 fit class="tab-page-content">
+                <div class="configuration-settings-panel settings-panel">
+                    <h2 class="title-item">Configuration</h2>
+                    <ul class="design-settings-list">
+                        <li class="row" horizontal layout start>
+                            <div class="col-5 label-block domain-aut">
+                                <span class="settings-label">Domain Autentification</span>
+                            </div>
+                            <div class="col-7 configuration-checkbox">
+                                <paper-checkbox></paper-checkbox>
+                            </div>
+                        </li>
+                        <li class="row" horizontal layout start>
+                            <form class="configuration-settings-list settings-list-form">
+                                <paper-input-decorator id="domain-aut"
+                                                       label="Domain Autentification"
+                                                       floatingLabel>
+                                    <input type="text">
+                                </paper-input-decorator>
+                                <paper-input-decorator id="db-serv-name"
+                                                       label="DB Server Name"
+                                                       floatingLabel>
+                                    <input type="text">
+                                </paper-input-decorator>
+                                <paper-input-decorator id="db-name"
+                                                       label="DB Name"
+                                                       floatingLabel>
+                                    <input type="text">
+                                </paper-input-decorator>
+                                <paper-input-decorator id="sql-user-name"
+                                                       label="SQL User Name"
+                                                       floatingLabel>
+                                    <input type="text">
+                                </paper-input-decorator>
+                                <paper-input-decorator id="sql-password"
+                                                       label="SQL Password"
+                                                       floatingLabel>
+                                    <input type="password">
+                                </paper-input-decorator>
+                                <paper-input-decorator id="sql-port"
+                                                       label="SQL Port"
+                                                       floatingLabel>
+                                    <input type="text">
+                                </paper-input-decorator>
+                            </form>
+                        </li>
+                        <li class="row" horizontal layout start>
+                            <div class="col-5 label-block">
+                                <span class="settings-label">SSL</span>
+                            </div>
+                            <div class="col-7 configuration-checkbox">
+                                <paper-checkbox></paper-checkbox>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="configuration-settings-panel settings-panel" tab1>
-                <h2 class="title-item">Configuration</h2>
-                <ul class="design-settings-list">
-                    <li class="row" horizontal layout start>
-                        <div class="col-5 label-block domain-aut">
-                            <span class="settings-label">Domain Autentification</span>
+            <div tab2 fit class="tab-page-content">
+                <div class="users-settings-dropdown">
+                    <paper-fab class="open" icon="add" on-tap="{{openMenu}}" relatedTarget></paper-fab>
+                    <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="top" id="usersMenu">
+                        <div class="menu-list menu">
+                            <paper-item class="item" on-tap="{{openImportDialog}}">
+                                <core-icon icon="supervisor-account"></core-icon>
+                                <div class="label">Bulk User Import</div>
+                                <paper-ripple fit></paper-ripple>
+                            </paper-item>
+                            <paper-item class="item" on-tap="{{openAddDialog}}">
+                                <core-icon icon="add"></core-icon>
+                                <div class="label" >Add User</div>
+                                <paper-ripple fit></paper-ripple>
+                            </paper-item>
+                            <paper-item class="item">
+                                <core-icon icon="file-download"></core-icon>
+                                <div class="label">Bulk User Template</div>
+                                <paper-ripple fit></paper-ripple>
+                            </paper-item>
                         </div>
-                        <div class="col-7 configuration-checkbox">
-                            <paper-checkbox></paper-checkbox>
-                        </div>
-                    </li>
-                    <li class="row" horizontal layout start>
-                        <form class="configuration-settings-list settings-list-form">
-                            <paper-input-decorator id="domain-aut"
-                                                   label="Domain Autentification"
+                    </paper-dropdown>
+                </div>
+                <div class="settings-esers-dialogs">
+                    <paper-action-dialog heading="Import" id="importUsersDialog" opened="{{openImport}}" backdrop>
+                        <form>
+                            <label>Upload a file</label>
+                            <core-field>
+                                <input type="text" flex>
+                                <paper-button>Browse</paper-button>
+                            </core-field>
+                            <span>OR</span>
+                            <core-drag-drop>
+                                <div>
+                                    <span>Drag and drop file here</span>
+                                </div>
+                            </core-drag-drop>
+                        </form>
+                        <paper-button affirmative class="cancel">Cancel</paper-button>
+                        <paper-button affirmative class="apply">Upload</paper-button>
+                    </paper-action-dialog>
+                    <paper-action-dialog heading="Add User" id="addUsersDialog" opened="{{openAdd}}" backdrop>
+                        <form>
+                            <paper-input-decorator id="addUserEmail"
+                                                   label="Email Address"
+                                                   floatingLabel>
+                                <input type="email">
+                            </paper-input-decorator>
+                            <paper-input-decorator id="addUserFirstName"
+                                                   label="First Name"
                                                    floatingLabel>
                                 <input type="text">
                             </paper-input-decorator>
-                            <paper-input-decorator id="db-serv-name"
-                                                   label="DB Server Name"
-                                                   floatingLabel>
-                                <input type="text">
-                            </paper-input-decorator>
-                            <paper-input-decorator id="db-name"
-                                                   label="DB Name"
-                                                   floatingLabel>
-                                <input type="text">
-                            </paper-input-decorator>
-                            <paper-input-decorator id="sql-user-name"
-                                                   label="SQL User Name"
-                                                   floatingLabel>
-                                <input type="text">
-                            </paper-input-decorator>
-                            <paper-input-decorator id="sql-password"
-                                                   label="SQL Password"
-                                                   floatingLabel>
-                                <input type="password">
-                            </paper-input-decorator>
-                            <paper-input-decorator id="sql-port"
-                                                   label="SQL Port"
+                            <paper-input-decorator id="addUserLastName"
+                                                   label="Last Name"
                                                    floatingLabel>
                                 <input type="text">
                             </paper-input-decorator>
                         </form>
-                    </li>
-                    <li class="row" horizontal layout start>
-                        <div class="col-5 label-block">
-                            <span class="settings-label">SSL</span>
+                        <paper-button affirmative class="cancel">Cancel</paper-button>
+                        <paper-button affirmative class="apply">Add</paper-button>
+                    </paper-action-dialog>
+                </div>
+                <div class="users-table">
+                    <div class="table-wrapper">
+                        <div class="portfolio-table">
+                            <ul class="table-header-list">
+                                <li class="col-padding table-header col-7">Email Address</li>
+                                <li class="col-padding table-header col-4">First Name</li>
+                                <li class="col-padding table-header col-4">Last Name</li>
+                                <li class="col-padding table-header col-4">Status</li>
+                                <li class="col-padding table-header col-7">Actions</li>
+                            </ul>
+                            <div class="table-body">
+                                <template repeat="{{user in userersArray}}">
+                                    <a class="portfolio-link">
+                                        <ul class="col-content">
+                                            <li class="col-padding table-item col-7">{{user.email}}</li>
+                                            <li class="col-padding table-item col-4">{{user.firstName}}</li>
+                                            <li class="col-padding table-item col-4">{{user.lastName}}</li>
+                                            <li class="col-padding table-item col-4">{{user.status}}</li>
+                                            <li class="col-padding table-item col-7">{{user.action}}</li>
+                                        </ul>
+                                    </a>
+                                </template>
+                            </div>
                         </div>
-                        <div class="col-7 configuration-checkbox">
-                            <paper-checkbox></paper-checkbox>
-                        </div>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </div>
         </side-menu>
         <app-globals id="globals"></app-globals>
@@ -136,12 +230,12 @@
     <script>
         Polymer('settings-page',{
             ready: function (){
-                this.$.settingsContent.url = this.$.globals.url+'resources/json/user.json';
+                this.$.settingsContent.url = this.$.globals.url+'resources/json/settings.json';
             },
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success){
-                    me.userData = data.response.user;
+                    me.userersArray = data.response.users;
                 }
             },
             page: {
@@ -164,7 +258,22 @@
                     label: 'Users'
                 }
             ],
-            selected: 0
+            selected: 0,
+            openMenu: function(e){
+                var me = this;
+                me.menuStatus = true;
+            },
+            menuStatus: false,
+            openImportDialog: function(e){
+                var me = this;
+                me.openImport = true;
+            },
+            openImport: false,
+            openAddDialog: function(e){
+                var me = this;
+                me.openAdd = true;
+            },
+            openAdd: false
         })
     </script>
 </polymer-element>

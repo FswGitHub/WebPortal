@@ -55,7 +55,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 }
 
 body {
-  font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+  font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial, serif;
   font-size: 14px;
   font-weight: normal;
   background-color: #979797;

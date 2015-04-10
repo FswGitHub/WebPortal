@@ -2,24 +2,20 @@
 
 .profile-page {
   /deep/ {
+    core-pages {
+      display: none;
+    }
+
     .header{
       margin-bottom: 55px;
     }
-    .profile-form-wrapper {
-      //display: inline-block;
-      //width: 100%;
-    }
+
     .profile-photo {
       margin: 0 0 0 8%;
       //margin: 10px 65px;
       //float: right;
     }
-    core-toolbar {
-      @extend .core-toolbar
-    }
-    .content {
-      padding: 26px 26px 26px 52px;
-    }
+
     .user-data {
       width: 50%;
       margin-bottom: 150px;
@@ -33,20 +29,16 @@
           .unfocused-underline {
             background-color: $color-gray-dark-light;
           }
-
           :host([focused]) .floated-label .label-text {
             color: $color-red;
           }
-
           .focused-underline {
             background-color:  $color-red;
             color: $color-red;
           }
-
           #floatedLabelText {
             color: $color-red;
           }
-
           input {
             font-size: $font-size-desktop-small;
             color: $color-black;

@@ -2,28 +2,13 @@
 
 .dashboard-page{
   /deep/{
-    core-toolbar{
-      @extend .core-toolbar
-    }
-
-    .content {
-      padding: 26px 26px 26px 52px;
-    }
-
-    chart-board{
-      &:nth-child(even){
-        /deep/ .chart-board{
-          padding-right: 26px;
-          margin-left: -26px;
-        }
-      }
-    }
     paper-fab{
       position: fixed;
       right: 26px;
       top: 35px;
       z-index: 2;
     }
+
     @media screen and (max-width: $size-tablet) {
       chart-board{
         &:nth-child(even){
@@ -33,9 +18,6 @@
           }
         }
       }
-      .content{
-        padding-left: 26px;
-      }
       paper-fab{
         top: auto;
         right: 13px;
@@ -44,35 +26,6 @@
     }
     @media screen and (max-width: $size-mobile) {
 
-    }
-  }
-}
-.chart-board{
-  width: 50%;
-  float: left;
-
-  paper-shadow{
-    border-radius: 2px;
-    background-color: $color-white;
-    margin: 8px auto 16px;
-    padding: 8px 0 16px 0;
-    .title{
-      padding: 0 8px 0 16px;
-      font-weight: bold;
-      font-size: $font-size-desktop;
-    }
-    .chart{
-      margin: 0 16px;
-    }
-  }
-
-
-  @media screen and (max-width: $size-tablet) {
-    width: 100%;
-    paper-shadow{
-      .title{
-        font-size: $font-size-mobile;
-      }
     }
   }
 }

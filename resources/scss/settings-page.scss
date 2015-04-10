@@ -1,13 +1,10 @@
 @import "_variables";
+@import "portfolio-page";
 
 .settings-page {
   /deep/ {
-    core-toolbar {
-      @extend .core-toolbar
-    }
-
     .content {
-      padding: 26px 26px 26px 52px;
+      display: none;
     }
 
     .design-settings-list {
@@ -45,19 +42,26 @@
       color: $color-grey-medium;
     }
 
-    .col-5 {
-      width: 185px;
-      padding: 0.75em 0;
-      margin-right: 20px;
-    }
+    .settings-panel {
+      .col-5 {
+        width: 185px;
+        max-width: 185px;
+        min-width: 185px;
+        padding: 0.75em 0;
+        margin-right: 20px;
+      }
 
-    .col-7 {
-      width: 157px;
+      .col-7 {
+        width: 157px;
+        max-width: 157px;
+        min-width: 157px;
+      }
     }
 
     .logo-size {
       display: block;
     }
+
     .theme-radio-group {
       padding: 0.75em 0;
       /deep/ {
@@ -67,23 +71,22 @@
         paper-radio-button::shadow #onRadio {
           background-color: $color-red;
         }
-
         paper-radio-button[checked]::shadow #offRadio {
           border-color: $color-red;
         }
-
         paper-radio-button::shadow #ink[checked] {
           color: $color-red;
         }
-
         paper-radio-button::shadow #offRadio {
           border-color: $color-grey-medium;
         }
       }
     }
+
     .settings-panel {
       margin-bottom: 20px;
     }
+
     .settings-list-form {
       width: 520px;
       paper-input-decorator {
@@ -93,29 +96,24 @@
             font-size: $font-size-desktop-small;
             font-weight: bold;
           }
-
           ::-webkit-input-placeholder {
             color: $color-grey-medium;
             font-size: $font-size-desktop-small;
             font-weight: bold;
           }
-
           ::-moz-placeholder {
             color: $color-grey-medium;
             font-size: $font-size-desktop-small;
             font-weight: bold;
           }
-
           :-ms-input-placeholder {
             color: $color-grey-medium;
             font-size: $font-size-desktop-small;
             font-weight: bold;
           }
-
           .unfocused-underline {
             background-color: $color-grey-medium;
           }
-
           .focused-underline {
             background-color: $color-red;
           }
@@ -138,12 +136,10 @@
       paper-checkbox::shadow #ink[checked] {
         color: $color-red;
       }
-
       paper-checkbox::shadow #checkbox.checked {
         background-color: $color-red;
         border-color: $color-red;
       }
-
       paper-checkbox::shadow #checkbox {
         border-color: $color-grey-medium;
       }
@@ -153,17 +149,134 @@
       padding: 0.75em 0 0 0;
     }
 
-    @media screen and (max-width: $size-mobile) {
-      .content {
-        padding: 26px;
+    .users-settings-dropdown {
+      margin-bottom: 10px;
+    }
+
+    paper-fab{
+      position: fixed;
+      right: 26px;
+      top: 98px;
+      z-index: 2;
+    }
+
+    //----------Dialogs styles
+    paper-action-dialog {
+      paper-button.apply,
+      paper-button.cancel {
+        .button-content {
+          color: $color-red;
+        }
       }
     }
 
+
+
+    @media screen and (max-width: $size-mobile) {
+      .theme-radio-group {
+        /deep/ {
+          paper-radio-button {
+            font-size: $font-size-mobile;
+          }
+        }
+      }
+
+      .settings-panel {
+        .col-5 {
+          width: 40%;
+          margin-right: 0;
+          min-width: 40%;
+          max-width: 40%;
+        }
+
+        .col-7 {
+          width: 60%;
+          min-width: 60%;
+          max-width: 60%;
+        }
+
+      }
+
+      .upload-logo-button {
+        font-size: $font-size-mobile;
+        /deep/ [layout][center-center] {
+            -ms-flex-pack: initial;
+            -webkit-justify-content: initial;
+            justify-content: initial;
+        }
+      }
+
+      .logo-size {
+        font-size: $font-size-mobile;
+      }
+
+      .settings-list-form {
+        width: 100%;
+        /deep/ {
+          paper-input-decorator {
+            /deep/ {
+              .label-text, .error {
+                font-size: $font-size-mobile;
+              }
+              ::-webkit-input-placeholder {
+                font-size: $font-size-mobile;
+              }
+              ::-moz-placeholder {
+                font-size: $font-size-mobile;
+              }
+              :-ms-input-placeholder {
+                font-size: $font-size-mobile;
+              }
+            }
+          }
+        }
+      }
+
+      .optional-label {
+        font-size: $font-size-mobile;
+      }
+
+      .configuration-checkbox {
+        padding-left: 15px;
+      }
+
+      paper-fab{
+        top: auto;
+        right: 13px;
+        bottom: 13px;
+      }
+    }
   }
 }
 
 @media  screen and (max-width: $size-mobile){
-  .tab-content {
-    font-size: $font-size-mobile-footer;
+  .title-item {
+    font-size: $font-size-mobile;
   }
+
+  .settings-label {
+    font-size: $font-size-mobile;
+  }
+
+  .portfolio-table {
+    width: 948px;
+  }
+}
+
+//----------Table styles
+
+.table-header {
+  font-size: $font-size-mobile-small;
+}
+
+.table-header-list {
+  padding: 0 16px;
+}
+
+.table-body {
+  padding: 0 16px 44px 16px;
+}
+
+.table-wrapper {
+  margin-bottom: 0;
 }

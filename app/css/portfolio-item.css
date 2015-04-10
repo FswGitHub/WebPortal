@@ -1,14 +1,29 @@
-.core-toolbar, .portfolio-page /deep/ core-toolbar, .portfolio-item /deep/ core-toolbar {
+side-menu /deep/ core-toolbar {
   background-color: #DD1F29;
   color: #FFFFFF;
 }
-.core-toolbar .logo, .portfolio-page /deep/ core-toolbar .logo, .portfolio-item /deep/ core-toolbar .logo {
+side-menu /deep/ core-toolbar .logo {
   height: 100%;
   line-height: 64px;
 }
-.core-toolbar .logo img, .portfolio-page /deep/ core-toolbar .logo img, .portfolio-item /deep/ core-toolbar .logo img {
+side-menu /deep/ core-toolbar .logo img {
   width: 100%;
   vertical-align: middle;
+}
+side-menu /deep/ div[tool] {
+  margin-left: 0;
+}
+side-menu /deep/ chart-board:nth-child(even) /deep/ .chart-board {
+  padding-right: 4%;
+}
+side-menu /deep/ chart-board:nth-child(even) .chart-board:nth-child(even) {
+  padding-right: 0;
+}
+@media screen and (max-width: 768px) {
+  side-menu /deep/ chart-board:nth-child(even) /deep/ .chart-board {
+    padding-right: 0;
+    margin-left: 0;
+  }
 }
 
 core-selector.menu core-icon {
@@ -31,6 +46,45 @@ core-selector.menu .core-selected.child {
 core-selector.menu h3 {
   padding: 0 1em;
   font-weight: normal;
+}
+
+.chart-board {
+  width: 48%;
+  float: left;
+}
+.chart-board paper-shadow {
+  border-radius: 2px;
+  background-color: #FFFFFF;
+  margin: 8px auto 16px;
+  padding: 8px 0 16px 0;
+}
+.chart-board paper-shadow .title {
+  padding: 0 8px 0 16px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.chart-board paper-shadow .chart {
+  margin: 0 16px;
+}
+@media screen and (max-width: 768px) {
+  .chart-board {
+    width: 100%;
+  }
+  .chart-board paper-shadow .title {
+    font-size: 16px;
+  }
+}
+
+.content {
+  padding: 26px 26px 0 60px;
+  overflow-y: scroll;
+  margin-bottom: 52px;
+}
+
+.tab-page-content {
+  overflow-y: auto;
+  padding: 26px 26px 0 60px;
+  margin-bottom: 52px;
 }
 
 .ul-reset, .table-header-list, .col-content, .holding-table-page-list, .collapse-category {
@@ -67,7 +121,11 @@ paper-tabs /deep/ #selectionBar {
 }
 
 .footer {
-  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 10px 26px 10px 60px;
   color: #b3b3b3;
 }
 .footer hr {
@@ -76,14 +134,25 @@ paper-tabs /deep/ #selectionBar {
 }
 
 @media screen and (max-width: 480px) {
+  .content {
+    padding: 26px 26px 0 26px;
+    margin-bottom: 62px;
+  }
+
   .footer {
     font-size: 12px;
+    padding: 10px 26px;
+  }
+
+  .tab-page-content {
+    padding: 26px 26px 0 26px;
+    margin-bottom: 62px;
+  }
+
+  core-toolbar /deep/ .bottom.fit.indent {
+    margin-left: 26px;
   }
 }
-.footer-with-margin {
-  margin-bottom: 26px;
-}
-
 .ul-reset, .table-header-list, .col-content, .holding-table-page-list, .collapse-category {
   margin: 0;
   padding: 0;
@@ -91,20 +160,16 @@ paper-tabs /deep/ #selectionBar {
   font-size: 0;
 }
 
-.portfolio-page /deep/ .content {
-  padding: 26px 26px 26px 52px;
-}
-
 .table-wrapper {
   margin-bottom: 80px;
 }
 
-.table-row {
+.table-body {
   font-size: 0;
   background: #FFFFFF;
   border-top: 1px solid #b3b3b3;
   border-bottom: 1px solid #b3b3b3;
-  padding: 0 0 44px 0;
+  padding: 0 30px 44px 75px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -129,9 +194,9 @@ paper-tabs /deep/ #selectionBar {
 }
 
 .portfolio-table {
-  width: 900px;
+  width: 100%;
   font-size: 0;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .table-header-list {
@@ -142,10 +207,6 @@ paper-tabs /deep/ #selectionBar {
 
 .portfolio-link {
   display: block;
-}
-
-.col-content {
-  margin: 0 30px 0 75px;
 }
 
 .table-header-list {
@@ -181,17 +242,17 @@ paper-tabs /deep/ #selectionBar {
 }
 
 @media screen and (max-width: 480px) {
-  .portfolio-page /deep/ .content {
-    padding: 26px;
-  }
-
   .table-wrapper {
     width: 100%;
     overflow-x: scroll;
   }
+
+  .portfolio-table {
+    width: 948px;
+  }
 }
 .portfolio-item /deep/ .content {
-  padding: 26px;
+  display: none;
 }
 .portfolio-item /deep/ paper-fab {
   position: fixed;
@@ -199,52 +260,61 @@ paper-tabs /deep/ #selectionBar {
   top: 162px;
   z-index: 2;
 }
-.portfolio-item /deep/ chart-board {
-  position: relative;
+.portfolio-item /deep/ chart-board /deep/ .chart-board {
+  padding-right: 4%;
 }
 .portfolio-item /deep/ chart-board:nth-child(even) /deep/ .chart-board {
-  padding-right: 26px;
-  margin-left: -26px;
+  padding-right: 0;
 }
-.portfolio-item /deep/ .chart-boards-wrapper {
-  padding-left: 26px;
+.portfolio-item /deep/ .indent.subheader {
+  margin-left: 52px;
 }
 @media screen and (max-width: 768px) {
   .portfolio-item /deep/ chart-board:nth-child(even) /deep/ .chart-board {
     padding-right: 0;
     margin-left: 0;
   }
-  .portfolio-item /deep/ .fit.subheader {
-    height: 110px;
-    top: 10px;
-    display: inline-block;
+  .portfolio-item /deep/ .indent.subheader {
+    margin-left: 18px;
+    margin-right: 0;
   }
-  .portfolio-item /deep/ .search-block {
-    width: 93%;
-    margin: 16px 7% 0 0;
+  .portfolio-item /deep/ .indent.subheader paper-button {
+    margin-left: 0;
   }
-  .portfolio-item /deep/ core-toolbar.portfolio-item-panel {
-    height: 128px;
+  .portfolio-item /deep/ .indent.subheader paper-button /deep/ .button-content {
+    padding: 0.7em 0.3em;
   }
-  .portfolio-item /deep/ .content {
-    padding-left: 26px;
+  .portfolio-item /deep/ .indent.subheader .search-block {
+    padding: 0.4em 0;
+    margin-left: 5%;
+  }
+  .portfolio-item /deep/ .indent.subheader .search-block core-icon {
+    margin: 4px;
   }
   .portfolio-item /deep/ paper-fab {
     top: auto;
     right: 13px;
     bottom: 13px;
   }
-  .portfolio-item /deep/ .chart-boards-wrapper {
-    padding-left: 0;
-  }
   .portfolio-item /deep/ .button-content {
     font-size: 14px;
   }
-  .portfolio-item /deep/ .holding-table-navigation {
-    padding-left: 0;
-  }
   .portfolio-item /deep/ #wrapper {
     width: 276px;
+  }
+  .portfolio-item /deep/ .holding-table-navigation[layout][horizontal][start] {
+    display: inline-block;
+  }
+  .portfolio-item /deep/ .holding-table-page, .portfolio-item /deep/ .holding-table-page-list {
+    display: inline-block;
+  }
+  .portfolio-item /deep/ .nav-style, .portfolio-item /deep/ .table-page-item, .portfolio-item /deep/ .holding-nav-button, .portfolio-item /deep/ .table-page-item, .portfolio-item /deep/ .holding-nav-button {
+    font-size: 12px;
+  }
+  .portfolio-item /deep/ .size-menu-wrapper {
+    display: inline-block;
+    float: left;
+    margin: 10px 0 0 0;
   }
 }
 .portfolio-item /deep/ .subheader {
@@ -253,11 +323,18 @@ paper-tabs /deep/ #selectionBar {
 .portfolio-item /deep/ core-toolbar.portfolio-item-panel {
   background: #979797;
 }
-.portfolio-item /deep/ core-toolbar.portfolio-item-panel /deep/ .fit {
-  top: 0;
+.portfolio-item /deep/ .search-block {
+  padding: 0.25em 0.57em;
 }
 .portfolio-item /deep/ .search-field {
   background: #FFFFFF;
+}
+
+.holding-view-list .label {
+  color: #000000;
+}
+.holding-view-list .active-view {
+  color: #DD1F29;
 }
 
 #calendarDialogWrapper {
@@ -273,7 +350,6 @@ paper-tabs /deep/ #selectionBar {
 
 .holding-table-navigation {
   margin-bottom: 10px;
-  padding-left: 35px;
 }
 
 .nav-style, .table-page-item, .holding-nav-button {
@@ -297,13 +373,13 @@ paper-tabs /deep/ #selectionBar {
 }
 
 .nav-button, .holding-nav-button, .holding-size-button {
-  outline: 0;
   padding: 0 6px;
   text-transform: uppercase;
 }
 
 .holding-nav-button {
   background: #D8D8D8;
+  outline-color: #979797;
 }
 
 .size-menu-wrapper {
@@ -313,6 +389,7 @@ paper-tabs /deep/ #selectionBar {
 .holding-size-button {
   background: none;
   border: 0;
+  outline: 0;
   line-height: 21px;
 }
 .holding-size-button core-icon {
@@ -349,13 +426,13 @@ paper-tabs /deep/ #selectionBar {
   width: 903px;
 }
 
-.table-row {
+.table-body {
   border-top: 0;
   padding: 0;
   border-bottom: 1px solid #EDEDED;
 }
 
-.table-row:last-child {
+.table-body:last-child {
   border-bottom: 1px solid #b3b3b3;
 }
 
