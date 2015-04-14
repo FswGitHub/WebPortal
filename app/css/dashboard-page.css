@@ -153,20 +153,29 @@ paper-tabs /deep/ #selectionBar {
     margin-left: 26px;
   }
 }
-.dashboard-page /deep/ paper-fab {
+.dashboard-page /deep/ .dashboard-dropdown {
   position: fixed;
   right: 26px;
   top: 35px;
   z-index: 2;
+}
+.dashboard-page /deep/ paper-dropdown.dashboard-menu-dropdown {
+  top: 63px;
+}
+.dashboard-page /deep/ .chart-dropdown {
+  font-weight: normal;
 }
 @media screen and (max-width: 768px) {
   .dashboard-page /deep/ chart-board:nth-child(even) /deep/ .chart-board {
     padding-right: 0;
     margin-left: 0;
   }
-  .dashboard-page /deep/ paper-fab {
+  .dashboard-page /deep/ .dashboard-dropdown {
     top: auto;
     right: 13px;
     bottom: 13px;
+  }
+  .dashboard-page /deep/ paper-dropdown.dashboard-menu-dropdown {
+    top: auto;
   }
 }

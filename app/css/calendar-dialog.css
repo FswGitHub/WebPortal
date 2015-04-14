@@ -184,7 +184,7 @@ d-calendar.portfolio-item-calendar /deep/ .viewingMonthYear, d-calendar.portfoli
 d-calendar.portfolio-item-calendar /deep/ #dateView {
   background: #FFFFFF;
 }
-d-calendar.portfolio-item-calendar /deep/ .day.currentday {
+d-calendar.portfolio-item-calendar /deep/ .day.currentday, d-calendar.portfolio-item-calendar /deep/ #header paper-icon-button:active {
   color: #DD1F29;
 }
 d-calendar.portfolio-item-calendar /deep/ #selectedDateHeader > div {
@@ -196,23 +196,14 @@ d-calendar.portfolio-item-calendar /deep/ #years paper-button /deep/ .button-con
 d-calendar.portfolio-item-calendar /deep/ paper-button::shadow #ripple {
   color: #DD1F29;
 }
-
-.dialog-wrapper {
-  background: #FFFFFF;
-  display: inline-block;
-  position: fixed;
-}
-
-.actions {
-  float: right;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-paper-button.closeCalendar /deep/ .button-content {
-  color: #DD1F29;
-}
-
-paper-button.setDate /deep/ .button-content {
-  color: #DD1F29;
+@media screen and (max-width: 768px) {
+  d-calendar.portfolio-item-calendar /deep/ #wrapper {
+    width: 276px;
+  }
+  d-calendar.portfolio-item-calendar /deep/ #wrapper #calendar-selection {
+    display: none;
+  }
+  d-calendar.portfolio-item-calendar /deep/ #years paper-button /deep/ .button-content {
+    font-size: 14px;
+  }
 }

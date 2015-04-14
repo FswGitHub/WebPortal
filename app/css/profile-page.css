@@ -201,6 +201,9 @@ paper-tabs /deep/ #selectionBar {
   color: #8e8e9a;
 }
 @media screen and (max-width: 640px) {
+  .profile-page /deep/ .header {
+    margin-bottom: 40px;
+  }
   .profile-page /deep/ .profile-form-wrapper[layout][vertical] {
     display: table;
     width: 100%;
@@ -213,5 +216,11 @@ paper-tabs /deep/ #selectionBar {
   }
   .profile-page /deep/ .profile-form {
     display: table-footer-group;
+  }
+  .profile-page /deep/ .user-data paper-input-decorator /deep/ .label-text {
+    font-size: 16px;
+  }
+  .profile-page /deep/ .user-data paper-input-decorator /deep/ input {
+    font-size: 16px;
   }
 }

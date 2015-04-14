@@ -2,11 +2,19 @@
 
 .dashboard-page{
   /deep/{
-    paper-fab{
+    .dashboard-dropdown {
       position: fixed;
       right: 26px;
       top: 35px;
       z-index: 2;
+    }
+
+    paper-dropdown.dashboard-menu-dropdown {
+      top: 63px;
+    }
+
+    .chart-dropdown {
+      font-weight: normal;
     }
 
     @media screen and (max-width: $size-tablet) {
@@ -18,14 +26,16 @@
           }
         }
       }
-      paper-fab{
+
+      .dashboard-dropdown {
         top: auto;
         right: 13px;
         bottom: 13px;
       }
-    }
-    @media screen and (max-width: $size-mobile) {
 
+      paper-dropdown.dashboard-menu-dropdown {
+        top: auto;
+      }
     }
   }
 }

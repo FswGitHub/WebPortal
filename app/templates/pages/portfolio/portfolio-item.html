@@ -3,14 +3,22 @@
 <polymer-element name="portfolio-item">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
-        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}" pagePanel="{{page.panel}}">
+        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" pagePanel="{{page.panel}}">
             <div subheader class="indent subheader" layout horizontal start>
-                <paper-button class="calendar-button" on-tap="{{openCalendar}}">
-                    <core-icon icon="event" class="open-calendar-icon"></core-icon>
-                    7 Dec 2014
-                    <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
-                </paper-button>
-                <calendar-dialog id="calendarDialogWrapper"></calendar-dialog>
+                <div class="calendar-block">
+                    <paper-button class="calendar-button" on-tap="{{openCalendar}}" relative>
+                        <core-icon icon="event" class="open-calendar-icon"></core-icon>
+                        7 Dec 2014
+                        <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
+                    </paper-button>
+                    <paper-dropdown opened="{{calendarStatus}}" id="calendarDialogWrapper">
+                        <calendar-dialog></calendar-dialog>
+                        <div class="actions">
+                            <paper-button role="button" class="closeCalendar" on-tap="{{closeCalendarDialog}}">Cancel</paper-button>
+                            <paper-button role="button" class="setDate" on-tap="{{closeCalendarDialog}}">OK</paper-button>
+                        </div>
+                    </paper-dropdown>
+                </div>
                 <div class="holding-view">
                     <paper-button class="holding-table-view-button" on-tap="{{tableView}}">
                         <core-icon icon="description" class="open-calendar-icon"></core-icon>
@@ -30,17 +38,21 @@
                         </div>
                     </paper-dropdown>
                 </div>
-                <div class="search-block" layout horizontal center-center>
-                    <core-field class="search-field">
-                        <input placeholder="Filter by name" flex>
-                        <core-icon icon="search"></core-icon>
-                    </core-field>
-                </div>
+                <template is="auto-binding">
+                    <core-media-query query="max-width: 640px"
+                                      queryMatches="{{phoneScreen}}"></core-media-query>
+                    <div class="search-block" layout horizontal center-center hidden?="{{phoneScreen}}">
+                        <core-field class="search-field">
+                            <input placeholder="Filter by name" flex>
+                            <core-icon icon="search"></core-icon>
+                        </core-field>
+                    </div>
+                </template>
             </div>
             <div tab0 class="dashboard-view tab-page-content" fit>
                 <div class="dashboard-dropdown">
-                    <paper-fab class="open" icon="add" on-tap="{{openMenu}}" relatedTarget></paper-fab>
-                    <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="top">
+                    <paper-fab class="open" icon="add" on-tap="{{openMenu}}" relative></paper-fab>
+                    <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="{{menuPosition}}">
                         <div class="menu-list menu">
                             <paper-item class="item">
                                 <div class="label">Holding Charts</div>
@@ -67,47 +79,29 @@
                                       queryMatches="{{phoneScreen}}"></core-media-query>
                     <div layout vertical?="{{phoneScreen}}"
                          horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}" class="holding-table-navigation">
-                        <div class="holding-table-page">
-                            <ul class="holding-table-page-list">
-                                <li class="holding-item-button">
-                                    <button class="holding-nav-button">First</button>
-                                </li>
-                                <li class="holding-item-button">
-                                    <button class="holding-nav-button">&#60;&#60;<span class="hide-nav">Prev</span></button>
-                                </li>
-                                <li class="holding-item-button table-page-item active-page">1</li>
-                                <li class="holding-item-button table-page-item">2</li>
-                                <li class="holding-item-button table-page-item">3</li>
-                                <li class="holding-item-button table-page-item">4</li>
-                                <li class="holding-item-button">
-                                    <button class="holding-nav-button"><span class="hide-nav">Next</span>&#62;&#62;</button>
-                                </li>
-                                <li class="holding-item-button">
-                                    <button class="holding-nav-button">Last</button>
-                                </li>
-                            </ul>
+                        <div class="holding-table-page" layout horisontal start>
+                            <button class="holding-nav-button">First</button>
+                            <button class="holding-nav-button">&#60;&#60;<span class="hide-nav">Prev</span></button>
+                            <core-selector valueattr="name" selected="1" layout horizontal start>
+                                <div name="1" class="table-page-item">1</div>
+                                <div name="2" class="table-page-item">2</div>
+                                <div name="3" class="table-page-item">3</div>
+                                <div name="4" class="table-page-item">4</div>
+                            </core-selector>
+                            <button class="holding-nav-button"><span class="hide-nav">Next</span>&#62;&#62;</button>
+                            <button class="holding-nav-button">Last</button>
                         </div>
-                        <div class="size-menu-wrapper" relative>
-                            <button class="holding-size-button" on-tap="{{openSizeMenu}}">
-                                Size <span class="size">50</span>
-                                <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
-                            </button>
-                            <paper-dropdown opened="{{sizeMenuStatus}}" class="holding-size-dropdown">
-                                <div class="size-menu-list menu">
-                                    <paper-item class="item">
-                                        <div class="label current">50</div>
-                                        <paper-ripple fit></paper-ripple>
-                                    </paper-item>
-                                    <paper-item class="item">
-                                        <div class="label" >100</div>
-                                        <paper-ripple fit></paper-ripple>
-                                    </paper-item>
-                                    <paper-item class="item">
-                                        <div class="label">200</div>
-                                        <paper-ripple fit></paper-ripple>
-                                    </paper-item>
-                                </div>
-                            </paper-dropdown>
+                        <div class="size-menu-wrapper">
+                            <span class="size-label">Size</span>
+                            <paper-dropdown-menu label="50">
+                                <paper-dropdown class="dropdown">
+                                    <core-menu class="menu">
+                                        <paper-item class="current">50</paper-item>
+                                        <paper-item>100</paper-item>
+                                        <paper-item>200</paper-item>
+                                    </core-menu>
+                                </paper-dropdown>
+                            </paper-dropdown-menu>
                         </div>
                     </div>
                 </template>
@@ -165,6 +159,9 @@
         Polymer('portfolio-item',{
             ready: function(){
                 this.$.portfolioItem.url = this.$.globals.url+'resources/json/portfolio-item.json';
+                if (this.selected == 1) {
+                    console.log(this.selected);
+                }
             },
             contentResponse: function(e, data){
                 var me = this;
@@ -175,14 +172,26 @@
                     me.portfolioHoldings = data.response.item.holdings;
                 }
             },
+            holdingTab: false,
+            openCalendar: function(e) {
+                var me = this;
+                me.calendarStatus = true;
+            },
+            calendarStatus: false,
+            closeCalendarDialog: function(e) {
+                var me = this;
+                me.calendarStatus = false;
+            },
             openMenu: function(e){
                 var me = this;
+                var width = window.innerWidth;
+                if (width <= '640') {
+                    me.menuPosition = 'bottom';
+                }
                 me.menuStatus = true;
             },
             menuStatus: false,
-            openCalendar: function(e) {
-                this.$.calendarDialogWrapper.classList.add('show');
-            },
+            menuPosition: 'top',
             page: {
                 class: 'portfolio-item',
                 url: 'portfolio/item/1',

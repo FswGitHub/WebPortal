@@ -46,6 +46,10 @@
       }
     }
     @media screen and (max-width: $size-mobile) {
+      .header {
+        margin-bottom: 40px;
+      }
+
       .profile-form-wrapper[layout][vertical] {
         display: table;
         width: 100%;
@@ -61,6 +65,20 @@
 
       .profile-form {
         display: table-footer-group;
+      }
+
+      .user-data {
+        paper-input-decorator{
+          /deep/ {
+            .label-text {
+              font-size: $font-size-mobile;
+            }
+
+            input {
+              font-size: $font-size-mobile;
+            }
+          }
+        }
       }
     }
   }

@@ -7,11 +7,19 @@
       display: none;
     }
 
-    paper-fab{
+    .dashboard-dropdown {
       position: fixed;
       right: 26px;
       top: 162px;
       z-index: 2;
+    }
+
+    paper-dropdown.dashboard-menu-dropdown {
+      top: 63px;
+    }
+
+    .chart-dropdown {
+      font-weight: normal;
     }
 
     chart-board{
@@ -42,36 +50,20 @@
       .indent.subheader {
         margin-left: 18px;
         margin-right: 0;
-        paper-button {
-          margin-left: 0;
-          /deep/ {
-            .button-content {
-              padding: 0.7em 0.3em;
-            }
-          }
-        }
-        .search-block {
-          padding: 0.4em 0;
-          margin-left: 5%;
-          core-icon {
-            margin: 4px;
-          }
-        }
       }
 
-      paper-fab{
+      .dashboard-dropdown {
         top: auto;
         right: 13px;
         bottom: 13px;
       }
 
-      .button-content {
-        font-size: $font-size-mobile-small;
+      paper-dropdown.dashboard-menu-dropdown {
+        top: auto;
       }
 
-      // Calendar
-      #wrapper {
-        width: 276px;
+      .button-content {
+        font-size: $font-size-mobile;
       }
 
       //Holding table navigation
@@ -87,6 +79,10 @@
     @media screen and (max-width: 320px) {
       .hide-nav {
         display: none;
+      }
+
+      .dialog-wrapper {
+        bottom: 75px;
       }
     }
 
@@ -117,17 +113,28 @@
   }
 }
 
-//----------Calendar position
+//----------Calendar
 
-#calendarDialogWrapper {
-  display: none;
-  position: absolute;
-  left: 0;
-  z-index: 1;
-}
+.actions {
+  float: right;
+  display: inline-block;
+  margin-bottom: 10px;
 
-#calendarDialogWrapper.show {
-  display: block;
+  paper-button.closeCalendar {
+    /deep/ {
+      .button-content {
+        color: $color-red;
+      }
+    }
+  }
+
+  paper-button.setDate {
+    /deep/ {
+      .button-content {
+        color: $color-red;
+      }
+    }
+  }
 }
 
 //----------Holdings navigation
@@ -160,7 +167,7 @@
   @extend .nav-style;
 }
 
-.active-page {
+.table-page-item.core-selected {
   background: $color-red;
   color: $color-white;
 }
@@ -179,28 +186,33 @@
 
 .size-menu-wrapper {
   margin-left: 10px;
-}
 
-.holding-size-button {
-  @extend .nav-button;
-  background: none;
-  border: 0;
-  outline: 0;
-  line-height: 21px;
-  core-icon {
-    margin-top: -5px;
+  .size-label {
+    font-size: $font-size-mobile-small;
+    text-transform: uppercase;
+    color: $color-black;
   }
-}
 
-.size-menu-list {
-  .item {
-    .label {
-      font-size: $font-size-mobile-small;
-      margin: 0 auto;
+  paper-dropdown-menu {
+    margin: 0;
+    padding: 0;
+    line-height: 21px;
+    height: 21px;
+    border-bottom: 0;
+    /deep/ {
+      #label, #arrow {
+        color: $color-black;
+      }
     }
-    .current {
+  }
+
+  paper-item {
+    font-size: $font-size-mobile-small;
+    margin: 0 auto;
+  }
+
+  .current {
     color: $color-red;
-    }
   }
 }
 
@@ -232,11 +244,16 @@
 .table-body {
   border-top: 0;
   padding: 0;
-  border-bottom: 1px solid $color-grey-light;
+  //border-bottom: 1px solid $color-grey-light;
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .table-body:last-child {
   border-bottom: 1px solid $color-grey-medium-pre;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .table-header {

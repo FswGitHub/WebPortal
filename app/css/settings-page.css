@@ -370,12 +370,13 @@ paper-tabs /deep/ #selectionBar {
 }
 .settings-page /deep/ .users-settings-dropdown {
   margin-bottom: 10px;
-}
-.settings-page /deep/ paper-fab {
   position: fixed;
   right: 26px;
   top: 98px;
   z-index: 2;
+}
+.settings-page /deep/ .users-settings-dropdown paper-dropdown {
+  top: 63px;
 }
 @media screen and (max-width: 640px) {
   .settings-page /deep/ .theme-radio-group /deep/ paper-radio-button {
@@ -391,6 +392,9 @@ paper-tabs /deep/ #selectionBar {
     width: 60%;
     min-width: 60%;
     max-width: 60%;
+  }
+  .settings-page /deep/ .theme-color {
+    font-size: 16px;
   }
   .settings-page /deep/ .upload-logo-button {
     font-size: 16px;
@@ -424,10 +428,13 @@ paper-tabs /deep/ #selectionBar {
   .settings-page /deep/ .configuration-checkbox {
     padding-left: 15px;
   }
-  .settings-page /deep/ paper-fab {
+  .settings-page /deep/ .users-settings-dropdown {
     top: auto;
     right: 13px;
     bottom: 13px;
+  }
+  .settings-page /deep/ .users-settings-dropdown paper-dropdown {
+    top: auto;
   }
 }
 

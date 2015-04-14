@@ -7,8 +7,8 @@
                 <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
             </template>
             <div class="dashboard-dropdown">
-                <paper-fab icon="add" on-tap="{{openMenu}}" relatedTarget></paper-fab>
-                <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="top">
+                <paper-fab icon="add" on-tap="{{openMenu}}" relative></paper-fab>
+                <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="{{menuPosition}}">
                     <div class="menu-list menu">
                         <paper-item class="item">
                             <div class="label">Holding Charts</div>
@@ -49,9 +49,14 @@
             },
             openMenu: function(e){
                 var me = this;
+                var width = window.innerWidth;
+                if (width <= '640') {
+                    me.menuPosition = 'bottom';
+                }
                 me.menuStatus = true;
             },
-            menuStatus: false
+            menuStatus: false,
+            menuPosition: 'top'
         })
     </script>
 </polymer-element>

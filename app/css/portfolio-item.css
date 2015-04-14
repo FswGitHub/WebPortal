@@ -254,11 +254,17 @@ paper-tabs /deep/ #selectionBar {
 .portfolio-item /deep/ .content {
   display: none;
 }
-.portfolio-item /deep/ paper-fab {
+.portfolio-item /deep/ .dashboard-dropdown {
   position: fixed;
   right: 26px;
   top: 162px;
   z-index: 2;
+}
+.portfolio-item /deep/ paper-dropdown.dashboard-menu-dropdown {
+  top: 63px;
+}
+.portfolio-item /deep/ .chart-dropdown {
+  font-weight: normal;
 }
 .portfolio-item /deep/ chart-board /deep/ .chart-board {
   padding-right: 4%;
@@ -278,29 +284,16 @@ paper-tabs /deep/ #selectionBar {
     margin-left: 18px;
     margin-right: 0;
   }
-  .portfolio-item /deep/ .indent.subheader paper-button {
-    margin-left: 0;
-  }
-  .portfolio-item /deep/ .indent.subheader paper-button /deep/ .button-content {
-    padding: 0.7em 0.3em;
-  }
-  .portfolio-item /deep/ .indent.subheader .search-block {
-    padding: 0.4em 0;
-    margin-left: 5%;
-  }
-  .portfolio-item /deep/ .indent.subheader .search-block core-icon {
-    margin: 4px;
-  }
-  .portfolio-item /deep/ paper-fab {
+  .portfolio-item /deep/ .dashboard-dropdown {
     top: auto;
     right: 13px;
     bottom: 13px;
   }
-  .portfolio-item /deep/ .button-content {
-    font-size: 14px;
+  .portfolio-item /deep/ paper-dropdown.dashboard-menu-dropdown {
+    top: auto;
   }
-  .portfolio-item /deep/ #wrapper {
-    width: 276px;
+  .portfolio-item /deep/ .button-content {
+    font-size: 16px;
   }
   .portfolio-item /deep/ .nav-style, .portfolio-item /deep/ .table-page-item, .portfolio-item /deep/ .holding-nav-button, .portfolio-item /deep/ .table-page-item, .portfolio-item /deep/ .holding-nav-button {
     font-size: 12px;
@@ -312,6 +305,9 @@ paper-tabs /deep/ #selectionBar {
 @media screen and (max-width: 320px) {
   .portfolio-item /deep/ .hide-nav {
     display: none;
+  }
+  .portfolio-item /deep/ .dialog-wrapper {
+    bottom: 75px;
   }
 }
 .portfolio-item /deep/ .subheader {
@@ -334,15 +330,16 @@ paper-tabs /deep/ #selectionBar {
   color: #DD1F29;
 }
 
-#calendarDialogWrapper {
-  display: none;
-  position: absolute;
-  left: 0;
-  z-index: 1;
+.actions {
+  float: right;
+  display: inline-block;
+  margin-bottom: 10px;
 }
-
-#calendarDialogWrapper.show {
-  display: block;
+.actions paper-button.closeCalendar /deep/ .button-content {
+  color: #DD1F29;
+}
+.actions paper-button.setDate /deep/ .button-content {
+  color: #DD1F29;
 }
 
 .holding-table-navigation {
@@ -368,12 +365,12 @@ paper-tabs /deep/ #selectionBar {
   background: #979797;
 }
 
-.active-page {
+.table-page-item.core-selected {
   background: #DD1F29;
   color: #FFFFFF;
 }
 
-.nav-button, .holding-nav-button, .holding-size-button {
+.nav-button, .holding-nav-button {
   padding: 0 6px;
   text-transform: uppercase;
 }
@@ -386,22 +383,26 @@ paper-tabs /deep/ #selectionBar {
 .size-menu-wrapper {
   margin-left: 10px;
 }
-
-.holding-size-button {
-  background: none;
-  border: 0;
-  outline: 0;
+.size-menu-wrapper .size-label {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #000000;
+}
+.size-menu-wrapper paper-dropdown-menu {
+  margin: 0;
+  padding: 0;
   line-height: 21px;
+  height: 21px;
+  border-bottom: 0;
 }
-.holding-size-button core-icon {
-  margin-top: -5px;
+.size-menu-wrapper paper-dropdown-menu /deep/ #label, .size-menu-wrapper paper-dropdown-menu /deep/ #arrow {
+  color: #000000;
 }
-
-.size-menu-list .item .label {
+.size-menu-wrapper paper-item {
   font-size: 14px;
   margin: 0 auto;
 }
-.size-menu-list .item .current {
+.size-menu-wrapper .current {
   color: #DD1F29;
 }
 
@@ -430,11 +431,15 @@ paper-tabs /deep/ #selectionBar {
 .table-body {
   border-top: 0;
   padding: 0;
-  border-bottom: 1px solid #EDEDED;
+  border-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .table-body:last-child {
   border-bottom: 1px solid #b3b3b3;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .table-header {

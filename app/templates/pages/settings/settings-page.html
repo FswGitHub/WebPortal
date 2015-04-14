@@ -133,8 +133,8 @@
             </div>
             <div tab2 fit class="tab-page-content">
                 <div class="users-settings-dropdown">
-                    <paper-fab class="open" icon="add" on-tap="{{openMenu}}" relatedTarget></paper-fab>
-                    <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="top" id="usersMenu">
+                    <paper-fab class="open" icon="add" on-tap="{{openMenu}}" relative></paper-fab>
+                    <paper-dropdown opened="{{menuStatus}}" halign="right" valign="{{menuPosition}}" id="usersMenu">
                         <div class="menu-list menu">
                             <paper-item class="item" on-tap="{{openImportDialog}}">
                                 <core-icon icon="supervisor-account"></core-icon>
@@ -154,7 +154,7 @@
                         </div>
                     </paper-dropdown>
                 </div>
-                <div class="settings-esers-dialogs">
+                <div class="settings-users-dialogs">
                     <paper-action-dialog heading="Import" id="importUsersDialog" opened="{{openImport}}" backdrop>
                         <form>
                             <label>Upload a file</label>
@@ -261,9 +261,14 @@
             selected: 0,
             openMenu: function(e){
                 var me = this;
+                var width = window.innerWidth;
+                if (width <= '640') {
+                    me.menuPosition = 'bottom';
+                }
                 me.menuStatus = true;
             },
             menuStatus: false,
+            menuPosition: 'top',
             openImportDialog: function(e){
                 var me = this;
                 me.openImport = true;

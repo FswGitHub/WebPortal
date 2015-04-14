@@ -39,13 +39,14 @@ d-calendar.portfolio-item-calendar {
       background: $color-white;
     }
 
-    .day.currentday {
+    .day.currentday, #header paper-icon-button:active {
       color: $color-red;
     }
 
     #selectedDateHeader > div {
       margin: 10px 0;
     }
+
     #years {
       paper-button {
         /deep/ {
@@ -55,36 +56,28 @@ d-calendar.portfolio-item-calendar {
         }
       }
     }
+
     paper-button::shadow #ripple {
       color: $color-red;
     }
-  }
-}
 
-.dialog-wrapper {
-  background: $color-white;
-  display: inline-block;
-  position: fixed;
-}
+    @media screen and (max-width: $size-tablet) {
+      #wrapper {
+        width: 276px;
+        #calendar-selection {
+          display: none;
+        }
+      }
 
-.actions {
-  float: right;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-
-paper-button.closeCalendar {
-  /deep/ {
-    .button-content {
-      color: $color-red;
-    }
-  }
-}
-
-paper-button.setDate {
-  /deep/ {
-    .button-content {
-      color: $color-red;
+      #years {
+        paper-button {
+          /deep/ {
+            .button-content {
+              font-size: $font-size-mobile-small
+            }
+          }
+        }
+      }
     }
   }
 }

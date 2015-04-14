@@ -151,13 +151,13 @@
 
     .users-settings-dropdown {
       margin-bottom: 10px;
-    }
-
-    paper-fab{
       position: fixed;
       right: 26px;
       top: 98px;
       z-index: 2;
+      paper-dropdown {
+        top: 63px;
+      }
     }
 
     @media screen and (max-width: $size-mobile) {
@@ -182,7 +182,10 @@
           min-width: 60%;
           max-width: 60%;
         }
+      }
 
+      .theme-color {
+        font-size: $font-size-mobile;
       }
 
       .upload-logo-button {
@@ -228,10 +231,13 @@
         padding-left: 15px;
       }
 
-      paper-fab{
+      .users-settings-dropdown {
         top: auto;
         right: 13px;
         bottom: 13px;
+        paper-dropdown {
+          top: auto;
+        }
       }
     }
   }

@@ -1,19 +1,9 @@
 <polymer-element name="calendar-dialog">
     <template>
         <link rel="stylesheet" href="../../../css/calendar-dialog.css">
-        <div class="dialog-wrapper">
-            <d-calendar class="portfolio-item-calendar"></d-calendar>
-            <div class="actions">
-                <paper-button role="button" class="closeCalendar" on-tap="{{closeCalendarDialog}}">Cancel</paper-button>
-                <paper-button role="button" class="setDate"  on-tap="{{closeCalendarDialog}}">OK</paper-button>
-            </div>
-        </div>
+        <d-calendar class="portfolio-item-calendar"></d-calendar>
     </template>
     <script>
-        Polymer('calendar-dialog',{
-            closeCalendarDialog: function(e) {
-                this.classList.remove('show');
-            }
-        });
+        Polymer('calendar-dialog',{});
     </script>
 </polymer-element>
