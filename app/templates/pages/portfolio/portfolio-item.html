@@ -1,47 +1,39 @@
 <link rel="import" href="../dashboard/chart-board.html">
-<link rel="import" href="calendar-dialog.html">
 <polymer-element name="portfolio-item">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
+        <link rel="stylesheet" href="../../../css/calendar-dialog.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" pagePanel="{{page.panel}}">
-            <div subheader class="indent subheader" layout horizontal start>
-                <div class="calendar-block">
-                    <paper-button class="calendar-button" on-tap="{{openCalendar}}" relative>
+            <div subheader class="indent subheader" layout horizontal flex>
+                <div class="calendar-block" layout horizontal center flex two>
+                    <paper-button class="calendar-button" on-tap="{{openCalendar}}" relative layout horizontal>
                         <core-icon icon="event" class="open-calendar-icon"></core-icon>
-                        7 Dec 2014
+                        <span class="selected-date">{{curDate}}</span>
                         <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
                     </paper-button>
                     <paper-dropdown opened="{{calendarStatus}}" id="calendarDialogWrapper">
-                        <calendar-dialog></calendar-dialog>
+                        <d-calendar class="portfolio-item-calendar" selectedDate="{{selectedDate}}" on-d-calendar-date-selected="{{dateSelected}}"></d-calendar>
                         <div class="actions">
                             <paper-button role="button" class="closeCalendar" on-tap="{{closeCalendarDialog}}">Cancel</paper-button>
                             <paper-button role="button" class="setDate" on-tap="{{closeCalendarDialog}}">OK</paper-button>
                         </div>
                     </paper-dropdown>
                 </div>
-                <div class="holding-view">
-                    <paper-button class="holding-table-view-button" on-tap="{{tableView}}">
-                        <core-icon icon="description" class="open-calendar-icon"></core-icon>
-                        ICB
-                        <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
-                    </paper-button>
-                    <paper-dropdown opened="{{viewStatus}}" class="holding-view-dropdown">
-                        <div class="holding-view-list menu">
-                            <paper-item class="item">
-                                <div class="label active-view">ICB</div>
-                                <paper-ripple fit></paper-ripple>
-                            </paper-item>
-                            <paper-item class="item">
-                                <div class="label">Statutory</div>
-                                <paper-ripple fit></paper-ripple>
-                            </paper-item>
-                        </div>
-                    </paper-dropdown>
+                <div class="holding-view" layout horizontal center flex two>
+                    <core-icon icon="description" class="open-calendar-icon"></core-icon>
+                    <paper-dropdown-menu>
+                        <paper-dropdown class="dropdown">
+                            <core-selector class="menu" valueattr="view" selected="1">
+                                <paper-item view="1" on-tap="{{toggleIcb}}">ICB</paper-item>
+                                <paper-item view="2" on-tap="{{toggleStat}}">Statutory</paper-item>
+                            </core-selector>
+                        </paper-dropdown>
+                    </paper-dropdown-menu>
                 </div>
                 <template is="auto-binding">
                     <core-media-query query="max-width: 640px"
                                       queryMatches="{{phoneScreen}}"></core-media-query>
-                    <div class="search-block" layout horizontal center-center hidden?="{{phoneScreen}}">
+                    <div class="search-block" layout horizontal center hidden?="{{phoneScreen}}" flex five>
                         <core-field class="search-field">
                             <input placeholder="Filter by name" flex>
                             <core-icon icon="search"></core-icon>
@@ -79,27 +71,27 @@
                                       queryMatches="{{phoneScreen}}"></core-media-query>
                     <div layout vertical?="{{phoneScreen}}"
                          horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}" class="holding-table-navigation">
-                        <div class="holding-table-page" layout horisontal start>
-                            <button class="holding-nav-button">First</button>
-                            <button class="holding-nav-button">&#60;&#60;<span class="hide-nav">Prev</span></button>
-                            <core-selector valueattr="name" selected="1" layout horizontal start>
+                        <core-selector layout horizontal start>
+                            <div><button class="holding-nav-button" on-tap="{{first}}">First</button></div>
+                            <div><button class="holding-nav-button" on-tap="{{prev}}">&#60;&#60;<span class="hide-nav">Prev</span></button></div>
+                            <core-selector id="pages" valueattr="name" selected="1" layout horizontal start>
                                 <div name="1" class="table-page-item">1</div>
                                 <div name="2" class="table-page-item">2</div>
                                 <div name="3" class="table-page-item">3</div>
                                 <div name="4" class="table-page-item">4</div>
                             </core-selector>
-                            <button class="holding-nav-button"><span class="hide-nav">Next</span>&#62;&#62;</button>
-                            <button class="holding-nav-button">Last</button>
-                        </div>
+                            <div><button class="holding-nav-button" on-tap="{{next}}"><span class="hide-nav">Next</span>&#62;&#62;</button></div>
+                            <div><button class="holding-nav-button" on-tap="{{last}}">Last</button></div>
+                        </core-selector>
                         <div class="size-menu-wrapper">
                             <span class="size-label">Size</span>
                             <paper-dropdown-menu label="50">
                                 <paper-dropdown class="dropdown">
-                                    <core-menu class="menu">
-                                        <paper-item class="current">50</paper-item>
-                                        <paper-item>100</paper-item>
-                                        <paper-item>200</paper-item>
-                                    </core-menu>
+                                    <core-selector class="menu" valueattr="val" selected="50">
+                                        <paper-item val="50" class="current">50</paper-item>
+                                        <paper-item val="100">100</paper-item>
+                                        <paper-item val="200">200</paper-item>
+                                    </core-selector>
                                 </paper-dropdown>
                             </paper-dropdown-menu>
                         </div>
@@ -119,7 +111,7 @@
                         </ul>
                         <template repeat="{{val in portfolioHoldings}}">
                             <div class="table-body">
-                                <ul class="portfolio-link collapse-category" on-tap="{{toggle}}" toggleId="{{val.id}}">
+                                <ul class="portfolio-link collapse-category" on-tap="{{toggle}}" toggleId="{{val.id}}" hidden?="{{hideCollapse}}">
                                     <li class="col-padding table-item col-13">
                                         <core-icon icon="arrow-drop-down" class="open-calendar-icon"></core-icon>
                                         {{val.category}}
@@ -130,7 +122,7 @@
                                     <li class="col-padding table-item col-3">{{val.averageMV}}</li>
                                     <li class="col-padding table-item col-6">{{val.averageExpVal}}</li>
                                 </ul>
-                                <core-collapse id="collapse{{val.id}}">
+                                <core-collapse id="collapse{{val.id}}" class="collapse" opened>
                                     <template repeat="{{item in val.categoryItems}}">
                                         <ul class="col-content portfolio-link">
                                             <li class="col-padding table-item col-5">{{item.name}}</li>
@@ -159,9 +151,7 @@
         Polymer('portfolio-item',{
             ready: function(){
                 this.$.portfolioItem.url = this.$.globals.url+'resources/json/portfolio-item.json';
-                if (this.selected == 1) {
-                    console.log(this.selected);
-                }
+                this.updateDateFormat();
             },
             contentResponse: function(e, data){
                 var me = this;
@@ -172,26 +162,7 @@
                     me.portfolioHoldings = data.response.item.holdings;
                 }
             },
-            holdingTab: false,
-            openCalendar: function(e) {
-                var me = this;
-                me.calendarStatus = true;
-            },
-            calendarStatus: false,
-            closeCalendarDialog: function(e) {
-                var me = this;
-                me.calendarStatus = false;
-            },
-            openMenu: function(e){
-                var me = this;
-                var width = window.innerWidth;
-                if (width <= '640') {
-                    me.menuPosition = 'bottom';
-                }
-                me.menuStatus = true;
-            },
-            menuStatus: false,
-            menuPosition: 'top',
+
             page: {
                 class: 'portfolio-item',
                 url: 'portfolio/item/1',
@@ -199,21 +170,82 @@
                 tabs: true,
                 panel: true
             },
+
             tabs: [{name: 'dashboard', label: 'Dashboard'}, {name:'holdings', label: 'Holdings'}],
+
+            //Open/close calendar
+            openCalendar: function(e) {
+                this.calendarStatus = true;
+            },
+            closeCalendarDialog: function(e) {
+                this.calendarStatus = false;
+                this.updateDateFormat();
+            },
+
+            //Update date format
+            updateDateFormat: function (e){
+                var monthNames = ["Jan", "Feb", "Mar",
+                                  "Apr", "May", "Jun",
+                                  "Jul", "Aug", "Sep",
+                                  "Oct", "Nov", "Dec"];
+
+                var date = this.selectedDate;
+                var day = date.getDate();
+                var monthIndex = date.getMonth();
+                var year = date.getFullYear();
+
+                this.curDate = day+' '+monthNames[monthIndex]+' '+year;
+            },
+
+            //Toggle page dropdown menu on fab tap
+            menuPosition: 'top',
+            openMenu: function(e){
+                var me = this;
+                var phoneScreen = '640';
+                var width = window.innerWidth;
+                if (width <= phoneScreen) {
+                    me.menuPosition = 'bottom';
+                }
+                me.menuStatus = true;
+            },
+
+            //Toggle collapses in the table
             toggle: function(e) {
                 var id = e.currentTarget.attributes.toggleId.value;
                 this.$.holdings.querySelectorAll('#collapse'+id)[0].toggle();
             },
-            openSizeMenu: function(e){
-                var me = this;
-                me.sizeMenuStatus = true;
+
+            toggleStat: function (){
+                var category = this.$.holdings.querySelectorAll('.collapse');
+                for (var i=0; i < category.length; i++) {
+                    category[i].classList.remove('core-collapse-closed');
+                    category[i].style.height = 'auto';
+                    category[i].style.overflow = 'auto';
+                }
+                this.hideCollapse = true;
             },
-            sizeMenuStatus:false,
-            tableView:function(e){
-                var me = this;
-                me.viewStatus = true;
+
+            toggleIcb: function (){
+                this.hideCollapse = false;
             },
-            viewStatus:false
+
+            //Table page selection
+            prev: function () {
+                var pages = this.$.holdings.querySelectorAll('#pages')[0];
+                pages.selectPrevious();
+            },
+            next: function () {
+                var pages = this.$.holdings.querySelectorAll('#pages')[0];
+                pages.selectNext();
+            },
+            first: function(){
+                var pages = this.$.holdings.querySelectorAll('#pages')[0];
+                pages.selected = 1;
+            },
+            last: function(){
+                var pages = this.$.holdings.querySelectorAll('#pages')[0];
+                pages.selected = 4;
+            }
         })
     </script>
 </polymer-element>

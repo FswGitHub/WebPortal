@@ -54,16 +54,12 @@
         Polymer('profile-page',{
             ready: function (){
                 this.$.profileContent.url = this.$.globals.url+'resources/json/user.json';
-                if (this.phoneScreen) {
-
-                }
             },
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success){
                     me.userData = data.response.user;
                     me.user.name = me.userData.firstName + ' ' + me.userData.lastName;
-                    console.log( me.user.name);
                 }
             },
             page: {

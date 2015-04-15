@@ -62,8 +62,24 @@
         top: auto;
       }
 
-      .button-content {
-        font-size: $font-size-mobile;
+      .calendar-button {
+        /deep/ {
+          .button-content {
+            font-size: $font-size-mobile;
+          }
+        }
+      }
+
+      #label {
+        font-size: $font-size-mobile-small;
+      }
+
+      .holding-view {
+        /deep/ {
+          #label {
+            font-size: $font-size-mobile;
+          }
+        }
       }
 
       //Holding table navigation
@@ -101,19 +117,60 @@
     .search-field {
       background: $color-white;
     }
+
+    core-selector.menu .core-selected {
+      background-color: $color-white;
+      border-left: 0;
+    }
+
+    core-selector.menu .core-selected /deep/ .button-content {
+      padding-left: 14px;
+    }
   }
 }
 
-.holding-view-list {
-  .label {
-    color: $color-black;
+.calendar-button {
+  /deep/ {
+    .button-content {
+      padding: 0.5em 0 0.25em;
+    }
+
+    .selected-date {
+      text-transform: none;
+      padding: 0 5px;
+    }
+
   }
-  .active-view {
-    color: $color-red;
+}
+
+.holding-view {
+  paper-dropdown-menu {
+    border-bottom: 0;
+    /deep/ {
+      #label, #arrow {
+        color: $color-white;
+        text-transform: uppercase;
+      }
+    }
+  }
+  /deep/{
+
+    paper-item {
+      color: $color-black;
+      text-transform: uppercase;
+    }
+
+    .core-selected {
+      color: $color-red;
+    }
   }
 }
 
 //----------Calendar
+
+#calendarDialogWrapper {
+  top: 12px;
+}
 
 .actions {
   float: right;
@@ -143,20 +200,11 @@
   margin-bottom: 10px;
 }
 
-.holding-table-page-list {
-  @extend .ul-reset;
-}
-
 .nav-style {
   margin-left: 1px;
   font-size: $font-size-mobile-small;
   border: 1px solid $color-grey-medium;
   line-height: 19px;
-}
-
-.holding-item-button {
-  display: inline-block;
-  float: left;
 }
 
 .table-page-item {
@@ -211,7 +259,7 @@
     margin: 0 auto;
   }
 
-  .current {
+  paper-item.core-selected {
     color: $color-red;
   }
 }
