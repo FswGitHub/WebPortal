@@ -100,14 +100,14 @@
                 <div class="table-wrapper">
                     <div class="portfolio-table">
                         <ul class="table-header-list">
-                            <li class="col-padding table-header col-5">Name</li>
-                            <li class="col-padding table-header col-4">Nominal</li>
-                            <li class="col-padding table-header col-4">Cost Price</li>
-                            <li class="col-padding table-header col-5">Book value (R)</li>
-                            <li class="col-padding table-header col-5">Market Price</li>
-                            <li class="col-padding table-header col-5">Market Value</li>
-                            <li class="col-padding table-header col-3">%MV</li>
-                            <li class="col-padding table-header col-6">Exposure Value (R)</li>
+                            <li class="col-padding table-header col-5" on-tap="{{order}}" orderval="name">Name</li>
+                            <li class="col-padding table-header col-4" on-tap="{{order}}" orderval="nominal">Nominal</li>
+                            <li class="col-padding table-header col-4" on-tap="{{order}}" orderval="costPrice">Cost Price</li>
+                            <li class="col-padding table-header col-5" on-tap="{{order}}" orderval="bookValue">Book value (R)</li>
+                            <li class="col-padding table-header col-5" on-tap="{{order}}" orderval="marketPrice">Market Price</li>
+                            <li class="col-padding table-header col-5" on-tap="{{order}}" orderval="marketValue">Market Value</li>
+                            <li class="col-padding table-header col-3" on-tap="{{order}}" orderval="MV">%MV</li>
+                            <li class="col-padding table-header col-6" on-tap="{{order}}" orderval="exposureValue">Exposure Value (R)</li>
                         </ul>
                         <template repeat="{{val in portfolioHoldings}}">
                             <div class="table-body">
@@ -123,7 +123,7 @@
                                     <li class="col-padding table-item col-6">{{val.averageExpVal}}</li>
                                 </ul>
                                 <core-collapse id="collapse{{val.id}}" class="collapse" opened>
-                                    <template repeat="{{item in val.categoryItems}}">
+                                    <template repeat="{{item in val.categoryItems | orderBy(oderVal)}}">
                                         <ul class="col-content portfolio-link">
                                             <li class="col-padding table-item col-5">{{item.name}}</li>
                                             <li class="col-padding table-item col-4">{{item.nominal}}</li>
@@ -162,7 +162,6 @@
                     me.portfolioHoldings = data.response.item.holdings;
                 }
             },
-
             page: {
                 class: 'portfolio-item',
                 url: 'portfolio/item/1',
@@ -170,7 +169,6 @@
                 tabs: true,
                 panel: true
             },
-
             tabs: [{name: 'dashboard', label: 'Dashboard'}, {name:'holdings', label: 'Holdings'}],
 
             //Open/close calendar
@@ -218,9 +216,9 @@
             toggleStat: function (){
                 var category = this.$.holdings.querySelectorAll('.collapse');
                 for (var i=0; i < category.length; i++) {
-                    category[i].classList.remove('core-collapse-closed');
-                    category[i].style.height = 'auto';
-                    category[i].style.overflow = 'auto';
+                    if (category[i].classList.contains('core-collapse-closed')) {
+                        category[i].toggle();
+                    }
                 }
                 this.hideCollapse = true;
             },
@@ -245,7 +243,14 @@
             last: function(){
                 var pages = this.$.holdings.querySelectorAll('#pages')[0];
                 pages.selected = 4;
-            }
+            },
+
+            //Order by action
+            order: function (e){
+                var val = e.currentTarget.attributes.orderval.value;
+                this.oderVal = val;
+            },
+            oderVal:'name'
         })
     </script>
 </polymer-element>
