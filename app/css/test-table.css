@@ -206,20 +206,17 @@ paper-tabs /deep/ #selectionBar {
 }
 
 @media screen and (max-width: 640px) {
-  .table-body {
+  .test-table /deep/ .table-body {
     padding: 0;
   }
-
-  .table-header-list {
+  .test-table /deep/ .table-header-list {
     display: inline-block;
     padding: 16px;
   }
-
-  .col-content {
+  .test-table /deep/ .col-content {
     display: inline-block;
   }
-
-  .headers {
+  .test-table /deep/ .headers {
     background: #D8D8D8;
     border-right: 1px solid #979797;
   }

@@ -276,6 +276,12 @@
   }
 }
 
+.rotate {
+  -ms-transform: rotate(270deg); /* IE 9 */
+  -webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+  transform: rotate(270deg);
+}
+
 .table-wrapper {
   width: 100%;
   margin-bottom: 25px;
@@ -302,6 +308,16 @@
 
 .table-header {
   font-size: $font-size-mobile-small;
+}
+
+.filter-icon {
+  display: none;
+}
+
+.core-selected {
+  .filter-icon {
+    display: inline-block;
+  }
 }
 
 .col-content {

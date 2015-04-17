@@ -58,21 +58,25 @@
 }
 
 @media  screen and (max-width: $size-mobile) {
-  .table-body {
-    padding: 0;
-  }
+  .test-table {
+    /deep/ {
+      .table-body {
+        padding: 0;
+      }
 
-  .table-header-list {
-    display: inline-block;
-    padding: 16px;
-  }
+      .table-header-list {
+        display: inline-block;
+        padding: 16px;
+      }
 
-  .col-content {
-    display: inline-block;
-  }
+      .col-content {
+        display: inline-block;
+      }
 
-  .headers {
-    background: $color-grey-medium-light;
-    border-right: 1px solid $color-grey-medium;
+      .headers {
+        background: $color-grey-medium-light;
+        border-right: 1px solid $color-grey-medium;
+      }
+    }
   }
 }
