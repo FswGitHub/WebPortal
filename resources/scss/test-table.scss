@@ -1,16 +1,5 @@
 @import "_variables";
 
-.ul-reset {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0;
-}
-
-.table-header-list {
-  @extend .ul-reset;
-}
-
 .table-body {
   font-size: 0;
   background: $color-white;
@@ -26,7 +15,6 @@
 }
 
 .col-content {
-  @extend .ul-reset;
   border-bottom: 1px solid $color-grey-light;
 }
 
@@ -39,12 +27,6 @@
 .table-item {
   font-size: $font-size-mobile-small;
   vertical-align: top;
-}
-
-.portfolio-table{
-  width: 100%;
-  font-size: 0;
-  margin: 0;
 }
 
 .table-header-list {
@@ -67,15 +49,52 @@
       .table-header-list {
         display: inline-block;
         padding: 16px;
+        margin: 0;
       }
 
       .col-content {
         display: inline-block;
       }
 
-      .headers {
-        background: $color-grey-medium-light;
-        border-right: 1px solid $color-grey-medium;
+      .labels {
+        border-right: 1px solid $color-grey-medium-light;
+        width: 48%;
+        .col-padding {
+          padding: 16px 6px 16px 16px;
+        }
+        .table-item {
+          border-bottom: 1px solid transparent;
+        }
+        .table-item:last-child {
+          border-bottom: 0;
+        }
+      }
+
+      .table-label {
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+      
+      .values {
+        width: 51%;
+        .table-item {
+          padding: 16px 0;
+          margin: 0 16px;
+          border-bottom: 1px solid $color-grey-medium-light;
+        }
+        .table-item:last-child {
+          border-bottom: 0;
+        }
+      }
+
+      .mobile-col-content {
+        display: none;
+      }
+
+      .core-selected {
+        .mobile-col-content {
+          display: block;
+        }
       }
     }
   }

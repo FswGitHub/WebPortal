@@ -252,8 +252,20 @@
     font-size: $font-size-mobile;
   }
 
-  .portfolio-table {
-    width: 948px;
+  .settings-page {
+    /deep/ {
+      .table-header {
+        font-size: $font-size-mobile-footer;
+      }
+
+      .labels {
+        width: 40%;
+      }
+
+      .values {
+        width: 59%;
+      }
+    }
   }
 }
 
@@ -263,14 +275,3 @@
   font-size: $font-size-mobile-small;
 }
 
-.table-header-list {
-  padding: 0 16px;
-}
-
-.table-body {
-  padding: 0 16px 44px 16px;
-}
-
-.table-wrapper {
-  margin-bottom: 0;
-}

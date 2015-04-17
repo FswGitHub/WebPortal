@@ -196,27 +196,38 @@
                 </div>
                 <div class="users-table">
                     <div class="table-wrapper">
-                        <div class="portfolio-table">
-                            <ul class="table-header-list">
-                                <li class="col-padding table-header col-7">Email Address</li>
-                                <li class="col-padding table-header col-4">First Name</li>
-                                <li class="col-padding table-header col-4">Last Name</li>
-                                <li class="col-padding table-header col-4">Status</li>
-                                <li class="col-padding table-header col-7">Actions</li>
-                            </ul>
-                            <div class="table-body">
-                                <template repeat="{{user in userersArray}}">
-                                    <a class="portfolio-link">
-                                        <ul class="col-content">
-                                            <li class="col-padding table-item col-7">{{user.email}}</li>
-                                            <li class="col-padding table-item col-4">{{user.firstName}}</li>
-                                            <li class="col-padding table-item col-4">{{user.lastName}}</li>
-                                            <li class="col-padding table-item col-4">{{user.status}}</li>
-                                            <li class="col-padding table-item col-7">{{user.action}}</li>
-                                        </ul>
-                                    </a>
+                        <core-media-query query="max-width: 640px"
+                                          queryMatches="{{phoneScreen}}"></core-media-query>
+                        <div class="table-header-list" layout horizontal?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">
+                            <div class="col-padding table-header" flex eight>Email Address</div>
+                            <div class="col-padding table-header" flex four>First Name</div>
+                            <div class="col-padding table-header" flex four>Last Name</div>
+                            <div class="col-padding table-header" flex four>Status</div>
+                            <div class="col-padding table-header" flex seven>Actions</div>
+                        </div>
+                        <div class="table-body">
+                            <core-selector selected="0" valueattr="number">
+                                <template repeat="{{user, i in usersArray}}">
+                                    <div layout vertical?="{{phoneScreen}}" number="{{i}}">
+                                        <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{user.email}}</h1>
+                                        <div layout horisontal?="{{phoneScreen}}" class="mobile-col-content">
+                                            <div class="col-content labels" hidden?="{{!phoneScreen}}">
+                                                <div class="col-padding table-item table-label">First Name</div>
+                                                <div class="col-padding table-item table-label">Last Name</div>
+                                                <div class="col-padding table-item table-label">Status</div>
+                                                <div class="col-padding table-item table-label">Actions</div>
+                                            </div>
+                                            <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                                <div class="col-padding table-item" flex?="{{!phoneScreen}}" eight?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{user.email}}</div>
+                                                <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.firstName}}</div>
+                                                <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.lastName}}</div>
+                                                <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.status}}</div>
+                                                <div class="col-padding table-item" flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">{{user.action}}</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </template>
-                            </div>
+                            </core-selector>
                         </div>
                     </div>
                 </div>
@@ -235,7 +246,7 @@
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success){
-                    me.userersArray = data.response.users;
+                    me.usersArray = data.response.users;
                 }
             },
             page: {

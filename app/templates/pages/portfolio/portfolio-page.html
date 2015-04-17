@@ -3,27 +3,38 @@
         <link rel="stylesheet" href="../../../css/portfolio-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" >
             <div class="table-wrapper">
-                <div class="portfolio-table">
-                    <ul class="table-header-list">
-                        <li class="col-padding table-header col-4">Code</li>
-                        <li class="col-padding table-header col-5">Name</li>
-                        <li class="col-padding table-header col-3">Status</li>
-                        <li class="col-padding table-header col-5">Tax Currency</li>
-                        <li class="col-padding table-header col-7">Residency</li>
-                    </ul>
-                    <div class="table-body">
-                        <template repeat="{{val in portfolioPageContent}}">
-                            <a class="portfolio-link" label="portfolio/item/{{val.id}}" name="{{val.name}}" on-tap="{{portfolioGo}}">
-                                <ul class="col-content">
-                                    <li class="col-padding table-item col-4">{{val.code}}</li>
-                                    <li class="col-padding table-item col-5">{{val.name}}</li>
-                                    <li class="col-padding table-item col-3">{{val.status}}</li>
-                                    <li class="col-padding table-item col-5">{{val.taxCurrency}}</li>
-                                    <li class="col-padding table-item col-7">{{val.residency}}</li>
-                                </ul>
-                            </a>
+                <core-media-query query="max-width: 640px"
+                                  queryMatches="{{phoneScreen}}"></core-media-query>
+                <div class="table-header-list" layout horizontal?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">
+                    <div class="col-padding table-header" flex four>Code</div>
+                    <div class="col-padding table-header" flex five>Name</div>
+                    <div class="col-padding table-header" flex three>Status</div>
+                    <div class="col-padding table-header" flex five>Tax Currency</div>
+                    <div class="col-padding table-header" flex seven>Residency</div>
+                </div>
+                <div class="table-body">
+                    <core-selector selected="0" valueattr="number">
+                        <template repeat="{{val, i in portfolioPageContent}}">
+                            <div layout vertical?="{{phoneScreen}}" number="{{i}}" label="portfolio/item/{{val.id}}" on-tap="{{portfolioGo}}">
+                                <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{val.name}}</h1>
+                                <div layout horisontal?="{{phoneScreen}}" class="mobile-col-content">
+                                    <div class="col-content labels" hidden?="{{!phoneScreen}}">
+                                        <div class="col-padding table-item table-label">Code</div>
+                                        <div class="col-padding table-item table-label">Status</div>
+                                        <div class="col-padding table-item table-label">Tax Currency</div>
+                                        <div class="col-padding table-item table-label">Residency</div>
+                                    </div>
+                                    <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{val.code}}</div>
+                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{val.name}}</div>
+                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{val.status}}</div>
+                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{val.taxCurrency}}</div>
+                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">{{val.residency}}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </template>
-                    </div>
+                    </core-selector>
                 </div>
             </div>
         </side-menu>
