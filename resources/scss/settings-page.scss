@@ -255,7 +255,8 @@
   .settings-page {
     /deep/ {
       .table-header {
-        font-size: $font-size-mobile-footer;
+        font-size: $font-size-mobile-small;
+        text-transform: none;
       }
 
       .labels {
@@ -264,6 +265,16 @@
 
       .values {
         width: 59%;
+      }
+    }
+  }
+}
+
+@media  screen and (max-width: $size-mobile){
+  .settings-page {
+    /deep/ {
+      .table-item {
+        font-size: 13px;
       }
     }
   }

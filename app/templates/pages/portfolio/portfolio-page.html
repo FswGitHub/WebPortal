@@ -15,16 +15,16 @@
                 <div class="table-body">
                     <core-selector selected="0" valueattr="number">
                         <template repeat="{{val, i in portfolioPageContent}}">
-                            <div layout vertical?="{{phoneScreen}}" number="{{i}}" label="portfolio/item/{{val.id}}" on-tap="{{portfolioGo}}">
+                            <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                 <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{val.name}}</h1>
-                                <div layout horisontal?="{{phoneScreen}}" class="mobile-col-content">
+                                <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
                                     <div class="col-content labels" hidden?="{{!phoneScreen}}">
                                         <div class="col-padding table-item table-label">Code</div>
                                         <div class="col-padding table-item table-label">Status</div>
                                         <div class="col-padding table-item table-label">Tax Currency</div>
                                         <div class="col-padding table-item table-label">Residency</div>
                                     </div>
-                                    <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                    <div label="portfolio/item/{{val.id}}" on-tap="{{portfolioGo}}" class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
                                         <div class="col-padding table-item " flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{val.code}}</div>
                                         <div class="col-padding table-item " flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{val.name}}</div>
                                         <div class="col-padding table-item " flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{val.status}}</div>

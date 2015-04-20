@@ -17,7 +17,7 @@
                         <template repeat="{{val, i in portfolioPageContent}}">
                             <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                 <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{val.name}}</h1>
-                                <div layout horisontal?="{{phoneScreen}}" class="mobile-col-content">
+                                <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
                                     <div class="col-content labels" hidden?="{{!phoneScreen}}">
                                         <div class="col-padding table-item table-label">Code</div>
                                         <div class="col-padding table-item table-label">Status</div>

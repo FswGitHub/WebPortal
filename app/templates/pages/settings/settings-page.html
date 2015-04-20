@@ -210,7 +210,7 @@
                                 <template repeat="{{user, i in usersArray}}">
                                     <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                         <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{user.email}}</h1>
-                                        <div layout horisontal?="{{phoneScreen}}" class="mobile-col-content">
+                                        <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
                                             <div class="col-content labels" hidden?="{{!phoneScreen}}">
                                                 <div class="col-padding table-item table-label">First Name</div>
                                                 <div class="col-padding table-item table-label">Last Name</div>

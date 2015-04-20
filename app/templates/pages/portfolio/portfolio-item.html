@@ -30,16 +30,20 @@
                         </paper-dropdown>
                     </paper-dropdown-menu>
                 </div>
-                <template is="auto-binding">
-                    <core-media-query query="max-width: 640px"
-                                      queryMatches="{{phoneScreen}}"></core-media-query>
-                    <div class="search-block" layout horizontal center hidden?="{{phoneScreen}}" flex six>
-                        <core-field class="search-field">
-                            <input placeholder="Filter by name" flex>
-                            <core-icon icon="search"></core-icon>
-                        </core-field>
+                <div layout horizontal center flex six hidden?="{{phoneScreen}}">
+                    <div hidden?="{{showAll}}">
+                        <template is="auto-binding">
+                            <core-media-query query="max-width: 640px"
+                                              queryMatches="{{phoneScreen}}"></core-media-query>
+                            <div class="search-block">
+                                <core-field class="search-field">
+                                    <input placeholder="Filter by name" flex>
+                                    <core-icon icon="search"></core-icon>
+                                </core-field>
+                            </div>
+                        </template>
                     </div>
-                </template>
+                </div>
             </div>
             <div tab0 class="dashboard-view tab-page-content" fit>
                 <div class="dashboard-dropdown">
@@ -66,118 +70,152 @@
                 </template>
             </div>
             <div tab1 class="holdings-view tab-page-content" fit id="holdings">
-                <template is="auto-binding">
+                <div class="holding-table-navigation-wrapper" hidden?="{{showAll}}">
+                    <template is="auto-binding">
+                        <core-media-query query="max-width: 640px"
+                                          queryMatches="{{phoneScreen}}"></core-media-query>
+                        <div layout vertical?="{{phoneScreen}}"
+                             horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}" class="holding-table-navigation">
+                            <core-selector layout horizontal start>
+                                <div><button class="holding-nav-button" on-tap="{{first}}">First</button></div>
+                                <div><button class="holding-nav-button" on-tap="{{prev}}">&#60;&#60;<span class="hide-nav">Prev</span></button></div>
+                                <core-selector id="pages" valueattr="name" selected="1" layout horizontal start>
+                                    <div name="1" class="table-page-item">1</div>
+                                    <div name="2" class="table-page-item">2</div>
+                                    <div name="3" class="table-page-item">3</div>
+                                    <div name="4" class="table-page-item">4</div>
+                                </core-selector>
+                                <div><button class="holding-nav-button" on-tap="{{next}}"><span class="hide-nav">Next</span>&#62;&#62;</button></div>
+                                <div><button class="holding-nav-button" on-tap="{{last}}">Last</button></div>
+                            </core-selector>
+                            <div class="size-menu-wrapper">
+                                <span class="size-label">Size</span>
+                                <paper-dropdown-menu label="50">
+                                    <paper-dropdown class="dropdown">
+                                        <core-selector class="menu" valueattr="val" selected="50">
+                                            <paper-item val="50" class="current">50</paper-item>
+                                            <paper-item val="100">100</paper-item>
+                                            <paper-item val="200">200</paper-item>
+                                        </core-selector>
+                                    </paper-dropdown>
+                                </paper-dropdown-menu>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="table-wrapper">
                     <core-media-query query="max-width: 640px"
                                       queryMatches="{{phoneScreen}}"></core-media-query>
-                    <div layout vertical?="{{phoneScreen}}"
-                         horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}" class="holding-table-navigation">
-                        <core-selector layout horizontal start>
-                            <div><button class="holding-nav-button" on-tap="{{first}}">First</button></div>
-                            <div><button class="holding-nav-button" on-tap="{{prev}}">&#60;&#60;<span class="hide-nav">Prev</span></button></div>
-                            <core-selector id="pages" valueattr="name" selected="1" layout horizontal start>
-                                <div name="1" class="table-page-item">1</div>
-                                <div name="2" class="table-page-item">2</div>
-                                <div name="3" class="table-page-item">3</div>
-                                <div name="4" class="table-page-item">4</div>
-                            </core-selector>
-                            <div><button class="holding-nav-button" on-tap="{{next}}"><span class="hide-nav">Next</span>&#62;&#62;</button></div>
-                            <div><button class="holding-nav-button" on-tap="{{last}}">Last</button></div>
-                        </core-selector>
-                        <div class="size-menu-wrapper">
-                            <span class="size-label">Size</span>
-                            <paper-dropdown-menu label="50">
-                                <paper-dropdown class="dropdown">
-                                    <core-selector class="menu" valueattr="val" selected="50">
-                                        <paper-item val="50" class="current">50</paper-item>
-                                        <paper-item val="100">100</paper-item>
-                                        <paper-item val="200">200</paper-item>
-                                    </core-selector>
-                                </paper-dropdown>
-                            </paper-dropdown-menu>
-                        </div>
-                    </div>
-                </template>
-                <div class="table-wrapper">
-                    <div class="portfolio-table">
-                        <div class="table-header-list">
-                            <core-selector id="tableHeader" selected="name" valueattr="orderval">
-                                <div class="col-padding table-header col-5" on-tap="{{order}}" orderval="name">
-                                    Name
-                                    <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                                </div>
-                                <div class="col-padding table-header col-4" on-tap="{{order}}" orderval="nominal">
-                                    Nominal
-                                    <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                                </div>
-                                <div class="col-padding table-header col-4" on-tap="{{order}}" orderval="costPrice">
-                                    Cost Price
-                                    <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                                </div>
-                                <div class="col-padding table-header col-5" on-tap="{{order}}" orderval="bookValue">
-                                    Book value (R)
-                                    <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                                </div>
-                                <div class="col-padding table-header col-5" on-tap="{{order}}" orderval="marketPrice">
-                                    Market Price
-                                    <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                                </div>
-                                <div class="col-padding table-header col-5" on-tap="{{order}}" orderval="marketValue">
-                                    Market Value
-                                    <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                                </div>
-                                <div class="col-padding table-header col-3" on-tap="{{order}}" orderval="MV">
-                                    %MV
-                                    <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                                </div>
-                                <div class="col-padding table-header col-6" on-tap="{{order}}" orderval="exposureValue">
-                                    Exposure Value (R)
-                                    <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                                </div>
-                            </core-selector>
-                        </div>
-                        <template repeat="{{val in portfolioHoldings}}">
-                            <div class="table-body" hidden?="{{showAll}}">
-                                <ul class="portfolio-link collapse-category" on-tap="{{toggle}}" toggleId="{{val.id}}" hidden?="{{hideCollapse}}">
-                                    <li class="col-padding table-item col-13">
-                                        <core-icon id="icon{{val.id}}" icon="arrow-drop-down"></core-icon>
-                                        {{val.category}}
-                                    </li>
-                                    <li class="col-padding table-item col-5">{{val.averageBookVal}}</li>
-                                    <li class="col-padding table-item col-5">{{val.averageMarcPrice}}</li>
-                                    <li class="col-padding table-item col-5">{{val.averageMacVal}}</li>
-                                    <li class="col-padding table-item col-3">{{val.averageMV}}</li>
-                                    <li class="col-padding table-item col-6">{{val.averageExpVal}}</li>
-                                </ul>
-                                <core-collapse id="collapse{{val.id}}" class="collapse" opened>
-                                    <template repeat="{{item in val.categoryItems | orderBy(oderVal)}}">
-                                        <ul class="col-content portfolio-link">
-                                            <li class="col-padding table-item col-5">{{item.name}}</li>
-                                            <li class="col-padding table-item col-4">{{item.nominal}}</li>
-                                            <li class="col-padding table-item col-4">{{item.costPrice}}</li>
-                                            <li class="col-padding table-item col-5">{{item.bookValue}}</li>
-                                            <li class="col-padding table-item col-5">{{item.marketPrice}}</li>
-                                            <li class="col-padding table-item col-5">{{item.marketValue}}</li>
-                                            <li class="col-padding table-item col-3">{{item.MV}}</li>
-                                            <li class="col-padding table-item col-6">{{item.exposureValue}}</li>
-                                        </ul>
-                                    </template>
-                                </core-collapse>
+                    <div class="table-header-list" hidden?="{{phoneScreen}}">
+                        <core-selector id="tableHeader" selected="name" valueattr="orderval" layout horizontal?="{{!phoneScreen}}">
+                            <div class="col-padding table-header" flex four on-tap="{{order}}" orderval="name">
+                                Name
+                                <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
                             </div>
+                            <div class="col-padding table-header" flex three on-tap="{{order}}" orderval="nominal">
+                                Nominal
+                                <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
+                            </div>
+                            <div class="col-padding table-header" flex three on-tap="{{order}}" orderval="costPrice">
+                                Cost Price
+                                <core-icon icon="arrow-drop-down" class="filter-icon cost-price-icon"></core-icon>
+                            </div>
+                            <div class="col-padding table-header" flex four on-tap="{{order}}" orderval="bookValue">
+                                Book value (R)
+                                <core-icon icon="arrow-drop-down" class="filter-icon book-value-icon"></core-icon>
+                            </div>
+                            <div class="col-padding table-header" flex four on-tap="{{order}}" orderval="marketPrice">
+                                Market Price
+                                <core-icon icon="arrow-drop-down" class="filter-icon market-price-icon"></core-icon>
+                            </div>
+                            <div class="col-padding table-header" flex four on-tap="{{order}}" orderval="marketValue">
+                                Market Value
+                                <core-icon icon="arrow-drop-down" class="filter-icon market-value-icon"></core-icon>
+                            </div>
+                            <div class="col-padding table-header" flex two on-tap="{{order}}" orderval="MV">
+                                %MV
+                                <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
+                            </div>
+                            <div class="col-padding table-header" flex five on-tap="{{order}}" orderval="exposureValue">
+                                Exposure Value (R)
+                                <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
+                            </div>
+                        </core-selector>
+                    </div>
+                    <div class="table-body" hidden?="{{showAll}}">
+                        <template repeat="{{val in portfolioHoldings}}">
+                            <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id}}" hidden?="{{hideCollapse}}">
+                                <div class="col-padding table-item category-title" flex eleven>
+                                    <core-icon id="icon{{val.id}}" class="category-icon" icon="arrow-drop-down"></core-icon>
+                                    {{val.category}}
+                                </div>
+                                <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageBookVal}}</div>
+                                <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMarcPrice}}</div>
+                                <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMacVal}}</div>
+                                <div class="col-padding table-item" flex two hidden?="{{phoneScreen}}">{{val.averageMV}}</div>
+                                <div class="col-padding table-item" flex five hidden?="{{phoneScreen}}">{{val.averageExpVal}}</div>
+                            </div>
+                            <core-collapse id="collapse{{val.id}}" class="collapse" opened>
+                                <core-selector selected="0" valueattr="number">
+                                    <template repeat="{{item, i in val.categoryItems | orderBy(oderVal)}}">
+                                        <div layout vertical?="{{phoneScreen}}" number="{{i}}">
+                                            <h1 hidden?="{{!phoneScreen}}" class="table-header-in-collapse">{{item.name}}</h1>
+                                            <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
+                                                <div class="col-content labels" hidden?="{{!phoneScreen}}">
+                                                    <div class="col-padding table-item table-label">Nominal</div>
+                                                    <div class="col-padding table-item table-label">Cost Price</div>
+                                                    <div class="col-padding table-item table-label">Book Value (R)</div>
+                                                    <div class="col-padding table-item table-label">Market Price</div>
+                                                    <div class="col-padding table-item table-label">Market Value</div>
+                                                    <div class="col-padding table-item table-label">%MV</div>
+                                                    <div class="col-padding table-item table-label">Exposure Value (R)</div>
+                                                </div>
+                                                <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{item.name}}</div>
+                                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.nominal}}</div>
+                                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.costPrice}}</div>
+                                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.bookValue}}</div>
+                                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketPrice}}</div>
+                                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketValue}}</div>
+                                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" two?="{{!phoneScreen}}">{{item.MV}}</div>
+                                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{item.exposureValue}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                </core-selector>
+                            </core-collapse>
                         </template>
-                        <div class="table-body" hidden?="{{!showAll}}">
-                            <template repeat="{{item in allItems | orderBy(oderVal)}}">
-                                <ul class="col-content portfolio-link">
-                                    <li class="col-padding table-item col-5">{{item.name}}</li>
-                                    <li class="col-padding table-item col-4">{{item.nominal}}</li>
-                                    <li class="col-padding table-item col-4">{{item.costPrice}}</li>
-                                    <li class="col-padding table-item col-5">{{item.bookValue}}</li>
-                                    <li class="col-padding table-item col-5">{{item.marketPrice}}</li>
-                                    <li class="col-padding table-item col-5">{{item.marketValue}}</li>
-                                    <li class="col-padding table-item col-3">{{item.MV}}</li>
-                                    <li class="col-padding table-item col-6">{{item.exposureValue}}</li>
-                                </ul>
+                    </div>
+                    <div class="table-body" hidden?="{{!showAll}}">
+                        <core-selector selected="0" valueattr="number">
+                            <template repeat="{{item, i in allItems | orderBy(oderVal)}}">
+                                <div layout vertical?="{{phoneScreen}}" number="{{i}}">
+                                    <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{item.name}}</h1>
+                                    <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
+                                        <div class="col-content labels" hidden?="{{!phoneScreen}}">
+                                            <div class="col-padding table-item table-label">Nominal</div>
+                                            <div class="col-padding table-item table-label">Cost Price</div>
+                                            <div class="col-padding table-item table-label">Book Value (R)</div>
+                                            <div class="col-padding table-item table-label">Market Price</div>
+                                            <div class="col-padding table-item table-label">Market Value</div>
+                                            <div class="col-padding table-item table-label">%MV</div>
+                                            <div class="col-padding table-item table-label">Exposure Value (R)</div>
+                                        </div>
+                                        <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{item.name}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.nominal}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.costPrice}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.bookValue}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketPrice}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketValue}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" two?="{{!phoneScreen}}">{{item.MV}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{item.exposureValue}}</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </template>
-                        </div>
+                        </core-selector>
                     </div>
                 </div>
             </div>

@@ -193,158 +193,54 @@ paper-tabs /deep/ #selectionBar {
 }
 
 @media screen and (max-width: 640px) {
-  .portfolio-page /deep/ .table-body, .settings-page /deep/ .table-body {
+  .portfolio-page /deep/ .table-body, .settings-page /deep/ .table-body, .portfolio-item /deep/ .table-body {
     padding: 0;
   }
-  .portfolio-page /deep/ .table-header-list, .settings-page /deep/ .table-header-list {
+  .portfolio-page /deep/ .table-header-list, .settings-page /deep/ .table-header-list, .portfolio-item /deep/ .table-header-list {
     display: inline-block;
     padding: 16px;
     margin: 0;
   }
-  .portfolio-page /deep/ .col-content, .settings-page /deep/ .col-content {
-    display: inline-block;
+  .portfolio-page /deep/ .table-header, .settings-page /deep/ .table-header, .portfolio-item /deep/ .table-header {
+    font-size: 16px;
   }
-  .portfolio-page /deep/ .labels, .settings-page /deep/ .labels {
+  .portfolio-page /deep/ .labels, .settings-page /deep/ .labels, .portfolio-item /deep/ .labels {
     border-right: 1px solid #D8D8D8;
     width: 48%;
     vertical-align: top;
   }
-  .portfolio-page /deep/ .labels .col-padding, .settings-page /deep/ .labels .col-padding {
+  .portfolio-page /deep/ .labels .col-padding, .settings-page /deep/ .labels .col-padding, .portfolio-item /deep/ .labels .col-padding {
     padding: 16px 6px 16px 16px;
   }
-  .portfolio-page /deep/ .labels .table-item, .settings-page /deep/ .labels .table-item {
+  .portfolio-page /deep/ .labels .table-item, .settings-page /deep/ .labels .table-item, .portfolio-item /deep/ .labels .table-item {
     border-bottom: 1px solid transparent;
   }
-  .portfolio-page /deep/ .labels .table-item:last-child, .settings-page /deep/ .labels .table-item:last-child {
+  .portfolio-page /deep/ .labels .table-item:last-child, .settings-page /deep/ .labels .table-item:last-child, .portfolio-item /deep/ .labels .table-item:last-child {
     border-bottom: 0;
   }
-  .portfolio-page /deep/ .table-label, .settings-page /deep/ .table-label {
+  .portfolio-page /deep/ .table-label, .settings-page /deep/ .table-label, .portfolio-item /deep/ .table-label {
     text-transform: uppercase;
     font-weight: bold;
   }
-  .portfolio-page /deep/ .values, .settings-page /deep/ .values {
+  .portfolio-page /deep/ .values, .settings-page /deep/ .values, .portfolio-item /deep/ .values {
     width: 51%;
     vertical-align: top;
   }
-  .portfolio-page /deep/ .values .table-item, .settings-page /deep/ .values .table-item {
+  .portfolio-page /deep/ .values .table-item, .settings-page /deep/ .values .table-item, .portfolio-item /deep/ .values .table-item {
     padding: 16px 0;
     margin: 0 16px;
     border-bottom: 1px solid #D8D8D8;
   }
-  .portfolio-page /deep/ .values .table-item:last-child, .settings-page /deep/ .values .table-item:last-child {
+  .portfolio-page /deep/ .values .table-item:last-child, .settings-page /deep/ .values .table-item:last-child, .portfolio-item /deep/ .values .table-item:last-child {
     border-bottom: 0;
   }
-  .portfolio-page /deep/ .mobile-col-content, .settings-page /deep/ .mobile-col-content {
+  .portfolio-page /deep/ .mobile-col-content[layout][horizontal], .settings-page /deep/ .mobile-col-content[layout][horizontal], .portfolio-item /deep/ .mobile-col-content[layout][horizontal] {
     display: none;
   }
-  .portfolio-page /deep/ .core-selected .mobile-col-content, .settings-page /deep/ .core-selected .mobile-col-content {
-    display: block;
+  .portfolio-page /deep/ .core-selected .mobile-col-content[layout][horizontal], .settings-page /deep/ .core-selected .mobile-col-content[layout][horizontal], .portfolio-item /deep/ .core-selected .mobile-col-content[layout][horizontal] {
+    display: inherit;
   }
 }
-/*
-.ul-reset {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0;
-}
-
-.table-wrapper {
-  margin-bottom: 80px;
-}
-
-.table-header-list {
-  @extend .ul-reset;
-}
-
-.table-body {
-  font-size: 0;
-  background: $color-white;
-  border-top: 1px solid $color-grey-medium-pre;
-  border-bottom: 1px solid $color-grey-medium-pre;
-  padding: 0 30px 44px 75px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-.col-padding {
-  padding: 15px;
-}
-
-.col-content {
-  @extend .ul-reset;
-  border-bottom: 1px solid $color-grey-light;
-}
-
-.table-header {
-  font-size: $font-size-desktop-small;
-  color: $color-white;
-  text-transform: uppercase;
-}
-
-.table-item {
-  font-size: $font-size-mobile-small;
-  vertical-align: top;
-}
-
-.portfolio-table{
-  width: 100%;
-  font-size: 0;
-  margin: 0;
-}
-
-.table-header-list {
-  background: $color-grey-dark;
-  border-top: 1px solid $color-grey-medium;
-  border-bottom: 1px solid $color-grey-medium;
-}
-
-.portfolio-link {
-  display: block;
-}
-
-.table-header-list {
-  padding: 0 30px 0 75px;
-}
-
-.table-header {
-  display: inline-block;
-}
-
-.table-item {
-  display: inline-block;
-}
-
-.col-4 {
-  min-width: 100px;
-  max-width: 100px;
-}
-
-.col-5 {
-  min-width: 135px;
-  max-width: 135px;
-}
-
-.col-3 {
-  min-width: 70px;
-  max-width: 70px;
-}
-
-.col-7 {
-  min-width: 200px;
-  max-width: 200px;
-}
-
-@media  screen and (max-width: $size-mobile){
-  .table-wrapper {
-    width: 100%;
-    overflow-x: scroll;
-  }
-
-  .portfolio-table {
-    width: 948px;
-  }
-}*/
 .settings-page /deep/ .content {
   display: none;
 }
@@ -542,13 +438,19 @@ paper-tabs /deep/ #selectionBar {
   }
 
   .settings-page /deep/ .table-header {
-    font-size: 12px;
+    font-size: 14px;
+    text-transform: none;
   }
   .settings-page /deep/ .labels {
     width: 40%;
   }
   .settings-page /deep/ .values {
     width: 59%;
+  }
+}
+@media screen and (max-width: 640px) {
+  .settings-page /deep/ .table-item {
+    font-size: 13px;
   }
 }
 .table-header {
