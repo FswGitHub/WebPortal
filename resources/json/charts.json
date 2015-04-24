@@ -2,13 +2,12 @@
   "success": true,
   "content": [
     {
-      "name": " type 0 - Line",
+      "name": "Chart 1",
       "type": 0,
       "data": {
         "labels": ["January", "February", "March", "April", "May", "June", "July"],
         "datasets": [
           {
-            "label": "My First dataset",
             "fillColor": "rgba(220,220,220,0.2)",
             "strokeColor": "rgba(220,220,220,1)",
             "pointColor": "rgba(220,220,220,1)",
@@ -18,7 +17,6 @@
             "data": [65, 59, 80, 81, 56, 55, 40]
           },
           {
-            "label": "My Second dataset",
             "fillColor": "rgba(151,187,205,0.2)",
             "strokeColor": "rgba(151,187,205,1)",
             "pointColor": "rgba(151,187,205,1)",
@@ -27,10 +25,11 @@
             "pointHighlightStroke": "rgba(151,187,205,1)",
             "data": [28, 48, 40, 19, 86, 27, 90]
           }
-        ]
+        ],
+        "colors":["#dcdcdc","#97bbcd"]
       }
     }, {
-      "name": "type 1 - Bar",
+      "name": "Chart 2",
       "type": 1,
       "data": {
         "labels": ["January", "February", "March", "April", "May", "June", "July"],
@@ -55,10 +54,11 @@
             "pointHighlightStroke": "rgba(151,187,205,1)",
             "data": [28, 48, 40, 19, 86, 27, 90]
           }
-        ]
+        ],
+        "colors":["#dcdcdc","#97bbcd"]
       }
     }, {
-      "name": "type 2 - Radar",
+      "name": "Chart 3",
       "type": 2,
       "data": {
         "labels": ["January", "February", "March", "April", "May", "June", "July"],
@@ -83,10 +83,11 @@
             "pointHighlightStroke": "rgba(151,187,205,1)",
             "data": [28, 48, 40, 19, 86, 27, 90]
           }
-        ]
+        ],
+        "colors":["#dcdcdc","#97bbcd"]
       }
     }, {
-      "name": "type 3 - Polar",
+      "name": "Chart 4",
       "type": 3,
       "data": [
         {
@@ -117,7 +118,7 @@
         }
       ]
     }, {
-      "name": "type 4 - Pie",
+      "name": "Chart 5",
       "type": 4,
       "data": [
         {
@@ -148,7 +149,7 @@
         }
       ]
     }, {
-      "name": "type 5 - Doughnut",
+      "name": "Chart 6",
       "type": 5,
       "data": [
         {

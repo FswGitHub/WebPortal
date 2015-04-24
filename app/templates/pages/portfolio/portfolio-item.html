@@ -63,8 +63,8 @@
                         </div>
                     </paper-dropdown>
                 </div>
-                <template repeat="{{val in portfolioCharts}}">
-                    <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
+                <template repeat="{{val, i in portfolioCharts}}">
+                    <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" dashboardContent="{{portfolioCharts}}" id="{{i}}"></chart-board>
                 </template>
             </div>
             <div tab1 class="holdings-view tab-page-content" fit id="holdings">

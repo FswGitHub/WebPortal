@@ -265,6 +265,9 @@ paper-tabs /deep/ #selectionBar {
 .portfolio-item /deep/ .indent.subheader {
   margin-left: 52px;
 }
+.portfolio-item /deep/ .holding-view /deep/ #label {
+  padding: 0 5px;
+}
 @media screen and (max-width: 768px) {
   .portfolio-item /deep/ chart-board:nth-child(even) /deep/ .chart-board {
     padding-right: 0;

@@ -166,6 +166,9 @@ paper-tabs /deep/ #selectionBar {
   font-weight: normal;
 }
 .dashboard-page /deep/ .drop-chart {
+  padding: 8px 4% 16px 0;
+}
+.dashboard-page /deep/ .drop-chart:nth-child(even) {
   padding: 8px 0 16px 0;
 }
 .dashboard-page /deep/ .drop-chart-here {

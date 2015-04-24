@@ -18,6 +18,10 @@
     }
 
     .drop-chart {
+      padding: 8px 4% 16px 0;
+    }
+
+    .drop-chart:nth-child(even) {
       padding: 8px 0 16px 0;
     }
 
@@ -32,7 +36,7 @@
     }
 
     @media screen and (max-width: $size-tablet) {
-      chart-board{
+      chart-board {
         &:nth-child(even){
           /deep/ .chart-board{
             padding-right: 0;

@@ -4,14 +4,13 @@
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}">
             <template repeat="{{val, i in dashboardContent}}">
-                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" function="{{apply}}" id="{{i}}" array="{{dashboardContent}}"></chart-board>
+                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" id="{{i}}" dashboardContent="{{dashboardContent}}" dragAndDropsArray="{{dragAndDropsArray}}" func="{{updateDragAndDropsArray}}"></chart-board>
             </template>
             <template repeat="{{val in dragAndDropsArray}}">
-
+                <core-drag-drop class="chart-board drop-chart">
+                    <span class="drop-chart-here">Drop chart here</span>
+                </core-drag-drop>
             </template>
-            <core-drag-drop class="chart-board drop-chart">
-                <span class="drop-chart-here">Drop chart here</span>
-            </core-drag-drop>
             <div class="dashboard-dropdown">
                 <paper-fab icon="add" on-tap="{{openMenu}}" relative></paper-fab>
                 <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="{{menuPosition}}">
@@ -45,9 +44,7 @@
             contentResponse: function(e, data){
                 if(data.response.success){
                     this.dashboardContent = data.response.content;
-                    if (this.dashboardContent.length > 4) {
-                        this.dragAndDropsArray = new Array(1);
-                    }
+                    this.updateDragAndDropsArray();
                 }
             },
             dragAndDropsArray: new Array(4),
@@ -67,10 +64,17 @@
             menuStatus: false,
             menuPosition: 'top',
             dashboardContent:[],
-            deleteChart: function (id) {
-                this.dashboardContent.splice(id,1);
-                console.log(this.dashboardContent);
-                return(this.dashboardContent);
+            updateDragAndDropsArray: function() {
+                var boards = this.dashboardContent.length;
+                if (boards >= 4) {
+                    this.dragAndDropsArray = new Array(1);
+                }
+                else {
+                    var different = 4-boards;
+                    var cleanArray = new Array(different);
+                    this.dragAndDropsArray = cleanArray;
+                }
+                return (this.dragAndDropsArray);
             }
         })
     </script>

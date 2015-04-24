@@ -44,6 +44,7 @@ side-menu {
     div[tool] {
       margin-left: 0;
     }
+
     chart-board{
       &:nth-child(even){
         /deep/ .chart-board{

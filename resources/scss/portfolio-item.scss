@@ -37,6 +37,14 @@
       margin-left: 52px;
     }
 
+    .holding-view {
+      /deep/ {
+        #label {
+          padding: 0 5px;
+        }
+      }
+    }
+
     @media screen and (max-width: $size-tablet) {
       chart-board{
         &:nth-child(even){
