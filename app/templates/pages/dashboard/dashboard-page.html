@@ -3,9 +3,15 @@
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}">
-            <template repeat="{{val in dashboardContent}}">
-                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}"></chart-board>
+            <template repeat="{{val, i in dashboardContent}}">
+                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" function="{{apply}}" id="{{i}}" array="{{dashboardContent}}"></chart-board>
             </template>
+            <template repeat="{{val in dragAndDropsArray}}">
+
+            </template>
+            <core-drag-drop class="chart-board drop-chart">
+                <span class="drop-chart-here">Drop chart here</span>
+            </core-drag-drop>
             <div class="dashboard-dropdown">
                 <paper-fab icon="add" on-tap="{{openMenu}}" relative></paper-fab>
                 <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="{{menuPosition}}">
@@ -37,11 +43,14 @@
                 this.$.dashboardItems.url = this.$.globals.url+'resources/json/charts.json';
             },
             contentResponse: function(e, data){
-                var me = this;
                 if(data.response.success){
                     this.dashboardContent = data.response.content;
+                    if (this.dashboardContent.length > 4) {
+                        this.dragAndDropsArray = new Array(1);
+                    }
                 }
             },
+            dragAndDropsArray: new Array(4),
             page: {
                 class: 'dashboard-page',
                 url: 'dashboard',
@@ -56,7 +65,13 @@
                 me.menuStatus = true;
             },
             menuStatus: false,
-            menuPosition: 'top'
+            menuPosition: 'top',
+            dashboardContent:[],
+            deleteChart: function (id) {
+                this.dashboardContent.splice(id,1);
+                console.log(this.dashboardContent);
+                return(this.dashboardContent);
+            }
         })
     </script>
 </polymer-element>

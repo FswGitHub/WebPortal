@@ -309,22 +309,6 @@
   right: 0;
 }
 
-.cost-price-icon {
-  right: -8px;
-}
-
-.book-value-icon {
-  right: -7px;
-}
-
-.market-price-icon {
-  right: -4px;
-}
-
-.market-value-icon {
-  right: -5px;
-}
-
 .core-selected {
   .filter-icon {
     display: inline-block;
@@ -352,6 +336,25 @@
 .col-padding:first-child {
   padding: 16px 6px 16px 16px;
 }
+
+@media  screen and (max-width: 1024px) {
+  .cost-price-icon {
+    right: -8px;
+  }
+
+  .book-value-icon {
+    right: -7px;
+  }
+
+  .market-price-icon {
+    right: -4px;
+  }
+
+  .market-value-icon {
+    right: -5px;
+  }
+}
+
 
 @media  screen and (max-width: $size-mobile) {
   .portfolio-item {

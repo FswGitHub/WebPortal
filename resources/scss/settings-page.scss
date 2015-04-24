@@ -67,6 +67,7 @@
       /deep/ {
         paper-radio-button {
           margin: 0.5em 0.5em 0.25em 0;
+          padding: 0;
         }
         paper-radio-button::shadow #onRadio {
           background-color: $color-red;
@@ -285,4 +286,12 @@
 .table-header {
   font-size: $font-size-mobile-small;
 }
+
+.table-item {
+  line-height: 24px;
+  padding: 11px 16px;
+  min-height: 24px;
+}
+
+
 

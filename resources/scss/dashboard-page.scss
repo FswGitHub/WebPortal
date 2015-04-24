@@ -17,6 +17,20 @@
       font-weight: normal;
     }
 
+    .drop-chart {
+      padding: 8px 0 16px 0;
+    }
+
+    .drop-chart-here {
+      display: block;
+      line-height: 274px;
+      text-align: center;
+      color: $color-grey-medium;
+      font-size: $font-size-desktop-small;
+      border-radius: 2px;
+      border: 1px solid $color-grey-medium;
+    }
+
     @media screen and (max-width: $size-tablet) {
       chart-board{
         &:nth-child(even){

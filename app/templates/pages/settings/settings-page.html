@@ -1,4 +1,61 @@
 <polymer-element name="settings-page">
+    <style>
+        /*Dialogs styles*/
+        html /deep/ paper-action-dialog::shadow #scroller {
+            height: 255px;
+            width: 350px;
+        }
+        html /deep/ paper-action-dialog paper-button.action-button {
+            color: #DD1F29;
+        }
+        html /deep/ paper-action-dialog form {
+            color: #4A4A4A;
+        }
+        html /deep/ paper-action-dialog .or {
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        html /deep/ paper-action-dialog .browse-field {
+            margin-bottom: 10px;
+            border: 1px solid #D8D8D8;
+            border-radius: 5px;
+            border-right: 0;
+        }
+        html /deep/ paper-action-dialog .browse-button {
+            margin: 0;
+            background: #D8D8D8;
+            color: #4A4A4A;
+        }
+        html /deep/ paper-action-dialog .browse-input {
+            line-height: 33px;
+        }
+        html /deep/ paper-action-dialog .upload-label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        html /deep/ paper-action-dialog core-drag-drop {
+            border: 1px solid #D8D8D8;
+            display: block;
+            border-radius: 5px;
+        }
+        html /deep/ paper-action-dialog .drag-drop-label {
+            display: block;
+            text-align: center;
+            padding: 10%;
+            color: #D8D8D8;
+        }
+        html /deep/ paper-action-dialog paper-input-decorator /deep/ .label-text {
+            color: #DD1F29;
+        }
+        html /deep/ paper-action-dialog paper-input-decorator /deep/.focused-underline {
+            background-color: #DD1F29;
+        }
+        html /deep/ paper-action-dialog paper-input-decorator /deep/ #floatedLabelText {
+            color: #DD1F29;
+        }
+
+    </style>
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}">
@@ -10,12 +67,10 @@
                             <div class="col-5 label-block">
                                 <span class="settings-label">Theme</span>
                             </div>
-                            <div class="col-7 theme-radio-group">
-                                <paper-radio-group valueattr="label" selected="dark" multi="false">
-                                    <paper-radio-button name="light" label="light"></paper-radio-button>
-                                    <paper-radio-button name="dark" label="dark"></paper-radio-button>
-                                </paper-radio-group>
-                            </div>
+                            <paper-radio-group selected="dark" class="col-7 theme-radio-group" layout horizontal start>
+                                <paper-radio-button name="light" label="light"></paper-radio-button>
+                                <paper-radio-button name="dark" label="dark"></paper-radio-button>
+                            </paper-radio-group>
                         </li>
                         <li class="row" horizontal layout start>
                             <div class="col-5 label-block">
@@ -157,41 +212,39 @@
                 <div class="settings-users-dialogs">
                     <paper-action-dialog heading="Import" id="importUsersDialog" opened="{{openImport}}" backdrop>
                         <form>
-                            <label>Upload a file</label>
-                            <core-field>
-                                <input type="text" flex>
-                                <paper-button>Browse</paper-button>
+                            <label class="upload-label">Upload a file</label>
+                            <core-field class="browse-field">
+                                <input type="text" flex class="browse-input">
+                                <paper-button class="browse-button">Browse</paper-button>
                             </core-field>
-                            <span>OR</span>
+                            <span class="or">OR</span>
                             <core-drag-drop>
-                                <div>
-                                    <span>Drag and drop file here</span>
-                                </div>
+                                <span class="drag-drop-label">Drag and drop file here</span>
                             </core-drag-drop>
                         </form>
-                        <paper-button affirmative id="cancel">Cancel</paper-button>
-                        <paper-button affirmative class="apply">Upload</paper-button>
+                        <paper-button affirmative id="cancel" class="action-button">Cancel</paper-button>
+                        <paper-button affirmative class="action-button" on-tap="{{uploadUsers}}">Upload</paper-button>
                     </paper-action-dialog>
                     <paper-action-dialog heading="Add User" id="addUsersDialog" opened="{{openAdd}}" backdrop>
                         <form>
                             <paper-input-decorator id="addUserEmail"
                                                    label="Email Address"
                                                    floatingLabel>
-                                <input type="email">
+                                <input id="userEmail" type="email">
                             </paper-input-decorator>
                             <paper-input-decorator id="addUserFirstName"
                                                    label="First Name"
                                                    floatingLabel>
-                                <input type="text">
+                                <input id="userFName" type="text">
                             </paper-input-decorator>
                             <paper-input-decorator id="addUserLastName"
                                                    label="Last Name"
                                                    floatingLabel>
-                                <input type="text">
+                                <input id="userLName" type="text">
                             </paper-input-decorator>
                         </form>
-                        <paper-button affirmative class="cancel">Cancel</paper-button>
-                        <paper-button affirmative class="apply">Add</paper-button>
+                        <paper-button affirmative class="action-button">Cancel</paper-button>
+                        <paper-button affirmative class="action-button" on-tap="{{addUser}}">Add</paper-button>
                     </paper-action-dialog>
                 </div>
                 <div class="users-table">
@@ -207,7 +260,7 @@
                         </div>
                         <div class="table-body">
                             <core-selector selected="0" valueattr="number">
-                                <template repeat="{{user, i in usersArray}}">
+                                <template repeat="{{user, i in allUsers}}">
                                     <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                         <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{user.email}}</h1>
                                         <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
@@ -222,7 +275,11 @@
                                                 <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.firstName}}</div>
                                                 <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.lastName}}</div>
                                                 <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.status}}</div>
-                                                <div class="col-padding table-item" flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">{{user.action}}</div>
+                                                <div class="col-padding table-item" flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">
+                                                    <template repeat="{{act in user.action}}">
+                                                        <core-icon icon="{{act}}"></core-icon>
+                                                    </template>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -242,6 +299,9 @@
         Polymer('settings-page',{
             ready: function (){
                 this.$.settingsContent.url = this.$.globals.url+'resources/json/settings.json';
+                if (this.width <= '640') {
+                    this.allUsers = new Array(1);
+                }
             },
             contentResponse: function(e, data){
                 var me = this;
@@ -269,6 +329,9 @@
                     label: 'Users'
                 }
             ],
+            allUsers: new Array(10),
+            newUsers: [],
+            width: window.innerWidth,
             selected: 0,
             openMenu: function(e){
                 var me = this;
@@ -287,9 +350,70 @@
             openImport: false,
             openAddDialog: function(e){
                 var me = this;
+                var userEmail = me.$.addUsersDialog.querySelector('#userEmail');
+                var userFirstName = me.$.addUsersDialog.querySelector('#userFName');
+                var userLastName = me.$.addUsersDialog.querySelector('#userLName');
+                userEmail.value = '';
+                userFirstName.value = '';
+                userLastName.value = '';
+                me.$.addUserEmail.updateLabelVisibility();
+                me.$.addUserFirstName.updateLabelVisibility();
+                me.$.addUserLastName.updateLabelVisibility();
                 me.openAdd = true;
             },
-            openAdd: false
+            openAdd: false,
+            uploadUsers: function(){
+                var me = this;
+                if (me.newUsers.length > 0) {
+                    me.allUsers = me.newUsers.concat(me.usersArray);
+                    me.allUsers = me.addEmptyStrings(me.allUsers);
+                }
+                else {
+                    me.allUsers = me.addEmptyStrings(me.usersArray);
+                }
+            },
+            addUser: function (){
+                var me = this;
+                var userEmail = me.$.addUsersDialog.querySelector('#userEmail').value;
+                var userFirstName = me.$.addUsersDialog.querySelector('#userFName').value;
+                var userLastName = me.$.addUsersDialog.querySelector('#userLName').value;
+                var newUserData = {
+                            status:'Pending',
+                            action:['visibility','refresh']};
+                newUserData.email = userEmail;
+                newUserData.firstName = userFirstName;
+                newUserData.lastName = userLastName;
+                me.newUsers.push(newUserData);
+                me.allUsers = me.deleteEmptyStrings(me.allUsers);
+                me.allUsers.push(newUserData);
+                me.allUsers = me.addEmptyStrings(me.allUsers);
+            },
+            addEmptyStrings: function (items){
+                if (this.width > '640') {
+                    var counter = items.length;
+                    if (counter < 10) {
+                        var i=0;
+                        var different = 10-counter;
+                        var differentArray = new Array(different);
+                        while (i<different){
+                            differentArray[i] = '';
+                            i++;
+                        }
+                        items = items.concat(differentArray);
+                    }
+                }
+                return items;
+            },
+            deleteEmptyStrings: function(items){
+                var newItems = [];
+                for (var i=0; i<items.length; i++) {
+                    if (items[i] > '') {
+                        newItems.push(items[i]);
+                    }
+                }
+                items = newItems;
+                return items;
+            }
         })
     </script>
 </polymer-element>

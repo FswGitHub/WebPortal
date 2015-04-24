@@ -3,8 +3,8 @@
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <link rel="stylesheet" href="../../../css/calendar-dialog.css">
-        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" pagePanel="{{page.panel}}">
-            <div subheader class="indent subheader" layout horizontal flex>
+        <side-menu id="side" class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" pagePanel="{{page.panel}}">
+            <div subheader class="indent subheader" layout horizontal flex id="subheader">
                 <div class="calendar-block" layout horizontal center flex two>
                     <paper-button class="calendar-button" on-tap="{{openCalendar}}" relative layout horizontal>
                         <core-icon icon="event" class="open-calendar-icon"></core-icon>
@@ -24,23 +24,21 @@
                     <paper-dropdown-menu>
                         <paper-dropdown class="dropdown">
                             <core-selector class="menu" valueattr="view" selected="1">
-                                <paper-item view="1" on-tap="{{toggleIcb}}">ICB</paper-item>
-                                <paper-item view="2" on-tap="{{toggleStat}}">Statutory</paper-item>
+                                <paper-item view="1" on-tap="{{toggleStat}}">Statutory</paper-item>
+                                <paper-item view="2" on-tap="{{toggleIcb}}">ICB</paper-item>
                             </core-selector>
                         </paper-dropdown>
                     </paper-dropdown-menu>
                 </div>
-                <div layout horizontal center flex six hidden?="{{phoneScreen}}">
-                    <div hidden?="{{showAll}}">
+                <div layout horizontal center flex six hidden?="{{phoneScreen}}" id="searchInput">
+                    <div hidden?="{{!showAll}}" >
                         <template is="auto-binding">
                             <core-media-query query="max-width: 640px"
                                               queryMatches="{{phoneScreen}}"></core-media-query>
-                            <div class="search-block">
-                                <core-field class="search-field">
-                                    <input placeholder="Filter by name" flex>
-                                    <core-icon icon="search"></core-icon>
-                                </core-field>
-                            </div>
+                            <core-field class="search-field" >
+                                <input id="searchField" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
+                                <core-icon icon="search"></core-icon>
+                            </core-field>
                         </template>
                     </div>
                 </div>
@@ -252,7 +250,16 @@
                 panel: true
             },
             tabs: [{name: 'dashboard', label: 'Dashboard'}, {name:'holdings', label: 'Holdings'}],
-            allItems:[],
+
+            //search function
+            filterByName: function (e) {
+                var me = this;
+                var searchValue = me.$.searchInput.querySelector('#searchField').value;
+                var newArray = me.allItems;
+                newArray = PolymerExpressions.prototype.startsWith(newArray, searchValue);
+                console.log(newArray);
+                //me.allItems = newArray;
+            },
 
             //Open/close calendar
             openCalendar: function(e) {
@@ -313,6 +320,12 @@
             },
 
             toggleStat: function (){
+                this.showAll = false;
+                var tableHeader = this.$.holdings.querySelectorAll('#tableHeader')[0];
+                tableHeader.selected='name';
+            },
+
+            toggleIcb: function (){
                 var me = this;
                 var category = me.$.holdings.querySelectorAll('.collapse');
                 var tableHeader = this.$.holdings.querySelectorAll('#tableHeader')[0];
@@ -323,12 +336,6 @@
                 }
                 me.showAll = true;
                 me.oderVal = 'name';
-                tableHeader.selected='name';
-            },
-
-            toggleIcb: function (){
-                this.showAll = false;
-                var tableHeader = this.$.holdings.querySelectorAll('#tableHeader')[0];
                 tableHeader.selected='name';
             },
 

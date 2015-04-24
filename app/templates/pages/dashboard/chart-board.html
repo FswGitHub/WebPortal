@@ -1,4 +1,4 @@
-<polymer-element name="chart-board" attributes="name type values">
+<polymer-element name="chart-board" attributes="name type values array">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <div class="chart-board" id="board">
@@ -31,13 +31,11 @@
         </div>
         <paper-action-dialog id="dialog"
                              heading="Confirm"
-                             transition="core-transition-center"
-                             backdrop
-                             style="width: 300px;"
-                             layered="false">
+                             style="width: 300px; height: auto"
+                             backdrop>
             <p>Remove chart?</p>
             <paper-button affirmative>Cancel</paper-button>
-            <paper-button affirmative autofocus>Ok</paper-button>
+            <paper-button affirmative on-tap="{{apply}}">Ok</paper-button>
         </paper-action-dialog>
     </template>
     <script>
@@ -91,7 +89,11 @@
                 var me = this;
                 me.menuStatus = true;
             },
-            menuStatus: false
+            menuStatus: false,
+            apply: function(){
+                var chartId = this.id;
+                this.array.splice(chartId ,1);
+            }
         });
     </script>
 </polymer-element>

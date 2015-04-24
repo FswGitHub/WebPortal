@@ -165,6 +165,18 @@ paper-tabs /deep/ #selectionBar {
 .dashboard-page /deep/ .chart-dropdown {
   font-weight: normal;
 }
+.dashboard-page /deep/ .drop-chart {
+  padding: 8px 0 16px 0;
+}
+.dashboard-page /deep/ .drop-chart-here {
+  display: block;
+  line-height: 274px;
+  text-align: center;
+  color: #979797;
+  font-size: 18px;
+  border-radius: 2px;
+  border: 1px solid #979797;
+}
 @media screen and (max-width: 768px) {
   .dashboard-page /deep/ chart-board:nth-child(even) /deep/ .chart-board {
     padding-right: 0;

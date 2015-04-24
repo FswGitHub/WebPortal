@@ -288,6 +288,7 @@ paper-tabs /deep/ #selectionBar {
 }
 .settings-page /deep/ .theme-radio-group /deep/ paper-radio-button {
   margin: 0.5em 0.5em 0.25em 0;
+  padding: 0;
 }
 .settings-page /deep/ .theme-radio-group /deep/ paper-radio-button::shadow #onRadio {
   background-color: #DD1F29;
@@ -455,4 +456,10 @@ paper-tabs /deep/ #selectionBar {
 }
 .table-header {
   font-size: 14px;
+}
+
+.table-item {
+  line-height: 24px;
+  padding: 11px 16px;
+  min-height: 24px;
 }
