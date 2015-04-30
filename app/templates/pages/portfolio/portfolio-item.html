@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="../../../css/calendar-dialog.css">
         <side-menu id="side" class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" pagePanel="{{page.panel}}" tabHoldings="{{page.tabHoldingsStatus}}">
             <!--Subheader-->
-            <div subheader class="indent subheader" layout horizontal flex id="subheader">
+            <div subheader class="indent subheader" layout horizontal flex id="subheader" relative>
                 <!--Calendar-->
                 <div class="calendar-block" layout horizontal center flex two>
                     <paper-button class="calendar-button" on-tap="{{openCalendar}}" relative layout horizontal>
@@ -24,7 +24,7 @@
                 <!--Holdings subheader-->
                 <template if="{{page.tabHoldingsStatus}}">
                     <!--Holdings table view dropdown menu-->
-                    <div class="holding-view" layout horizontal center flex two >
+                    <div class="holding-view" layout horizontal center flex two>
                         <core-icon icon="description" class="open-calendar-icon"></core-icon>
                         <paper-dropdown-menu>
                             <paper-dropdown class="dropdown">
@@ -45,6 +45,51 @@
                                 <core-icon icon="search"></core-icon>
                             </core-field>
                         </template>
+                    </div>
+                    <div hidden?="{{!phoneScreen}}" layout horizontal center-center flex>
+                        <core-icon-button icon="filter-list" on-tap="{{openFilter}}"></core-icon-button>
+                        <paper-dropdown halign="right" opened="{{filtersStatus}}" class="mobile-filters">
+                            <div class="menu filters-menu">
+                                <template if="{{showAll}}">
+                                    <core-field class="search-field">
+                                        <input id="searchFieldMobile" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
+                                        <core-icon icon="search"></core-icon>
+                                    </core-field>
+                                </template>
+                                <paper-item class="item" on-tap="{{order}}" orderval="name">
+                                    <div class="label">Order by name</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" on-tap="{{order}}" orderval="nominal">
+                                    <div class="label">Order by nominal</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" on-tap="{{order}}" orderval="costPrice">
+                                    <div class="label">Order by cost price</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" on-tap="{{order}}" orderval="bookValue">
+                                    <div class="label">Order by book value</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" on-tap="{{order}}" orderval="marketPrice">
+                                    <div class="label">Order by market price</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" on-tap="{{order}}" orderval="marketValue">
+                                    <div class="label">Order by market value</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" on-tap="{{order}}" orderval="MV">
+                                    <div class="label">Order by %MV</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" on-tap="{{order}}" orderval="exposureValue">
+                                    <div class="label">Order by exposure value</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                            </div>
+                        </paper-dropdown>
                     </div>
                 </template>
             </div>
@@ -117,7 +162,7 @@
                         <core-selector id="tableHeader" selected="name" valueattr="orderval" layout horizontal?="{{!phoneScreen}}">
                             <div class="col-padding table-header link" flex four on-tap="{{order}}" orderval="name">
                                 Name
-                                <core-icon icon="arrow-drop-down link" class="filter-icon"></core-icon>
+                                <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
                             </div>
                             <div class="col-padding table-header link" flex three on-tap="{{order}}" orderval="nominal">
                                 Nominal
@@ -247,6 +292,7 @@
             ready: function(){
                 this.$.portfolioItem.url = this.$.globals.url+'resources/json/portfolio-item.json';
                 this.updateDateFormat();
+                console.log(this.id);
             },
             contentResponse: function(e, data){
                 var me = this;
@@ -266,7 +312,7 @@
             },
             page: {
                 class: 'portfolio-item',
-                url: 'portfolio/item/1',
+                url: 'portfolio/item/',
                 title: 'Portfolio > ...',
                 tabs: true,
                 panel: true,
@@ -277,10 +323,11 @@
             portfolioItemsNoCategory:[],
 
             //Search "Filter by name" function
-            filterByName: function () {
+            filterByName: function (e) {
                 var me = this;
                 var filtered = [];
-                var searchField = me.$.subheader.querySelector('#searchField');
+                var id = e.currentTarget.id;
+                var searchField = me.$.subheader.querySelector('#'+id);
                 var searchValue = searchField.value;
                 var items =  me.portfolioItemsNoCategory;
                 var letterMatch = new RegExp(searchValue, 'i');
@@ -356,7 +403,7 @@
                 else icon.classList.add(actionClass);
             },
 
-            //Toogle holdings table view
+            //Toggle holdings table view
             toggleStat: function (){
                 var tableHeader = this.$.holdings.querySelector('#tableHeader');
                 tableHeader.selected='name';
@@ -399,6 +446,11 @@
             order: function (e){
                 var criteria = e.currentTarget.attributes.orderval.value;
                 this.oderVal = criteria;
+            },
+
+            //Toggle filtering dropdown(mobile view)
+            openFilter: function(){
+                this.filtersStatus = true;
             }
         })
     </script>

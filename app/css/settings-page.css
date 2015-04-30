@@ -131,7 +131,7 @@ paper-tabs /deep/ #selectionBar {
   border-bottom: 1px solid #D8D8D8;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .content {
     padding: 26px 26px 0 26px;
     margin-bottom: 62px;

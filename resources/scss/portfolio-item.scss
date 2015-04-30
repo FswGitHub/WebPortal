@@ -183,7 +183,7 @@
 //----------Calendar
 
 #calendarDialogWrapper {
-  top: 10px;
+  top: 13px;
 }
 
 .actions {
@@ -384,12 +384,33 @@
   }
 }
 
+//----------Filters menu
 
-@media  screen and (max-width: $size-mobile) {
+.mobile-filters {
+  top:13px;
+}
+
+.filters-menu {
+  .label {
+    color: $color-black;
+  }
+}
+
+@media  screen and (max-width: $size-tablet) {
   .portfolio-item {
     /deep/ {
       .col-content {
         margin: 0;
+      }
+
+      .filters-menu {
+        .label {
+          font-size: $font-size-mobile-small;
+        }
+      }
+
+      .search-field {
+        padding: 5px 16px 0 16px;
       }
 
       .table-header {
@@ -416,13 +437,18 @@
         background: $color-grey-medium-light;
         padding: 16px;
         border-top: 0;
-        border-bottom: 1px solid $color-grey-medium-light;
+        border-bottom: 1px solid $color-grey-light;
         font-size: $font-size-mobile-small;
         line-height: 14px;
         text-transform: none;
         color: $color-black;
         margin: 0;
         font-weight: normal;
+      }
+
+      .no-matches {
+        padding: 16px;
+        font-size: $font-size-mobile-small;
       }
     }
   }

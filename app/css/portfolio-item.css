@@ -131,7 +131,7 @@ paper-tabs /deep/ #selectionBar {
   border-bottom: 1px solid #D8D8D8;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
   .content {
     padding: 26px 26px 0 26px;
     margin-bottom: 62px;
@@ -355,7 +355,7 @@ paper-tabs /deep/ #selectionBar {
 }
 
 #calendarDialogWrapper {
-  top: 10px;
+  top: 13px;
 }
 
 .actions {
@@ -530,9 +530,23 @@ paper-tabs /deep/ #selectionBar {
     right: -5px;
   }
 }
-@media screen and (max-width: 480px) {
+.mobile-filters {
+  top: 13px;
+}
+
+.filters-menu .label {
+  color: #000000;
+}
+
+@media screen and (max-width: 768px) {
   .portfolio-item /deep/ .col-content {
     margin: 0;
+  }
+  .portfolio-item /deep/ .filters-menu .label {
+    font-size: 14px;
+  }
+  .portfolio-item /deep/ .search-field {
+    padding: 5px 16px 0 16px;
   }
   .portfolio-item /deep/ .table-header {
     font-size: 14px;
@@ -555,12 +569,16 @@ paper-tabs /deep/ #selectionBar {
     background: #D8D8D8;
     padding: 16px;
     border-top: 0;
-    border-bottom: 1px solid #D8D8D8;
+    border-bottom: 1px solid #EDEDED;
     font-size: 14px;
     line-height: 14px;
     text-transform: none;
     color: #000000;
     margin: 0;
     font-weight: normal;
+  }
+  .portfolio-item /deep/ .no-matches {
+    padding: 16px;
+    font-size: 14px;
   }
 }

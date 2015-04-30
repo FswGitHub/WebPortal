@@ -11,28 +11,34 @@
                 <core-selector valueattr="label"
                                class="menu"
                                excludedLocalNames="h3"
-                               selected="{{pageUrl}}">
+                               selected="{{selectedPage}}">
                     <paper-item label="dashboard"
+                                name="dashboard"
                                 on-tap="{{menuGo}}">
                         <core-icon icon="dashboard"></core-icon>
                         Dashboard
                     </paper-item>
                     <paper-item label="portfolio"
+                                name="portfolio"
                                 on-tap="{{menuGo}}">
                         <core-icon icon="perm-media"></core-icon>
                         Portfolio
                     </paper-item>
                     <template repeat="{{val in menuContent}}">
                         <paper-item class="child"
+                                    name="{{val.title}}"
                                     label="portfolio/item/{{val.id}}"
-                                    on-tap="{{menuGo}}">{{val.title}}</paper-item>
+                                    on-tap="{{menuGo}}">{{val.title}}
+                        </paper-item>
                     </template>
                     <paper-item label="profile"
+                                name="profile"
                                 on-tap="{{menuGo}}">
                         <core-icon icon="account-circle"></core-icon>
                         Profile
                     </paper-item>
                     <paper-item label="settings"
+                                name="settings"
                                 on-tap="{{menuGo}}">
                         <core-icon icon="settings"></core-icon>
                         Settings
@@ -85,6 +91,8 @@
         Polymer('side-menu', {
             ready: function(){
                 this.$.portfolioItems.url = this.$.globals.url+'resources/json/sidemenu.json';
+                this.selectedPage = this.pageUrl;
+                console.log(this.selectedPage);
             },
             contentResponse: function(e, data){
                 var me = this;

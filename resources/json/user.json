@@ -1,7 +1,10 @@
 {
   "success": true,
   "user":{
-    "firstName":"John",
-    "lastName":"Smith"
+    "firstName":"Alan",
+    "lastName":"Ball",
+    "email":"alan.ball@outlook.com",
+    "cellphone":"+654321987",
+    "idNumber":"852147"
   }
 }
