@@ -43,10 +43,8 @@
                     </paper-button>
                 </div>
             </div>
-            <div class="footer">
-                <hr>
-                2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
-            </div>
+            <!--Footer-->
+            <footer-page></footer-page>
         </div>
         <paper-action-dialog id="loginDialog"
                              heading="Error"
@@ -55,7 +53,7 @@
                              style="width: 300px;"
                              layered="false">
             <p>{{dialogText}}</p>
-            <paper-button affirmative autofocus>Ok</paper-button>
+            <paper-button affirmative autofocus style="color:#DD1F29;">Ok</paper-button>
         </paper-action-dialog>
         <app-globals id="globals"></app-globals>
         <core-ajax id="loginSubmitRequest"

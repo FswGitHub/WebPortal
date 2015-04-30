@@ -43,11 +43,11 @@
         </div>
         <paper-action-dialog id="dialog"
                              heading="Confirm"
-                             style="width: 300px; height: auto"
+                             style="width: 300px; height: 165px"
                              backdrop>
             <p>Remove chart?</p>
-            <paper-button affirmative>Cancel</paper-button>
-            <paper-button affirmative on-tap="{{apply}}">Ok</paper-button>
+            <paper-button affirmative style="color: #DD1F29;">Cancel</paper-button>
+            <paper-button affirmative style="color: #DD1F29;" on-tap="{{apply}}">Ok</paper-button>
         </paper-action-dialog>
     </template>
     <script>
@@ -59,18 +59,15 @@
                 var me = this;
                 if (me.chart) me.chart.destroy();
                 setTimeout(function(){
-                    //me.data = me.values || {};
                     me.options = {};
-
                     Chart.defaults.global.responsive = true;
                     me.ctx = me.$.canvas.getContext('2d');
                     switch (type){
                         case (0):
 //                            LINE
-                            var datasetsArray = me.setDatasetToLine();
                             me.data = {
                                 labels: me.values.labels,
-                                datasets: datasetsArray
+                                datasets: me.setDatasetToLine() || {}
                             };
                             me.options = {
                                 bezierCurve: false
@@ -79,34 +76,32 @@
                             break;
                         case (1):
 //                            BAR
-                            datasetsArray = me.setDatasetToLine();
                             me.data = {
                                 labels: me.values.labels,
-                                datasets: datasetsArray
+                                datasets: me.setDatasetToLine() || {}
                             };
                             me.chart = new Chart(me.ctx).Bar(me.data, me.options);
                             break;
                         case (2):
 //                            RADAR
-                            datasetsArray = me.setDatasetToLine();
                             me.data = {
                                 labels: me.values.labels,
-                                datasets: datasetsArray
+                                datasets: me.setDatasetToLine() || {}
                             };
                             me.chart = new Chart(me.ctx).Radar(me.data, me.options);
                             break;
                         case (3):
 //                            POLAR
-                            me.data = me.values || {};
+                            me.data = me.setDatasetToPie() || {};
                             me.chart = new Chart(me.ctx).PolarArea(me.data, me.options);
                             break;
                         case (4):
 //                            PIE
-                            me.data = me.values || {};
+                            me.data = me.setDatasetToPie() || {};
                             me.chart = new Chart(me.ctx).Pie(me.data, me.options);
                             break;
                         case (5):
-                            me.data = me.values || {};
+                            me.data = me.setDatasetToPie() || {};
                             me.chart = new Chart(me.ctx).Doughnut(me.data, me.options);
                             break;
                         default:
@@ -167,6 +162,27 @@
                     datasetsArray[i] = datasetObject;
                 }
                 return (datasetsArray);
+            },
+            setDatasetToPie: function (){
+                var me = this;
+                var datasetsArray = [];
+                var datasetLength = me.values.datasets.length;
+                for (var i=0; i<datasetLength; i++) {
+                    var dataItem = {};
+                    var sum = 0;
+                    var dataArray = me.values.datasets[i].data;
+                    for (var j=0; j<dataArray.length; j++) {
+                        sum = sum + parseInt(dataArray[j]);
+                    }
+                    dataItem = {
+                        value: sum,
+                        label:me.values.datasets[i].label,
+                        color:me.values.colors[i],
+                        highlight:me.values.highlights[i]
+                    };
+                    datasetsArray[i] = dataItem;
+                }
+                return(datasetsArray);
             }
         });
     </script>

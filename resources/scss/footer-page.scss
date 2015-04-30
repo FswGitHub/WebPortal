@@ -1,1 +1,30 @@
 @import "_variables";
+
+//----------Copyright footer
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 10px 26px 10px 60px;
+  color:$color-grey-medium;
+  font-size: $font-size-footer;
+  background: $color-grey-light;
+
+  hr {
+    margin-bottom: 10px;
+  }
+}
+
+@media  screen and (max-width: $size-tablet) {
+  .footer {
+    padding: 10px 26px;
+  }
+}
+
+@media  screen and (min-width: $size-desktop) {
+  .footer {
+    margin-left: 256px;
+  }
+}

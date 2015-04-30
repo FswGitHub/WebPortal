@@ -38,10 +38,8 @@
                     </paper-button>
                 </div>
             </div>
-            <div class="footer">
-                <hr>
-                2015 Fundamental Software Pty Ltd. All Rights Reserved | Privacy | Terms of Use
-            </div>
+            <!--Footer-->
+            <footer-page></footer-page>
         </div>
         <paper-action-dialog id="signUpDialog"
                              heading="Error"
@@ -84,7 +82,7 @@
             signUpResponse: function(e, data){
                 if(data.response.success){
                     document.querySelector('app-router').go('/confirm');
-                }else{
+                } else {
                     this.signUpError();
                 }
             }

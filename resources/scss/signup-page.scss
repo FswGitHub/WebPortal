@@ -3,9 +3,13 @@
 
 .signup-page{
   @extend .login-page;
-  .content{
-    form{
-//      margin-bottom: 20px!important;
+  @media screen and (max-height: 978px) {
+    footer-page {
+      /deep/ {
+        .footer {
+          position: initial;
+        }
+      }
     }
   }
 }

@@ -118,7 +118,15 @@
           .focused-underline {
             background-color: $color-red;
           }
+          .floated-label {
+            .label-text {
+              font-size: $font-size-floating-label;
+            }
+          }
         }
+      }
+      input {
+        font-size: $font-size-desktop-small;
       }
     }
 
@@ -219,7 +227,15 @@
               :-ms-input-placeholder {
                 font-size: $font-size-mobile;
               }
+              .floated-label {
+                .label-text {
+                  font-size: $font-size-floating-label-mobile;
+                }
+              }
             }
+          }
+          input {
+            font-size: $font-size-mobile;
           }
         }
       }
@@ -244,7 +260,11 @@
   }
 }
 
-@media  screen and (max-width: $size-mobile){
+@media  screen and (max-width: $size-tablet){
+  .table-wrapper {
+    margin-top: 0;
+  }
+
   .title-item {
     font-size: $font-size-mobile;
   }
@@ -283,8 +303,16 @@
 
 //----------Table styles
 
+.table-wrapper {
+  margin-top: 8px;
+}
+
 .table-header {
   font-size: $font-size-mobile-small;
+}
+
+.table-body {
+  padding: 0 16px 30px 16px;
 }
 
 .table-item {
@@ -292,6 +320,4 @@
   padding: 11px 16px;
   min-height: 24px;
 }
-
-
 

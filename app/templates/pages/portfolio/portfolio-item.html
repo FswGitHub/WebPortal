@@ -3,8 +3,10 @@
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <link rel="stylesheet" href="../../../css/calendar-dialog.css">
-        <side-menu id="side" class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" pagePanel="{{page.panel}}">
+        <side-menu id="side" class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" pagePanel="{{page.panel}}" tabHoldings="{{page.tabHoldingsStatus}}">
+            <!--Subheader-->
             <div subheader class="indent subheader" layout horizontal flex id="subheader">
+                <!--Calendar-->
                 <div class="calendar-block" layout horizontal center flex two>
                     <paper-button class="calendar-button" on-tap="{{openCalendar}}" relative layout horizontal>
                         <core-icon icon="event" class="open-calendar-icon"></core-icon>
@@ -19,21 +21,24 @@
                         </div>
                     </paper-dropdown>
                 </div>
-                <div class="holding-view" layout horizontal center flex two>
-                    <core-icon icon="description" class="open-calendar-icon"></core-icon>
-                    <paper-dropdown-menu>
-                        <paper-dropdown class="dropdown">
-                            <core-selector class="menu" valueattr="view" selected="1">
-                                <paper-item view="1" on-tap="{{toggleStat}}">Statutory</paper-item>
-                                <paper-item view="2" on-tap="{{toggleIcb}}">ICB</paper-item>
-                            </core-selector>
-                        </paper-dropdown>
-                    </paper-dropdown-menu>
-                </div>
-                <div layout horizontal center flex six hidden?="{{phoneScreen}}" id="searchInput">
-                    <div hidden?="{{!showAll}}" >
-                        <template is="auto-binding">
-                            <core-media-query query="max-width: 640px"
+                <!--Holdings subheader-->
+                <template if="{{page.tabHoldingsStatus}}">
+                    <!--Holdings table view dropdown menu-->
+                    <div class="holding-view" layout horizontal center flex two >
+                        <core-icon icon="description" class="open-calendar-icon"></core-icon>
+                        <paper-dropdown-menu>
+                            <paper-dropdown class="dropdown">
+                                <core-selector class="menu" valueattr="view" selected="{{selectedView}}">
+                                    <paper-item view="1" on-tap="{{toggleStat}}">Statutory</paper-item>
+                                    <paper-item view="2" on-tap="{{toggleIcb}}">ICB</paper-item>
+                                </core-selector>
+                            </paper-dropdown>
+                        </paper-dropdown-menu>
+                    </div>
+                    <!--"Filter by name" search-->
+                    <div layout horizontal center flex six hidden?="{{phoneScreen}}" id="searchInput">
+                        <template if="{{showAll}}">
+                            <core-media-query query="max-width: 768px"
                                               queryMatches="{{phoneScreen}}"></core-media-query>
                             <core-field class="search-field" >
                                 <input id="searchField" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
@@ -41,8 +46,9 @@
                             </core-field>
                         </template>
                     </div>
-                </div>
+                </template>
             </div>
+            <!--Dashboard tab content-->
             <div tab0 class="dashboard-view tab-page-content" fit>
                 <div class="dashboard-dropdown">
                     <paper-fab class="open" icon="add" on-tap="{{openMenu}}" relative></paper-fab>
@@ -67,10 +73,12 @@
                     <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" dashboardContent="{{portfolioCharts}}" id="{{i}}"></chart-board>
                 </template>
             </div>
+            <!--Holdings tab content-->
             <div tab1 class="holdings-view tab-page-content" fit id="holdings">
+                <!--Pagination of holdings table-->
                 <div class="holding-table-navigation-wrapper" hidden?="{{showAll}}">
                     <template is="auto-binding">
-                        <core-media-query query="max-width: 640px"
+                        <core-media-query query="max-width: 768px"
                                           queryMatches="{{phoneScreen}}"></core-media-query>
                         <div layout vertical?="{{phoneScreen}}"
                              horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}" class="holding-table-navigation">
@@ -101,46 +109,48 @@
                         </div>
                     </template>
                 </div>
+                <!--Holdings table-->
                 <div class="table-wrapper">
-                    <core-media-query query="max-width: 640px"
+                    <core-media-query query="max-width: 768px"
                                       queryMatches="{{phoneScreen}}"></core-media-query>
                     <div class="table-header-list" hidden?="{{phoneScreen}}">
                         <core-selector id="tableHeader" selected="name" valueattr="orderval" layout horizontal?="{{!phoneScreen}}">
-                            <div class="col-padding table-header" flex four on-tap="{{order}}" orderval="name">
+                            <div class="col-padding table-header link" flex four on-tap="{{order}}" orderval="name">
                                 Name
-                                <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
+                                <core-icon icon="arrow-drop-down link" class="filter-icon"></core-icon>
                             </div>
-                            <div class="col-padding table-header" flex three on-tap="{{order}}" orderval="nominal">
+                            <div class="col-padding table-header link" flex three on-tap="{{order}}" orderval="nominal">
                                 Nominal
                                 <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
                             </div>
-                            <div class="col-padding table-header" flex three on-tap="{{order}}" orderval="costPrice">
+                            <div class="col-padding table-header link" flex three on-tap="{{order}}" orderval="costPrice">
                                 Cost Price
                                 <core-icon icon="arrow-drop-down" class="filter-icon cost-price-icon"></core-icon>
                             </div>
-                            <div class="col-padding table-header" flex four on-tap="{{order}}" orderval="bookValue">
+                            <div class="col-padding table-header link" flex four on-tap="{{order}}" orderval="bookValue">
                                 Book value (R)
                                 <core-icon icon="arrow-drop-down" class="filter-icon book-value-icon"></core-icon>
                             </div>
-                            <div class="col-padding table-header" flex four on-tap="{{order}}" orderval="marketPrice">
+                            <div class="col-padding table-header link" flex four on-tap="{{order}}" orderval="marketPrice">
                                 Market Price
                                 <core-icon icon="arrow-drop-down" class="filter-icon market-price-icon"></core-icon>
                             </div>
-                            <div class="col-padding table-header" flex four on-tap="{{order}}" orderval="marketValue">
+                            <div class="col-padding table-header link" flex four on-tap="{{order}}" orderval="marketValue">
                                 Market Value
                                 <core-icon icon="arrow-drop-down" class="filter-icon market-value-icon"></core-icon>
                             </div>
-                            <div class="col-padding table-header" flex two on-tap="{{order}}" orderval="MV">
+                            <div class="col-padding table-header link" flex two on-tap="{{order}}" orderval="MV">
                                 %MV
                                 <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
                             </div>
-                            <div class="col-padding table-header" flex five on-tap="{{order}}" orderval="exposureValue">
+                            <div class="col-padding table-header link" flex five on-tap="{{order}}" orderval="exposureValue">
                                 Exposure Value (R)
                                 <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
                             </div>
                         </core-selector>
                     </div>
-                    <div class="table-body" hidden?="{{showAll}}">
+                    <!--Holdings table statutory view-->
+                    <div class="table-body no-padding-bottom" hidden?="{{showAll}}">
                         <template repeat="{{val in portfolioHoldings}}">
                             <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id}}" hidden?="{{hideCollapse}}">
                                 <div class="col-padding table-item category-title" flex eleven>
@@ -159,6 +169,7 @@
                                         <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                             <h1 hidden?="{{!phoneScreen}}" class="table-header-in-collapse">{{item.name}}</h1>
                                             <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
+                                                <!--Holdings table-headers for mobile view-->
                                                 <div class="col-content labels" hidden?="{{!phoneScreen}}">
                                                     <div class="col-padding table-item table-label">Nominal</div>
                                                     <div class="col-padding table-item table-label">Cost Price</div>
@@ -185,12 +196,14 @@
                             </core-collapse>
                         </template>
                     </div>
+                    <!--Holdings table ICB view-->
                     <div class="table-body" hidden?="{{!showAll}}">
                         <core-selector selected="0" valueattr="number">
                             <template repeat="{{item, i in allItems | orderBy(oderVal)}}">
                                 <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                     <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{item.name}}</h1>
                                     <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
+                                        <!--Holdings table-headers for mobile view-->
                                         <div class="col-content labels" hidden?="{{!phoneScreen}}">
                                             <div class="col-padding table-item table-label">Nominal</div>
                                             <div class="col-padding table-item table-label">Cost Price</div>
@@ -213,6 +226,12 @@
                                     </div>
                                 </div>
                             </template>
+                            <!--No matches message-->
+                            <div layout vertical?="{{phoneScreen}}">
+                                <template if="{{showNoMatches}}">
+                                    <span class="no-matches">No matches for your request. Try again!</span>
+                                </template>
+                            </div>
                         </core-selector>
                     </div>
                 </div>
@@ -236,10 +255,13 @@
                     me.portfolioCharts =  data.response.item.charts;
                     me.page.title = "Portfolio > "+ me.portfolioItemContent.title;
                     me.portfolioHoldings = data.response.item.holdings;
+                    //Content without categories generation
                     for (var i=0; i < me.portfolioHoldings.length; i++) {
                         var counter = i++;
                         me.allItems = me.portfolioHoldings[i].categoryItems.concat(me.portfolioHoldings[counter].categoryItems);
                     }
+                    //Copy content to "filter by name" function
+                    me.portfolioItemsNoCategory =  me.allItems;
                 }
             },
             page: {
@@ -247,18 +269,33 @@
                 url: 'portfolio/item/1',
                 title: 'Portfolio > ...',
                 tabs: true,
-                panel: true
+                panel: true,
+                tabHoldingsStatus:false
             },
             tabs: [{name: 'dashboard', label: 'Dashboard'}, {name:'holdings', label: 'Holdings'}],
+            selectedView: 1,
+            portfolioItemsNoCategory:[],
 
-            //search function
-            filterByName: function (e) {
+            //Search "Filter by name" function
+            filterByName: function () {
                 var me = this;
-                var searchValue = me.$.searchInput.querySelector('#searchField').value;
-                var newArray = me.allItems;
-                newArray = PolymerExpressions.prototype.startsWith(newArray, searchValue);
-                console.log(newArray);
-                //me.allItems = newArray;
+                var filtered = [];
+                var searchField = me.$.subheader.querySelector('#searchField');
+                var searchValue = searchField.value;
+                var items =  me.portfolioItemsNoCategory;
+                var letterMatch = new RegExp(searchValue, 'i');
+
+                me.showNoMatches = false;
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    if (letterMatch.test(item.name)) {
+                        filtered.push(item);
+                    }
+                }
+                if (filtered.length <=0) {
+                    me.showNoMatches=true;
+                }
+                return me.allItems = filtered;
             },
 
             //Open/close calendar
@@ -287,7 +324,7 @@
                 this.curDate = day+' '+monthNames[monthIndex]+' '+year;
             },
 
-            //Toggle page dropdown menu on fab tap
+            //Toggle position of dashboard dropdown menu
             menuPosition: 'top',
             openMenu: function(e){
                 var me = this;
@@ -299,13 +336,13 @@
                 me.menuStatus = true;
             },
 
-            //Toggle collapses in the table
+            //Toggle collapses(categories) in the table
             showAll:false,
             toggle: function(e) {
                 var me = this;
                 var id = e.currentTarget.attributes.toggleId.value;
-                var collapse = me.$.holdings.querySelectorAll('#collapse'+id)[0];
-                var icon = me.$.holdings.querySelectorAll('#icon'+id)[0];
+                var collapse = me.$.holdings.querySelector('#collapse'+id);
+                var icon = me.$.holdings.querySelector('#icon'+id);
                 var action = 'rotate';
                 collapse.toggle();
                 me.rotate(icon, action);
@@ -319,16 +356,16 @@
                 else icon.classList.add(actionClass);
             },
 
+            //Toogle holdings table view
             toggleStat: function (){
-                this.showAll = false;
-                var tableHeader = this.$.holdings.querySelectorAll('#tableHeader')[0];
+                var tableHeader = this.$.holdings.querySelector('#tableHeader');
                 tableHeader.selected='name';
+                this.showAll = false;
             },
-
             toggleIcb: function (){
                 var me = this;
                 var category = me.$.holdings.querySelectorAll('.collapse');
-                var tableHeader = this.$.holdings.querySelectorAll('#tableHeader')[0];
+                var tableHeader = this.$.holdings.querySelector('#tableHeader');
                 for (var i=0; i < category.length; i++) {
                     if (category[i].classList.contains('core-collapse-closed')) {
                         category[i].toggle();
@@ -336,33 +373,33 @@
                 }
                 me.showAll = true;
                 me.oderVal = 'name';
-                tableHeader.selected='name';
+                tableHeader.selected = 'name';
             },
 
             //Table page selection
             prev: function () {
-                var pages = this.$.holdings.querySelectorAll('#pages')[0];
+                var pages = this.$.holdings.querySelector('#pages');
                 pages.selectPrevious();
             },
             next: function () {
-                var pages = this.$.holdings.querySelectorAll('#pages')[0];
+                var pages = this.$.holdings.querySelector('#pages');
                 pages.selectNext();
             },
             first: function(){
-                var pages = this.$.holdings.querySelectorAll('#pages')[0];
+                var pages = this.$.holdings.querySelector('#pages');
                 pages.selected = 1;
             },
             last: function(){
-                var pages = this.$.holdings.querySelectorAll('#pages')[0];
+                var pages = this.$.holdings.querySelector('#pages');
                 pages.selected = 4;
             },
 
-            //Order by action
+            //"Order by" action
+            oderVal:'name',
             order: function (e){
                 var criteria = e.currentTarget.attributes.orderval.value;
                 this.oderVal = criteria;
-            },
-            oderVal:'name'
+            }
         })
     </script>
 </polymer-element>

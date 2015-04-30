@@ -6,7 +6,7 @@
                 <h2 class="profile-name title-item">Profile: "{{user.name}}"</h2>
             </div>
             <template is="auto-binding">
-                <core-media-query query="max-width: 640px"
+                <core-media-query query="max-width: 768px"
                                   queryMatches="{{phoneScreen}}"></core-media-query>
                 <div class="profile-form-wrapper" layout vertical?="{{phoneScreen}}"
                      horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}">

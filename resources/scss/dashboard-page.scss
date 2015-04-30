@@ -1,6 +1,6 @@
 @import "_variables";
 
-.dashboard-page{
+.dashboard-page {
   /deep/{
     .dashboard-dropdown {
       position: fixed;
@@ -17,34 +17,17 @@
       font-weight: normal;
     }
 
-    .drop-chart {
-      padding: 8px 4% 16px 0;
-    }
-
-    .drop-chart:nth-child(even) {
-      padding: 8px 0 16px 0;
-    }
-
     .drop-chart-here {
+      height: 100%;
       display: block;
-      line-height: 274px;
       text-align: center;
       color: $color-grey-medium;
       font-size: $font-size-desktop-small;
       border-radius: 2px;
       border: 1px solid $color-grey-medium;
+      background: $color-grey-light;
     }
-
     @media screen and (max-width: $size-tablet) {
-      chart-board {
-        &:nth-child(even){
-          /deep/ .chart-board{
-            padding-right: 0;
-            margin-left: 0;
-          }
-        }
-      }
-
       .dashboard-dropdown {
         top: auto;
         right: 13px;

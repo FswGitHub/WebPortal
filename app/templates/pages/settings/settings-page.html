@@ -1,11 +1,10 @@
 <polymer-element name="settings-page">
     <style>
         /*Dialogs styles*/
-        html /deep/ paper-action-dialog::shadow #scroller {
-            height: 255px;
-            width: 350px;
-        }
-        html /deep/ paper-action-dialog paper-button.action-button {
+        html /deep/ paper-action-dialog paper-button.action-button,
+        html /deep/ paper-dialog paper-button.action-button {
+            color: #DD1F29;
+        }{
             color: #DD1F29;
         }
         html /deep/ paper-action-dialog form {
@@ -47,20 +46,20 @@
             padding: 10%;
             color: #4A4A4A;
         }
-        html /deep/ paper-action-dialog paper-input-decorator /deep/ .label-text {
+        html /deep/ paper-dialog paper-input-decorator /deep/ .label-text {
             color: #DD1F29;
         }
-        html /deep/ paper-action-dialog paper-input-decorator /deep/.focused-underline {
+        html /deep/ paper-dialog paper-input-decorator /deep/.focused-underline {
             background-color: #DD1F29;
         }
-        html /deep/ paper-action-dialog paper-input-decorator /deep/ #floatedLabelText {
+        html /deep/ paper-dialog paper-input-decorator /deep/ #floatedLabelText {
             color: #DD1F29;
         }
-
     </style>
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" pageTabs="{{page.tabs}}" tabsArray="{{tabs}}" selected="{{selected}}">
+            <!--General tab content-->
             <div tab0 fit class="tab-page-content">
                 <div class="design-settings-panel settings-panel">
                     <h2 class="title-item">Design</h2>
@@ -131,6 +130,7 @@
                     </form>
                 </div>
             </div>
+            <!--FPM Config tab content-->
             <div tab1 fit class="tab-page-content">
                 <div class="configuration-settings-panel settings-panel">
                     <h2 class="title-item">Configuration</h2>
@@ -188,7 +188,9 @@
                     </ul>
                 </div>
             </div>
+            <!--Users tab content-->
             <div tab2 fit class="tab-page-content">
+                <!--Users option-->
                 <div class="users-settings-dropdown">
                     <paper-fab class="open" icon="add" on-tap="{{openMenu}}" relative></paper-fab>
                     <paper-dropdown opened="{{menuStatus}}" halign="right" valign="{{menuPosition}}" id="usersMenu">
@@ -211,8 +213,10 @@
                         </div>
                     </paper-dropdown>
                 </div>
+                <!--Options dialogs-->
                 <div class="settings-users-dialogs">
-                    <paper-action-dialog heading="Import" id="importUsersDialog" opened="{{openImport}}" backdrop>
+                    <!--Import users dialog-->
+                    <paper-action-dialog heading="Import" id="importUsersDialog" opened="{{openImport}}" backdrop >
                         <form>
                             <label class="upload-label">Upload a file</label>
                             <core-field class="browse-field">
@@ -227,31 +231,41 @@
                         <paper-button affirmative id="cancel" class="action-button">Cancel</paper-button>
                         <paper-button affirmative class="action-button" on-tap="{{uploadUsers}}">Upload</paper-button>
                     </paper-action-dialog>
-                    <paper-action-dialog heading="Add User" id="addUsersDialog" opened="{{openAdd}}" backdrop>
+                    <!--Add user dialog-->
+                    <paper-dialog heading="Add User" id="addUsersDialog" opened="{{openAdd}}" backdrop >
                         <form>
                             <paper-input-decorator id="addUserEmail"
                                                    label="Email Address"
-                                                   floatingLabel>
-                                <input id="userEmail" type="email">
+                                                   floatingLabel
+                                                   error="Please enter Email"
+                                                   isInvalid="{{invalidEmail}}" on-keyup="{{validateField}}">
+                                <input id="userEmail" type="email" required>
                             </paper-input-decorator>
                             <paper-input-decorator id="addUserFirstName"
                                                    label="First Name"
-                                                   floatingLabel>
-                                <input id="userFName" type="text">
+                                                   floatingLabel
+                                                   error="Please enter user First Name"
+                                                   isInvalid="{{isName}}" on-keyup="{{validateField}}">
+                                <input id="userFName" type="text" required>
                             </paper-input-decorator>
                             <paper-input-decorator id="addUserLastName"
                                                    label="Last Name"
-                                                   floatingLabel>
-                                <input id="userLName" type="text">
+                                                   floatingLabel
+                                                   error="Please enter user Last Name"
+                                                   isInvalid="{{isLastName}}" on-keyup="{{validateField}}">
+                                <input id="userLName" type="text" required>
                             </paper-input-decorator>
                         </form>
-                        <paper-button affirmative class="action-button">Cancel</paper-button>
-                        <paper-button affirmative class="action-button" on-tap="{{addUser}}">Add</paper-button>
-                    </paper-action-dialog>
+                        <div layout horizontal end-justified>
+                            <paper-button on-tap="{{closeAddDialog}}" close class="action-button">Cancel</paper-button>
+                            <paper-button class="action-button" on-tap="{{addUser}}">Add</paper-button>
+                        </div>
+                    </paper-dialog>
                 </div>
+                <!--Users table-->
                 <div class="users-table">
                     <div class="table-wrapper">
-                        <core-media-query query="max-width: 640px"
+                        <core-media-query query="max-width: 768px"
                                           queryMatches="{{phoneScreen}}"></core-media-query>
                         <div class="table-header-list" layout horizontal?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">
                             <div class="col-padding table-header" flex eight>Email Address</div>
@@ -266,6 +280,7 @@
                                     <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                         <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{user.email}}</h1>
                                         <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
+                                            <!--Users table-headers for mobile view-->
                                             <div class="col-content labels" hidden?="{{!phoneScreen}}">
                                                 <div class="col-padding table-item table-label">First Name</div>
                                                 <div class="col-padding table-item table-label">Last Name</div>
@@ -301,7 +316,7 @@
         Polymer('settings-page',{
             ready: function (){
                 this.$.settingsContent.url = this.$.globals.url+'resources/json/settings.json';
-                if (this.width <= '640') {
+                if (this.width <= '768') {
                     this.allUsers = new Array(1);
                 }
             },
@@ -317,28 +332,16 @@
                 title: 'Settings',
                 tabs: true
             },
-            tabs: [
-                {
-                    name: 'general',
-                    label: 'General'
-                },
-                {
-                    name:'fpm config',
-                    label: 'FPM config'
-                },
-                {
-                    name:'users',
-                    label: 'Users'
-                }
-            ],
+            tabs: [{name: 'general', label: 'General'}, {name:'fpm config', label: 'FPM config'}, {name:'users', label: 'Users'}],
             allUsers: new Array(10),
             newUsers: [],
             width: window.innerWidth,
             selected: 0,
+
             openMenu: function(e){
                 var me = this;
                 var width = window.innerWidth;
-                if (width <= '640') {
+                if (width <= '768') {
                     me.menuPosition = 'bottom';
                 }
                 me.menuStatus = true;
@@ -352,46 +355,60 @@
             openImport: false,
             openAddDialog: function(e){
                 var me = this;
-                var userEmail = me.$.addUsersDialog.querySelector('#userEmail');
-                var userFirstName = me.$.addUsersDialog.querySelector('#userFName');
-                var userLastName = me.$.addUsersDialog.querySelector('#userLName');
-                userEmail.value = '';
-                userFirstName.value = '';
-                userLastName.value = '';
-                me.$.addUserEmail.updateLabelVisibility();
-                me.$.addUserFirstName.updateLabelVisibility();
-                me.$.addUserLastName.updateLabelVisibility();
+                var userEmail = me.$.addUserEmail, userFirstName = me.$.addUserFirstName, userLastName = me.$.addUserLastName;
+                me.updateInput(userEmail);
+                me.updateInput(userFirstName);
+                me.updateInput(userLastName);
                 me.openAdd = true;
             },
+            updateInput: function(item){
+                item.input.value = '';
+                item.updateLabelVisibility();
+                this.invalidEmail = false;
+                this.invalidName = false;
+                this.invalidLastName = false;
+            },
+            validateField: function (e){
+                var id = e.currentTarget.id;
+                var element = this.$.addUsersDialog.querySelector('#'+id);
+                element.validate();
+            },
+
             openAdd: false,
-            uploadUsers: function(){
+            uploadUsers: function(e){
                 var me = this;
                 if (me.newUsers.length > 0) {
                     me.allUsers = me.newUsers.concat(me.usersArray);
                     me.allUsers = me.addEmptyStrings(me.allUsers);
-                }
-                else {
-                    me.allUsers = me.addEmptyStrings(me.usersArray);
+                } else {
+                    me.allUsers = me.usersArray;
                 }
             },
-            addUser: function (){
+            addUser: function (e){
                 var me = this;
-                var userEmail = me.$.addUsersDialog.querySelector('#userEmail').value;
-                var userFirstName = me.$.addUsersDialog.querySelector('#userFName').value;
-                var userLastName = me.$.addUsersDialog.querySelector('#userLName').value;
-                var newUserData = {
-                            status:'Pending',
-                            action:['visibility','refresh']};
-                newUserData.email = userEmail;
-                newUserData.firstName = userFirstName;
-                newUserData.lastName = userLastName;
-                me.newUsers.push(newUserData);
-                me.allUsers = me.deleteEmptyStrings(me.allUsers);
-                me.allUsers.push(newUserData);
-                me.allUsers = me.addEmptyStrings(me.allUsers);
+                var userEmail = me.$.addUserEmail, userFirstName = me.$.addUserFirstName, userLastName = me.$.addUserLastName;
+
+                if(userEmail.validate() && userFirstName.validate() && userLastName.validate()){
+                    var newUserData = {
+                        status:'Pending',
+                        action:['visibility','refresh']};
+                    newUserData.email = userEmail.input.value;
+                    newUserData.firstName = userFirstName.input.value;
+                    newUserData.lastName = userLastName.input.value;
+                    me.newUsers.push(newUserData);
+                    me.allUsers = me.deleteEmptyStrings(me.allUsers);
+                    me.allUsers.push(newUserData);
+                    me.allUsers = me.addEmptyStrings(me.allUsers);
+                    me.openAdd = false;
+                }
             },
+            closeAddDialog: function (){
+                var me = this;
+                me.openAdd = false;
+            },
+
             addEmptyStrings: function (items){
-                if (this.width > '640') {
+                if (this.width > '768') {
                     var counter = items.length;
                     if (counter < 10) {
                         var i=0;

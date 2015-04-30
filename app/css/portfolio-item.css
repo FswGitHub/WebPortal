@@ -10,7 +10,7 @@ side-menu /deep/ core-toolbar .logo img {
   width: 100%;
   vertical-align: middle;
 }
-side-menu /deep/ div[tool] {
+side-menu /deep/ .curr-page-title {
   margin-left: 0;
 }
 side-menu /deep/ chart-board:nth-child(even) /deep/ .chart-board {
@@ -19,10 +19,21 @@ side-menu /deep/ chart-board:nth-child(even) /deep/ .chart-board {
 side-menu /deep/ chart-board:nth-child(even) .chart-board:nth-child(even) {
   padding-right: 0;
 }
+side-menu /deep/ drop-chart:nth-child(odd) /deep/ .chart-board {
+  padding-right: 4%;
+}
+side-menu /deep/ drop-chart:nth-child(odd) .chart-board:nth-child(even) {
+  padding-right: 0;
+}
 @media screen and (max-width: 768px) {
   side-menu /deep/ chart-board:nth-child(even) /deep/ .chart-board {
     padding-right: 0;
     margin-left: 0;
+  }
+}
+@media screen and (min-width: 1280px) {
+  side-menu /deep/ .curr-page-title {
+    margin-left: 60px;
   }
 }
 
@@ -77,7 +88,7 @@ core-selector.menu h3 {
 
 .content {
   padding: 26px 26px 0 60px;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-bottom: 52px;
 }
 
@@ -117,31 +128,13 @@ paper-tabs /deep/ #selectionBar {
   margin: 5px 0;
   padding: 3px 0;
   font-size: 18px;
-  border-bottom: 1px solid #b3b3b3;
+  border-bottom: 1px solid #D8D8D8;
 }
 
-.footer {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  padding: 10px 26px 10px 60px;
-  color: #b3b3b3;
-}
-.footer hr {
-  color: #b3b3b3;
-  margin-bottom: 10px;
-}
-
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 480px) {
   .content {
     padding: 26px 26px 0 26px;
     margin-bottom: 62px;
-  }
-
-  .footer {
-    font-size: 12px;
-    padding: 10px 26px;
   }
 
   .tab-page-content {
@@ -156,8 +149,8 @@ paper-tabs /deep/ #selectionBar {
 .table-body {
   font-size: 0;
   background: #FFFFFF;
-  border-top: 1px solid #b3b3b3;
-  border-bottom: 1px solid #b3b3b3;
+  border-top: 1px solid #979797;
+  border-bottom: 1px solid #979797;
   padding: 0 16px 40px 16px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -192,7 +185,11 @@ paper-tabs /deep/ #selectionBar {
   padding: 0 16px;
 }
 
-@media screen and (max-width: 640px) {
+.link {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
   .portfolio-page /deep/ .table-body, .settings-page /deep/ .table-body, .portfolio-item /deep/ .table-body {
     padding: 0;
   }
@@ -321,6 +318,11 @@ paper-tabs /deep/ #selectionBar {
 .portfolio-item /deep/ .search-field {
   background: #FFFFFF;
 }
+.portfolio-item /deep/ #searchField {
+  padding: 0 15px;
+  width: 50%;
+  line-height: 17px;
+}
 .portfolio-item /deep/ core-selector.menu .core-selected {
   background-color: #FFFFFF;
   border-left: 0;
@@ -353,7 +355,7 @@ paper-tabs /deep/ #selectionBar {
 }
 
 #calendarDialogWrapper {
-  top: 12px;
+  top: 10px;
 }
 
 .actions {
@@ -430,7 +432,7 @@ paper-tabs /deep/ #selectionBar {
 .collapse-category {
   background: #D8D8D8;
   padding: 0;
-  border-bottom: 1px solid #EDEDED;
+  border-bottom: 1px solid #D8D8D8;
 }
 .collapse-category .table-item {
   line-height: 24px;
@@ -452,7 +454,11 @@ paper-tabs /deep/ #selectionBar {
 
 .table-body {
   border-top: 0;
-  padding: 0;
+  padding: 0 0 30px 0;
+}
+
+.no-padding-bottom {
+  padding-bottom: 0;
 }
 
 .table-header {
@@ -498,6 +504,15 @@ paper-tabs /deep/ #selectionBar {
   padding: 16px 6px 16px 16px;
 }
 
+.no-matches {
+  display: block;
+  padding: 30px 6px 0 6px;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #979797;
+}
+
 @media screen and (max-width: 1024px) {
   .cost-price-icon {
     right: -8px;
@@ -515,7 +530,7 @@ paper-tabs /deep/ #selectionBar {
     right: -5px;
   }
 }
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 480px) {
   .portfolio-item /deep/ .col-content {
     margin: 0;
   }
@@ -540,7 +555,7 @@ paper-tabs /deep/ #selectionBar {
     background: #D8D8D8;
     padding: 16px;
     border-top: 0;
-    border-bottom: 1px solid #EDEDED;
+    border-bottom: 1px solid #D8D8D8;
     font-size: 14px;
     line-height: 14px;
     text-transform: none;

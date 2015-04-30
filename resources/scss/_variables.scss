@@ -3,20 +3,24 @@ $color-dark-red: #90141a;
 $color-grey-dark: #4A4A4A;
 $color-gray-dark-light: #8e8e9a;
 $color-grey-medium: #979797;
-$color-grey-medium-pre: #b3b3b3;
 $color-grey-medium-light: #D8D8D8;
 $color-grey-light: #EDEDED;
 $color-white: #FFFFFF;
 $color-black: #000000;
 
-$size-mobile: 640px;
+$size-mobile-mini: 320px;
+$size-mobile: 480px;
 $size-tablet: 768px;
+$size-tablet-max: 1024px;
+$size-desktop: 1280px;
 
-$font-size-mobile: 16px;
-$font-size-mobile-small: 14px;
-$font-size-mobile-footer: 12px;
 $font-size-desktop: 20px;
 $font-size-desktop-small: 18px;
+$font-size-mobile: 16px;
+$font-size-mobile-small: 14px;
+$font-size-footer: 12px;
+$font-size-floating-label:15px;
+$font-size-floating-label-mobile:13px;
 
 @mixin placeholder($color) {
   ::-webkit-input-placeholder {color: $color}
@@ -41,12 +45,24 @@ side-menu {
         }
       }
     }
-    div[tool] {
+
+    .curr-page-title {
       margin-left: 0;
     }
 
-    chart-board{
+    chart-board {
       &:nth-child(even){
+        /deep/ .chart-board{
+          padding-right: 4%;
+        }
+        .chart-board:nth-child(even){
+          padding-right: 0;
+        }
+      }
+    }
+
+    drop-chart {
+      &:nth-child(odd){
         /deep/ .chart-board{
           padding-right: 4%;
         }
@@ -64,6 +80,12 @@ side-menu {
             margin-left: 0;
           }
         }
+      }
+    }
+
+    @media  screen and (min-width: $size-desktop) {
+      .curr-page-title {
+        margin-left: 60px;
       }
     }
   }
@@ -114,7 +136,6 @@ core-selector.menu{
     }
   }
 
-
   @media screen and (max-width: $size-tablet) {
     width: 100%;
     paper-shadow{
@@ -125,9 +146,11 @@ core-selector.menu{
   }
 }
 
+//----------Pages and tabs contents
+
 .content {
   padding: 26px 26px 0 60px;
-  overflow-y: scroll;
+  overflow-y: auto;
   margin-bottom: 52px;
 }
 
@@ -180,22 +203,7 @@ paper-tabs{
   margin: 5px 0;
   padding: 3px 0;
   font-size: $font-size-desktop-small;
-  border-bottom: 1px solid $color-grey-medium-pre;
-}
-
-//----------Copyright footer
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  padding: 10px 26px 10px 60px;
-  color:$color-grey-medium-pre;
-  hr {
-    color:$color-grey-medium-pre;
-    margin-bottom: 10px;
-  }
+  border-bottom: 1px solid $color-grey-medium-light;
 }
 
 //----------Mobile size styles
@@ -204,11 +212,6 @@ paper-tabs{
   .content {
     padding: 26px 26px 0 26px;
     margin-bottom: 62px;
-  }
-
-  .footer {
-    font-size: $font-size-mobile-footer;
-    padding: 10px 26px;
   }
 
   .tab-page-content {

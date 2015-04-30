@@ -3,7 +3,7 @@
         <link rel="stylesheet" href="../../../css/portfolio-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" >
             <div class="table-wrapper">
-                <core-media-query query="max-width: 640px"
+                <core-media-query query="max-width: 768px"
                                   queryMatches="{{phoneScreen}}"></core-media-query>
                 <div class="table-header-list" layout horizontal?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">
                     <div class="col-padding table-header" flex four>Code</div>
@@ -24,7 +24,7 @@
                                         <div class="col-padding table-item table-label">Tax Currency</div>
                                         <div class="col-padding table-item table-label">Residency</div>
                                     </div>
-                                    <div label="portfolio/item/{{val.id}}" on-tap="{{portfolioGo}}" class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                    <div label="portfolio/item/{{val.id}}" on-tap="{{portfolioGo}}" class="col-content values link" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
                                         <div class="col-padding table-item " flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{val.code}}</div>
                                         <div class="col-padding table-item " flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{val.name}}</div>
                                         <div class="col-padding table-item " flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{val.status}}</div>

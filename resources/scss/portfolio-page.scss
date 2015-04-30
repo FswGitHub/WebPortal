@@ -4,8 +4,8 @@
 .table-body {
   font-size: 0;
   background: $color-white;
-  border-top: 1px solid $color-grey-medium-pre;
-  border-bottom: 1px solid $color-grey-medium-pre;
+  border-top: 1px solid $color-grey-medium;
+  border-bottom: 1px solid $color-grey-medium;
   padding: 0 16px 40px 16px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -40,7 +40,11 @@
   padding: 0 16px;
 }
 
-@media  screen and (max-width: $size-mobile) {
+.link {
+  cursor: pointer;
+}
+
+@media  screen and (max-width: $size-tablet) {
   .portfolio-page, .settings-page, .portfolio-item {
     /deep/ {
       .table-body {

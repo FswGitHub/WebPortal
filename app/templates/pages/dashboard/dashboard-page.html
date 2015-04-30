@@ -1,21 +1,22 @@
 <link rel="import" href="chart-board.html">
+<link rel="import" href="drop-chart.html">
 <polymer-element name="dashboard-page">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}">
-            <template repeat="{{val, i in dashboardContent}}">
-                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" id="{{i}}" dashboardContent="{{dashboardContent}}" dragAndDropsArray="{{dragAndDropsArray}}" func="{{updateDragAndDropsArray}}"></chart-board>
-            </template>
-            <template repeat="{{val in dragAndDropsArray}}">
-                <core-drag-drop class="chart-board drop-chart">
-                    <span class="drop-chart-here">Drop chart here</span>
-                </core-drag-drop>
-            </template>
+            <div class="dashboard-content">
+                <template repeat="{{val, i in dashboardContent}}">
+                    <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" id="{{i}}" dashboardContent="{{dashboardContent}}" dragAndDropsArray="{{dragAndDropsArray}}" func="{{updateDragAndDropsArray}}"></chart-board>
+                </template>
+                <template repeat="{{val in dragAndDropsArray}}">
+                    <drop-chart></drop-chart>
+                </template>
+            </div>
             <div class="dashboard-dropdown">
                 <paper-fab icon="add" on-tap="{{openMenu}}" relative></paper-fab>
                 <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="{{menuPosition}}">
                     <div class="menu-list menu">
-                        <paper-item class="item">
+                        <paper-item class="item" on-tap="{{uploadCharts}}">
                             <div class="label">Holding Charts</div>
                             <paper-ripple fit></paper-ripple>
                         </paper-item>
@@ -43,7 +44,7 @@
             },
             contentResponse: function(e, data){
                 if(data.response.success){
-                    this.dashboardContent = data.response.content;
+                    this.dashboardContentUploaded = data.response.content;
                     this.updateDragAndDropsArray();
                 }
             },
@@ -56,7 +57,7 @@
             openMenu: function(e){
                 var me = this;
                 var width = window.innerWidth;
-                if (width <= '640') {
+                if (width <= '768') {
                     me.menuPosition = 'bottom';
                 }
                 me.menuStatus = true;
@@ -65,16 +66,22 @@
             menuPosition: 'top',
             dashboardContent:[],
             updateDragAndDropsArray: function() {
-                var boards = this.dashboardContent.length;
+                var me = this;
+                var boards = me.dashboardContent.length;
                 if (boards >= 4) {
-                    this.dragAndDropsArray = new Array(1);
+                    me.dragAndDropsArray = new Array(1);
                 }
                 else {
                     var different = 4-boards;
                     var cleanArray = new Array(different);
-                    this.dragAndDropsArray = cleanArray;
+                    me.dragAndDropsArray = cleanArray;
                 }
                 return (this.dragAndDropsArray);
+            },
+            uploadCharts: function() {
+                var me = this;
+                me.dashboardContent = me.dashboardContentUploaded;
+                me.updateDragAndDropsArray();
             }
         })
     </script>

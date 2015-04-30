@@ -18,31 +18,43 @@
       width: 100%;
       margin-bottom: 150px;
       margin-right: 5%;
-      paper-input-decorator{
+      paper-input-decorator {
         /deep/ {
-          .label-text {
-            font-size: $font-size-desktop-small;
+          .label-text,.error {
             color: $color-red;
+            font-size: $font-size-desktop-small;
+            font-weight: bold;
+          }
+          ::-webkit-input-placeholder {
+            color: $color-grey-medium;
+            font-size: $font-size-desktop-small;
+            font-weight: bold;
+          }
+          ::-moz-placeholder {
+            color: $color-grey-medium;
+            font-size: $font-size-desktop-small;
+            font-weight: bold;
+          }
+          :-ms-input-placeholder {
+            color: $color-grey-medium;
+            font-size: $font-size-desktop-small;
+            font-weight: bold;
           }
           .unfocused-underline {
-            background-color: $color-gray-dark-light;
-          }
-          :host([focused]) .floated-label .label-text {
-            color: $color-red;
+            background-color: $color-grey-medium;
           }
           .focused-underline {
-            background-color:  $color-red;
-            color: $color-red;
+            background-color: $color-red;
           }
-          #floatedLabelText {
-            color: $color-red;
-          }
-          input {
-            font-size: $font-size-desktop-small;
-            color: $color-black;
-            @include placeholder($color-gray-dark-light)
+          .floated-label {
+            .label-text {
+              font-size: $font-size-floating-label;
+            }
           }
         }
+      }
+      input {
+        font-size: $font-size-desktop-small;
       }
     }
     @media screen and (max-width: $size-mobile) {
@@ -68,16 +80,29 @@
       }
 
       .user-data {
-        paper-input-decorator{
+        paper-input-decorator {
           /deep/ {
-            .label-text {
+            .label-text, .error {
               font-size: $font-size-mobile;
             }
-
-            input {
+            ::-webkit-input-placeholder {
               font-size: $font-size-mobile;
+            }
+            ::-moz-placeholder {
+              font-size: $font-size-mobile;
+            }
+            :-ms-input-placeholder {
+              font-size: $font-size-mobile;
+            }
+            .floated-label {
+              .label-text {
+                font-size: $font-size-floating-label-mobile;
+              }
             }
           }
+        }
+        input {
+          font-size: $font-size-mobile;
         }
       }
     }

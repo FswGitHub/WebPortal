@@ -92,7 +92,7 @@
 
       //Holding table navigation
       .nav-style, .table-page-item, .holding-nav-button {
-        font-size: $font-size-mobile-footer;
+        font-size: $font-size-footer;
       }
 
       .size-menu-wrapper {
@@ -100,7 +100,7 @@
       }
     }
 
-    @media screen and (max-width: 320px) {
+    @media screen and (max-width: $size-mobile-mini) {
       .hide-nav {
         display: none;
       }
@@ -124,6 +124,12 @@
 
     .search-field {
       background: $color-white;
+    }
+
+    #searchField {
+      padding: 0 15px;
+      width: 50%;
+      line-height: 17px;
     }
 
     core-selector.menu .core-selected {
@@ -177,7 +183,7 @@
 //----------Calendar
 
 #calendarDialogWrapper {
-  top: 12px;
+  top: 10px;
 }
 
 .actions {
@@ -277,7 +283,7 @@
 .collapse-category {
   background: $color-grey-medium-light;
   padding: 0;
-  border-bottom: 1px solid $color-grey-light;
+  border-bottom: 1px solid $color-grey-medium-light;
   .table-item {
     line-height: 24px;
   }
@@ -297,7 +303,11 @@
 
 .table-body {
   border-top: 0;
-  padding: 0;
+  padding: 0 0 30px 0;
+}
+
+.no-padding-bottom {
+  padding-bottom: 0;
 }
 
 .table-header {
@@ -343,6 +353,17 @@
 
 .col-padding:first-child {
   padding: 16px 6px 16px 16px;
+}
+
+//----------Filter by name no results
+
+.no-matches {
+  display: block;
+  padding: 30px 6px 0 6px;
+  font-size: $font-size-mobile;
+  line-height: 24px;
+  text-align: center;
+  color: $color-grey-medium;
 }
 
 @media  screen and (max-width: 1024px) {
@@ -395,7 +416,7 @@
         background: $color-grey-medium-light;
         padding: 16px;
         border-top: 0;
-        border-bottom: 1px solid $color-grey-light;
+        border-bottom: 1px solid $color-grey-medium-light;
         font-size: $font-size-mobile-small;
         line-height: 14px;
         text-transform: none;

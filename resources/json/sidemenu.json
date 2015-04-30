@@ -2,17 +2,26 @@
   "success": true,
   "content": [
     {
+      "title": "SEGREGATED LOCAL",
+      "id": 1,
+      "url": "SEGREGATED LOCAL"
+    },{
+      "title": "Equity Segregated",
+      "id": 2,
+      "url": "Equity Segregated"
+    },{
       "title": "Cash Segregated",
-      "id": 1,
-      "url": "cash"
+      "id": 3,
+      "url": "Cash Segregated"
     },{
-      "title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit",
-      "id": 1,
-      "url": "ipsum"
-    },{
-      "title": "Tag 1",
-      "id": 1,
-      "url": "tag"
+      "title": "Balanced Segregated",
+      "id": 4,
+      "url": "Balanced Segregated"
+    }
+  ,{
+      "title": "Reconcilliations",
+      "id": 5,
+      "url": "Reconcilliations"
     }
   ]
 }

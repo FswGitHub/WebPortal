@@ -2,9 +2,9 @@
     <template>
         <link rel="stylesheet" href="../../css/dashboard-page.css">
         <core-scaffold responsiveWidth="1280px"
-                       mode="waterfall">
+                       mode="standart">
+            <!--Side menu-->
             <core-header-panel navigation flex>
-                <!--Side menu-->
                 <core-toolbar>
                     <div class="logo"><img src="../../img/logo-light.png"></div>
                 </core-toolbar>
@@ -22,7 +22,6 @@
                         <core-icon icon="perm-media"></core-icon>
                         Portfolio
                     </paper-item>
-                    <!--<h3><core-icon icon="perm-media"></core-icon>Portfolio</h3>-->
                     <template repeat="{{val in menuContent}}">
                         <paper-item class="child"
                                     label="portfolio/item/{{val.id}}"
@@ -30,35 +29,35 @@
                     </template>
                     <paper-item label="profile"
                                 on-tap="{{menuGo}}">
-                        <core-icon icon="dashboard"></core-icon>
+                        <core-icon icon="account-circle"></core-icon>
                         Profile
                     </paper-item>
                     <paper-item label="settings"
                                 on-tap="{{menuGo}}">
-                        <core-icon icon="dashboard"></core-icon>
+                        <core-icon icon="settings"></core-icon>
                         Settings
                     </paper-item>
                 </core-selector>
             </core-header-panel>
             <!--Page title-->
-            <div tool>{{pageTitle}}</div>
+            <div tool class="curr-page-title">{{pageTitle}}</div>
             <!--Page tabs-->
             <template if="{{pageTabs}}">
                 <core-toolbar>
                     <div class="bottom fit indent" horizontal layout>
                         <paper-tabs flex selected="{{tabSelected}}">
                             <template repeat="{{val in tabsArray}}">
-                                <paper-tab>{{val.label}}</paper-tab>
+                                <paper-tab id="{{val.name}}" on-tap="{{checkSubheaderContent}}">{{val.label}}</paper-tab>
                             </template>
                         </paper-tabs>
                     </div>
                 </core-toolbar>
             </template>
-            <!--Subheader panel will be here-->
+            <!--Subheader panel-->
             <core-toolbar class="portfolio-item-panel" hidden?="{{!pagePanel}}">
                 <content select="[subheader]"></content>
             </core-toolbar>
-            <!--Tabs content will be here -->
+            <!--Tabs content-->
             <core-pages selected="{{tabSelected}}" id="tab-views" fit>
                 <div>
                     <content select="[tab0]"></content>
@@ -69,20 +68,14 @@
                 <div>
                     <content select="[tab2]"></content>
                 </div>
-                <div>
-                    <content select="[tab3]"></content>
-                </div>
-                <div>
-                    <content select="[tab4]"></content>
-                </div>
             </core-pages>
-            <!--Page content wil be here-->
+            <!--Page content-->
             <div class="content" fit>
                 <content></content>
             </div>
+            <!--Footer-->
             <footer-page></footer-page>
         </core-scaffold>
-
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="portfolioItems"
@@ -93,21 +86,34 @@
             ready: function(){
                 this.$.portfolioItems.url = this.$.globals.url+'resources/json/sidemenu.json';
             },
+            contentResponse: function(e, data){
+                var me = this;
+                if(data.response.success){
+                    me.menuContent = data.response.content;
+                }
+            },
             menuContent: [],
             tabSelected: 0,
+            pageTabs: false,
+
+            //Pages routing
             menuGo: function(e){
                 var link = e.currentTarget.attributes.label.value;
                 if(this.url != link){
                     document.querySelector('app-router').go('/'+link, {replace: false});
                 }
             },
-            contentResponse: function(e, data){
-                var me = this;
-                if(data.response.success){
-                    this.menuContent = data.response.content;
+
+            //Show holdings subheader content
+            checkSubheaderContent: function (e){
+                var holdingTab = e.currentTarget.id;
+                if (holdingTab == 'holdings'){
+                    this.tabHoldings = true;
                 }
-            },
-            pageTabs: false
+                else {
+                    this.tabHoldings = false;
+                }
+            }
         });
     </script>
 </polymer-element>
