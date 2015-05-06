@@ -372,6 +372,9 @@ paper-tabs /deep/ #selectionBar {
 .settings-page /deep/ .users-settings-dropdown paper-dropdown {
   top: 63px;
 }
+.settings-page /deep/ input.browse-hidden {
+  opacity: 0;
+}
 @media screen and (max-width: 480px) {
   .settings-page /deep/ .theme-radio-group /deep/ paper-radio-button {
     font-size: 16px;

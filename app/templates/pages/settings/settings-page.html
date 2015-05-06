@@ -35,6 +35,9 @@
             display: block;
             margin-bottom: 10px;
         }
+        html /deep/ paper-action-dialog .browse-hidden {
+            opacity: 0;
+        }
         html /deep/ paper-action-dialog core-drag-drop {
             border: 1px solid #4A4A4A;
             display: block;
@@ -219,16 +222,17 @@
                     <paper-action-dialog heading="Import" id="importUsersDialog" opened="{{openImport}}" backdrop >
                         <form>
                             <label class="upload-label">Upload a file</label>
-                            <core-field class="browse-field">
-                                <input type="text" flex class="browse-input">
+                            <core-field class="browse-field" relative>
+                                <input type="text" flex class="browse-input" id="uploadFile">
                                 <paper-button class="browse-button">Browse</paper-button>
+                                <input type="file" class="browse-hidden" fit id="files">
                             </core-field>
                             <span class="or">OR</span>
                             <core-drag-drop>
                                 <span class="drag-drop-label">Drag and drop file here</span>
                             </core-drag-drop>
                         </form>
-                        <paper-button affirmative id="cancel" class="action-button">Cancel</paper-button>
+                        <paper-button affirmative id="cancel" class="action-button" on-tap="{{closeUploadDialog}}">Cancel</paper-button>
                         <paper-button affirmative class="action-button" on-tap="{{uploadUsers}}">Upload</paper-button>
                     </paper-action-dialog>
                     <!--Add user dialog-->
@@ -319,11 +323,37 @@
                 if (this.width <= '768') {
                     this.allUsers = new Array(1);
                 }
+
+                if (localStorage.usersArray) {
+                    this.uploadUsers();
+                }
+
+                // Upload file functional
+                var upload = this.$.importUsersDialog.querySelector('#files');
+                var uploadOutput = this.$.importUsersDialog.querySelector('#uploadFile');
+                upload.addEventListener('change', function(e){
+                    handleFileSelect(this.files[0], function(e){
+                        var content = JSON.parse(e.target.result).users;
+                        content = JSON.stringify(content);
+                        localStorage.setItem('usersArray', content);
+                    })
+                } , false);
+
+                function handleFileSelect(evt, onLoadCallback) {
+                    //var files = evt.target.files;
+                    var output = evt.name;
+                    uploadOutput.value = output;
+                    var reader = new FileReader();
+                    reader.onload = onLoadCallback;
+                    reader.readAsText(evt);
+                }
+
             },
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success){
-                    me.usersArray = data.response.users;
+                    //me.usersArray = data.response.users;
+                    //console.log(me.usersArray);
                 }
             },
             page: {
@@ -335,6 +365,7 @@
             tabs: [{name: 'general', label: 'General'}, {name:'fpm config', label: 'FPM config'}, {name:'users', label: 'Users'}],
             allUsers: new Array(10),
             newUsers: [],
+            usersFromFile:[],
             width: window.innerWidth,
             selected: 0,
 
@@ -374,16 +405,35 @@
                 element.validate();
             },
 
+            //Upload users dialog buttons
             openAdd: false,
-            uploadUsers: function(e){
+            uploadUsers: function(e) {
                 var me = this;
-                if (me.newUsers.length > 0) {
-                    me.allUsers = me.newUsers.concat(me.usersArray);
-                    me.allUsers = me.addEmptyStrings(me.allUsers);
-                } else {
-                    me.allUsers = me.usersArray;
+                var uploadOutput = me.$.importUsersDialog.querySelector('#uploadFile');
+                var getUsers = localStorage.getItem('usersArray');
+                var usersArray = JSON.parse(getUsers);
+
+                if (usersArray.length > 0) {
+                    if (me.newUsers.length > 0) {
+                        me.allUsers = me.newUsers.concat(usersArray);
+                        me.allUsers = me.addEmptyStrings(me.allUsers);
+                    } else {
+                        me.allUsers = usersArray;
+                        me.allUsers = me.addEmptyStrings(me.allUsers);
+                    }
                 }
+                else {
+                    alert('Error');
+                }
+
+                uploadOutput.value = '';
             },
+            closeUploadDialog: function(){
+                var uploadOutput = this.$.importUsersDialog.querySelector('#uploadFile');
+                uploadOutput.value = '';
+            },
+
+            //Add user dialog buttons
             addUser: function (e){
                 var me = this;
                 var userEmail = me.$.addUserEmail, userFirstName = me.$.addUserFirstName, userLastName = me.$.addUserLastName;
@@ -407,6 +457,7 @@
                 me.openAdd = false;
             },
 
+            //Add/delete empty table strings
             addEmptyStrings: function (items){
                 if (this.width > '768') {
                     var counter = items.length;

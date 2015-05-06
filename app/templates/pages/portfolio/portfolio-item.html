@@ -292,7 +292,6 @@
             ready: function(){
                 this.$.portfolioItem.url = this.$.globals.url+'resources/json/portfolio-item.json';
                 this.updateDateFormat();
-                console.log(this.id);
             },
             contentResponse: function(e, data){
                 var me = this;
@@ -321,6 +320,10 @@
             tabs: [{name: 'dashboard', label: 'Dashboard'}, {name:'holdings', label: 'Holdings'}],
             selectedView: 1,
             portfolioItemsNoCategory:[],
+
+            getId: function(){
+                return this.id;
+            },
 
             //Search "Filter by name" function
             filterByName: function (e) {
