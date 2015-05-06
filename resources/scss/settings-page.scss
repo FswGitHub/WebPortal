@@ -127,6 +127,7 @@
       }
       input {
         font-size: $font-size-desktop-small;
+        color: $color-black;
       }
     }
 
@@ -167,6 +168,11 @@
       paper-dropdown {
         top: 63px;
       }
+    }
+
+    .bulk-link {
+      text-decoration: none;
+      color: inherit;
     }
 
     @media screen and (max-width: $size-mobile) {

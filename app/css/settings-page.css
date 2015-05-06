@@ -336,6 +336,7 @@ paper-tabs /deep/ #selectionBar {
 }
 .settings-page /deep/ .settings-list-form input {
   font-size: 18px;
+  color: #000000;
 }
 .settings-page /deep/ .optional-label {
   color: #979797;
@@ -372,8 +373,9 @@ paper-tabs /deep/ #selectionBar {
 .settings-page /deep/ .users-settings-dropdown paper-dropdown {
   top: 63px;
 }
-.settings-page /deep/ input.browse-hidden {
-  opacity: 0;
+.settings-page /deep/ .bulk-link {
+  text-decoration: none;
+  color: inherit;
 }
 @media screen and (max-width: 480px) {
   .settings-page /deep/ .theme-radio-group /deep/ paper-radio-button {

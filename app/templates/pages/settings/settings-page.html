@@ -38,7 +38,7 @@
         html /deep/ paper-action-dialog .browse-hidden {
             opacity: 0;
         }
-        html /deep/ paper-action-dialog core-drag-drop {
+        html /deep/ paper-action-dialog .upload-drag-drop-zone {
             border: 1px solid #4A4A4A;
             display: block;
             border-radius: 5px;
@@ -208,11 +208,11 @@
                                 <div class="label" >Add User</div>
                                 <paper-ripple fit></paper-ripple>
                             </paper-item>
-                            <paper-item class="item">
+                            <a class="bulk-link" href="https://projects.invisionapp.com/d/main#/projects"><paper-item class="item">
                                 <core-icon icon="file-download"></core-icon>
                                 <div class="label">Bulk User Template</div>
                                 <paper-ripple fit></paper-ripple>
-                            </paper-item>
+                            </paper-item></a>
                         </div>
                     </paper-dropdown>
                 </div>
@@ -228,9 +228,9 @@
                                 <input type="file" class="browse-hidden" fit id="files">
                             </core-field>
                             <span class="or">OR</span>
-                            <core-drag-drop>
+                            <div id="dropZone" class="upload-drag-drop-zone">
                                 <span class="drag-drop-label">Drag and drop file here</span>
-                            </core-drag-drop>
+                            </div>
                         </form>
                         <paper-button affirmative id="cancel" class="action-button" on-tap="{{closeUploadDialog}}">Cancel</paper-button>
                         <paper-button affirmative class="action-button" on-tap="{{uploadUsers}}">Upload</paper-button>
@@ -280,7 +280,7 @@
                         </div>
                         <div class="table-body">
                             <core-selector selected="0" valueattr="number">
-                                <template repeat="{{user, i in allUsers}}">
+                                <template repeat="{{user, i in allUsers | orderBy('email')}}">
                                     <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                         <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{user.email}}</h1>
                                         <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
@@ -324,30 +324,59 @@
                     this.allUsers = new Array(1);
                 }
 
+                //If user already upload users to his browser
                 if (localStorage.usersArray) {
                     this.uploadUsers();
                 }
 
                 // Upload file functional
                 var upload = this.$.importUsersDialog.querySelector('#files');
+                var dropZone = this.$.importUsersDialog.querySelector('#dropZone');
                 var uploadOutput = this.$.importUsersDialog.querySelector('#uploadFile');
+
                 upload.addEventListener('change', function(e){
-                    handleFileSelect(this.files[0], function(e){
+                    handleFileSelect(e, function(e){
                         var content = JSON.parse(e.target.result).users;
                         content = JSON.stringify(content);
                         localStorage.setItem('usersArray', content);
                     })
-                } , false);
+                }, false);
+                dropZone.addEventListener('drop', function(e){
+                    handleFileSelectByDrop(e, function(e){
+                        var content = JSON.parse(e.target.result).users;
+                        content = JSON.stringify(content);
+                        localStorage.setItem('usersArray', content);
+                    })
+                }, false);
+                dropZone.addEventListener('dragover', handleDragOver, false);
 
+                //if import by browse file
                 function handleFileSelect(evt, onLoadCallback) {
-                    //var files = evt.target.files;
-                    var output = evt.name;
+                    var file = evt.target.files[0];
+                    var output = file.name;
                     uploadOutput.value = output;
                     var reader = new FileReader();
                     reader.onload = onLoadCallback;
-                    reader.readAsText(evt);
+                    reader.readAsText(file);
                 }
 
+                //if import by drag&drop
+                function handleFileSelectByDrop(evt, onLoadCallback) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    var file = evt.dataTransfer.files[0];
+                    var output = file.name;
+                    uploadOutput.value = output;
+                    var reader = new FileReader();
+                    reader.onload = onLoadCallback;
+                    reader.readAsText(file);
+                }
+
+                function handleDragOver(evt) {
+                    evt.stopPropagation();
+                    evt.preventDefault();
+                    evt.dataTransfer.dropEffect = 'copy';
+                }
             },
             contentResponse: function(e, data){
                 var me = this;
@@ -405,7 +434,7 @@
                 element.validate();
             },
 
-            //Upload users dialog buttons
+            //Upload users dialog buttons actions
             openAdd: false,
             uploadUsers: function(e) {
                 var me = this;
@@ -423,7 +452,7 @@
                     }
                 }
                 else {
-                    alert('Error');
+                    alert('Uploading error');
                 }
 
                 uploadOutput.value = '';
