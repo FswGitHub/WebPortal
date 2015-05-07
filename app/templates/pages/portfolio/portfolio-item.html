@@ -99,18 +99,18 @@
                     <paper-fab class="open" icon="add" on-tap="{{openMenu}}" relative></paper-fab>
                     <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="{{menuPosition}}">
                         <div class="menu-list menu">
-                            <paper-item class="item">
+                            <paper-item class="item" on-tap="{{addChart}}">
                                 <div class="label">Holding Charts</div>
                                 <paper-ripple fit></paper-ripple>
                             </paper-item>
-                            <paper-item class="item">
+                            <!--<paper-item class="item">
                                 <div class="label" >Corporate Events</div>
                                 <paper-ripple fit></paper-ripple>
                             </paper-item>
                             <paper-item class="item">
                                 <div class="label">Calendar Events</div>
                                 <paper-ripple fit></paper-ripple>
-                            </paper-item>
+                            </paper-item>-->
                         </div>
                     </paper-dropdown>
                 </div>
@@ -454,6 +454,15 @@
             //Toggle filtering dropdown(mobile view)
             openFilter: function(){
                 this.filtersStatus = true;
+            },
+
+            //Add holdings chart by button
+            addChart: function(e) {
+                var me = this;
+                if (me.portfolioCharts.length == 4) {
+                    alert('All slots for charts are already filled. Please remove any chart to make free slot.');
+                    e.stopPropagation();
+                }
             }
         })
     </script>

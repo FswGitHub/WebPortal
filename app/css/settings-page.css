@@ -1,3 +1,6 @@
+side-menu /deep/ .aside-menu {
+  background: #979797;
+}
 side-menu /deep/ core-toolbar {
   background-color: #DD1F29;
   color: #FFFFFF;
@@ -33,7 +36,7 @@ side-menu /deep/ drop-chart:nth-child(odd) .chart-board:nth-child(even) {
 }
 @media screen and (min-width: 1280px) {
   side-menu /deep/ .curr-page-title {
-    margin-left: 60px;
+    margin-left: 52px;
   }
 }
 

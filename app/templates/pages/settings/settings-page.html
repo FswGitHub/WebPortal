@@ -71,7 +71,7 @@
                             <div class="col-5 label-block">
                                 <span class="settings-label">Theme</span>
                             </div>
-                            <paper-radio-group selected="dark" class="col-7 theme-radio-group" layout horizontal start>
+                            <paper-radio-group selected="{{usersSettings.theme}}" class="col-7 theme-radio-group" layout horizontal start>
                                 <paper-radio-button name="light" label="light"></paper-radio-button>
                                 <paper-radio-button name="dark" label="dark"></paper-radio-button>
                             </paper-radio-group>
@@ -83,7 +83,7 @@
                             <div class="col-7">
                                 <paper-input-decorator id="theme-color"
                                                        label="Set color">
-                                    <input type="text" value="#DD1F29" class="theme-color">
+                                    <input type="text" value="{{usersSettings.colour}}" class="theme-color">
                                 </paper-input-decorator>
                             </div>
                         </li>
@@ -107,28 +107,28 @@
                         <paper-input-decorator id="smtpddress"
                                                label="SMTP Server Address"
                                                floatingLabel>
-                            <input type="text">
+                            <input type="text" value="{{usersSettings.servAddres}}">
                         </paper-input-decorator>
                         <paper-input-decorator id="smtpPort"
                                                label="SMTP Server Port"
                                                floatingLabel>
-                            <input type="text">
+                            <input type="text" value="{{usersSettings.servPort}}">
                         </paper-input-decorator>
                         <paper-input-decorator id="ssl"
                                                label="SSL"
                                                floatingLabel>
-                            <input type="text">
+                            <input type="text" value="{{usersSettings.ssl}}">
                         </paper-input-decorator>
                         <span class="optional-label">Optional</span>
                         <paper-input-decorator id="username"
                                                label="Username"
                                                floatingLabel>
-                            <input type="text">
+                            <input type="text" value="{{usersSettings.username}}">
                         </paper-input-decorator>
                         <paper-input-decorator id="password"
                                                label="Password"
                                                floatingLabel>
-                            <input type="password">
+                            <input type="password" value="{{usersSettings.password}}">
                         </paper-input-decorator>
                     </form>
                 </div>
@@ -143,40 +143,35 @@
                                 <span class="settings-label">Domain Autentification</span>
                             </div>
                             <div class="col-7 configuration-checkbox">
-                                <paper-checkbox></paper-checkbox>
+                                <paper-checkbox checked?="{{usersSettings.domAutent}}"></paper-checkbox>
                             </div>
                         </li>
                         <li class="row" horizontal layout start>
                             <form class="configuration-settings-list settings-list-form">
-                                <paper-input-decorator id="domain-aut"
-                                                       label="Domain Autentification"
-                                                       floatingLabel>
-                                    <input type="text">
-                                </paper-input-decorator>
-                                <paper-input-decorator id="db-serv-name"
+                                <paper-input-decorator id="dbServName"
                                                        label="DB Server Name"
                                                        floatingLabel>
-                                    <input type="text">
+                                    <input type="text" value="{{usersSettings.dbServName}}">
                                 </paper-input-decorator>
-                                <paper-input-decorator id="db-name"
+                                <paper-input-decorator id="dbName"
                                                        label="DB Name"
                                                        floatingLabel>
-                                    <input type="text">
+                                    <input type="text" value="{{usersSettings.dbName}}">
                                 </paper-input-decorator>
-                                <paper-input-decorator id="sql-user-name"
+                                <paper-input-decorator id="sqlUserName"
                                                        label="SQL User Name"
                                                        floatingLabel>
-                                    <input type="text">
+                                    <input type="text" value="{{usersSettings.sqlUserName}}">
                                 </paper-input-decorator>
-                                <paper-input-decorator id="sql-password"
+                                <paper-input-decorator id="sqlPassword"
                                                        label="SQL Password"
                                                        floatingLabel>
-                                    <input type="password">
+                                    <input type="password" value="{{usersSettings.sqlPassword}}">
                                 </paper-input-decorator>
-                                <paper-input-decorator id="sql-port"
+                                <paper-input-decorator id="sqlPort"
                                                        label="SQL Port"
                                                        floatingLabel>
-                                    <input type="text">
+                                    <input type="text" value="{{usersSettings.sqlPort}}">
                                 </paper-input-decorator>
                             </form>
                         </li>
@@ -185,7 +180,7 @@
                                 <span class="settings-label">SSL</span>
                             </div>
                             <div class="col-7 configuration-checkbox">
-                                <paper-checkbox></paper-checkbox>
+                                <paper-checkbox checked?="{{usersSettings.ssl}}"></paper-checkbox>
                             </div>
                         </li>
                     </ul>
@@ -201,18 +196,17 @@
                             <paper-item class="item" on-tap="{{openImportDialog}}">
                                 <core-icon icon="supervisor-account"></core-icon>
                                 <div class="label">Bulk User Import</div>
-                                <paper-ripple fit></paper-ripple>
                             </paper-item>
-                            <paper-item class="item" on-tap="{{openAddDialog}}">
+                            <paper-item class="item" on-tap="{{openAddDialog}}" hidden?="{{mobile}}">
                                 <core-icon icon="add"></core-icon>
                                 <div class="label" >Add User</div>
-                                <paper-ripple fit></paper-ripple>
                             </paper-item>
-                            <a class="bulk-link" href="https://projects.invisionapp.com/d/main#/projects"><paper-item class="item">
-                                <core-icon icon="file-download"></core-icon>
-                                <div class="label">Bulk User Template</div>
-                                <paper-ripple fit></paper-ripple>
-                            </paper-item></a>
+                            <paper-item class="item" hidden?="{{mobile}}">
+                                <a class="bulk-link" href="../../../../resources/json/users.json" download layout horizontal center>
+                                    <core-icon icon="file-download"></core-icon>
+                                    <div class="label">Bulk User Template</div>
+                                </a>
+                            </paper-item>
                         </div>
                     </paper-dropdown>
                 </div>
@@ -320,9 +314,37 @@
         Polymer('settings-page',{
             ready: function (){
                 this.$.settingsContent.url = this.$.globals.url+'resources/json/settings.json';
+
+
+                //Identify mobile/tablet devices
+                var isMobile = {
+                    Android: function() {
+                        return navigator.userAgent.match(/Android/i);
+                    },
+                    BlackBerry: function() {
+                        return navigator.userAgent.match(/BlackBerry/i);
+                    },
+                    iOS: function() {
+                        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+                    },
+                    Opera: function() {
+                        return navigator.userAgent.match(/Opera Mini/i);
+                    },
+                    Windows: function() {
+                        return navigator.userAgent.match(/IEMobile/i);
+                    },
+                    any: function() {
+                        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+                    }
+                };
+                //If mobile device...
+                if (isMobile.any()){
+                    this.mobile = true;
+                }
                 if (this.width <= '768') {
                     this.allUsers = new Array(1);
                 }
+
 
                 //If user already upload users to his browser
                 if (localStorage.usersArray) {
@@ -381,8 +403,7 @@
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success){
-                    //me.usersArray = data.response.users;
-                    //console.log(me.usersArray);
+                    me.usersSettings = data.response;
                 }
             },
             page: {
@@ -397,6 +418,7 @@
             usersFromFile:[],
             width: window.innerWidth,
             selected: 0,
+            mobile: false,
 
             openMenu: function(e){
                 var me = this;

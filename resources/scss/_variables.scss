@@ -33,6 +33,10 @@ $font-size-floating-label-mobile:13px;
 
 side-menu {
   /deep/ {
+    .aside-menu {
+      background: $color-grey-medium;
+    }
+
     core-toolbar{
       background-color: $color-red;
       color: $color-white;
@@ -85,7 +89,7 @@ side-menu {
 
     @media  screen and (min-width: $size-desktop) {
       .curr-page-title {
-        margin-left: 60px;
+        margin-left: 52px;
       }
     }
   }

@@ -39,24 +39,6 @@
       }
     }, {
       "name": "Chart 3",
-      "type": 2,
-      "data": {
-        "labels": ["January", "February", "March", "April", "May", "June", "July"],
-        "datasets": [
-          {
-            "data": [65, 59, 80, 81, 56, 55, 40],
-            "label": "2014"
-          },
-          {
-            "data": [28, 48, 40, 19, 86, 27, 90],
-            "label": "2015"
-          }
-        ],
-        "colors":["#dcdcdc","#97bbcd"],
-        "highlights":["#EBEBEB","#A1C9DD"]
-      }
-    }, {
-      "name": "Chart 4",
       "type": 3,
       "data": {
         "labels": ["January", "February", "March", "April", "May", "June", "July"],
@@ -94,7 +76,7 @@
         "highlights":["#FF5A5E","#5AD3D1","#FFC870","#A8B3C5","#616774","#7B675C","#E2C9A5"]
       }
     }, {
-      "name": "Chart 5",
+      "name": "Chart 4",
       "type": 4,
       "data": {
         "labels": ["January", "February", "March", "April", "May", "June", "July"],
@@ -126,36 +108,6 @@
         ],
         "colors":["#F7464A","#46BFBD","#FDB45C","#949FB1","#4D5360","#E7C697"],
         "highlights":["#FF5A5E","#5AD3D1","#FFC870","#A8B3C5","#616774","#E2C9A5"]
-      }
-    }, {
-      "name": "Chart 6",
-      "type": 5,
-      "data": {
-        "labels": ["January", "February", "March", "April", "May", "June", "July"],
-        "datasets": [
-          {
-            "data": [35, 45, 57, 66, 34, 43, 20],
-            "label": "2011"
-          },
-          {
-            "data": [10, 7, 4, 6, 8, 9, 5],
-            "label": "2012"
-          },
-          {
-            "data": [8, 20, 13, 15, 21, 7, 14],
-            "label": "2013"
-          },
-          {
-            "data": [6, 3, 9, 8, 2, 2, 10],
-            "label": "2014"
-          },
-          {
-            "data": [5, 30, 17, 21, 33, 40, 18],
-            "label": "2015"
-          }
-        ],
-        "colors":["#F7464A","#46BFBD","#FDB45C","#949FB1","#4D5360"],
-        "highlights":["#FF5A5E","#5AD3D1","#FFC870","#A8B3C5","#616774"]
       }
     }
   ]

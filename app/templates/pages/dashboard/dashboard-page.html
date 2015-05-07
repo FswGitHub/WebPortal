@@ -16,7 +16,7 @@
                 <paper-fab icon="add" on-tap="{{openMenu}}" relative></paper-fab>
                 <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="{{menuPosition}}">
                     <div class="menu-list menu">
-                        <paper-item class="item" on-tap="{{uploadCharts}}">
+                        <paper-item class="item" on-tap="{{addChart}}">
                             <div class="label">Holding Charts</div>
                             <paper-ripple fit></paper-ripple>
                         </paper-item>
@@ -41,7 +41,7 @@
         Polymer('dashboard-page', {
             ready: function(){
                 this.$.dashboardItems.url = this.$.globals.url+'resources/json/charts.json';
-
+                /*//Drag&Drop chart
                 var dropZone = this.$.dashboardCharts.querySelector('#dropZone');
                 dropZone.addEventListener('drop', function(e){
                     handleFileSelectByDrop(e, function(e){
@@ -50,9 +50,7 @@
                         //localStorage.setItem('chartsArray', newCharts);
                     });
                 }, false);
-
                 dropZone.addEventListener('dragover', handleDragOver, false);
-
                 function handleFileSelectByDrop(evt, onLoadCallback) {
                     evt.stopPropagation();
                     evt.preventDefault();
@@ -61,17 +59,18 @@
                     reader.onload = onLoadCallback;
                     reader.readAsText(file);
                 }
-
                 function handleDragOver(evt) {
                     evt.stopPropagation();
                     evt.preventDefault();
                     evt.dataTransfer.dropEffect = 'copy';
-                }
+                }*/
             },
             contentResponse: function(e, data){
+                var me = this;
                 if(data.response.success){
-                    this.dashboardContentUploaded = data.response.content;
-                    this.updateDragAndDropsArray();
+                    me.dashboardContentUploaded = data.response.content;
+                    me.dashboardContent = me.dashboardContentUploaded;
+                    me.updateDragAndDropsArray();
                 }
             },
             dragAndDropsArray: new Array(4),
@@ -95,33 +94,36 @@
                 var me = this;
                 if (me.dashboardContent) {
                     var boards = me.dashboardContent.length;
-                    if (boards >= 4) {
-                        me.dragAndDropsArray = new Array(1);
-                    }
-                    else {
+                    if (boards < 4) {
                         var different = 4-boards;
                         var cleanArray = new Array(different);
                         me.dragAndDropsArray = cleanArray;
                     }
+                    else {
+                        me.dragAndDropsArray = [];
+                    }
                 }
-                return (this.dragAndDropsArray);
+                return this.dragAndDropsArray;
             },
 
-            //Upload holdings chart by button
-            uploadCharts: function() {
+            //Add holdings chart by button
+            addChart: function(e) {
                 var me = this;
-                if (me.newCharts > 0) {
+                if (me.dashboardContent.length == 4) {
+                    alert('All slots for charts are already filled. Please remove any chart to make free slot.');
+                    e.stopPropagation();
+                }
+                /*if (me.newCharts > 0) {
                     me.dashboardContent = me.newCharts.concat(me.dashboardContentUploaded);
                 }
                 else {
                     me.dashboardContent = me.dashboardContentUploaded;
-                }
-                me.updateDragAndDropsArray();
-            },
-
+                }*/
+                //me.updateDragAndDropsArray();
+                return me.dashboardContent;
+            }
             //Insert dropped data to charts
-
-            buildCharts: function(){
+            /*buildCharts: function(){
                 var me = this;
                 var dropZone = me.$.dashboardCharts.querySelector('#dropZone');
                 var getCharts = localStorage.getItem('chartsArray');
@@ -129,7 +131,7 @@
                 me.newCharts = me.newCharts.concat(chartsArray);
                 me.dashboardContent = me.dashboardContent.concat(chartsArray);
                 me.updateDragAndDropsArray();
-            }
+            }*/
         })
     </script>
 </polymer-element>

@@ -5,6 +5,7 @@
     "lastName":"Ball",
     "email":"alan.ball@outlook.com",
     "cellphone":"+654321987",
-    "idNumber":"852147"
+    "idNumber":"852147",
+    "photo":"img/profile_photo.jpg"
   }
 }
