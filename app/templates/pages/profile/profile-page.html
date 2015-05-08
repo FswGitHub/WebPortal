@@ -58,12 +58,29 @@
             contentResponse: function(e, data){
                 var me = this;
 
-                var userFirstNameField = me.$.sideMenu.querySelector('#firstName').input;
+               /* var userFormFields={
+                    userFirstNameField: this.$.sideMenu.querySelector('#firstName')
+                };
+                console.log(userFormFields.userFirstNameField.input.value);
+                //var userFirstNameField =*/
                 if(data.response.success){
                     me.userData = data.response.user;
-                    me.user = me.userData;
-                    me.user.name = me.userData.firstName + ' ' + me.userData.lastName;
+                    //setTimeout(function(){
+                        me.user = me.userData;
+                        me.user.name = me.userData.firstName + ' ' + me.userData.lastName;
+                    //},100);
                 }
+                /*else {
+                    me.user.name = 'User name';
+                    for (val in userFormFields) {
+                        updateUserFormLabels(val);
+                    }
+                    function updateUserFormLabels(e){
+                        console.log(e);
+                        e.input.value = '';
+                        e.updateLabelVisibility();
+                    }
+                }*/
             },
             page: {
                 class: 'profile-page',
