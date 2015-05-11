@@ -20,9 +20,14 @@
       margin-right: 5%;
       paper-input-decorator {
         /deep/ {
-          .label-text,.error {
+          .label-text {
             color: $color-red;
             font-size: $font-size-desktop-small;
+            font-weight: bold;
+          }
+          .error {
+            color: $color-red;
+            font-size: $font-size-mobile;
             font-weight: bold;
           }
           ::-webkit-input-placeholder {
@@ -82,8 +87,11 @@
       .user-data {
         paper-input-decorator {
           /deep/ {
-            .label-text, .error {
+            .label-text {
               font-size: $font-size-mobile;
+            }
+            .error {
+              font-size: $font-size-mobile-small;
             }
             ::-webkit-input-placeholder {
               font-size: $font-size-mobile;

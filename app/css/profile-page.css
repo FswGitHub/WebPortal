@@ -163,9 +163,14 @@ paper-tabs /deep/ #selectionBar {
   margin-bottom: 150px;
   margin-right: 5%;
 }
-.profile-page /deep/ .user-data paper-input-decorator /deep/ .label-text, .profile-page /deep/ .user-data paper-input-decorator /deep/ .error {
+.profile-page /deep/ .user-data paper-input-decorator /deep/ .label-text {
   color: #DD1F29;
   font-size: 18px;
+  font-weight: bold;
+}
+.profile-page /deep/ .user-data paper-input-decorator /deep/ .error {
+  color: #DD1F29;
+  font-size: 16px;
   font-weight: bold;
 }
 .profile-page /deep/ .user-data paper-input-decorator /deep/ ::-webkit-input-placeholder {
@@ -212,8 +217,11 @@ paper-tabs /deep/ #selectionBar {
   .profile-page /deep/ .profile-form {
     display: table-footer-group;
   }
-  .profile-page /deep/ .user-data paper-input-decorator /deep/ .label-text, .profile-page /deep/ .user-data paper-input-decorator /deep/ .error {
+  .profile-page /deep/ .user-data paper-input-decorator /deep/ .label-text {
     font-size: 16px;
+  }
+  .profile-page /deep/ .user-data paper-input-decorator /deep/ .error {
+    font-size: 14px;
   }
   .profile-page /deep/ .user-data paper-input-decorator /deep/ ::-webkit-input-placeholder {
     font-size: 16px;

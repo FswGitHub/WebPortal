@@ -315,7 +315,6 @@
             ready: function (){
                 this.$.settingsContent.url = this.$.globals.url+'resources/json/settings.json';
 
-
                 //Identify mobile/tablet devices
                 var isMobile = {
                     Android: function() {
@@ -337,6 +336,7 @@
                         return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
                     }
                 };
+
                 //If mobile device...
                 if (isMobile.any()){
                     this.mobile = true;
@@ -344,7 +344,6 @@
                 if (this.width <= '768') {
                     this.allUsers = new Array(1);
                 }
-
 
                 //If user already upload users to his browser
                 if (localStorage.usersArray) {
