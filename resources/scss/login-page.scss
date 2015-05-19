@@ -1,6 +1,7 @@
 @import "_variables";
 
 .login-page{
+  background-color: rgba(151,151,151, 1);
   .header{
     .logo{
       width: 200px;
@@ -27,13 +28,13 @@
           /deep/{
             .label-text{
               font-size: $font-size-mobile;
-              color: $color-red;
+              color: $color-main;
             }
             .unfocused-underline{
               background-color: $color-black;
             }
             .focused-underline{
-              background-color: $color-red;
+              background-color: $color-main;
             }
             .floated-label {
               .label-text {
@@ -46,7 +47,7 @@
           margin: 20px auto 20px;
           .submit{
             margin: 0;
-            background-color: $color-red;
+            background-color: $color-main;
             color: $color-white;
           }
           core-label{
@@ -69,8 +70,8 @@
             paper-checkbox /deep/ #checkbox{
               border-color: $color-grey-dark;
               &.checked{
-                background-color: $color-red;
-                border-color: $color-red;
+                background-color: $color-main;
+                border-color: $color-main;
               }
             }
           }
@@ -90,7 +91,7 @@
       text-align: center;
       color: $color-white;
       paper-button{
-        background-color: $color-red;
+        background-color: $color-main;
         margin: 15px 0 0;
         a{
           color: $color-white;
@@ -144,13 +145,13 @@
         }
       }
     }
-    footer-page /deep/ {
+    /*footer-page /deep/ {
       .footer {
         margin: 0;
         width: 94%;
         padding: 3%;
       }
-    }
+    }*/
   }
   @media screen and (min-width: $size-tablet) {
     .header{
@@ -190,11 +191,11 @@
   }
 
   @media screen and (min-width: $size-tablet-max) {
-    footer-page /deep/ {
+    /*footer-page /deep/ {
       .footer {
         width: 80%;
         margin: auto auto 35px auto;
       }
-    }
+    }*/
   }
 }

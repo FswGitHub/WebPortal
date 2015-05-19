@@ -1,67 +1,3 @@
-side-menu /deep/ .aside-menu {
-  background: #979797;
-}
-side-menu /deep/ core-toolbar {
-  background-color: #DD1F29;
-  color: #FFFFFF;
-}
-side-menu /deep/ core-toolbar .logo {
-  height: 100%;
-  line-height: 64px;
-}
-side-menu /deep/ core-toolbar .logo img {
-  width: 100%;
-  vertical-align: middle;
-}
-side-menu /deep/ .curr-page-title {
-  margin-left: 0;
-}
-side-menu /deep/ chart-board:nth-child(even) /deep/ .chart-board {
-  padding-right: 4%;
-}
-side-menu /deep/ chart-board:nth-child(even) .chart-board:nth-child(even) {
-  padding-right: 0;
-}
-side-menu /deep/ drop-chart:nth-child(odd) /deep/ .chart-board {
-  padding-right: 4%;
-}
-side-menu /deep/ drop-chart:nth-child(odd) .chart-board:nth-child(even) {
-  padding-right: 0;
-}
-@media screen and (max-width: 768px) {
-  side-menu /deep/ chart-board:nth-child(even) /deep/ .chart-board {
-    padding-right: 0;
-    margin-left: 0;
-  }
-}
-@media screen and (min-width: 1280px) {
-  side-menu /deep/ .curr-page-title {
-    margin-left: 52px;
-  }
-}
-
-core-selector.menu core-icon {
-  margin-right: 0.5em;
-}
-core-selector.menu .child {
-  padding-left: 38px;
-}
-core-selector.menu .core-selected {
-  background-color: #D8D8D8;
-  border-left: 7px solid #DD1F29;
-}
-core-selector.menu .core-selected /deep/ .button-content {
-  padding-left: 9px;
-}
-core-selector.menu .core-selected.child {
-  border-left: 30px solid #DD1F29;
-  padding-left: 15px;
-}
-core-selector.menu h3 {
-  padding: 0 1em;
-  font-weight: normal;
-}
-
 .chart-board {
   width: 48%;
   float: left;
@@ -72,7 +8,7 @@ core-selector.menu h3 {
   margin: 8px auto 16px;
   padding: 8px 0 16px 0;
 }
-.chart-board paper-shadow .title {
+.chart-board paper-shadow .chart-title {
   padding: 0 8px 0 16px;
   font-weight: bold;
   font-size: 20px;
@@ -84,21 +20,39 @@ core-selector.menu h3 {
   .chart-board {
     width: 100%;
   }
-  .chart-board paper-shadow .title {
+  .chart-board paper-shadow .chart-title {
     font-size: 16px;
   }
 }
 
+chart-board:nth-child(even) /deep/ .chart-board {
+  padding-right: 4%;
+}
+chart-board:nth-child(even) .chart-board:nth-child(even) {
+  padding-right: 0;
+}
+
+drop-chart:nth-child(odd) /deep/ .chart-board {
+  padding-right: 4%;
+}
+drop-chart:nth-child(odd) .chart-board:nth-child(even) {
+  padding-right: 0;
+}
+
+@media screen and (max-width: 768px) {
+  chart-board:nth-child(even) /deep/ .chart-board {
+    padding-right: 0;
+    margin-left: 0;
+  }
+}
 .content {
   padding: 26px 26px 0 60px;
   overflow-y: auto;
-  margin-bottom: 52px;
 }
 
 .tab-page-content {
   overflow-y: auto;
   padding: 26px 26px 0 60px;
-  margin-bottom: 52px;
 }
 
 .ul-reset {
@@ -108,19 +62,12 @@ core-selector.menu h3 {
   font-size: 0;
 }
 
-paper-tabs {
-  background-color: #DD1F29;
-  color: #FFFFFF;
-  text-transform: uppercase;
+.spinner {
+  background: #EDEDED;
+  z-index: 2;
 }
-paper-tabs paper-tab {
-  max-width: 150px;
-}
-paper-tabs /deep/ #ink {
-  color: #FFFFFF;
-}
-paper-tabs /deep/ #selectionBar {
-  background-color: #FFFFFF;
+.spinner paper-spinner::shadow .circle {
+  border-color: #DD1F29;
 }
 
 .tabs-panel /deep/ core-toolbar.tabs-toolbar {
@@ -137,17 +84,24 @@ paper-tabs /deep/ #selectionBar {
 @media screen and (max-width: 768px) {
   .content {
     padding: 26px 26px 0 26px;
-    margin-bottom: 62px;
   }
 
   .tab-page-content {
     padding: 26px 26px 0 26px;
-    margin-bottom: 62px;
   }
 
   core-toolbar /deep/ .bottom.fit.indent {
     margin-left: 26px;
   }
+}
+paper-fab {
+  background: #D8D8D8;
+  color: #4A4A4A;
+  margin-bottom: 16px;
+}
+
+.login-page, .confirm-page {
+  background-color: #979797;
 }
 .login-page .header .logo, .confirm-page .header .logo {
   width: 200px;
@@ -264,6 +218,15 @@ paper-tabs /deep/ #selectionBar {
   }
 }
 @media screen and (min-width: 480px) {
+  .login-page, .confirm-page {
+    /*footer-page /deep/ {
+      .footer {
+        margin: 0;
+        width: 94%;
+        padding: 3%;
+      }
+    }*/
+  }
   .login-page .header .logo, .confirm-page .header .logo {
     margin: 30px;
   }
@@ -281,11 +244,6 @@ paper-tabs /deep/ #selectionBar {
   }
   .login-page .content > paper-shadow > div a, .confirm-page .content > paper-shadow > div a {
     font-size: 16px;
-  }
-  .login-page footer-page /deep/ .footer, .confirm-page footer-page /deep/ .footer {
-    margin: 0;
-    width: 94%;
-    padding: 3%;
   }
 }
 @media screen and (min-width: 768px) {
@@ -314,8 +272,12 @@ paper-tabs /deep/ #selectionBar {
   }
 }
 @media screen and (min-width: 1024px) {
-  .login-page footer-page /deep/ .footer, .confirm-page footer-page /deep/ .footer {
-    width: 80%;
-    margin: auto auto 35px auto;
+  .login-page, .confirm-page {
+    /*footer-page /deep/ {
+      .footer {
+        width: 80%;
+        margin: auto auto 35px auto;
+      }
+    }*/
   }
 }

@@ -1,9 +1,9 @@
-<polymer-element name="chart-board" attributes="name type values dashboardContent dragAndDropsArray func" extends="dashboard-page">
+<polymer-element name="chart-board" attributes="name type values dashboardContent dragAndDropsArray func">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <div class="chart-board" id="board">
             <paper-shadow z="1">
-                <div class="title" horizontal layout center>
+                <div class="chart-title" horizontal layout center>
                     <div flex>{{name}}</div>
                     <paper-icon-button icon="settings" on-tap="{{openMenu}}" relative></paper-icon-button>
                     <paper-dropdown opened="{{menuStatus}}" halign="right" valign="top" class="chart-dropdown">
@@ -52,8 +52,9 @@
     </template>
     <script>
         Polymer('chart-board', {
-            ready:function(){
+            ready: function(){
                 this.chartGo(this.type);
+                return this.dashboardContent;
             } ,
             chartGo:function(type){
                 var me = this;
@@ -126,6 +127,7 @@
                 this.func();
             },
             changeChartType: function(e){
+                var me = this;
                 var chartType = e.currentTarget.attributes.type.value;
                 this.type = parseInt(chartType);
                 this.chartGo(this.type);

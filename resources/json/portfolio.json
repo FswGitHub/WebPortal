@@ -4,7 +4,7 @@
     {
       "id": "1",
       "code":"SEGLOCAL",
-      "name":"SEGREGATED LOCAL",
+      "name":"Segregated local",
       "status":"Active",
       "taxCurrency":"ZAR",
       "residency":"South Africa"
@@ -44,7 +44,7 @@
     {
       "id": "6",
       "code":"SEGLOCAL",
-      "name":"SEGREGATED LOCAL",
+      "name":"Segregated local",
       "status":"Active",
       "taxCurrency":"ZAR",
       "residency":"South Africa"

@@ -1,0 +1,54 @@
+<polymer-element name="page-selector" attributes="pages selectedPage size">
+    <template>
+        <link rel="stylesheet" href="../../../css/portfolio-item.css">
+        <div class="holding-table-navigation-wrapper" id="pagesSelector">
+            <core-media-query query="max-width: 768px"
+                              queryMatches="{{phoneScreen}}"></core-media-query>
+            <div layout vertical?="{{phoneScreen}}"
+                 horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}" class="holding-table-navigation">
+                <core-selector layout horizontal start>
+                    <div><button class="holding-nav-button" on-tap="{{first}}">First</button></div>
+                    <div><button class="holding-nav-button" on-tap="{{prev}}">&#60;&#60;<span class="hide-nav">Prev</span></button></div>
+                    <core-selector id="pages" valueattr="name" selected="{{selectedPage}}" layout horizontal start>
+                        <template repeat="{{page in pages}}">
+                            <div name="{{page}}" class="table-page-item">{{page}}</div>
+                        </template>
+                    </core-selector>
+                    <div><button class="holding-nav-button" on-tap="{{next}}"><span class="hide-nav">Next</span>&#62;&#62;</button></div>
+                    <div><button class="holding-nav-button" on-tap="{{last}}">Last</button></div>
+                </core-selector>
+                <div class="size-menu-wrapper">
+                    <span class="size-label">Size</span>
+                    <paper-dropdown-menu label="50">
+                        <paper-dropdown class="dropdown">
+                            <core-selector class="menu" valueattr="val" selected="{{size}}">
+                                <paper-item val="50" class="current">50</paper-item>
+                                <paper-item val="100">100</paper-item>
+                                <paper-item val="200">200</paper-item>
+                            </core-selector>
+                        </paper-dropdown>
+                    </paper-dropdown-menu>
+                </div>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer('page-selector',{
+            ready: function(){},
+            prev: function () {
+                this.$.pages.selectPrevious();
+            },
+            next: function () {
+                this.$.pages.selectNext();
+            },
+            first: function(){
+                var first = this.pages[0];
+                this.$.pages.selected = first;
+            },
+            last: function(){
+                var last = this.pages.length;
+                this.$.pages.selected = last;
+            }
+        });
+    </script>
+</polymer-element>

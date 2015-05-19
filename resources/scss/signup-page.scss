@@ -1,15 +1,10 @@
 @import "_variables";
 @import "login-page";
 
-.signup-page{
+.signup-page {
+  background-color: rgba(151,151,151, 1);
   @extend .login-page;
   @media screen and (max-height: 978px) {
-    footer-page {
-      /deep/ {
-        .footer {
-          position: initial;
-        }
-      }
-    }
+
   }
 }

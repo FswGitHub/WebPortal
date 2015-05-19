@@ -1,5 +1,4 @@
-$color-red: #DD1F29;
-$color-dark-red: #90141a;
+$color-main: #DD1F29;
 $color-grey-dark: #4A4A4A;
 $color-gray-dark-light: #8e8e9a;
 $color-grey-medium: #979797;
@@ -19,104 +18,12 @@ $font-size-desktop-small: 18px;
 $font-size-mobile: 16px;
 $font-size-mobile-small: 14px;
 $font-size-footer: 12px;
-$font-size-floating-label:15px;
-$font-size-floating-label-mobile:13px;
 
 @mixin placeholder($color) {
   ::-webkit-input-placeholder {color: $color}
   ::-moz-placeholder          {color: $color}// Firefox 19+
   :-moz-placeholder           {color: $color}// Firefox 18-
   :-ms-input-placeholder      {color: $color}
-}
-
-//----------Side menu changes
-
-side-menu {
-  /deep/ {
-    .aside-menu {
-      background: $color-grey-medium;
-    }
-
-    core-toolbar{
-      background-color: $color-red;
-      color: $color-white;
-      .logo{
-        height: 100%;
-        line-height: 64px;
-        img{
-          width: 100%;
-          vertical-align: middle;
-        }
-      }
-    }
-
-    .curr-page-title {
-      margin-left: 0;
-    }
-
-    chart-board {
-      &:nth-child(even){
-        /deep/ .chart-board{
-          padding-right: 4%;
-        }
-        .chart-board:nth-child(even){
-          padding-right: 0;
-        }
-      }
-    }
-
-    drop-chart {
-      &:nth-child(odd){
-        /deep/ .chart-board{
-          padding-right: 4%;
-        }
-        .chart-board:nth-child(even){
-          padding-right: 0;
-        }
-      }
-    }
-
-    @media screen and (max-width: $size-tablet) {
-      chart-board {
-        &:nth-child(even) {
-          /deep/ .chart-board {
-            padding-right: 0;
-            margin-left: 0;
-          }
-        }
-      }
-    }
-
-    @media  screen and (min-width: $size-desktop) {
-      .curr-page-title {
-        margin-left: 52px;
-      }
-    }
-  }
-}
-
-core-selector.menu{
-  core-icon {
-    margin-right: 0.5em;
-  }
-  .child{
-    padding-left: 38px;
-  }
-  .core-selected{
-    background-color: $color-grey-medium-light;
-    border-left: 7px solid $color-red;
-    /deep/ .button-content{
-      padding-left: 9px;
-    }
-    &.child{
-      border-left: 30px solid $color-red;
-      padding-left: 15px;
-    }
-  }
-  h3{
-    padding: 0 1em;
-    font-weight: normal;
-  }
 }
 
 //----------Chart boards
@@ -130,7 +37,7 @@ core-selector.menu{
     background-color: $color-white;
     margin: 8px auto 16px;
     padding: 8px 0 16px 0;
-    .title{
+    .chart-title {
       padding: 0 8px 0 16px;
       font-weight: bold;
       font-size: $font-size-desktop;
@@ -143,25 +50,57 @@ core-selector.menu{
   @media screen and (max-width: $size-tablet) {
     width: 100%;
     paper-shadow{
-      .title{
+      .chart-title {
         font-size: $font-size-mobile;
       }
     }
   }
 }
 
+chart-board {
+  &:nth-child(even){
+    /deep/ .chart-board{
+      padding-right: 4%;
+    }
+    .chart-board:nth-child(even){
+      padding-right: 0;
+    }
+  }
+}
+
+drop-chart {
+  &:nth-child(odd){
+    /deep/ .chart-board{
+      padding-right: 4%;
+    }
+    .chart-board:nth-child(even){
+      padding-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: $size-tablet) {
+  chart-board {
+    &:nth-child(even) {
+      /deep/ .chart-board {
+        padding-right: 0;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+
 //----------Pages and tabs contents
 
 .content {
   padding: 26px 26px 0 60px;
   overflow-y: auto;
-  margin-bottom: 52px;
 }
 
 .tab-page-content {
   overflow-y: auto;
   padding: 26px 26px 0 60px;
-  margin-bottom: 52px;
 }
 
 .ul-reset {
@@ -171,23 +110,11 @@ core-selector.menu{
   font-size: 0;
 }
 
-//----------Tabs styles
-
-paper-tabs{
-  background-color: $color-red;
-  color: $color-white;
-  text-transform: uppercase;
-  paper-tab{
-    max-width: 150px;
-  }
-  /deep/ {
-    #ink {
-      color: $color-white;
-    }
-
-    #selectionBar {
-      background-color: $color-white;
-    }
+.spinner {
+  background: $color-grey-light;
+  z-index: 2;
+  paper-spinner::shadow .circle {
+    border-color: $color-main;
   }
 }
 
@@ -215,12 +142,10 @@ paper-tabs{
 @media  screen and (max-width: $size-tablet) {
   .content {
     padding: 26px 26px 0 26px;
-    margin-bottom: 62px;
   }
 
   .tab-page-content {
     padding: 26px 26px 0 26px;
-    margin-bottom: 62px;
   }
 
   core-toolbar {
@@ -230,4 +155,10 @@ paper-tabs{
       }
     }
   }
+}
+
+paper-fab {
+  background: $color-grey-medium-light;
+  color: $color-grey-dark;
+  margin-bottom: 16px;
 }

@@ -1,45 +1,47 @@
 <polymer-element name="signup-page">
     <template>
         <link rel="stylesheet" href="../../../css/signup-page.css">
-        <div vertical layout class="signup-page">
-            <div class="header">
-                <div class="logo"><img src="../../../img/logo-light.png"></div>
-            </div>
-            <div class="content">
-                <paper-shadow z="1">
-                    <form vertical layout>
-                        <paper-input-decorator id="firstName" label="First Name"
-                                               floatingLabel error="Please enter First Name">
-                            <input is="core-input" required type="text">
-                        </paper-input-decorator>
-                        <paper-input-decorator id="lastName" label="Last Name"
-                                               floatingLabel error="Please enter Last Name">
-                            <input is="core-input" required type="text">
-                        </paper-input-decorator>
-                        <paper-input-decorator id="email" label="Email"
-                                               floatingLabel error="Please enter valid Email">
-                            <input is="core-input" required type="email">
-                        </paper-input-decorator>
-                        <paper-input-decorator id="password" label="Password"
-                                               floatingLabel error="Please enter Password">
-                            <input is="core-input" required type="password">
-                        </paper-input-decorator>
-                        <div class="login-button" horizontal layout center>
-                            <paper-button class="submit"
-                                          on-tap="{{signUpSubmit}}"
-                                          raised>Sign Up</paper-button>
-                        </div>
-                    </form>
-                </paper-shadow>
-                <div class="create">
-                    <div>Already have an account?</div>
-                    <paper-button raised>
-                        <a href="#!/login">Login</a>
-                    </paper-button>
+        <div vertical layout fit class="signup-page">
+            <div flex twelve>
+                <div class="header">
+                    <div class="logo"><img src="../../../img/logo-light.png"></div>
+                </div>
+                <div class="content">
+                    <paper-shadow z="1">
+                        <form vertical layout>
+                            <paper-input-decorator id="firstName" label="First Name"
+                                                   floatingLabel error="Please enter First Name">
+                                <input is="core-input" required type="text">
+                            </paper-input-decorator>
+                            <paper-input-decorator id="lastName" label="Last Name"
+                                                   floatingLabel error="Please enter Last Name">
+                                <input is="core-input" required type="text">
+                            </paper-input-decorator>
+                            <paper-input-decorator id="email" label="Email"
+                                                   floatingLabel error="Please enter valid Email">
+                                <input is="core-input" required type="email">
+                            </paper-input-decorator>
+                            <paper-input-decorator id="password" label="Password"
+                                                   floatingLabel error="Please enter Password">
+                                <input is="core-input" required type="password">
+                            </paper-input-decorator>
+                            <div class="login-button" horizontal layout center>
+                                <paper-button class="submit"
+                                              on-tap="{{signUpSubmit}}"
+                                              raised>Sign Up</paper-button>
+                            </div>
+                        </form>
+                    </paper-shadow>
+                    <div class="create">
+                        <div>Already have an account?</div>
+                        <paper-button raised>
+                            <a on-tap="{{loginGo}}">Login</a>
+                        </paper-button>
+                    </div>
                 </div>
             </div>
             <!--Footer-->
-            <footer-page></footer-page>
+            <footer-page flex></footer-page>
         </div>
         <paper-action-dialog id="signUpDialog"
                              heading="Error"
@@ -85,6 +87,9 @@
                 } else {
                     this.signUpError();
                 }
+            },
+            loginGo: function(){
+                document.querySelector('flatiron-director').route = 'login';
             }
         });
     </script>

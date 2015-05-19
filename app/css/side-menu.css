@@ -100,23 +100,65 @@ paper-fab {
   margin-bottom: 16px;
 }
 
-.footer {
-  padding: 0 26px 0 60px;
-  color: #979797;
-  font-size: 12px;
-  background: #EDEDED;
+core-scaffold /deep/ .aside-menu {
+  background: #979797;
 }
-.footer hr {
-  margin-bottom: 10px;
+core-scaffold /deep/ core-toolbar {
+  background-color: #DD1F29;
+  color: #FFFFFF;
 }
-
-@media screen and (max-width: 768px) {
-  .footer {
-    padding: 0 26px;
+core-scaffold /deep/ core-toolbar /deep/ ::content > * {
+  margin: 0;
+}
+core-scaffold /deep/ core-toolbar /deep/ .title {
+  margin: 0 6px;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+core-scaffold /deep/ core-toolbar .logo {
+  height: 100%;
+  line-height: 64px;
+}
+core-scaffold /deep/ core-toolbar .logo img {
+  width: 100%;
+  vertical-align: middle;
+}
+@media screen and (min-width: 1280px) {
+  core-scaffold /deep/ core-toolbar /deep/ .title {
+    margin: 0 44px;
   }
 }
 @media screen and (max-width: 480px) {
-  .footer hr {
-    margin-bottom: 6px;
+  core-scaffold /deep/ core-toolbar /deep/ .title {
+    font-size: 16px;
   }
+}
+
+.pages-selector {
+  margin: 0;
+}
+.pages-selector /deep/ a, .pages-selector /deep/ a:hover, .pages-selector /deep/ a:visited {
+  text-decoration: none;
+  color: #000000;
+}
+.pages-selector /deep/ core-icon {
+  margin-right: 0.5em;
+}
+.pages-selector /deep/ .child {
+  padding-left: 38px;
+}
+.pages-selector /deep/ .core-selected {
+  background-color: #D8D8D8;
+  border-left: 7px solid #DD1F29;
+}
+.pages-selector /deep/ .core-selected /deep/ .button-content {
+  padding-left: 9px;
+}
+.pages-selector /deep/ .core-selected.child {
+  border-left: 30px solid #DD1F29;
+  padding-left: 15px;
+}
+
+section {
+  background: #EDEDED;
 }

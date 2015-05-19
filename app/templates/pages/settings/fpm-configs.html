@@ -1,0 +1,152 @@
+<polymer-element name="fpm-configs" attributes="scope">
+    <template>
+        <link rel="stylesheet" href="../../../css/settings-page.css">
+        <div class="content" fit>
+            <div class="configuration-settings-panel settings-panel">
+                <h2 class="title-item">Configuration</h2>
+                <ul class="design-settings-list">
+                    <li class="row" horizontal layout start>
+                        <div class="col-5 label-block domain-aut">
+                            <span class="settings-label">Domain Autentification</span>
+                        </div>
+                        <div class="col-7 configuration-checkbox">
+                            <paper-checkbox checked?="{{scope.domAutent}}" on-change="{{checkedValue}}"></paper-checkbox>
+                        </div>
+                    </li>
+                    <li class="row" horizontal layout start>
+                        <form class="configuration-settings-list settings-list-form" id="configurations">
+                            <paper-input-decorator id="dbServName"
+                                                   label="DB Server Name"
+                                                   floatingLabel
+                                                   error="Please enter DB Server Name">
+                                <input type="text" value="{{scope.dbServName}}" required on-blur="{{saveData}}">
+                            </paper-input-decorator>
+                            <paper-input-decorator id="dbName"
+                                                   label="DB Name"
+                                                   floatingLabel
+                                                   error="Please enter DB Name">
+                                <input type="text" value="{{scope.dbName}}" required on-blur="{{saveData}}">
+                            </paper-input-decorator>
+                            <paper-input-decorator id="sqlUserName"
+                                                   label="SQL User Name"
+                                                   floatingLabel
+                                                   error="Please enter SQL User Name">
+                                <input type="text" value="{{scope.sqlUserName}}" required on-blur="{{saveData}}">
+                            </paper-input-decorator>
+                            <paper-input-decorator id="sqlPassword"
+                                                   label="SQL Password"
+                                                   floatingLabel
+                                                   error="Please enter SQL Password">
+                                <input type="password" value="{{scope.sqlPassword}}" required on-blur="{{saveData}}">
+                            </paper-input-decorator>
+                            <paper-input-decorator id="sqlPort"
+                                                   label="SQL Port"
+                                                   floatingLabel>
+                                <input type="text" value="{{scope.sqlPort}}" on-blur="{{saveData}}">
+                            </paper-input-decorator>
+                        </form>
+                    </li>
+                    <li class="row" horizontal layout start>
+                        <div class="col-5 label-block">
+                            <span class="settings-label">SSL</span>
+                        </div>
+                        <div class="col-7 configuration-checkbox">
+                            <paper-checkbox checked?="{{scope.fpmSsl}}" on-change="{{checkedValue}}"></paper-checkbox>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer('fpm-configs',{
+            scope: {
+                domAutent: false,
+                dbServName: ' ',
+                dbName: ' ',
+                sqlUserName: ' ',
+                sqlPassword: ' ',
+                sqlPort: ' ',
+                fpmSsl: false
+            },
+            configurationsUpdate: function(){
+                //Data lost or empty form
+                var me = this;
+                var configurations = {
+                    dbServName: me.$.dbServName,
+                    dbName: me.$.dbName,
+                    sqlUserName: me.$.sqlUserName,
+                    sqlPassword: me.$.sqlPassword,
+                    sqlPort: me.$.sqlPort
+                };
+
+                for (var field in configurations) {
+                    updateUserFormLabels(configurations[field]);
+                }
+
+                function updateUserFormLabels(e){
+                    e.input.value = '';
+                    e.updateLabelVisibility();
+                }
+            },
+            saveData: function(e) {
+                var me = this;
+                var submitUser = {};
+                var submitForm = {
+                    dbServName: me.$.dbServName,
+                    dbName: me.$.dbName,
+                    sqlUserName: me.$.sqlUserName,
+                    sqlPassword: me.$.sqlPassword,
+                    sqlPort: me.$.sqlPort
+                };
+
+                if (e.currentTarget.parentNode.validate()) {
+                    submitUser = {
+                        domAutent: this.scope.domAutent,
+                        dbServName: submitForm.dbServName.input.value,
+                        dbName: submitForm.dbName.input.value,
+                        sqlUserName: submitForm.sqlUserName.input.value,
+                        sqlPassword: submitForm.sqlPassword.input.value,
+                        sqlPort: submitForm.sqlPort.input.value,
+                        fpmSsl: this.scope.fpmSsl
+                    };
+                    if ((submitUser.dbServName && submitUser.dbName && submitUser.sqlUserName && submitUser.sqlPassword) > '') {
+                        if (submitForm.dbServName.validate() && submitForm.dbName.validate() &&submitForm.sqlUserName.validate() && submitForm.sqlPassword.validate()) {
+                            //Submit must be here!
+                            console.log(submitUser);
+                        }
+                    }
+                }
+                else {
+                    this.focus();
+                }
+            },
+            checkedValue: function(){
+                var me = this;
+                var submitUser = {};
+                var submitForm = {
+                    dbServName: me.$.dbServName,
+                    dbName: me.$.dbName,
+                    sqlUserName: me.$.sqlUserName,
+                    sqlPassword: me.$.sqlPassword,
+                    sqlPort: me.$.sqlPort
+                };
+                submitUser = {
+                    domAutent: this.scope.domAutent,
+                    dbServName: submitForm.dbServName.input.value,
+                    dbName: submitForm.dbName.input.value,
+                    sqlUserName: submitForm.sqlUserName.input.value,
+                    sqlPassword: submitForm.sqlPassword.input.value,
+                    sqlPort: submitForm.sqlPort.input.value,
+                    fpmSsl: this.scope.fpmSsl
+                };
+                if ((submitUser.dbServName && submitUser.dbName && submitUser.sqlUserName && submitUser.sqlPassword) > '') {
+                    if (submitForm.dbServName.validate() && submitForm.dbName.validate() &&submitForm.sqlUserName.validate() && submitForm.sqlPassword.validate()) {
+                        //Submit must be here!
+                        console.log(submitUser);
+                    }
+                }
+            }
+        });
+    </script>
+</polymer-element>

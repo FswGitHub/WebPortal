@@ -1,0 +1,79 @@
+<link rel="import" href="chart-board.html">
+<link rel="import" href="drop-chart.html">
+<polymer-element name="dashboard-charts" attributes="dashboardContent">
+    <template>
+        <link rel="stylesheet" href="../../../css/dashboard-page.css">
+        <div horizontal layout reverse class="dashboard-dropdown">
+            <paper-fab icon="add" on-tap="{{openMenu}}" id="addChart"></paper-fab>
+            <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" relatedTarget valign="{{menuPosition}}">
+                <div class="menu-list menu">
+                    <paper-item class="item" on-tap="{{addChart}}">
+                        <div class="label">Holding Charts</div>
+                        <paper-ripple fit></paper-ripple>
+                    </paper-item>
+                    <!--<paper-item class="item">
+                        <div class="label" >Corporate Events</div>
+                        <paper-ripple fit></paper-ripple>
+                    </paper-item>
+                    <paper-item class="item">
+                        <div class="label">Calendar Events</div>
+                        <paper-ripple fit></paper-ripple>
+                    </paper-item>-->
+                </div>
+            </paper-dropdown>
+        </div>
+        <div class="dashboard-content" id="dashboardCharts">
+            <template repeat="{{val, i in dashboardContent}}">
+                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" id="{{val.name}}" dashboardContent="{{dashboardContent}}" dragAndDropsArray="{{dragAndDropsArray}}" func="{{updateDragAndDropsArray}}"></chart-board>
+            </template>
+            <template repeat="{{val in dragAndDropsArray}}">
+                <drop-chart id="dropZone"></drop-chart>
+            </template>
+        </div>
+    </template>
+    <script>
+        Polymer('dashboard-charts', {
+            ready: function(){},
+            newCharts: [],
+            menuStatus: false,
+            menuPosition: 'top',
+            dragAndDropsArray: new Array(4),
+
+            openMenu: function(e){
+                var me = this;
+                var width = window.innerWidth;
+                if (width <= '768') {
+                    me.menuPosition = 'bottom';
+                    //console.log(me.menuPosition);
+                }
+                me.menuStatus = true;
+            },
+
+            updateDragAndDropsArray: function() {
+                var me = this;
+                if (me.dashboardContent) {
+                    var boards = me.dashboardContent.length;
+                    if (boards < 4) {
+                        var different = 4-boards;
+                        var cleanArray = new Array(different);
+                        me.dragAndDropsArray = cleanArray;
+                    }
+                    else {
+                        me.dragAndDropsArray = [];
+                    }
+                }
+                return this.dragAndDropsArray;
+            },
+
+            //Add holdings chart by button
+            addChart: function(e) {
+                var me = this;
+                if (me.dashboardContent.length == 4) {
+                    alert('All slots for charts are already filled. Please remove any chart to make free slot.');
+                    e.stopPropagation();
+                }
+                return me.dashboardContent;
+            }
+        })
+    </script>
+</polymer-element>

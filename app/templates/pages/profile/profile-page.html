@@ -1,141 +1,132 @@
 <polymer-element name="profile-page">
     <template>
         <link rel="stylesheet" href="../../../css/profile-page.css">
-        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" id="sideMenu">
-            <div class="header">
-                <h2 class="profile-name title-item">Profile: {{user.name}}</h2>
+        <div class="header">
+            <h2 class="profile-name title-item">Profile: {{user.name}}</h2>
+        </div>
+        <core-media-query query="max-width: 768px"
+                          queryMatches="{{phoneScreen}}"></core-media-query>
+        <div class="profile-form-wrapper" layout vertical?="{{phoneScreen}}"
+             horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}" >
+            <div flex?="{{!phoneScreen}}" class="profile-form">
+                <form class="user-data" id="userForm">
+                    <paper-input-decorator id="firstName"
+                                           label="First Name"
+                                           floatingLabel
+                                           error="Please enter First Name">
+                        <input type="text" value="{{user.firstName}}" required on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="lastName"
+                                           label="Last Name"
+                                           floatingLabel
+                                           error="Please enter Last Name">
+                        <input type="text" value="{{user.lastName}}" required on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="email"
+                                           label="E-mail"
+                                           floatingLabel
+                                           error="Please enter correct Email">
+                        <input type="email" value="{{user.email}}" required on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="cellphone"
+                                           label="Cellphone"
+                                           floatingLabel>
+                        <input type="tel" value="{{user.cellphone}}" on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="idNumber"
+                                           label="ID Number"
+                                           floatingLabel>
+                        <input type="number" value="{{user.idNumber}}" readonly on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                </form>
             </div>
-            <core-media-query query="max-width: 768px"
-                              queryMatches="{{phoneScreen}}"></core-media-query>
-            <div class="profile-form-wrapper" layout vertical?="{{phoneScreen}}"
-                 horizontal?="{{!phoneScreen}}" start?="{{!phoneScreen}}" >
-                <div flex?="{{!phoneScreen}}" class="profile-form">
-                    <form class="user-data" id="userForm">
-                        <paper-input-decorator id="firstName"
-                                               label="First Name"
-                                               floatingLabel
-                                               error="Please enter First Name">
-                            <input type="text" value="{{user.firstName}}" required>
-                        </paper-input-decorator>
-                        <paper-input-decorator id="lastName"
-                                               label="Last Name"
-                                               floatingLabel
-                                               error="Please enter Last Name">
-                            <input type="text" value="{{user.lastName}}" required>
-                        </paper-input-decorator>
-                        <paper-input-decorator id="email"
-                                               label="E-mail"
-                                               floatingLabel
-                                               error="Please enter correct Email">
-                            <input type="email" value="{{user.email}}" required>
-                        </paper-input-decorator>
-                        <paper-input-decorator id="cellphone"
-                                               label="Cellphone"
-                                               floatingLabel>
-                            <input type="tel" value="{{user.cellphone}}">
-                        </paper-input-decorator>
-                        <paper-input-decorator id="idNumber"
-                                               label="ID Number"
-                                               floatingLabel>
-                            <input type="number" value="{{user.idNumber}}" readonly>
-                        </paper-input-decorator>
-                    </form>
-                </div>
-                <div flex?="{{!phoneScreen}}" class="profile-image">
-                    <core-image class="profile-photo" src="{{user.photo}}" sizing="cover" style="width: 200px; height: 200px"></core-image>
-                </div>
+            <div flex?="{{!phoneScreen}}" class="profile-image">
+                <core-image class="profile-photo" src="{{user.photo}}" sizing="cover" style="width: 200px; height: 200px"></core-image>
             </div>
-        </side-menu>
+        </div>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="profileContent"
                    on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
-        (function(){
-            var form1 = this.$firstName;
-            console.log(form1);
-            Polymer('profile-page',{
-                ready: function (){
-                    this.$.profileContent.url = this.$.globals.url+'resources/json/user.json';
-                    this.form = {
-                        userFirstNameField: this.$.sideMenu.querySelector('#firstName'),
-                        userLastNameField: this.$.sideMenu.querySelector('#lastName'),
-                        userEmailField: this.$.sideMenu.querySelector('#email'),
-                        userCellphoneField: this.$.sideMenu.querySelector('#cellphone'),
-                        userIdNumberField: this.$.sideMenu.querySelector('#idNumber')
-                    };
-                    var submitForm = this.form;
+        Polymer('profile-page',{
+            ready: function (){
+                this.$.profileContent.url = this.$.globals.url+'resources/json/user.json';
+            },
+            contentResponse: function(e, data){
+                var me = this;
+                var userFormFields = {
+                    userFirstNameField: me.$.firstName,
+                    userLastNameField: me.$.lastName,
+                    userEmailField: me.$.email,
+                    userCellphoneField: me.$.cellphone,
+                    userIdNumberField: me.$.idNumber
+                };
 
-                    //User form submission
-                    submitForm.userFirstNameField.input.addEventListener('blur', saveData, false);
-                    submitForm.userLastNameField.input.addEventListener('blur', saveData, false);
-                    submitForm.userEmailField.input.addEventListener('blur', saveData, false);
-                    submitForm.userCellphoneField.input.addEventListener('blur', saveData, false);
-                    submitForm.userIdNumberField.input.addEventListener('blur', saveData, false);
-
-                    function saveData() {
-                        var submitUser = {};
-
-                        if (this.parentNode.validate()){
-                            var field = this.parentNode.id;
-                            submitUser = {
-                                firstName: submitForm.userFirstNameField.input.value,
-                                lastName: submitForm.userLastNameField.input.value,
-                                email: submitForm.userEmailField.input.value,
-                                cellphone: submitForm.userCellphoneField.input.value,
-                                idNumber: submitForm.userIdNumberField.input.value
-                            };
-                            if ((submitUser.firstName && submitUser.lastName && submitUser.email) > '') {
-                                if(submitForm.userFirstNameField.validate() && submitForm.userLastNameField.validate() && submitForm.userEmailField.validate()){
-                                    //Submit must be here!
-                                    console.log(submitUser);
-                                }
-                            }
-                        }
-                        else {
-                            this.focus();
-                        }
+                //Data came
+                if(data.response.success){
+                    me.userData = data.response.user;
+                    me.user = me.userData;
+                    if((me.user.photo == '') || (!me.user.photo)){
+                        me.user.photo = 'img/icon-profile.png';
                     }
-                },
-                contentResponse: function(e, data){
-                    var me = this;
-                    var userFormFields = this.form;
+                    me.user.name = '"'+me.userData.firstName + ' ' + me.userData.lastName+'"';
 
-                    //Data came
-                    if(data.response.success){
-                        me.userData = data.response.user;
-                        me.user = me.userData;
-                        me.user.name = '"'+me.userData.firstName + ' ' + me.userData.lastName+'"';
-                    }
-                    else {
-                        //Data lost or empty form
-                        me.user.name = '';
-
-                        for (var field in userFormFields) {
-                            updateUserFormLabels(userFormFields[field]);
-                        }
-
-                        function updateUserFormLabels(e){
-                            e.input.value = '';
-                            e.updateLabelVisibility();
-                        }
-                    }
-                },
-                page: {
-                    class: 'profile-page',
-                    url: 'profile',
-                    title: 'Profile'
-                },
-                user: {
-                    name: '',
-                    firstName: ' ',
-                    lastName: ' ',
-                    email: 'example@com',
-                    cellphone: ' ',
-                    idNumber: 0
                 }
-            })
-        })();
+                else {
+                    //Data lost or empty form
+                    me.user.name = '';
+
+                    for (var field in userFormFields) {
+                        updateUserFormLabels(userFormFields[field]);
+                    }
+
+                    function updateUserFormLabels(e){
+                        e.input.value = '';
+                        e.updateLabelVisibility();
+                    }
+                }
+            },
+            user: {
+                name: '',
+                firstName: ' ',
+                lastName: ' ',
+                email: 'example@com',
+                cellphone: ' ',
+                idNumber: 0,
+                photo: 'img/icon-profile.png'
+            },
+            saveData: function(e) {
+                var submitUser = {};
+                var submitForm = {
+                    userFirstNameField: this.$.firstName,
+                    userLastNameField: this.$.lastName,
+                    userEmailField: this.$.email,
+                    userCellphoneField: this.$.cellphone,
+                    userIdNumberField: this.$.idNumber
+                };
+
+                if (e.currentTarget.parentNode.validate()) {
+                    var field = this.parentNode.id;
+                    submitUser = {
+                        firstName: submitForm.userFirstNameField.input.value,
+                        lastName: submitForm.userLastNameField.input.value,
+                        email: submitForm.userEmailField.input.value,
+                        cellphone: submitForm.userCellphoneField.input.value,
+                        idNumber: submitForm.userIdNumberField.input.value
+                    };
+                    if ((submitUser.firstName && submitUser.lastName && submitUser.email) > '') {
+                        if (submitForm.userFirstNameField.validate() && submitForm.userLastNameField.validate() && submitForm.userEmailField.validate()) {
+                            //Submit must be here!
+                            console.log(submitUser);
+                        }
+                    }
+                }
+                else {
+                    this.focus();
+                }
+            }
+        });
     </script>
 </polymer-element>

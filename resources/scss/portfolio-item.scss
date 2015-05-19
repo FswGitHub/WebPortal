@@ -1,40 +1,36 @@
 @import "_variables";
 @import "portfolio-page";
 
-.portfolio-item {
-  /deep/{
-    .content {
-      display: none;
-    }
-
-    .dashboard-dropdown {
+:host {
+  /deep/ {
+    .dashboard-dropdown{
       position: fixed;
-      right: 26px;
-      top: 162px;
-      z-index: 2;
+      top: 98px;
+      right: 45px;
+      z-index: 1;
     }
-
-    paper-dropdown.dashboard-menu-dropdown {
-      top: 63px;
-    }
-
-    .chart-dropdown {
-      font-weight: normal;
-    }
-
-    chart-board{
-      /deep/ .chart-board {
-        padding-right: 4%;
+    //----------Tabs styles
+    paper-tabs{
+      background-color: $color-main;
+      color: $color-white;
+      text-transform: uppercase;
+      paper-tab{
+        max-width: 150px;
       }
-      &:nth-child(even){
-        /deep/ .chart-board{
-          padding-right: 0;
+      /deep/ {
+        #ink {
+          color: $color-white;
+        }
+
+        #selectionBar {
+          background-color: $color-white;
         }
       }
     }
 
-    .indent.subheader  {
-      margin-left: 52px;
+    .subheader {
+      padding: 0 52px;
+      background-color: #979797;
     }
 
     .holding-view {
@@ -46,27 +42,14 @@
     }
 
     @media screen and (max-width: $size-tablet) {
-      chart-board{
-        &:nth-child(even){
-          /deep/ .chart-board{
-            padding-right: 0;
-            margin-left: 0;
-          }
-        }
-      }
-
-      .indent.subheader {
-        margin-left: 18px;
-        margin-right: 0;
+      .subheader {
+        padding: 0 0 0 26px;
       }
 
       .dashboard-dropdown {
-        top: auto;
-        right: 13px;
-        bottom: 13px;
-      }
-
-      paper-dropdown.dashboard-menu-dropdown {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
         top: auto;
       }
 
@@ -118,12 +101,18 @@
       background: $color-grey-medium;
     }
 
+    core-toolbar /deep/ ::content > .holding-view {
+      margin-right: 8px;
+      min-width: 160px;
+    }
+
     .search-block {
       padding: 0.25em 0.57em;
     }
 
     .search-field {
       background: $color-white;
+      padding: 8px 8px 8px 0;
     }
 
     #searchField {
@@ -175,7 +164,7 @@
     }
 
     .core-selected {
-      color: $color-red;
+      color: $color-main;
     }
   }
 }
@@ -194,7 +183,7 @@
   paper-button.closeCalendar {
     /deep/ {
       .button-content {
-        color: $color-red;
+        color: $color-main;
       }
     }
   }
@@ -202,7 +191,7 @@
   paper-button.setDate {
     /deep/ {
       .button-content {
-        color: $color-red;
+        color: $color-main;
       }
     }
   }
@@ -230,7 +219,7 @@
 }
 
 .table-page-item.core-selected {
-  background: $color-red;
+  background: $color-main;
   color: $color-white;
 }
 
@@ -274,7 +263,7 @@
   }
 
   paper-item.core-selected {
-    color: $color-red;
+    color: $color-main;
   }
 }
 
@@ -283,7 +272,12 @@
 .collapse-category {
   background: $color-grey-medium-light;
   padding: 0;
-  border-bottom: 1px solid $color-grey-medium-light;
+  border-bottom: 1px solid $color-grey-light;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   .table-item {
     line-height: 24px;
   }
@@ -293,6 +287,10 @@
   .col-padding.category-title {
     padding-right: 2px;
   }
+}
+
+.collapse-category:last-child {
+  border-bottom: 0;
 }
 
 .rotate {
@@ -366,7 +364,7 @@
   color: $color-grey-medium;
 }
 
-@media  screen and (max-width: 1024px) {
+@media  screen and (max-width: $size-tablet-max) {
   .cost-price-icon {
     right: -8px;
   }
@@ -397,10 +395,20 @@
 }
 
 @media  screen and (max-width: $size-tablet) {
-  .portfolio-item {
+  :host {
     /deep/ {
-      .col-content {
+      .labels {
         margin: 0;
+        .col-padding:last-child {
+          padding: 16px 6px 16px 16px;
+        }
+        .col-padding:first-child {
+          padding: 16px 6px 16px 16px;
+        }
+      }
+
+      .values .col-padding:last-child {
+        padding: 16px 0;
       }
 
       .filters-menu {
@@ -410,12 +418,16 @@
       }
 
       .search-field {
-        padding: 5px 16px 0 16px;
+        padding: 0;
+        input {
+          line-height: 24px;
+        }
       }
 
       .table-header {
         font-size: $font-size-mobile-small;
         line-height: 14px;
+        padding: 16px;
       }
 
       .table-item {
@@ -424,13 +436,17 @@
 
       .collapse-category {
         background: $color-grey-dark;
-        border-top: 1px solid $color-grey-medium;
+        border-top: 0;
         border-bottom: 1px solid $color-grey-medium;
         font-size: $font-size-mobile-small;
         .category-title {
           color: $color-white;
           text-transform: uppercase;
         }
+      }
+
+      .collapse-category:last-child {
+        border-bottom: 0;
       }
 
       .table-header-in-collapse {

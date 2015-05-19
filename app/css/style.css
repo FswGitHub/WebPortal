@@ -59,4 +59,14 @@ body {
   font-size: 14px;
   font-weight: normal;
   background-color: #979797;
+  overflow: hidden;
+}
+
+[unresolved] {
+  opacity: 0;
+  /* other custom styles for unresolved elements */
+}
+
+.unresolved {
+  opacity: 0;
 }

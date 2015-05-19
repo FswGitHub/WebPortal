@@ -1,17 +1,7 @@
 @import "_variables";
 
-.dashboard-page {
+:host {
   /deep/{
-    .dashboard-dropdown {
-      position: fixed;
-      right: 26px;
-      top: 35px;
-      z-index: 2;
-    }
-
-    paper-dropdown.dashboard-menu-dropdown {
-      top: 63px;
-    }
 
     .chart-dropdown {
       font-weight: normal;
@@ -27,15 +17,17 @@
       border: 1px solid $color-grey-medium;
       background: $color-grey-light;
     }
+
     @media screen and (max-width: $size-tablet) {
       .dashboard-dropdown {
-        top: auto;
-        right: 13px;
-        bottom: 13px;
-      }
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        z-index: 1;
 
-      paper-dropdown.dashboard-menu-dropdown {
-        top: auto;
+        #addChart {
+          margin-bottom: 0;
+        }
       }
     }
   }

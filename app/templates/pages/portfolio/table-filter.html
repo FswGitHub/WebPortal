@@ -1,0 +1,99 @@
+<polymer-element name="table-filter" attributes="showNoMatches allItems portfolioItemsNoCategory showAll">
+    <template>
+        <link rel="stylesheet" href="../../../css/portfolio-item.css">
+        <div layout horizontal center flex hidden?="{{phoneScreen}}">
+            <core-media-query query="max-width: 768px"
+                              queryMatches="{{phoneScreen}}"></core-media-query>
+            <core-field class="search-field" >
+                <input id="searchField" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
+                <core-icon icon="search"></core-icon>
+            </core-field>
+        </div>
+        <div hidden?="{{!phoneScreen}}" layout horizontal center-center flex>
+            <core-icon-button icon="filter-list" on-tap="{{openFilter}}"></core-icon-button>
+            <paper-dropdown halign="right" opened="{{filtersStatus}}" class="mobile-filters">
+                <div class="menu filters-menu">
+                    <paper-item class="item">
+                        <core-field class="search-field" flex>
+                            <input id="searchFieldMobile" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
+                            <core-icon icon="search"></core-icon>
+                        </core-field>
+                    </paper-item>
+                    <paper-item class="item" on-tap="{{order}}" orderval="name">
+                        <div class="label">Order by name</div>
+                    </paper-item>
+                    <paper-item class="item" on-tap="{{order}}" orderval="nominal">
+                        <div class="label">Order by nominal</div>
+                    </paper-item>
+                    <paper-item class="item" on-tap="{{order}}" orderval="costPrice">
+                        <div class="label">Order by cost price</div>
+                    </paper-item>
+                    <paper-item class="item" on-tap="{{order}}" orderval="bookValue">
+                        <div class="label">Order by book value</div>
+                    </paper-item>
+                    <paper-item class="item" on-tap="{{order}}" orderval="marketPrice">
+                        <div class="label">Order by market price</div>
+                    </paper-item>
+                    <paper-item class="item" on-tap="{{order}}" orderval="marketValue">
+                        <div class="label">Order by market value</div>
+                    </paper-item>
+                    <paper-item class="item" on-tap="{{order}}" orderval="MV">
+                        <div class="label">Order by %MV</div>
+                    </paper-item>
+                    <paper-item class="item" on-tap="{{order}}" orderval="exposureValue">
+                        <div class="label">Order by exposure value</div>
+                    </paper-item>
+                </div>
+            </paper-dropdown>
+        </div>
+    </template>
+    <script>
+        Polymer('table-filter',{
+            //Search "Filter by name" function
+            filterByName: function (e) {
+                var me = this;
+                var filtered = [];
+                var id = e.currentTarget.id;
+                var searchValue = '';
+
+                if (id == 'searchField') {
+                    searchValue = me.$.searchField.value;
+                }
+                else {
+                    searchValue = me.$.searchFieldMobile.value;
+                }
+
+                var items =  me.portfolioItemsNoCategory;
+                var letterMatch = new RegExp(searchValue, 'i');
+
+                me.showNoMatches = false;
+
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    if (letterMatch.test(item.name)) {
+                        filtered.push(item);
+                    }
+                }
+
+                if (filtered.length <=0) {
+                    me.showNoMatches = true;
+                }
+
+                me.showAll = 'icb';
+
+                if (searchValue == '') {
+                    if (localStorage.getItem('selectedView') == 'statutory'){
+                        me.showAll = 'statutory';
+                    }
+                }
+
+                return me.allItems = filtered;
+            },
+
+            //Toggle filtering dropdown(mobile view)
+            openFilter: function(){
+                this.filtersStatus = true;
+            }
+        });
+    </script>
+</polymer-element>

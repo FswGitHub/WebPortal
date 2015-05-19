@@ -23,6 +23,10 @@
   font-size: $font-size-desktop-small;
   color: $color-white;
   text-transform: uppercase;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .table-item {
@@ -45,64 +49,60 @@
 }
 
 @media  screen and (max-width: $size-tablet) {
-  .portfolio-page, .settings-page, .portfolio-item {
-    /deep/ {
-      .table-body {
-        padding: 0;
-      }
+    .table-body {
+      padding: 0;
+    }
 
-      .table-header-list {
-        display: inline-block;
-        padding: 16px;
-        margin: 0;
-      }
+    .table-header-list {
+      display: inline-block;
+      padding: 16px;
+      margin: 0;
+    }
 
-      .table-header {
-        font-size: $font-size-mobile;
-      }
+    .table-header {
+      font-size: $font-size-mobile;
+    }
 
-      .labels {
-        border-right: 1px solid $color-grey-medium-light;
-        width: 48%;
-        vertical-align: top;
-        .col-padding {
-          padding: 16px 6px 16px 16px;
-        }
-        .table-item {
-          border-bottom: 1px solid transparent;
-        }
-        .table-item:last-child {
-          border-bottom: 0;
-        }
+    .labels {
+      border-right: 1px solid $color-grey-medium-light;
+      width: 48%;
+      vertical-align: top;
+      .col-padding {
+        padding: 16px 6px 16px 16px;
       }
-
-      .table-label {
-        text-transform: uppercase;
-        font-weight: bold;
+      .table-item {
+        border-bottom: 1px solid transparent;
       }
-
-      .values {
-        width: 51%;
-        vertical-align: top;
-        .table-item {
-          padding: 16px 0;
-          margin: 0 16px;
-          border-bottom: 1px solid $color-grey-medium-light;
-        }
-        .table-item:last-child {
-          border-bottom: 0;
-        }
-      }
-
-      .mobile-col-content[layout][horizontal] {
-        display: none;
-      }
-
-      .core-selected {
-        .mobile-col-content[layout][horizontal]  {
-          display: inherit;
-        }
+      .table-item:last-child {
+        border-bottom: 0;
       }
     }
-  }
+
+    .table-label {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .values {
+      width: 51%;
+      vertical-align: top;
+      .table-item {
+        padding: 16px 0;
+        margin: 0 16px;
+        border-bottom: 1px solid $color-grey-medium-light;
+      }
+      .table-item:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    .mobile-col-content[layout][horizontal] {
+      display: none;
+    }
+
+    .core-selected {
+      .mobile-col-content[layout][horizontal]  {
+        display: inherit;
+      }
+    }
 }

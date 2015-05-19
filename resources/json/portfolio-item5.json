@@ -1,0 +1,222 @@
+{
+  "success": true,
+  "item":{
+    "id":"5",
+    "title":"Reconcilliations",
+    "charts":[
+      {
+        "name": "Chart 1",
+        "type": 0,
+        "data": {
+          "labels": ["January", "February", "March", "April", "May", "June", "July"],
+          "datasets": [
+            {
+              "data": [65, 59, 80, 81, 56, 55, 40],
+              "label": "2014"
+            },
+            {
+              "data": [28, 48, 40, 19, 86, 27, 90],
+              "label": "2015"
+            }
+          ],
+          "colors":["#dcdcdc","#97bbcd"],
+          "highlights":["#EBEBEB","#A1C9DD"]
+        }
+      }, {
+        "name": "Chart 2",
+        "type": 1,
+        "data": {
+          "labels": ["January", "February", "March", "April", "May", "June", "July"],
+          "datasets": [
+            {
+              "data": [65, 59, 80, 81, 56, 55, 40],
+              "label": "2014"
+            },
+            {
+              "data": [28, 48, 40, 19, 86, 27, 90],
+              "label": "2015"
+            }
+          ],
+          "colors":["#dcdcdc","#97bbcd"],
+          "highlights":["#EBEBEB","#A1C9DD"]
+        }
+      }, {
+        "name": "Chart 3",
+        "type": 3,
+        "data": {
+          "labels": ["January", "February", "March", "April", "May", "June", "July"],
+          "datasets": [
+            {
+              "data": [28, 18, 30, 19, 56, 27, 60],
+              "label": "2019"
+            },
+            {
+              "data": [35, 29, 50, 51, 26, 25, 10],
+              "label": "2010"
+            },
+            {
+              "data": [35, 45, 57, 66, 34, 43, 20],
+              "label": "2011"
+            },
+            {
+              "data": [10, 7, 4, 6, 8, 9, 5],
+              "label": "2012"
+            },
+            {
+              "data": [8, 20, 13, 15, 21, 7, 14],
+              "label": "2013"
+            },
+            {
+              "data": [6, 3, 9, 8, 2, 2, 10],
+              "label": "2014"
+            },
+            {
+              "data": [5, 30, 17, 21, 33, 40, 18],
+              "label": "2015"
+            }
+          ],
+          "colors":["#F7464A","#46BFBD","#FDB45C","#949FB1","#4D5360","#5D4E46","#E7C697"],
+          "highlights":["#FF5A5E","#5AD3D1","#FFC870","#A8B3C5","#616774","#7B675C","#E2C9A5"]
+        }
+      }, {
+        "name": "Chart 4",
+        "type": 4,
+        "data": {
+          "labels": ["January", "February", "March", "April", "May", "June", "July"],
+          "datasets": [
+            {
+              "data": [65, 59, 80, 81, 56, 55, 40],
+              "label": "2010"
+            },
+            {
+              "data": [35, 45, 57, 66, 34, 43, 20],
+              "label": "2011"
+            },
+            {
+              "data": [10, 7, 4, 6, 8, 9, 5],
+              "label": "2012"
+            },
+            {
+              "data": [8, 20, 13, 15, 21, 7, 14],
+              "label": "2013"
+            },
+            {
+              "data": [6, 3, 9, 8, 2, 2, 10],
+              "label": "2014"
+            },
+            {
+              "data": [5, 30, 17, 21, 33, 40, 18],
+              "label": "2015"
+            }
+          ],
+          "colors":["#F7464A","#46BFBD","#FDB45C","#949FB1","#4D5360","#E7C697"],
+          "highlights":["#FF5A5E","#5AD3D1","#FFC870","#A8B3C5","#616774","#E2C9A5"]
+        }
+      }
+    ],
+    "holdings": [
+      {
+        "id":"1",
+        "category":"Oil & Gas",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"2,987",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.39",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Fund Soft Ltd",
+            "nominal":"345,678",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"100",
+            "marketValue":"1,093,654",
+            "MV":"0,32",
+            "exposureValue":"1,093,654"
+          }
+        ]
+      },
+      {
+        "id":"2",
+        "category":"Consumer Goods",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"800",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.43",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Dev Bank Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"POT Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Support Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,50 +1,52 @@
 <polymer-element name="login-page">
     <template>
         <link rel="stylesheet" href="../../../css/login-page.css">
-        <div vertical layout class="login-page">
-            <div class="header">
-                <div class="logo"><img src="../../../img/logo-light.png"></div>
-            </div>
-            <div class="content">
-                <paper-shadow z="1">
-                    <form vertical layout on-submit="{{loginSubmit}}">
-                        <paper-input-decorator id="email" label="Email"
-                                               floatingLabel
-                                               error="Please enter valid Email">
-                            <input required
-                                   value="kingnlo@gmail.com"
-                                   type="email">
-                        </paper-input-decorator>
-                        <paper-input-decorator id="password" label="Password"
-                                               floatingLabel
-                                               error="Please enter Password">
-                            <input required
-                                   value="123456"
-                                   type="password">
-                        </paper-input-decorator>
-                        <div class="login-button" horizontal layout center>
-                            <paper-button class="submit"
-                                          on-tap="{{loginSubmit}}"
-                                          raised>Submit</paper-button>
-                            <core-label horizontal layout center>
-                                <div class="remember">Remember Me</div>
-                                <paper-checkbox for checked></paper-checkbox>
-                            </core-label>
+        <div vertical layout fit class="login-page">
+            <div flex twelve>
+                <div class="header">
+                    <div class="logo"><img src="../../../img/logo-light.png"></div>
+                </div>
+                <div class="content">
+                    <paper-shadow z="1">
+                        <form vertical layout on-submit="{{loginSubmit}}">
+                            <paper-input-decorator id="email" label="Email"
+                                                   floatingLabel
+                                                   error="Please enter valid Email">
+                                <input required
+                                       value="kingnlo@gmail.com"
+                                       type="email">
+                            </paper-input-decorator>
+                            <paper-input-decorator id="password" label="Password"
+                                                   floatingLabel
+                                                   error="Please enter Password">
+                                <input required
+                                       value="123456"
+                                       type="password">
+                            </paper-input-decorator>
+                            <div class="login-button" horizontal layout center>
+                                <paper-button class="submit"
+                                              on-tap="{{loginSubmit}}"
+                                              raised>Submit</paper-button>
+                                <core-label horizontal layout center>
+                                    <div class="remember">Remember Me</div>
+                                    <paper-checkbox for checked></paper-checkbox>
+                                </core-label>
+                            </div>
+                        </form>
+                        <div>
+                            <a href="#">Help! I forgot my password</a>
                         </div>
-                    </form>
-                    <div>
-                        <a href="#!/">Help! I forgot my password</a>
+                    </paper-shadow>
+                    <div class="create">
+                        <div>Don't have an account?</div>
+                        <paper-button raised>
+                            <a on-tap="{{signupGo}}">Sign Up Here</a>
+                        </paper-button>
                     </div>
-                </paper-shadow>
-                <div class="create">
-                    <div>Don't have an account?</div>
-                    <paper-button raised>
-                        <a href="#!/signup">Sign Up Here</a>
-                    </paper-button>
                 </div>
             </div>
             <!--Footer-->
-            <footer-page></footer-page>
+            <footer-page flex></footer-page>
         </div>
         <paper-action-dialog id="loginDialog"
                              heading="Error"
@@ -68,13 +70,15 @@
             loginSubmit: function(){
                 var email = this.$.email, password = this.$.password;
 
-                if(email.validate() && password.validate()){
+                /*if(email.validate() && password.validate()){
                     this.$.loginSubmitRequest.params = {
                         email: email.input.value,
                         password: password.input.value
                     };
-                    this.$.loginSubmitRequest.go();
-                }
+                }*/
+
+                document.querySelector('flatiron-director').route = 'dashboard';
+                localStorage.setItem('authorised', true);
             },
             loginError: function(){
                 this.dialogText = 'Wrong login or password.';
@@ -86,6 +90,9 @@
                 }else{
                     this.loginError();
                 }
+            },
+            signupGo: function(){
+                document.querySelector('flatiron-director').route = 'signup';
             }
         });
     </script>

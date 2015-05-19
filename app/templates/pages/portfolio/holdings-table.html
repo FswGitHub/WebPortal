@@ -1,0 +1,164 @@
+<polymer-element name="holdings-table" attributes="portfolioHoldings allItems selectedView showNoMatches">
+    <template>
+        <link rel="stylesheet" href="../../../css/portfolio-page.css">
+        <link rel="stylesheet" href="../../../css/portfolio-item.css">
+        <!--Holdings table-->
+        <div class="table-wrapper">
+            <core-media-query query="max-width: 768px"
+                              queryMatches="{{phoneScreen}}"></core-media-query>
+            <div class="table-header-list" hidden?="{{phoneScreen}}">
+                <core-selector id="tableHeader" selected="name" valueattr="orderval" layout horizontal?="{{!phoneScreen}}">
+                    <div class="col-padding table-header link" flex four on-tap="{{order}}" orderval="name">
+                        Name
+                        <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
+                    </div>
+                    <div class="col-padding table-header link" flex three on-tap="{{order}}" orderval="nominal">
+                        Nominal
+                        <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
+                    </div>
+                    <div class="col-padding table-header link" flex three on-tap="{{order}}" orderval="costPrice">
+                        Cost Price
+                        <core-icon icon="arrow-drop-down" class="filter-icon cost-price-icon"></core-icon>
+                    </div>
+                    <div class="col-padding table-header link" flex four on-tap="{{order}}" orderval="bookValue">
+                        Book value (R)
+                        <core-icon icon="arrow-drop-down" class="filter-icon book-value-icon"></core-icon>
+                    </div>
+                    <div class="col-padding table-header link" flex four on-tap="{{order}}" orderval="marketPrice">
+                        Market Price
+                        <core-icon icon="arrow-drop-down" class="filter-icon market-price-icon"></core-icon>
+                    </div>
+                    <div class="col-padding table-header link" flex four on-tap="{{order}}" orderval="marketValue">
+                        Market Value
+                        <core-icon icon="arrow-drop-down" class="filter-icon market-value-icon"></core-icon>
+                    </div>
+                    <div class="col-padding table-header link" flex two on-tap="{{order}}" orderval="MV">
+                        %MV
+                        <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
+                    </div>
+                    <div class="col-padding table-header link" flex five on-tap="{{order}}" orderval="exposureValue">
+                        Exposure Value (R)
+                        <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
+                    </div>
+                </core-selector>
+            </div>
+            <!--Holdings table statutory view-->
+            <div class="table-body no-padding-bottom" hidden?="{{selectedView == 'icb'}}" id="statutoryTable">
+                <template repeat="{{val in portfolioHoldings}}">
+                    <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id}}" hidden?="{{hideCollapse}}">
+                        <div class="col-padding table-item category-title" flex eleven>
+                            <core-icon id="icon{{val.id}}" class="category-icon" icon="arrow-drop-down"></core-icon>
+                            {{val.category}}
+                        </div>
+                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageBookVal}}</div>
+                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMarcPrice}}</div>
+                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMacVal}}</div>
+                        <div class="col-padding table-item" flex two hidden?="{{phoneScreen}}">{{val.averageMV}}</div>
+                        <div class="col-padding table-item" flex five hidden?="{{phoneScreen}}">{{val.averageExpVal}}</div>
+                    </div>
+                    <core-collapse id="collapse{{val.id}}" class="collapse" opened>
+                        <core-selector selected="0" valueattr="number">
+                            <template repeat="{{item, i in val.categoryItems | orderBy(oderVal)}}">
+                                <div layout vertical?="{{phoneScreen}}" number="{{i}}">
+                                    <h1 hidden?="{{!phoneScreen}}" class="table-header-in-collapse">{{item.name}}</h1>
+                                    <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
+                                        <!--Holdings table-headers for mobile view-->
+
+                                        <div class="col-content labels" hidden?="{{!phoneScreen}}">
+                                            <div class="col-padding table-item table-label">Nominal</div>
+                                            <div class="col-padding table-item table-label">Cost Price</div>
+                                            <div class="col-padding table-item table-label">Book Value (R)</div>
+                                            <div class="col-padding table-item table-label">Market Price</div>
+                                            <div class="col-padding table-item table-label">Market Value</div>
+                                            <div class="col-padding table-item table-label">%MV</div>
+                                            <div class="col-padding table-item table-label">Exposure Value (R)</div>
+                                        </div>
+                                        <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{item.name}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.nominal}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.costPrice}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.bookValue}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketPrice}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketValue}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" two?="{{!phoneScreen}}">{{item.MV}}</div>
+                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{item.exposureValue}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </core-selector>
+                    </core-collapse>
+                </template>
+            </div>
+            <!--Holdings table ICB view-->
+            <div class="table-body" hidden?="{{selectedView == 'statutory'}}">
+                <core-selector selected="0" valueattr="number">
+                    <template repeat="{{item, i in allItems | orderBy(oderVal)}}">
+                        <div layout vertical?="{{phoneScreen}}" number="{{i}}">
+                            <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{item.name}}</h1>
+                            <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
+                                <!--Holdings table-headers for mobile view-->
+
+                                <div class="col-content labels" hidden?="{{!phoneScreen}}">
+                                    <div class="col-padding table-item table-label">Nominal</div>
+                                    <div class="col-padding table-item table-label">Cost Price</div>
+                                    <div class="col-padding table-item table-label">Book Value (R)</div>
+                                    <div class="col-padding table-item table-label">Market Price</div>
+                                    <div class="col-padding table-item table-label">Market Value</div>
+                                    <div class="col-padding table-item table-label">%MV</div>
+                                    <div class="col-padding table-item table-label">Exposure Value (R)</div>
+                                </div>
+                                <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{item.name}}</div>
+                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.nominal}}</div>
+                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.costPrice}}</div>
+                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.bookValue}}</div>
+                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketPrice}}</div>
+                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketValue}}</div>
+                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" two?="{{!phoneScreen}}">{{item.MV}}</div>
+                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{item.exposureValue}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <!--No matches message-->
+                    <div layout vertical?="{{phoneScreen}}">
+                        <template if="{{showNoMatches}}">
+                            <span class="no-matches">No matches for your request. Try again!</span>
+                        </template>
+                    </div>
+                </core-selector>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer('holdings-table',{
+            ready: function(){},
+            //Toggle collapses(categories) in the table
+            toggle: function(e) {
+                var me = this;
+                var id = e.currentTarget.attributes.toggleId.value;
+                var collapse = me.$.statutoryTable.querySelector('#collapse'+id);
+                var icon = me.$.statutoryTable.querySelector('#icon'+id);
+                var action = 'rotate';
+                collapse.toggle();
+                me.rotate(icon, action);
+            },
+
+            //Rotate collapse icon function
+            rotate: function (icon, actionClass){
+                if (icon.classList.contains(actionClass)){
+                    icon.classList.remove(actionClass);
+                }
+                else icon.classList.add(actionClass);
+            },
+
+            //"Order by" action
+            oderVal:'name',
+            order: function (e){
+                var criteria = e.currentTarget.attributes.orderval.value;
+                this.oderVal = criteria;
+            }
+        });
+    </script>
+</polymer-element>

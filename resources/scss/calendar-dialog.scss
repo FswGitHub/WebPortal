@@ -19,16 +19,27 @@ d-calendar.portfolio-item-calendar {
     }
 
     #selectedWeekdayHeader {
-      background: $color-dark-red;
+      background: $color-main;
+      position: relative;
+    }
+
+    #selectedWeekdayHeader:after {
+      content:'';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.35);
     }
 
     #selectedDateHeader {
-      background: $color-red;
+      background: $color-main;
       height: 264px;
     }
 
     .day[selected]:after, .day:after {
-      background: $color-red;
+      background: $color-main;
     }
 
     .viewingMonthYear, .weekday-name, .day, paper-icon-button {
@@ -40,7 +51,7 @@ d-calendar.portfolio-item-calendar {
     }
 
     .day.currentday, #header paper-icon-button:active {
-      color: $color-red;
+      color: $color-main;
     }
 
     #selectedDateHeader > div {
@@ -58,7 +69,7 @@ d-calendar.portfolio-item-calendar {
     }
 
     paper-button::shadow #ripple {
-      color: $color-red;
+      color: $color-main;
     }
 
     @media screen and (max-width: $size-tablet) {

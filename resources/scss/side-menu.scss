@@ -1,0 +1,86 @@
+@import "_variables";
+
+//----------Side menu changes
+
+core-scaffold {
+  /deep/ {
+    .aside-menu {
+      background: $color-grey-medium;
+    }
+
+    core-toolbar {
+      /deep/{
+        ::content > * {
+          margin: 0;
+        }
+        .title {
+          margin: 0 6px;
+          text-transform: capitalize;
+          font-size: $font-size-desktop;
+        }
+      }
+      background-color: $color-main;
+      color: $color-white;
+      .logo{
+        height: 100%;
+        line-height: 64px;
+        img {
+          width: 100%;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    @media  screen and (min-width: $size-desktop) {
+      core-toolbar {
+        /deep/ {
+          .title {
+            margin: 0 44px;
+          }
+        }
+      }
+    }
+
+    @media  screen and (max-width: $size-mobile) {
+      core-toolbar {
+        /deep/ {
+          .title {
+            font-size: $font-size-mobile;
+          }
+        }
+      }
+    }
+  }
+}
+
+.pages-selector {
+  margin: 0;
+  /deep/ {
+    a, a:hover, a:visited {
+      text-decoration: none;
+      color: $color-black;
+    }
+    core-icon {
+      margin-right: 0.5em;
+    }
+    .child {
+      padding-left: 38px;
+    }
+    .core-selected {
+      background-color: $color-grey-medium-light;
+      border-left: 7px solid $color-main;
+      /deep/ .button-content {
+        padding-left: 9px;
+      }
+      &.child {
+        border-left: 30px solid $color-main;
+        padding-left: 15px;
+      }
+    }
+  }
+}
+
+section {
+  background: $color-grey-light;
+}
+

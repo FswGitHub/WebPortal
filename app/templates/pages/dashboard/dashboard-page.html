@@ -1,37 +1,7 @@
-<link rel="import" href="chart-board.html">
-<link rel="import" href="drop-chart.html">
+<link rel="import" href="dashboard-charts.html">
 <polymer-element name="dashboard-page">
     <template>
-        <link rel="stylesheet" href="../../../css/dashboard-page.css">
-        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" id="sideMenu">
-            <div class="dashboard-content" id="dashboardCharts">
-                <template repeat="{{val, i in dashboardContent}}">
-                    <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" id="{{i}}" dashboardContent="{{dashboardContent}}" dragAndDropsArray="{{dragAndDropsArray}}" func="{{updateDragAndDropsArray}}"></chart-board>
-                </template>
-                <template repeat="{{val in dragAndDropsArray}}">
-                    <drop-chart id="dropZone"></drop-chart>
-                </template>
-            </div>
-            <div class="dashboard-dropdown">
-                <paper-fab icon="add" on-tap="{{openMenu}}" relative></paper-fab>
-                <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" valign="{{menuPosition}}">
-                    <div class="menu-list menu">
-                        <paper-item class="item" on-tap="{{addChart}}">
-                            <div class="label">Holding Charts</div>
-                            <paper-ripple fit></paper-ripple>
-                        </paper-item>
-                        <!--<paper-item class="item">
-                            <div class="label" >Corporate Events</div>
-                            <paper-ripple fit></paper-ripple>
-                        </paper-item>
-                        <paper-item class="item">
-                            <div class="label">Calendar Events</div>
-                            <paper-ripple fit></paper-ripple>
-                        </paper-item>-->
-                    </div>
-                </paper-dropdown>
-            </div>
-        </side-menu>
+        <dashboard-charts dashboardContent="{{dashboardContent}}" id="dashboardCharts"></dashboard-charts>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="dashboardItems"
@@ -41,97 +11,15 @@
         Polymer('dashboard-page', {
             ready: function(){
                 this.$.dashboardItems.url = this.$.globals.url+'resources/json/charts.json';
-                /*//Drag&Drop chart
-                var dropZone = this.$.dashboardCharts.querySelector('#dropZone');
-                dropZone.addEventListener('drop', function(e){
-                    handleFileSelectByDrop(e, function(e){
-                        var newCharts = JSON.parse(e.target.result).content;
-                        newCharts = JSON.stringify(newCharts);
-                        //localStorage.setItem('chartsArray', newCharts);
-                    });
-                }, false);
-                dropZone.addEventListener('dragover', handleDragOver, false);
-                function handleFileSelectByDrop(evt, onLoadCallback) {
-                    evt.stopPropagation();
-                    evt.preventDefault();
-                    var file = evt.dataTransfer.files[0];
-                    var reader = new FileReader();
-                    reader.onload = onLoadCallback;
-                    reader.readAsText(file);
-                }
-                function handleDragOver(evt) {
-                    evt.stopPropagation();
-                    evt.preventDefault();
-                    evt.dataTransfer.dropEffect = 'copy';
-                }*/
             },
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success){
                     me.dashboardContentUploaded = data.response.content;
                     me.dashboardContent = me.dashboardContentUploaded;
-                    me.updateDragAndDropsArray();
+                    me.$.dashboardCharts.updateDragAndDropsArray();
                 }
-            },
-            dragAndDropsArray: new Array(4),
-            newCharts:[],
-            page: {
-                class: 'dashboard-page',
-                url: 'dashboard',
-                title: 'Dashboard'
-            },
-            openMenu: function(e){
-                var me = this;
-                var width = window.innerWidth;
-                if (width <= '768') {
-                    me.menuPosition = 'bottom';
-                }
-                me.menuStatus = true;
-            },
-            menuStatus: false,
-            menuPosition: 'top',
-            updateDragAndDropsArray: function() {
-                var me = this;
-                if (me.dashboardContent) {
-                    var boards = me.dashboardContent.length;
-                    if (boards < 4) {
-                        var different = 4-boards;
-                        var cleanArray = new Array(different);
-                        me.dragAndDropsArray = cleanArray;
-                    }
-                    else {
-                        me.dragAndDropsArray = [];
-                    }
-                }
-                return this.dragAndDropsArray;
-            },
-
-            //Add holdings chart by button
-            addChart: function(e) {
-                var me = this;
-                if (me.dashboardContent.length == 4) {
-                    alert('All slots for charts are already filled. Please remove any chart to make free slot.');
-                    e.stopPropagation();
-                }
-                /*if (me.newCharts > 0) {
-                    me.dashboardContent = me.newCharts.concat(me.dashboardContentUploaded);
-                }
-                else {
-                    me.dashboardContent = me.dashboardContentUploaded;
-                }*/
-                //me.updateDragAndDropsArray();
-                return me.dashboardContent;
             }
-            //Insert dropped data to charts
-            /*buildCharts: function(){
-                var me = this;
-                var dropZone = me.$.dashboardCharts.querySelector('#dropZone');
-                var getCharts = localStorage.getItem('chartsArray');
-                var chartsArray = JSON.parse(getCharts);
-                me.newCharts = me.newCharts.concat(chartsArray);
-                me.dashboardContent = me.dashboardContent.concat(chartsArray);
-                me.updateDragAndDropsArray();
-            }*/
         })
     </script>
 </polymer-element>

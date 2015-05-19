@@ -1,0 +1,141 @@
+<polymer-element name="general-settings" attributes="scope">
+    <template>
+        <link rel="stylesheet" href="../../../css/settings-page.css">
+        <div class="content" fit>
+            <div class="design-settings-panel settings-panel">
+                <h2 class="title-item">Design</h2>
+                <ul class="design-settings-list">
+                    <li class="row" horizontal layout start>
+                        <div class="col-5 label-block">
+                            <span class="settings-label">Theme</span>
+                        </div>
+                        <paper-radio-group selected="{{scope.theme}}" class="col-7 theme-radio-group" layout horizontal start>
+                            <paper-radio-button name="light" label="light"></paper-radio-button>
+                            <paper-radio-button name="dark" label="dark"></paper-radio-button>
+                        </paper-radio-group>
+                    </li>
+                    <li class="row" horizontal layout start>
+                        <div class="col-5 label-block">
+                            <span class="settings-label">Colour</span>
+                        </div>
+                        <div class="col-7">
+                            <paper-input-decorator id="theme-color"
+                                                   label="Set color"
+                                                   class="theme-color">
+                                <input type="text" value="{{scope.colour}}">
+                            </paper-input-decorator>
+                        </div>
+                    </li>
+                    <li class="row" horizontal layout start>
+                        <div class="col-5 label-block">
+                            <span class="settings-label">Logo</span>
+                        </div>
+                        <div class="col-7 upload-photo-group">
+                            <paper-button class="upload-logo-button">
+                                <core-icon icon="file-upload" class="upload-logo-button-icon"></core-icon>
+                                Upload Logo
+                            </paper-button>
+                            <span class="logo-size">100px X 50px(.png)</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="email-settings-panel settings-panel">
+                <h2 class="title-item">Email</h2>
+                <form class="email-settings-list settings-list-form" id="emailSettings">
+                    <paper-input-decorator id="smtpddress"
+                                           label="SMTP Server Address"
+                                           floatingLabel>
+                        <input type="text" value="{{scope.servAddres}}" on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="smtpPort"
+                                           label="SMTP Server Port"
+                                           floatingLabel>
+                        <input type="text" value="{{scope.servPort}}" on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="ssl"
+                                           label="SSL"
+                                           floatingLabel>
+                        <input type="text" value="{{scope.ssl}}" on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                    <span class="optional-label">Optional</span>
+                    <paper-input-decorator id="username"
+                                           label="Username"
+                                           floatingLabel
+                                           error="Please enter Username">
+                        <input type="text" value="{{scope.username}}" required on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                    <paper-input-decorator id="password"
+                                           label="Password"
+                                           floatingLabel
+                                           error="Please enter Password">
+                        <input type="password" value="{{scope.password}}" required on-blur="{{saveData}}">
+                    </paper-input-decorator>
+                </form>
+            </div>
+        </div>
+    </template>
+    <script>
+        Polymer('general-settings',{
+            scope: {
+                servAddres: ' ',
+                servPort: ' ',
+                ssl: ' ',
+                username: ' ',
+                password: ' '
+            },
+            emailSettingsUpdate: function(){
+                //Data lost or empty form
+                var me = this;
+                var emailSettings = {
+                    smtpddress: me.$.smtpddress,
+                    smtpPort: me.$.smtpPort,
+                    ssl: me.$.ssl,
+                    username: me.$.username,
+                    password: me.$.password
+                };
+
+                for (var field in emailSettings) {
+                    updateUserFormLabels(emailSettings[field]);
+                }
+
+                function updateUserFormLabels(e){
+                    e.input.value = '';
+                    e.updateLabelVisibility();
+                }
+            },
+            saveData: function(e) {
+                var me = this;
+                var submitUser = {};
+                var submitForm = {
+                    smtpddress: me.$.smtpddress,
+                    smtpPort: me.$.smtpPort,
+                    ssl: me.$.ssl,
+                    username: me.$.username,
+                    password: me.$.password
+                };
+
+                if (e.currentTarget.parentNode.validate()) {
+                    submitUser = {
+                        smtpddress: submitForm.smtpddress.input.value,
+                        smtpPort: submitForm.smtpPort.input.value,
+                        ssl: submitForm.ssl.input.value,
+                        username: submitForm.username.input.value,
+                        password: submitForm.password.input.value,
+                        theme: this.scope.theme,
+                        colour: this.scope.colour
+                    };
+                    if ((submitUser.username && submitUser.password) > '') {
+                        if (submitForm.username.validate() && submitForm.password.validate()) {
+                            //Submit must be here!
+                            //console.log(submitUser);
+                        }
+                    }
+                }
+                else {
+                    this.focus();
+                }
+            }
+        });
+    </script>
+</polymer-element>

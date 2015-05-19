@@ -6,33 +6,149 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Polymer App</title>
-
     <script src="libs/webcomponentsjs/webcomponents.min.js"></script>
+    <script type="text/javascript" src="libs/js-xlsx/shim.js"></script>
+    <script type="text/javascript" src="libs/js-xlsx/jszip.js"></script>
+    <script type="text/javascript" src="libs/js-xlsx/xlsx.js"></script>
     <link rel="import" href="libs/polymer/polymer.html">
     <link rel="import" href="libs/font-roboto/roboto.html">
     <link rel="import" href="libs/app-router/app-router.html">
-
-    <link rel="import" href="libs/core-animated-pages/core-animated-pages.html">
     <link rel="import" href="templates/includes.html">
-
     <link rel="stylesheet" href="css/style.css">
+    <link rel="import" href="templates/pages/dashboard/dashboard-page.html">
+    <link rel="import" href="templates/pages/portfolio/portfolio-page.html">
+    <link rel="import" href="templates/pages/portfolio/portfolio-item.html">
+    <link rel="import" href="templates/pages/profile/profile-page.html">
+    <link rel="import" href="templates/pages/settings/settings-page.html">
+    <link rel="import" href="templates/pages/login/login-page.html">
+    <link rel="import" href="templates/pages/signup/signup-page.html">
 </head>
-<body unresolved>
-<polymer-element name="app-globals">
-    <!--<script>Polymer({url: 'http://freelance/web-polymer/'});</script>-->
-    <script>Polymer({url: '/WebPortal/'});</script>
-</polymer-element>
-<app-router core-animated-pages transitions="hero-transition cross-fade-all">
-    <!--<app-route path="/" import=""></app-route>-->
-    <app-route path="/login" import="templates/pages/login/login-page.html"></app-route>
-    <app-route path="/signup" import="templates/pages/signup/signup-page.html"></app-route>
-    <app-route path="/confirm" import="templates/pages/confirm/confirm-page.html"></app-route>
-    <app-route path="/dashboard" import="templates/pages/dashboard/dashboard-page.html"></app-route>
-    <app-route path="/portfolio" import="templates/pages/portfolio/portfolio-page.html"></app-route>
-    <app-route path="/portfolio/item/:id" import="templates/pages/portfolio/portfolio-item.html"></app-route>
-    <app-route path="/profile" import="templates/pages/profile/profile-page.html"></app-route>
-    <app-route path="/settings" import="templates/pages/settings/settings-page.html"></app-route>
-    <app-route path="*" import="templates/pages/index/index-page.html"></app-route>
-</app-router>
+<body unresolved fullbleed class="unresolved">
+    <polymer-element name="app-globals">
+        <!--<script>Polymer({url: 'http://freelance/web-polymer/'});</script>-->
+        <script>Polymer({url: '/WebPortal/'});</script>
+    </polymer-element>
+    <template is="auto-binding">
+        <link rel="stylesheet" href="css/side-menu.css">
+        <core-scaffold responsiveWidth="1280px" id="scaffold">
+            <nav>
+                <paper-shadow z="1">
+                    <core-toolbar class="aside-menu">
+                        <div class="logo"><img src="img/logo-light.png"></div>
+                    </core-toolbar>
+                </paper-shadow>
+                <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}" class="pages-selector">
+                    <paper-item hash="dashboard">
+                        <core-icon icon="dashboard"></core-icon>
+                        <a href="#dashboard">Dashboard</a>
+                    </paper-item>
+                    <paper-item hash="portfolio">
+                        <core-icon icon="perm-media"></core-icon>
+                        <a href="#portfolio">Portfolio</a>
+                    </paper-item>
+                    <template repeat="{{val in subItems}}">
+                        <paper-item class="child"  hash="{{val.title}}">
+                            <a href="#{{val.title}}">{{val.title}}</a>
+                        </paper-item>
+                    </template>
+                    <paper-item  hash="profile">
+                        <core-icon icon="account-circle"></core-icon>
+                        <a href="#profile">Profile</a>
+                    </paper-item>
+                    <paper-item  hash="settings">
+                        <core-icon icon="settings"></core-icon>
+                        <a href="#settings">Settings</a>
+                    </paper-item>
+                </core-menu>
+            </nav>
+            <core-toolbar tool flex class="page-title">
+                <div class="title">
+                        <span hidden?="{{(route == 'dashboard')||(route == 'portfolio')||(route == 'profile')||(route == 'settings')}}">
+                        Portfolio > </span>{{route}}
+                </div>
+            </core-toolbar>
+            <div layout vertical fit>
+                <core-pages valueattr="hash" selected="{{route}}"  id="pages" flex twelve>
+                    <section hash="dashboard" class="content">
+                        <dashboard-page></dashboard-page>
+                    </section>
+                    <section  hash="portfolio" class="content">
+                        <portfolio-page></portfolio-page>
+                    </section>
+                    <template repeat="{{val in subItems}}">
+                        <section  hash="{{val.title}}">
+                            <portfolio-item itemId="{{val.id}}" fit></portfolio-item>
+                        </section>
+                    </template>
+                    <section hash="profile" class="content">
+                        <profile-page></profile-page>
+                    </section>
+                    <section hash="settings">
+                        <settings-page fit id="settingsPage"></settings-page>
+                    </section>
+                </core-pages>
+                <footer-page flex horizontal layout></footer-page>
+            </div>
+        </core-scaffold>
+        <login-page hidden?="{{route != 'login'}}"></login-page>
+        <signup-page hidden?="{{route != 'signup'}}"></signup-page>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+                   id="portfolioItems"
+                   on-core-response="{{contentResponse}}"></core-ajax>
+        <flatiron-director route="{{route}}" autoHash></flatiron-director>
+    </template>
+    <script>
+        var template = document.querySelector('template[is="auto-binding"]');
+
+        template.addEventListener('template-bound', function(e) {
+            // Use URL hash for initial route. Otherwise, use the first page.
+            var authorised = localStorage.getItem('authorised');
+            if (this.route != 'login'){
+                if(authorised == 'true'){
+                    this.route = this.route || 'dashboard';
+                }
+                else {
+                    this.route = 'login';
+                }
+            }
+            else {
+                this.route = 'login';
+            }
+
+            this.$.portfolioItems.url = this.$.globals.url+'resources/json/sidemenu.json';
+        });
+
+        template.contentResponse = function(e, data){
+            var me = this;
+            if(data.response.success){
+                me.subItems = data.response.content;
+            }
+        };
+
+        template.keyHandler = function(e, detail, sender) {
+            var pages = document.querySelector('#pages');
+
+            switch (detail.key) {
+                case 'left':
+                case 'up':
+                    pages.selectPrevious();
+                    break;
+                case 'right':
+                case 'down':
+                    pages.selectNext();
+                    break;
+                case 'space':
+                    detail.shift ? pages.selectPrevious() : pages.selectNext();
+                    break;
+            }
+        };
+
+        template.menuItemSelected = function(e, detail, sender) {
+            if (detail.isSelected) {
+                scaffold.closeDrawer();
+            }
+        };
+    </script>
 </body>
 </html>

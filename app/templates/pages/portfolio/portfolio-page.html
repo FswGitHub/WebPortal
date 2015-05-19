@@ -1,43 +1,41 @@
 <polymer-element name="portfolio-page">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-page.css">
-        <side-menu class="{{page.class}}" pageUrl="{{page.url}}" pageTitle="{{page.title}}" >
-            <div class="table-wrapper">
-                <core-media-query query="max-width: 768px"
-                                  queryMatches="{{phoneScreen}}"></core-media-query>
-                <div class="table-header-list" layout horizontal?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">
-                    <div class="col-padding table-header" flex four>Code</div>
-                    <div class="col-padding table-header" flex five>Name</div>
-                    <div class="col-padding table-header" flex three>Status</div>
-                    <div class="col-padding table-header" flex five>Tax Currency</div>
-                    <div class="col-padding table-header" flex seven>Residency</div>
-                </div>
-                <div class="table-body">
-                    <core-selector selected="0" valueattr="number">
-                        <template repeat="{{val, i in portfolioPageContent}}">
-                            <div layout vertical?="{{phoneScreen}}" number="{{i}}">
-                                <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{val.name}}</h1>
-                                <div label="portfolio/item/{{val.id}}" on-tap="{{portfolioGo}}" layout horizontal?="{{phoneScreen}}" class="mobile-col-content link">
-                                    <div class="col-content labels" hidden?="{{!phoneScreen}}">
-                                        <div class="col-padding table-item table-label">Code</div>
-                                        <div class="col-padding table-item table-label">Status</div>
-                                        <div class="col-padding table-item table-label">Tax Currency</div>
-                                        <div class="col-padding table-item table-label">Residency</div>
-                                    </div>
-                                    <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
-                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{val.code}}</div>
-                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{val.name}}</div>
-                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{val.status}}</div>
-                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{val.taxCurrency}}</div>
-                                        <div class="col-padding table-item " flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">{{val.residency}}</div>
-                                    </div>
+        <div class="table-wrapper">
+            <core-media-query query="max-width: 768px"
+                              queryMatches="{{phoneScreen}}"></core-media-query>
+            <div class="table-header-list" layout horizontal?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">
+                <div class="col-padding table-header" flex four>Code</div>
+                <div class="col-padding table-header" flex five>Name</div>
+                <div class="col-padding table-header" flex three>Status</div>
+                <div class="col-padding table-header" flex five>Tax Currency</div>
+                <div class="col-padding table-header" flex seven>Residency</div>
+            </div>
+            <div class="table-body">
+                <core-selector selected="0" valueattr="number">
+                    <template repeat="{{val, i in portfolioPageContent}}">
+                        <div layout vertical?="{{phoneScreen}}" number="{{i}}">
+                            <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{val.name}}</h1>
+                            <div label="{{val.name}}" on-tap="{{portfolioGo}}" layout horizontal?="{{phoneScreen}}" class="mobile-col-content link">
+                                <div class="col-content labels" hidden?="{{!phoneScreen}}">
+                                    <div class="col-padding table-item table-label">Code</div>
+                                    <div class="col-padding table-item table-label">Status</div>
+                                    <div class="col-padding table-item table-label">Tax Currency</div>
+                                    <div class="col-padding table-item table-label">Residency</div>
+                                </div>
+                                <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                    <div class="col-padding table-item " flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{val.code}}</div>
+                                    <div class="col-padding table-item " flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{val.name}}</div>
+                                    <div class="col-padding table-item " flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{val.status}}</div>
+                                    <div class="col-padding table-item " flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{val.taxCurrency}}</div>
+                                    <div class="col-padding table-item " flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">{{val.residency}}</div>
                                 </div>
                             </div>
-                        </template>
-                    </core-selector>
-                </div>
+                        </div>
+                    </template>
+                </core-selector>
             </div>
-        </side-menu>
+        </div>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="portfolioPageItems"
@@ -52,17 +50,14 @@
                 var me = this;
                 if(data.response.success){
                     me.portfolioPageContent = data.response.item;
+                    this.spinner = true;
                 }
-            },
-            page: {
-                class: 'portfolio-page',
-                url: 'portfolio',
-                title: 'Portfolio'
             },
             portfolioGo: function(e){
                 var link = e.currentTarget.attributes.label.value;
+                document.querySelector('template[is=auto-binding]').route = link;
                 if(this.url != link){
-                    document.querySelector('app-router').go('/'+link, {replace: false});
+                    document.querySelector('flatiron-director').route = link;
                 }
             }
         })
