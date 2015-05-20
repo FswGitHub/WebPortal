@@ -1,0 +1,112 @@
+@import "_variables";
+/*Dialogs styles*/
+
+html {
+  /deep/ {
+    paper-action-dialog {
+      paper-button.action-button,
+      paper-button.action-button {
+        color: $color-main;
+      }
+      form {
+        color: $color-grey-dark;
+      }
+      .or {
+        display: block;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .browse-field {
+        margin-bottom: 10px;
+        border: 1px solid $color-grey-dark;
+        border-radius: 5px;
+        border-right: 0;
+      }
+      .browse-button {
+        margin: 0;
+        background: $color-grey-medium-light;
+        color: $color-grey-dark;
+        border-left: 1px solid $color-grey-dark;
+        border-right: 1px solid $color-grey-dark;
+      }
+      .browse-input {
+        line-height: 33px;
+      }
+      .upload-label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      .browse-hidden {
+        opacity: 0;
+      }
+      .upload-drag-drop-zone {
+        border: 1px solid $color-grey-dark;
+        display: block;
+        border-radius: 5px;
+      }
+      .drag-drop-label {
+        display: block;
+        text-align: center;
+        padding: 10%;
+        color: $color-grey-dark;
+      }
+    }
+    paper-dialog {
+      paper-button {
+        color: $color-main;
+      }
+
+      paper-input-decorator {
+        /deep/ {
+          .label-text {
+            color: $color-main;
+          }
+          ::-webkit-input-placeholder {
+            color: $color-grey-medium;
+          }
+          ::-moz-placeholder {
+            color: $color-grey-medium;
+          }
+          :-ms-input-placeholder {
+            color: $color-grey-medium;
+          }
+          .unfocused-underline {
+            background-color: $color-grey-medium;
+          }
+          .focused-underline {
+            background-color: $color-main;
+          }
+          .floated-label {
+            #floatedLabelText {
+              color: $color-main;
+            }
+          }
+          input {
+            color: $color-black;
+          }
+        }
+      }
+
+      paper-input-decorator[focused] {
+        /deep/ {
+          .floating-label {
+            .error {
+              color: salmon;
+            }
+          }
+        }
+      }
+
+      paper-input-decorator.invalid {
+        /deep/ {
+          .floating-label .label-text {
+            color: salmon;
+          }
+          .focused-underline {
+            background-color: salmon;
+          }
+        }
+      }
+    }
+  }
+}

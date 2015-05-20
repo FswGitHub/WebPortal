@@ -17,18 +17,22 @@ core-scaffold {
           margin: 0 6px;
           text-transform: capitalize;
           font-size: $font-size-desktop;
+          /deep/ {
+            .title-value {
+              display: none;
+              a, a:hover, a:visited, a:focus {
+                text-decoration: none;
+                color: $color-white;
+              }
+            }
+            .title-value.core-selected {
+              display: block;
+            }
+          }
         }
       }
       background-color: $color-main;
       color: $color-white;
-      .logo{
-        height: 100%;
-        line-height: 64px;
-        img {
-          width: 100%;
-          vertical-align: middle;
-        }
-      }
     }
 
     @media  screen and (min-width: $size-desktop) {

@@ -146,6 +146,7 @@ paper-fab {
 }
 :host /deep/ .user-data paper-input-decorator /deep/ input {
   font-size: 18px;
+  color: #000000;
 }
 :host /deep/ .user-data paper-input-decorator[focused] /deep/ .floating-label .error {
   color: salmon;

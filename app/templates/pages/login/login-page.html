@@ -4,7 +4,9 @@
         <div vertical layout fit class="login-page">
             <div flex twelve>
                 <div class="header">
-                    <div class="logo"><img src="../../../img/logo-light.png"></div>
+                    <div class="logo-wrapper">
+                        <logo-main tint="light"></logo-main>
+                    </div>
                 </div>
                 <div class="content">
                     <paper-shadow z="1">
@@ -78,7 +80,8 @@
                 }*/
 
                 document.querySelector('flatiron-director').route = 'dashboard';
-                localStorage.setItem('authorised', true);
+                document.cookie="webPortalAuthorised";
+                //localStorage.setItem('authorised', true);
             },
             loginError: function(){
                 this.dialogText = 'Wrong login or password.';
@@ -86,7 +89,7 @@
             },
             loginResponse: function(e, data){
                 if(data.response.success){
-                    document.querySelector('app-router').go('/main');
+                    document.querySelector('flatiron-director').route = 'dashboard';
                 }else{
                     this.loginError();
                 }

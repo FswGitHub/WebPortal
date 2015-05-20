@@ -101,13 +101,14 @@ paper-fab {
 }
 
 .login-page, .confirm-page {
+  overflow-y: auto;
   background-color: #979797;
 }
-.login-page .header .logo, .confirm-page .header .logo {
-  width: 200px;
+.login-page .header .logo-wrapper, .confirm-page .header .logo-wrapper {
+  width: 224px;
   margin: 15px;
 }
-.login-page .header .logo img, .confirm-page .header .logo img {
+.login-page .header .logo-wrapper img, .confirm-page .header .logo-wrapper img {
   width: 100%;
 }
 .login-page .content, .confirm-page .content {
@@ -218,17 +219,8 @@ paper-fab {
   }
 }
 @media screen and (min-width: 480px) {
-  .login-page, .confirm-page {
-    /*footer-page /deep/ {
-      .footer {
-        margin: 0;
-        width: 94%;
-        padding: 3%;
-      }
-    }*/
-  }
-  .login-page .header .logo, .confirm-page .header .logo {
-    margin: 30px;
+  .login-page .header .logo-wrapper, .confirm-page .header .logo-wrapper {
+    margin: 20px 0 60px 0;
   }
   .login-page .content, .confirm-page .content {
     margin: 0 30px;
@@ -269,15 +261,5 @@ paper-fab {
   .login-page .header, .confirm-page .header {
     width: 960px;
     margin: auto;
-  }
-}
-@media screen and (min-width: 1024px) {
-  .login-page, .confirm-page {
-    /*footer-page /deep/ {
-      .footer {
-        width: 80%;
-        margin: auto auto 35px auto;
-      }
-    }*/
   }
 }

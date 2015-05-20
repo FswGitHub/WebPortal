@@ -1,10 +1,11 @@
 @import "_variables";
 
-.login-page{
+.login-page {
+  overflow-y: auto;
   background-color: rgba(151,151,151, 1);
   .header{
-    .logo{
-      width: 200px;
+    .logo-wrapper{
+      width: 224px;
       margin: 15px;
       img{
         width: 100%;
@@ -124,8 +125,8 @@
 
   @media screen and (min-width: $size-mobile) {
     .header{
-      .logo{
-        margin: 30px;
+      .logo-wrapper{
+        margin: 20px 0 60px 0;
       }
     }
     .content{
@@ -145,13 +146,6 @@
         }
       }
     }
-    /*footer-page /deep/ {
-      .footer {
-        margin: 0;
-        width: 94%;
-        padding: 3%;
-      }
-    }*/
   }
   @media screen and (min-width: $size-tablet) {
     .header{
@@ -188,14 +182,5 @@
       width: 960px;
       margin: auto;
     }
-  }
-
-  @media screen and (min-width: $size-tablet-max) {
-    /*footer-page /deep/ {
-      .footer {
-        width: 80%;
-        margin: auto auto 35px auto;
-      }
-    }*/
   }
 }

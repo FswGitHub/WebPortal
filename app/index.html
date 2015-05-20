@@ -34,7 +34,7 @@
             <nav>
                 <paper-shadow z="1">
                     <core-toolbar class="aside-menu">
-                        <div class="logo"><img src="img/logo-light.png"></div>
+                        <logo-main tint="{{logoTint}}" scaffold="true"></logo-main>
                     </core-toolbar>
                 </paper-shadow>
                 <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}" class="pages-selector">
@@ -46,9 +46,9 @@
                         <core-icon icon="perm-media"></core-icon>
                         <a href="#portfolio">Portfolio</a>
                     </paper-item>
-                    <template repeat="{{val in subItems}}">
-                        <paper-item class="child"  hash="{{val.title}}">
-                            <a href="#{{val.title}}">{{val.title}}</a>
+                    <template repeat="{{val,i in subItems}}">
+                        <paper-item class="child"  hash="portfolio/{{val.id}}" hidden?="{{i>4}}">
+                            <a href="#portfolio/{{val.id}}">{{val.title}}</a>
                         </paper-item>
                     </template>
                     <paper-item  hash="profile">
@@ -63,12 +63,19 @@
             </nav>
             <core-toolbar tool flex class="page-title">
                 <div class="title">
-                        <span hidden?="{{(route == 'dashboard')||(route == 'portfolio')||(route == 'profile')||(route == 'settings')}}">
-                        Portfolio > </span>{{route}}
+                    <core-selector valueattr="hash" selected="{{route}}">
+                        <div hash="dashboard" class="title-value">{{route}}</div>
+                        <div  hash="portfolio" class="title-value">{{route}}</div>
+                        <template repeat="{{val in subItems}}">
+                            <div hash="portfolio/{{val.id}}" class="title-value"><a href="#portfolio">Portfolio</a> > {{val.title}}</div>
+                        </template>
+                        <div hash="profile" class="title-value">{{route}}</div>
+                        <div hash="settings" class="title-value">{{route}}</div>
+                    </core-selector>
                 </div>
             </core-toolbar>
             <div layout vertical fit>
-                <core-pages valueattr="hash" selected="{{route}}"  id="pages" flex twelve>
+                <core-pages valueattr="hash" selected="{{route}}"  id="pages" flex twelve on-core-select="{{thisPage}}">
                     <section hash="dashboard" class="content">
                         <dashboard-page></dashboard-page>
                     </section>
@@ -76,7 +83,7 @@
                         <portfolio-page></portfolio-page>
                     </section>
                     <template repeat="{{val in subItems}}">
-                        <section  hash="{{val.title}}">
+                        <section hash="portfolio/{{val.id}}">
                             <portfolio-item itemId="{{val.id}}" fit></portfolio-item>
                         </section>
                     </template>
@@ -96,28 +103,29 @@
         <core-ajax auto
                    id="portfolioItems"
                    on-core-response="{{contentResponse}}"></core-ajax>
-        <flatiron-director route="{{route}}" autoHash></flatiron-director>
+        <flatiron-director id="router" route="{{route}}" autoHash></flatiron-director>
     </template>
     <script>
         var template = document.querySelector('template[is="auto-binding"]');
 
         template.addEventListener('template-bound', function(e) {
-            // Use URL hash for initial route. Otherwise, use the first page.
-            var authorised = localStorage.getItem('authorised');
-            if (this.route != 'login'){
-                if(authorised == 'true'){
-                    this.route = this.route || 'dashboard';
-                }
-                else {
-                    this.route = 'login';
-                }
-            }
-            else {
-                this.route = 'login';
-            }
-
+            this.checkAuthorisation();
             this.$.portfolioItems.url = this.$.globals.url+'resources/json/sidemenu.json';
         });
+
+        template.checkAuthorisation = function(){
+            // Use URL hash for initial route. Otherwise, use the first page.
+            //var authorised = localStorage.getItem('authorised');
+            var authorised = document.cookie;
+            if (this.route != 'login'){
+                //if(authorised == 'webPortalAuthorised'){
+                    this.route = this.route || 'dashboard';
+                /*}
+                else {
+                    this.route = 'login';
+                }*/
+            }
+        };
 
         template.contentResponse = function(e, data){
             var me = this;
@@ -148,6 +156,20 @@
             if (detail.isSelected) {
                 scaffold.closeDrawer();
             }
+        };
+
+        template.logoTint = 'light';
+
+        window.addEventListener('hashchange', function(e){
+            var hash = window.location.hash.substring(1);
+            var pages = document.querySelector('#pages');
+            if((!pages.querySelector('section[hash="'+hash+'"]')) && (hash!='login')) {
+
+            }
+        });
+
+        window.onkeyup = function enterPressed(e) {
+
         };
     </script>
 </body>
