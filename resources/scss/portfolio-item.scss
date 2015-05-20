@@ -7,7 +7,7 @@
       position: fixed;
       top: 98px;
       right: 45px;
-      z-index: 1;
+      z-index: 3;
     }
     //----------Tabs styles
     paper-tabs{
@@ -26,6 +26,10 @@
           background-color: $color-white;
         }
       }
+    }
+
+    .subheader-shadow {
+      z-index: 2;
     }
 
     .subheader {

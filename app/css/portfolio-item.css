@@ -207,7 +207,7 @@ paper-fab {
   position: fixed;
   top: 98px;
   right: 45px;
-  z-index: 1;
+  z-index: 3;
 }
 :host /deep/ paper-tabs {
   background-color: #DD1F29;
@@ -222,6 +222,9 @@ paper-fab {
 }
 :host /deep/ paper-tabs /deep/ #selectionBar {
   background-color: #FFFFFF;
+}
+:host /deep/ .subheader-shadow {
+  z-index: 2;
 }
 :host /deep/ .subheader {
   padding: 0 52px;

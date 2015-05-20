@@ -361,20 +361,25 @@
                 var getUsers = localStorage.getItem('usersArray');
                 var usersArray = JSON.parse(getUsers);
 
-                if (usersArray.length > 0) {
-                    if (me.newUsers.length > 0) {
-                        me.allUsers = me.newUsers.concat(usersArray);
-                        me.allUsers = me.addEmptyStrings(me.allUsers);
-                    } else {
-                        me.allUsers = usersArray;
-                        me.allUsers = me.addEmptyStrings(me.allUsers);
+                if (uploadOutput.value > ''){
+                    if (usersArray.length > 0) {
+                        if (me.newUsers.length > 0) {
+                            me.allUsers = me.newUsers.concat(usersArray);
+                            me.allUsers = me.addEmptyStrings(me.allUsers);
+                        } else {
+                            me.allUsers = usersArray;
+                            me.allUsers = me.addEmptyStrings(me.allUsers);
+                        }
                     }
+                    else {
+                        alert('Uploading error');
+                    }
+
+                    uploadOutput.value = '';
                 }
                 else {
-                    alert('Uploading error');
+                    me.$.importUsersDialog.toggle();
                 }
-
-                uploadOutput.value = '';
             },
             closeUploadDialog: function(){
                 var uploadOutput = this.$.importUsersDialog.querySelector('#uploadFile');
