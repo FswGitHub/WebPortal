@@ -9,7 +9,7 @@
                         <div class="col-5 label-block">
                             <span class="settings-label">Theme</span>
                         </div>
-                        <paper-radio-group selected="{{scope.theme}}" class="col-7 theme-radio-group" layout horizontal start>
+                        <paper-radio-group id="theme" selected="{{scope.theme}}" class="col-7 theme-radio-group" on-change="{{saveTheme}}" layout horizontal start>
                             <paper-radio-button name="light" label="light"></paper-radio-button>
                             <paper-radio-button name="dark" label="dark"></paper-radio-button>
                         </paper-radio-group>
@@ -19,10 +19,10 @@
                             <span class="settings-label">Colour</span>
                         </div>
                         <div class="col-7">
-                            <paper-input-decorator id="theme-color"
+                            <paper-input-decorator id="themeColor"
                                                    label="Set color"
                                                    class="theme-color">
-                                <input type="text" value="{{scope.colour}}">
+                                <input type="text" value="{{scope.themeColor}}" on-blur="{{saveData}}">
                             </paper-input-decorator>
                         </div>
                     </li>
@@ -43,33 +43,36 @@
             <div class="email-settings-panel settings-panel">
                 <h2 class="title-item">Email</h2>
                 <form class="email-settings-list settings-list-form" id="emailSettings">
-                    <paper-input-decorator id="smtpddress"
+                    <paper-input-decorator id="servAddres"
                                            label="SMTP Server Address"
-                                           floatingLabel>
-                        <input type="text" value="{{scope.servAddres}}" on-blur="{{saveData}}">
+                                           floatingLabel
+                                           error="Please enter SMTP Server Address">
+                        <input type="text" value="{{scope.servAddres}}" on-blur="{{saveData}}" required>
                     </paper-input-decorator>
-                    <paper-input-decorator id="smtpPort"
+                    <paper-input-decorator id="servPort"
                                            label="SMTP Server Port"
-                                           floatingLabel>
-                        <input type="text" value="{{scope.servPort}}" on-blur="{{saveData}}">
+                                           floatingLabel
+                                           error="Please enter SMTP Server Port">
+                        <input type="number" value="{{scope.servPort}}" on-blur="{{saveData}}" required>
                     </paper-input-decorator>
                     <paper-input-decorator id="ssl"
                                            label="SSL"
-                                           floatingLabel>
-                        <input type="text" value="{{scope.ssl}}" on-blur="{{saveData}}">
+                                           floatingLabel
+                                           error="Please enter SSL">
+                        <input type="number" value="{{scope.ssl}}" on-blur="{{saveData}}" required>
                     </paper-input-decorator>
                     <span class="optional-label">Optional</span>
                     <paper-input-decorator id="username"
                                            label="Username"
                                            floatingLabel
                                            error="Please enter Username">
-                        <input type="text" value="{{scope.username}}" required on-blur="{{saveData}}">
+                        <input type="text" value="{{scope.username}}" on-blur="{{saveData}}" required>
                     </paper-input-decorator>
                     <paper-input-decorator id="password"
                                            label="Password"
                                            floatingLabel
                                            error="Please enter Password">
-                        <input type="password" value="{{scope.password}}" required on-blur="{{saveData}}">
+                        <input type="password" value="{{scope.password}}" on-blur="{{saveData}}" required>
                     </paper-input-decorator>
                 </form>
             </div>
@@ -79,8 +82,8 @@
         Polymer('general-settings',{
             scope: {
                 servAddres: ' ',
-                servPort: ' ',
-                ssl: ' ',
+                servPort: 0,
+                ssl: 0,
                 username: ' ',
                 password: ' '
             },
@@ -88,8 +91,8 @@
                 //Data lost or empty form
                 var me = this;
                 var emailSettings = {
-                    smtpddress: me.$.smtpddress,
-                    smtpPort: me.$.smtpPort,
+                    servAddres: me.$.servAddres,
+                    servPort: me.$.servPort,
                     ssl: me.$.ssl,
                     username: me.$.username,
                     password: me.$.password
@@ -105,36 +108,21 @@
                 }
             },
             saveData: function(e) {
-                var me = this;
-                var submitUser = {};
-                var submitForm = {
-                    smtpddress: me.$.smtpddress,
-                    smtpPort: me.$.smtpPort,
-                    ssl: me.$.ssl,
-                    username: me.$.username,
-                    password: me.$.password
-                };
+                var fieldName = e.currentTarget.parentNode.id;
+                var fieldDecorator = e.currentTarget.parentNode;
 
-                if (e.currentTarget.parentNode.validate()) {
-                    submitUser = {
-                        smtpddress: submitForm.smtpddress.input.value,
-                        smtpPort: submitForm.smtpPort.input.value,
-                        ssl: submitForm.ssl.input.value,
-                        username: submitForm.username.input.value,
-                        password: submitForm.password.input.value,
-                        theme: this.scope.theme,
-                        colour: this.scope.colour
-                    };
-                    if ((submitUser.username && submitUser.password) > '') {
-                        if (submitForm.username.validate() && submitForm.password.validate()) {
-                            //Submit must be here!
-                            //console.log(submitUser);
-                        }
-                    }
+                if (fieldDecorator.validate()) {
+                    //Submit must be here!
+                    //console.log(this.scope[fieldName]);
                 }
                 else {
-                    this.focus();
+                    e.currentTarget.focus();
                 }
+            },
+            saveTheme: function(e){
+                var fieldName = e.currentTarget.id;
+                //Submit must be here!
+                console.log(this.scope[fieldName]);
             }
         });
     </script>

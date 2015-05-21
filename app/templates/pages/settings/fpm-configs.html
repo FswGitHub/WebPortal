@@ -10,7 +10,7 @@
                             <span class="settings-label">Domain Autentification</span>
                         </div>
                         <div class="col-7 configuration-checkbox">
-                            <paper-checkbox checked?="{{scope.domAutent}}" on-change="{{checkedValue}}"></paper-checkbox>
+                            <paper-checkbox checked?="{{scope.domAutent}}" on-change="{{checkedValue}}" id="domAutent"></paper-checkbox>
                         </div>
                     </li>
                     <li class="row" horizontal layout start>
@@ -51,7 +51,7 @@
                             <span class="settings-label">SSL</span>
                         </div>
                         <div class="col-7 configuration-checkbox">
-                            <paper-checkbox checked?="{{scope.fpmSsl}}" on-change="{{checkedValue}}"></paper-checkbox>
+                            <paper-checkbox checked?="{{scope.fpmSsl}}" on-change="{{checkedValue}}" id="fpmSsl"></paper-checkbox>
                         </div>
                     </li>
                 </ul>
@@ -90,62 +90,21 @@
                 }
             },
             saveData: function(e) {
-                var me = this;
-                var submitUser = {};
-                var submitForm = {
-                    dbServName: me.$.dbServName,
-                    dbName: me.$.dbName,
-                    sqlUserName: me.$.sqlUserName,
-                    sqlPassword: me.$.sqlPassword,
-                    sqlPort: me.$.sqlPort
-                };
+                var fieldName = e.currentTarget.parentNode.id;
+                var fieldDecorator = e.currentTarget.parentNode;
 
-                if (e.currentTarget.parentNode.validate()) {
-                    submitUser = {
-                        domAutent: this.scope.domAutent,
-                        dbServName: submitForm.dbServName.input.value,
-                        dbName: submitForm.dbName.input.value,
-                        sqlUserName: submitForm.sqlUserName.input.value,
-                        sqlPassword: submitForm.sqlPassword.input.value,
-                        sqlPort: submitForm.sqlPort.input.value,
-                        fpmSsl: this.scope.fpmSsl
-                    };
-                    if ((submitUser.dbServName && submitUser.dbName && submitUser.sqlUserName && submitUser.sqlPassword) > '') {
-                        if (submitForm.dbServName.validate() && submitForm.dbName.validate() &&submitForm.sqlUserName.validate() && submitForm.sqlPassword.validate()) {
-                            //Submit must be here!
-                            console.log(submitUser);
-                        }
-                    }
+                if (fieldDecorator.validate()) {
+                    //Submit must be here!
+                    console.log(this.scope[fieldName]);
                 }
                 else {
-                    this.focus();
+                    e.currentTarget.focus();
                 }
             },
-            checkedValue: function(){
-                var me = this;
-                var submitUser = {};
-                var submitForm = {
-                    dbServName: me.$.dbServName,
-                    dbName: me.$.dbName,
-                    sqlUserName: me.$.sqlUserName,
-                    sqlPassword: me.$.sqlPassword,
-                    sqlPort: me.$.sqlPort
-                };
-                submitUser = {
-                    domAutent: this.scope.domAutent,
-                    dbServName: submitForm.dbServName.input.value,
-                    dbName: submitForm.dbName.input.value,
-                    sqlUserName: submitForm.sqlUserName.input.value,
-                    sqlPassword: submitForm.sqlPassword.input.value,
-                    sqlPort: submitForm.sqlPort.input.value,
-                    fpmSsl: this.scope.fpmSsl
-                };
-                if ((submitUser.dbServName && submitUser.dbName && submitUser.sqlUserName && submitUser.sqlPassword) > '') {
-                    if (submitForm.dbServName.validate() && submitForm.dbName.validate() &&submitForm.sqlUserName.validate() && submitForm.sqlPassword.validate()) {
-                        //Submit must be here!
-                        console.log(submitUser);
-                    }
-                }
+            checkedValue: function(e){
+                var fieldName = e.currentTarget.id;
+                //Submit must be here!
+                console.log(this.scope[fieldName]);
             }
         });
     </script>

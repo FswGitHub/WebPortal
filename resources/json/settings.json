@@ -2,7 +2,7 @@
   "success": true,
   "general": {
     "theme":"dark",
-    "colour":"#DD1F29",
+    "themeColor":"#DD1F29",
     "servAddres":"192.168.1.1",
     "servPort":"8080",
     "ssl":"3.0",

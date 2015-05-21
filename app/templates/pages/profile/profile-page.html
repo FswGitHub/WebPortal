@@ -36,7 +36,7 @@
                     <paper-input-decorator id="idNumber"
                                            label="ID Number"
                                            floatingLabel>
-                        <input type="number" value="{{user.idNumber}}" readonly on-blur="{{saveData}}">
+                        <input type="number" value="{{user.idNumber}}" readonly>
                     </paper-input-decorator>
                 </form>
             </div>
@@ -51,6 +51,15 @@
     </template>
     <script>
         Polymer('profile-page',{
+            user: {
+                name: '',
+                firstName: ' ',
+                lastName: ' ',
+                email: 'example@com',
+                cellphone: ' ',
+                idNumber: 0,
+                photo: 'img/icon-profile.png'
+            },
             ready: function (){
                 this.$.profileContent.url = this.$.globals.url+'resources/json/user.json';
             },
@@ -88,43 +97,16 @@
                     }
                 }
             },
-            user: {
-                name: '',
-                firstName: ' ',
-                lastName: ' ',
-                email: 'example@com',
-                cellphone: ' ',
-                idNumber: 0,
-                photo: 'img/icon-profile.png'
-            },
             saveData: function(e) {
-                var submitUser = {};
-                var submitForm = {
-                    userFirstNameField: this.$.firstName,
-                    userLastNameField: this.$.lastName,
-                    userEmailField: this.$.email,
-                    userCellphoneField: this.$.cellphone,
-                    userIdNumberField: this.$.idNumber
-                };
+                var fieldName = e.currentTarget.parentNode.id;
+                var fieldDecorator = e.currentTarget.parentNode;
 
-                if (e.currentTarget.parentNode.validate()) {
-                    var field = this.parentNode.id;
-                    submitUser = {
-                        firstName: submitForm.userFirstNameField.input.value,
-                        lastName: submitForm.userLastNameField.input.value,
-                        email: submitForm.userEmailField.input.value,
-                        cellphone: submitForm.userCellphoneField.input.value,
-                        idNumber: submitForm.userIdNumberField.input.value
-                    };
-                    if ((submitUser.firstName && submitUser.lastName && submitUser.email) > '') {
-                        if (submitForm.userFirstNameField.validate() && submitForm.userLastNameField.validate() && submitForm.userEmailField.validate()) {
-                            //Submit must be here!
-                            console.log(submitUser);
-                        }
-                    }
+                if (fieldDecorator.validate()) {
+                    //Submit must be here!
+                    console.log(this.user[fieldName]);
                 }
                 else {
-                    this.focus();
+                    e.currentTarget.focus();
                 }
             }
         });
