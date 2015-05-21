@@ -57,6 +57,15 @@ core-scaffold {
   }
 }
 
+core-pages {
+  section {
+    opacity: 0;
+  }
+  section.core-selected {
+    opacity: 1;
+  }
+}
+
 .pages-selector {
   margin: 0;
   /deep/ {

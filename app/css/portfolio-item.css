@@ -446,15 +446,20 @@ paper-fab {
   padding: 0;
 }
 
+#tableHeader .core-selected span {
+  border-bottom: 1px solid #FFFFFF;
+}
+
 .filter-icon {
-  display: none;
+  /*display: none;
   position: absolute;
   top: 16px;
-  right: 0;
+  right: 0;*/
+  opacity: 0;
 }
 
 .core-selected .filter-icon {
-  display: inline-block;
+  opacity: 1;
 }
 
 .col-content {
@@ -489,7 +494,7 @@ paper-fab {
 }
 
 @media screen and (max-width: 1024px) {
-  .cost-price-icon {
+  /*.cost-price-icon {
     right: -8px;
   }
 
@@ -503,7 +508,7 @@ paper-fab {
 
   .market-value-icon {
     right: -5px;
-  }
+  }*/
 }
 .mobile-filters {
   top: 13px;

@@ -322,16 +322,25 @@
   padding: 0;
 }
 
+#tableHeader {
+  .core-selected {
+    span {
+      border-bottom: 1px solid $color-white;
+    }
+  }
+}
 .filter-icon {
-  display: none;
+  /*display: none;
   position: absolute;
   top: 16px;
-  right: 0;
+  right: 0;*/
+  opacity: 0;
 }
 
 .core-selected {
   .filter-icon {
-    display: inline-block;
+    //display: inline-block;
+    opacity: 1;
   }
 }
 
@@ -369,7 +378,7 @@
 }
 
 @media  screen and (max-width: $size-tablet-max) {
-  .cost-price-icon {
+  /*.cost-price-icon {
     right: -8px;
   }
 
@@ -383,7 +392,7 @@
 
   .market-value-icon {
     right: -5px;
-  }
+  }*/
 }
 
 //----------Filters menu

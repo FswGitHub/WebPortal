@@ -136,6 +136,13 @@ core-scaffold /deep/ core-toolbar /deep/ .title /deep/ .title-value.core-selecte
   }
 }
 
+core-pages section {
+  opacity: 0;
+}
+core-pages section.core-selected {
+  opacity: 1;
+}
+
 .pages-selector {
   margin: 0;
 }
