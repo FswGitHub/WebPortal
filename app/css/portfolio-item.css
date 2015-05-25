@@ -339,6 +339,15 @@ paper-fab {
 .holding-table-navigation {
   margin-bottom: 10px;
 }
+.holding-table-navigation > * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.holding-table-navigation > core-selector {
+  cursor: pointer;
+}
 
 .nav-style, .table-page-item, .holding-nav-button {
   margin-left: 1px;
@@ -544,6 +553,9 @@ paper-fab {
     font-size: 14px;
     line-height: 14px;
     padding: 16px;
+  }
+  :host /deep/ .table-body {
+    padding: 0;
   }
   :host /deep/ .table-item {
     font-size: 13px;

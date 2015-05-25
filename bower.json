@@ -44,6 +44,8 @@
     "core-a11y-keys": "Polymer/core-a11y-keys#~0.5.6",
     "app-router": "erikringsmuth/app-router#~2.6.0",
     "paper-spinner": "Polymer/paper-spinner#0.5",
-    "js-xlsx": "~0.8.0"
+    "js-xlsx": "~0.8.0",
+    "paper-color-picker": "David-Mulder/paper-color-picker",
+    "color-picker-element": "~0.0.3"
   }
 }

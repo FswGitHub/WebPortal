@@ -205,6 +205,16 @@
 
 .holding-table-navigation {
   margin-bottom: 10px;
+  > *{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  > core-selector {
+    cursor: pointer;
+  }
 }
 
 .nav-style {
@@ -441,6 +451,10 @@
         font-size: $font-size-mobile-small;
         line-height: 14px;
         padding: 16px;
+      }
+
+      .table-body {
+        padding: 0;
       }
 
       .table-item {

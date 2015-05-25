@@ -99,7 +99,711 @@
     "holdings": [
       {
         "id":"1",
-        "category":"Oil & Gas",
+        "category":"Category 1",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"2,987",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.39",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Fund Soft Ltd",
+            "nominal":"345,678",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"100",
+            "marketValue":"1,093,654",
+            "MV":"0,32",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          }
+        ]
+      },
+      {
+        "id":"2",
+        "category":"Category 2",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"800",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.43",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Dev Bank Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"POT Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Support Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          }
+        ]
+      },
+      {
+        "id":"3",
+        "category":"Category 3",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"2,987",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.39",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Fund Soft Ltd",
+            "nominal":"345,678",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"100",
+            "marketValue":"1,093,654",
+            "MV":"0,32",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Fund Soft Ltd",
+            "nominal":"345,678",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"100",
+            "marketValue":"1,093,654",
+            "MV":"0,32",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Fund Soft Ltd",
+            "nominal":"345,678",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"100",
+            "marketValue":"1,093,654",
+            "MV":"0,32",
+            "exposureValue":"1,093,654"
+          }
+        ]
+      },
+      {
+        "id":"4",
+        "category":"Category 4",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"800",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.43",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Dev Bank Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"POT Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Support Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          }
+        ]
+      },
+      {
+        "id":"5",
+        "category":"Category 5",
         "averageBookVal":"1,234,567",
         "averageMarcPrice":"2,987",
         "averageMacVal":"1,093,654",
@@ -159,8 +863,505 @@
         ]
       },
       {
-        "id":"2",
-        "category":"Consumer Goods",
+        "id":"6",
+        "category":"Category 6",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"800",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.43",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Dev Bank Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"POT Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Support Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+          "name":"Acucap Prop Ltd",
+          "nominal":"280,985",
+          "costPrice":"100",
+          "bookValue":"1,234,567",
+          "marketPrice":"0",
+          "marketValue":"0",
+          "MV":"0,00",
+          "exposureValue":"0"
+          },
+          {
+          "name":"Aglogold Ltd",
+          "nominal":"36,987",
+          "costPrice":"200",
+          "bookValue":"1,234,567",
+          "marketPrice":"300",
+          "marketValue":"1,093,654",
+          "MV":"0,30",
+          "exposureValue":"1,093,654"
+          },
+          {
+          "name":"Alfred Tech Ltd",
+          "nominal":"234,456",
+          "costPrice":"150",
+          "bookValue":"1,234,567",
+          "marketPrice":"0",
+          "marketValue":"0",
+          "MV":"0,00",
+          "exposureValue":"0"
+          },
+          {
+          "name":"Alan Tech Ltd",
+          "nominal":"123,456",
+          "costPrice":"3,250",
+          "bookValue":"1,234,567",
+          "marketPrice":"4000",
+          "marketValue":"1,093,654",
+          "MV":"0,39",
+          "exposureValue":"1,093,654"
+          },
+          {
+          "name":"Fund Soft Ltd",
+          "nominal":"345,678",
+          "costPrice":"100",
+          "bookValue":"1,234,567",
+          "marketPrice":"100",
+          "marketValue":"1,093,654",
+          "MV":"0,32",
+          "exposureValue":"1,093,654"
+          },
+          {
+          "name":"Acucap Prop Ltd",
+          "nominal":"280,985",
+          "costPrice":"100",
+          "bookValue":"1,234,567",
+          "marketPrice":"0",
+          "marketValue":"0",
+          "MV":"0,00",
+          "exposureValue":"0"
+          },
+          {
+          "name":"Aglogold Ltd",
+          "nominal":"36,987",
+          "costPrice":"200",
+          "bookValue":"1,234,567",
+          "marketPrice":"300",
+          "marketValue":"1,093,654",
+          "MV":"0,30",
+          "exposureValue":"1,093,654"
+          },
+          {
+          "name":"Alfred Tech Ltd",
+          "nominal":"234,456",
+          "costPrice":"150",
+          "bookValue":"1,234,567",
+          "marketPrice":"0",
+          "marketValue":"0",
+          "MV":"0,00",
+          "exposureValue":"0"
+          },
+          {
+          "name":"Alan Tech Ltd",
+          "nominal":"123,456",
+          "costPrice":"3,250",
+          "bookValue":"1,234,567",
+          "marketPrice":"4000",
+          "marketValue":"1,093,654",
+          "MV":"0,39",
+          "exposureValue":"1,093,654"
+          },
+          {
+          "name":"Fund Soft Ltd",
+          "nominal":"345,678",
+          "costPrice":"100",
+          "bookValue":"1,234,567",
+          "marketPrice":"100",
+          "marketValue":"1,093,654",
+          "MV":"0,32",
+          "exposureValue":"1,093,654"
+          },
+          {
+          "name":"Acucap Prop Ltd",
+          "nominal":"280,985",
+          "costPrice":"100",
+          "bookValue":"1,234,567",
+          "marketPrice":"0",
+          "marketValue":"0",
+          "MV":"0,00",
+          "exposureValue":"0"
+          },
+          {
+          "name":"Aglogold Ltd",
+          "nominal":"36,987",
+          "costPrice":"200",
+          "bookValue":"1,234,567",
+          "marketPrice":"300",
+          "marketValue":"1,093,654",
+          "MV":"0,30",
+          "exposureValue":"1,093,654"
+          },
+          {
+          "name":"Alfred Tech Ltd",
+          "nominal":"234,456",
+          "costPrice":"150",
+          "bookValue":"1,234,567",
+          "marketPrice":"0",
+          "marketValue":"0",
+          "MV":"0,00",
+          "exposureValue":"0"
+          },
+          {
+          "name":"Alan Tech Ltd",
+          "nominal":"123,456",
+          "costPrice":"3,250",
+          "bookValue":"1,234,567",
+          "marketPrice":"4000",
+          "marketValue":"1,093,654",
+          "MV":"0,39",
+          "exposureValue":"1,093,654"
+          },
+          {
+          "name":"Fund Soft Ltd",
+          "nominal":"345,678",
+          "costPrice":"100",
+          "bookValue":"1,234,567",
+          "marketPrice":"100",
+          "marketValue":"1,093,654",
+          "MV":"0,32",
+          "exposureValue":"1,093,654"
+          }
+        ]
+      },
+      {
+        "id":"7",
+        "category":"Category 7",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"2,987",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.39",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Fund Soft Ltd",
+            "nominal":"345,678",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"100",
+            "marketValue":"1,093,654",
+            "MV":"0,32",
+            "exposureValue":"1,093,654"
+          }
+        ]
+      },
+      {
+        "id":"8",
+        "category":"Category 8",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"800",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.43",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Dev Bank Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"POT Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Support Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          }
+        ]
+      },
+      {
+        "id":"9",
+        "category":"Category 9",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"2,987",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.39",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Fund Soft Ltd",
+            "nominal":"345,678",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"100",
+            "marketValue":"1,093,654",
+            "MV":"0,32",
+            "exposureValue":"1,093,654"
+          }
+        ]
+      },
+      {
+        "id":"10",
+        "category":"Category 10",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"800",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.43",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Dev Bank Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"POT Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Support Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          }
+        ]
+      },
+      {
+        "id":"11",
+        "category":"Category 11",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"2,987",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.39",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Acucap Prop Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Aglogold Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Alfred Tech Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"Alan Tech Ltd",
+            "nominal":"123,456",
+            "costPrice":"3,250",
+            "bookValue":"1,234,567",
+            "marketPrice":"4000",
+            "marketValue":"1,093,654",
+            "MV":"0,39",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Fund Soft Ltd",
+            "nominal":"345,678",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"100",
+            "marketValue":"1,093,654",
+            "MV":"0,32",
+            "exposureValue":"1,093,654"
+          }
+        ]
+      },
+      {
+        "id":"12",
+        "category":"Category 12",
+        "averageBookVal":"1,234,567",
+        "averageMarcPrice":"800",
+        "averageMacVal":"1,093,654",
+        "averageMV":"0.43",
+        "averageExpVal":"1,093,654",
+        "categoryItems":[
+          {
+            "name":"Dev Bank Ltd",
+            "nominal":"280,985",
+            "costPrice":"100",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          },
+          {
+            "name":"POT Ltd",
+            "nominal":"36,987",
+            "costPrice":"200",
+            "bookValue":"1,234,567",
+            "marketPrice":"300",
+            "marketValue":"1,093,654",
+            "MV":"0,30",
+            "exposureValue":"1,093,654"
+          },
+          {
+            "name":"Support Ltd",
+            "nominal":"234,456",
+            "costPrice":"150",
+            "bookValue":"1,234,567",
+            "marketPrice":"0",
+            "marketValue":"0",
+            "MV":"0,00",
+            "exposureValue":"0"
+          }
+        ]
+      },
+      {
+        "id":"13",
+        "category":"Category 13",
         "averageBookVal":"1,234,567",
         "averageMarcPrice":"800",
         "averageMacVal":"1,093,654",
