@@ -235,7 +235,7 @@ paper-fab {
 }
 @media screen and (max-width: 768px) {
   :host /deep/ .subheader {
-    padding: 0 0 0 26px;
+    padding: 0;
   }
   :host /deep/ .dashboard-dropdown {
     position: fixed;
@@ -542,6 +542,10 @@ paper-fab {
   }
   :host /deep/ .filters-menu .label {
     font-size: 14px;
+  }
+  :host /deep/ paper-button.closeCalendar,
+  :host /deep/ paper-button.setDate {
+    font-size: 16px;
   }
   :host /deep/ .search-field {
     padding: 0;

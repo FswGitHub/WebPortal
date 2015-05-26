@@ -1,11 +1,11 @@
-<polymer-element name="login-page">
+<polymer-element name="login-page" attributes="logo">
     <template>
         <link rel="stylesheet" href="../../../css/login-page.css">
         <div vertical layout fit class="login-page">
             <div flex twelve>
                 <div class="header">
                     <div class="logo-wrapper">
-                        <logo-main tint="light"></logo-main>
+                        <logo-main url="{{logo}}"></logo-main>
                     </div>
                 </div>
                 <div class="content">

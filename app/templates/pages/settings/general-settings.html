@@ -9,7 +9,7 @@
                         <div class="col-5 label-block">
                             <span class="settings-label">Theme</span>
                         </div>
-                        <paper-radio-group id="theme" selected="{{scope.theme}}" class="col-7 theme-radio-group" on-change="{{saveTheme}}" layout horizontal start>
+                        <paper-radio-group id="theme" selected="{{scope.theme}}" class="col-7 theme-radio-group" on-core-select="{{saveTheme}}" layout horizontal start>
                             <paper-radio-button name="light" label="light"></paper-radio-button>
                             <paper-radio-button name="dark" label="dark"></paper-radio-button>
                         </paper-radio-group>
@@ -18,12 +18,24 @@
                         <div class="col-5 label-block">
                             <span class="settings-label">Colour</span>
                         </div>
-                        <div class="col-7">
+                        <div class="col-7" layout vertical relative>
                             <paper-input-decorator id="themeColor"
                                                    label="Set color"
-                                                   class="theme-color">
-                                <input type="text" value="{{scope.themeColor}}" on-blur="{{saveData}}">
+                                                   class="theme-color" on-tap="{{openColorPicker}}">
+                                <input type="text" value="{{scope.themeColor}}" on-change="{{saveColorValue}}">
+
                             </paper-input-decorator>
+                            <paper-dropdown layout vertical  opened="{{colorPickerStatus}}" class="color-picker">
+                                <color-picker on-colorselected="{{colorSelected}}"></color-picker>
+                                <div layout vertical>
+                                    <span id="colorPreview" class="color-preview" self-center></span>
+                                    <span class="selected-color" self-center>{{scope.themeColor}}</span>
+                                </div>
+                                <div class="actions" layout horizontal start reverse>
+                                    <paper-button role="button" class="set-color" on-tap="{{saveColor}}">OK</paper-button>
+                                    <paper-button role="button" class="close-color-picker" on-tap="{{closeColorPicker}}">Cancel</paper-button>
+                                </div>
+                            </paper-dropdown>
                         </div>
                     </li>
                     <li class="row" horizontal layout start>
@@ -31,11 +43,14 @@
                             <span class="settings-label">Logo</span>
                         </div>
                         <div class="col-7 upload-photo-group">
-                            <paper-button class="upload-logo-button">
-                                <core-icon icon="file-upload" class="upload-logo-button-icon"></core-icon>
-                                Upload Logo
-                            </paper-button>
-                            <span class="logo-size">100px X 50px(.png)</span>
+                            <div>
+                                <paper-button class="upload-logo-button" layout horizontal relative>
+                                    <core-icon icon="file-upload" class="upload-logo-button-icon"></core-icon>
+                                    Upload Logo
+                                    <input type="file" fit on-change="{{uploadNewLogo}}">
+                                </paper-button>
+                            </div>
+                            <span class="logo-size">220px X 50px(.png)</span>
                         </div>
                     </li>
                 </ul>
@@ -119,10 +134,88 @@
                     e.currentTarget.focus();
                 }
             },
+
+            //save checkboxes
             saveTheme: function(e){
                 var fieldName = e.currentTarget.id;
+                var theme = this.$.theme.selected;
+                var template = document.querySelector('template[is="auto-binding"]');
+
+                if (theme == 'light'){
+                    template.themeLight = true;
+                    //only for current company
+                    template.logo = 'img/logo-dark.png';
+                }
+                else {
+                    template.themeLight = false;
+                    template.logo = 'img/logo-light.png';
+                }
+
                 //Submit must be here!
-                console.log(this.scope[fieldName]);
+
+            },
+
+            openColorPicker: function(){
+                this.colorPickerStatus = true;
+                this.painColorPreview();
+            },
+
+            closeColorPicker: function(){
+                this.colorPickerStatus = false;
+            },
+
+            //by change of color input
+            saveColorValue: function(){
+                this.painColorPreview();
+            },
+
+            //by OK button of color-picker
+            saveColor: function(){
+                this.colorPickerStatus = false;
+                //Submit must be here!
+            },
+
+            colorSelected: function(e){
+                this.scope.themeColor = e.detail.hex;
+                this.painColorPreview();
+            },
+
+            painColorPreview: function(){
+                var prev = this.$.colorPreview;
+                prev.style.backgroundColor = this.scope.themeColor;
+            },
+
+            //upload New Logo functional
+            uploadNewLogo: function(event, detail, sendler){
+                var template = document.querySelector('template[is="auto-binding"]');
+                //template.logo = 'img/logo-dark.png';
+                this.handleFileSelect(event);
+            },
+            handleFileSelect: function(evt){
+                var file = evt.target.files[0]; // FileList object
+
+                // Only process image files.
+                if (file.type.match('image.*')) {
+                    var reader = new FileReader();
+
+                    // Closure to capture the file information.
+                    reader.onload = (function(theFile) {
+                        return function(e) {
+                            // Render thumbnail.
+                            alert('Logo updated!');
+                            template.logo = e.target.result;
+                            //Submit must be here!
+                            console.log(template.logo);
+                        };
+                    })(file);
+
+                    // Read in the image file as a data URL.
+                    reader.readAsDataURL(file);
+                }
+
+                else {
+                    alert('Please choose an image!');
+                }
             }
         });
     </script>

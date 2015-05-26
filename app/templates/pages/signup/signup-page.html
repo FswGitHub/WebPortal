@@ -1,11 +1,11 @@
-<polymer-element name="signup-page">
+<polymer-element name="signup-page" attributes="logo">
     <template>
         <link rel="stylesheet" href="../../../css/signup-page.css">
         <div vertical layout fit class="signup-page">
             <div flex twelve class="main-signup-form">
                 <div class="header">
                     <div class="logo-wrapper">
-                        <logo-main tint="light"></logo-main>
+                        <logo-main url="{{logo}}"></logo-main>
                     </div>
                 </div>
                 <div class="content">
@@ -85,7 +85,7 @@
             },
             signUpResponse: function(e, data){
                 if(data.response.success){
-                    document.querySelector('app-router').go('/confirm');
+                    document.querySelector('flatiron-director').route ='confirm';
                 } else {
                     this.signUpError();
                 }

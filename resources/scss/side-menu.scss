@@ -8,6 +8,10 @@ core-scaffold {
       background: $color-grey-medium;
     }
 
+    .aside-menu[light] {
+      background: $color-white;
+    }
+
     core-toolbar {
       /deep/{
         ::content > * {

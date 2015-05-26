@@ -50,11 +50,45 @@
       }
     }
 
+    .color-picker {
+      top: 55px;
+    }
+
+    .selected-color {
+      font-size: $font-size-mobile-small;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .color-preview {
+      width: 100px;
+      height: 50px;
+      border: 1px solid $color-grey-medium;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    paper-button.set-color,
+    paper-button.close-color-picker{
+      /deep/ {
+        .button-content {
+          color: $color-main;
+        }
+      }
+    }
+
     .upload-logo-button {
       color: $color-main;
       text-transform: none;
       margin: 0 0 5px 0;
       width: 100%;
+      overflow: hidden;
+      input {
+        opacity: 0;
+      }
     }
 
     .upload-logo-button-icon {
@@ -226,6 +260,20 @@
     }
 
     @media  screen and (max-width: $size-tablet){
+      .color-picker {
+        width: 200px;
+      }
+
+      paper-button.set-color,
+      paper-button.close-color-picker{
+          font-size: $font-size-mobile;
+      }
+
+      canvas {
+        width: 200px;
+        height: 200px;
+      }
+
       .user-actions {
         right: 16px;
         bottom: 16px;
@@ -235,6 +283,7 @@
           margin-bottom: 0;
         }
       }
+
 
       .table-wrapper {
         margin-top: 0;

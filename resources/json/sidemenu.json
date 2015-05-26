@@ -1,5 +1,7 @@
 {
   "success": true,
+  "logo": "img/logo-light.png",
+  "theme":"dark",
   "content": [
     {
       "title": "Segregated local",

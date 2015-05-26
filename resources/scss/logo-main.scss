@@ -2,19 +2,9 @@
 
 :host {
   .logo {
-    //width: 224px;
-    height: 32px;
-    vertical-align: middle;
-    margin: 0 16px;
     font-size: 0;
     img {
-      width: 100%;
-      position: relative;
-    }
-    .logo-color {
-      width: 15%;
-      height: 100%;
-      background-color: $color-main;
+      width: 220px;
     }
   }
 }

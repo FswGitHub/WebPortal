@@ -103,6 +103,9 @@ paper-fab {
 core-scaffold /deep/ .aside-menu {
   background: #979797;
 }
+core-scaffold /deep/ .aside-menu[light] {
+  background: #FFFFFF;
+}
 core-scaffold /deep/ core-toolbar {
   background-color: #DD1F29;
   color: #FFFFFF;

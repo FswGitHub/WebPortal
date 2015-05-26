@@ -1,11 +1,9 @@
-<polymer-element name="logo-main" attributes="tint scaffold">
+<polymer-element name="logo-main" attributes="url scaffold">
     <template>
         <link rel="stylesheet" href="../../css/logo-main.css">
         <div layout horizontal center-center fit?="{{scaffold}}">
-            <div class="logo" flex  relative layout horizontal center>
-                <div fit class="logo-color"></div>
-                <img tint="light" hidden?="{{tint!='light'}}" src="../../img/empty-logo-light.png">
-                <img tint="dark" hidden?="{{tint!='dark'}}" src="../../img/empty-logo-dark.png">
+            <div class="logo" flex layout horizontal center-center>
+                <img src="{{url}}">
             </div>
         </div>
     </template>

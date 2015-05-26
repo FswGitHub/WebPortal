@@ -99,10 +99,3 @@ paper-fab {
   color: #4A4A4A;
   margin-bottom: 16px;
 }
-
-:host .logo {
-  font-size: 0;
-}
-:host .logo img {
-  width: 220px;
-}

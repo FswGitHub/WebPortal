@@ -47,7 +47,7 @@
 
     @media screen and (max-width: $size-tablet) {
       .subheader {
-        padding: 0 0 0 26px;
+        padding: 0;
       }
 
       .dashboard-dropdown {
@@ -438,6 +438,11 @@
         .label {
           font-size: $font-size-mobile-small;
         }
+      }
+
+      paper-button.closeCalendar,
+      paper-button.setDate {
+        font-size: $font-size-mobile;
       }
 
       .search-field {

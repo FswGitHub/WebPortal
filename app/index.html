@@ -22,6 +22,7 @@
     <link rel="import" href="templates/pages/settings/settings-page.html">
     <link rel="import" href="templates/pages/login/login-page.html">
     <link rel="import" href="templates/pages/signup/signup-page.html">
+    <link rel="import" href="templates/pages/confirm/confirm-page.html">
 </head>
 <body unresolved fullbleed class="unresolved">
     <polymer-element name="app-globals">
@@ -33,8 +34,8 @@
         <core-scaffold responsiveWidth="1280px" id="scaffold">
             <nav>
                 <paper-shadow z="1">
-                    <core-toolbar class="aside-menu">
-                        <logo-main tint="{{logoTint}}" scaffold="true"></logo-main>
+                    <core-toolbar class="aside-menu" light?="{{themeLight}}">
+                        <logo-main url="{{logo}}" scaffold="true"></logo-main>
                     </core-toolbar>
                 </paper-shadow>
                 <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}" class="pages-selector">
@@ -97,8 +98,9 @@
                 <footer-page flex horizontal layout></footer-page>
             </div>
         </core-scaffold>
-        <login-page hidden?="{{route != 'login'}}"></login-page>
-        <signup-page hidden?="{{route != 'signup'}}"></signup-page>
+        <login-page hidden?="{{route != 'login'}}" logo="{{logo}}"></login-page>
+        <signup-page hidden?="{{route != 'signup'}}" logo="{{logo}}"></signup-page>
+        <confirm-page hidden?="{{route != 'confirm'}}" logo="{{logo}}"></confirm-page>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="portfolioItems"
@@ -131,6 +133,10 @@
             var me = this;
             if(data.response.success){
                 me.subItems = data.response.content;
+                me.logo = data.response.logo;
+                if (data.response.theme == 'light'){
+                    me.themeLight = true;
+                }
             }
         };
 
