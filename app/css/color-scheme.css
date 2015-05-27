@@ -62,14 +62,14 @@ drop-chart:nth-child(odd) .chart-board:nth-child(even) {
   font-size: 0;
 }
 
+/*
 .spinner {
-  background: #EDEDED;
+  background: $color-grey-light;
   z-index: 2;
-}
-.spinner paper-spinner::shadow .circle {
-  border-color: #DD1F29;
-}
-
+  paper-spinner::shadow .circle {
+    border-color: $color-main;
+  }
+}*/
 .tabs-panel /deep/ core-toolbar.tabs-toolbar {
   background-color: #979797;
 }
@@ -98,4 +98,8 @@ paper-fab {
   background: #D8D8D8;
   color: #4A4A4A;
   margin-bottom: 16px;
+}
+
+d-calendar.portfolio-item-calendar #selectedWeekdayHeader {
+  background: #DD1F29;
 }

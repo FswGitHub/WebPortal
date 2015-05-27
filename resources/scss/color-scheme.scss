@@ -1,2 +1,9 @@
 @import "_variables";
 
+// Calendar
+
+d-calendar.portfolio-item-calendar {
+  #selectedWeekdayHeader {
+    background: $color-main;
+  }
+}

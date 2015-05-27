@@ -51,13 +51,19 @@
     }
 
     .color-picker {
-      top: 55px;
+      top: 0;
+      width: 300px;
     }
 
     .selected-color {
       font-size: $font-size-mobile-small;
-      display: block;
+      //display: block;
       margin-bottom: 10px;
+      width: 130px;
+      #mainColor {
+        text-align: center;
+        color: $color-grey-medium;
+      }
     }
 
     .color-preview {

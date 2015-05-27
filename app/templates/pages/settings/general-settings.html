@@ -22,14 +22,17 @@
                             <paper-input-decorator id="themeColor"
                                                    label="Set color"
                                                    class="theme-color" on-tap="{{openColorPicker}}">
-                                <input type="text" value="{{scope.themeColor}}" on-change="{{saveColorValue}}">
+                                <input type="text" value="{{scope.themeColor}}" disabled>
 
                             </paper-input-decorator>
                             <paper-dropdown layout vertical  opened="{{colorPickerStatus}}" class="color-picker">
                                 <color-picker on-colorselected="{{colorSelected}}"></color-picker>
                                 <div layout vertical>
                                     <span id="colorPreview" class="color-preview" self-center></span>
-                                    <span class="selected-color" self-center>{{scope.themeColor}}</span>
+                                    <core-field self-center class="selected-color">
+                                        <input type="text" value="{{mainColor}}" id="mainColor" on-keyup="{{checkColor}}">
+                                    </core-field>
+                                    <!--<span class="selected-color" self-center>{{mainColor}}</span>-->
                                 </div>
                                 <div class="actions" layout horizontal start reverse>
                                     <paper-button role="button" class="set-color" on-tap="{{saveColor}}">OK</paper-button>
@@ -150,39 +153,67 @@
                     template.themeLight = false;
                     template.logo = 'img/logo-light.png';
                 }
-
                 //Submit must be here!
-
             },
 
+            //Choose site color
             openColorPicker: function(){
                 this.colorPickerStatus = true;
-                this.painColorPreview();
+                this.mainColor = this.scope.themeColor;
+                this.painColorPreview(this.mainColor);
             },
 
             closeColorPicker: function(){
                 this.colorPickerStatus = false;
             },
 
-            //by change of color input
-            saveColorValue: function(){
-                this.painColorPreview();
-            },
-
             //by OK button of color-picker
             saveColor: function(){
-                this.colorPickerStatus = false;
+                var color = this.mainColor;
+                if (this.colorValidate(color)){
+                    this.scope.themeColor = this.mainColor;
+                }
                 //Submit must be here!
+
+                this.colorPickerStatus = false;
+
+            },
+
+            checkColor: function(){
+                var color = this.mainColor;
+                if (this.colorValidate(color)){
+                    this.painColorPreview(color);
+                }
+            },
+
+            colorValidate: function(color){
+                var hex= /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i;
+                var rgb = new RGBColor(color);
+                var valid;
+
+                if (hex.test(color)){
+                    valid = true;
+                }
+                else {
+                    if (rgb.ok) {
+                        valid = true;
+                    }
+                    else {
+                        valid = false;
+                    }
+                }
+
+                return valid;
             },
 
             colorSelected: function(e){
-                this.scope.themeColor = e.detail.hex;
-                this.painColorPreview();
+                this.mainColor = e.detail.hex;
+                this.painColorPreview(this.mainColor);
             },
 
-            painColorPreview: function(){
+            painColorPreview: function(color){
                 var prev = this.$.colorPreview;
-                prev.style.backgroundColor = this.scope.themeColor;
+                prev.style.backgroundColor = color;
             },
 
             //upload New Logo functional
