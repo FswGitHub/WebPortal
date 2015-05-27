@@ -15,7 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.4",
+    "polymer": "Polymer/polymer#~0.5.5",
     "font-roboto": "Polymer/font-roboto#~0.5.2",
     "paper-shadow": "Polymer/paper-shadow#~0.5.2",
     "paper-input": "Polymer/paper-input#~0.5.4",
@@ -30,7 +30,6 @@
     "paper-item": "Polymer/paper-item#~0.5.4",
     "paper-fab": "Polymer/paper-fab#~0.5.4",
     "chart-elements": "~0.1.1",
-    "core-drag-drop": "Polymer/core-drag-drop#~0.5.5",
     "paper-tabs": "Polymer/paper-tabs#~0.5.5",
     "core-image": "Polymer/core-image#~0.5.5",
     "paper-radio-group": "Polymer/paper-radio-group#~0.5.5",
@@ -42,8 +41,6 @@
     "polymer-filters": "addyosmani/polymer-filters#~0.2.1",
     "flatiron-director": "PolymerLabs/flatiron-director#~0.5.0",
     "core-a11y-keys": "Polymer/core-a11y-keys#~0.5.6",
-    "app-router": "erikringsmuth/app-router#~2.6.0",
-    "paper-spinner": "Polymer/paper-spinner#0.5",
     "js-xlsx": "~0.8.0",
     "color-picker-element": "~0.0.3"
   }

@@ -2,22 +2,21 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">-->
     <title>Polymer App</title>
-    <script src="libs/webcomponentsjs/webcomponents.min.js"></script>
-    <script src="libs/polymer-platform/platform.js"></script>
+    <script src="libs/webcomponentsjs/webcomponents.js"></script>
     <script type="text/javascript" src="libs/js-xlsx/shim.js"></script>
     <script type="text/javascript" src="libs/js-xlsx/jszip.js"></script>
     <script type="text/javascript" src="libs/js-xlsx/xlsx.js"></script>
     <script type="text/javascript" src="js/checkColor.js"></script>
-    <link rel="import" href="libs/polymer/polymer.html">
+
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/side-menu.css" type="text/css">
+    <!--<link rel="import" href="libs/polymer/polymer.html">-->
     <link rel="import" href="libs/font-roboto/roboto.html">
-    <link rel="import" href="libs/app-router/app-router.html">
     <link rel="import" href="templates/includes.html">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/color-scheme.css">
     <link rel="import" href="templates/pages/dashboard/dashboard-page.html">
     <link rel="import" href="templates/pages/portfolio/portfolio-page.html">
     <link rel="import" href="templates/pages/portfolio/portfolio-item.html">
@@ -27,13 +26,12 @@
     <link rel="import" href="templates/pages/signup/signup-page.html">
     <link rel="import" href="templates/pages/confirm/confirm-page.html">
 </head>
-<body unresolved fullbleed class="unresolved">
+<body unresolved fullbleed>
     <polymer-element name="app-globals">
         <!--<script>Polymer({url: 'http://freelance/web-polymer/'});</script>-->
         <script>Polymer({url: '/WebPortal/'});</script>
     </polymer-element>
     <template is="auto-binding">
-        <link rel="stylesheet" href="css/side-menu.css">
         <core-scaffold responsiveWidth="1280px" id="scaffold">
             <nav>
                 <paper-shadow z="1">
@@ -88,7 +86,9 @@
                     </section>
                     <template repeat="{{val in subItems}}">
                         <section hash="portfolio/{{val.id}}">
-                            <portfolio-item itemId="{{val.id}}" fit></portfolio-item>
+                            <template if="{{'portfolio/'+val.id == route}}">
+                                <portfolio-item itemId="{{val.id}}" fit></portfolio-item>
+                            </template>
                         </section>
                     </template>
                     <section hash="profile" class="content">
@@ -176,10 +176,6 @@
 
             }
         });
-
-        window.onkeyup = function enterPressed(e) {
-
-        };
     </script>
 </body>
 </html>

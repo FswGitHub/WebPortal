@@ -53,7 +53,7 @@
                                     <input type="file" fit on-change="{{uploadNewLogo}}">
                                 </paper-button>
                             </div>
-                            <span class="logo-size">220px X 50px(.png)</span>
+                            <span class="logo-size">250px X 36px(.png)</span>
                         </div>
                     </li>
                 </ul>
@@ -227,23 +227,32 @@
 
                 // Only process image files.
                 if (file.type.match('image.*')) {
-                    var reader = new FileReader();
+                    if (file.type.match('image/png.*')) {
+                        var reader = new FileReader();
+                        // Closure to capture the file information.
+                        reader.onload = (function (theFile) {
+                            return function (e) {
+                                var image = new Image();
+                                image.src = e.target.result;
+                                if (image.width == 250 && image.height == 36){
+                                    alert('Logo updated!');
+                                    template.logo = e.target.result;
+                                    //Submit must be here!
+                                    //console.log(template.logo);
+                                }
+                                else {
+                                    alert('Image must by 250px X 36px!');
+                                }
+                            };
+                        })(file);
 
-                    // Closure to capture the file information.
-                    reader.onload = (function(theFile) {
-                        return function(e) {
-                            // Render thumbnail.
-                            alert('Logo updated!');
-                            template.logo = e.target.result;
-                            //Submit must be here!
-                            console.log(template.logo);
-                        };
-                    })(file);
-
-                    // Read in the image file as a data URL.
-                    reader.readAsDataURL(file);
+                        // Read in the image file as a data URL.
+                        reader.readAsDataURL(file);
+                    }
+                    else  {
+                        alert('Please choose an ".png" format image!');
+                    }
                 }
-
                 else {
                     alert('Please choose an image!');
                 }
