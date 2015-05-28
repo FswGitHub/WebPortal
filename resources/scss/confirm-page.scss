@@ -3,4 +3,11 @@
 
 .confirm-page{
   @extend .login-page;
+  .content {
+    overflow-y: auto;
+  }
+  .confirm-message {
+    display: block;
+    text-align: center;
+  }
 }

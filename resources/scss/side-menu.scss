@@ -24,8 +24,13 @@ core-scaffold {
           /deep/ {
             .title-value {
               display: none;
-              a, a:hover, a:visited, a:focus {
+              a, a:visited {
                 text-decoration: none;
+                color: $color-white;
+              }
+
+              a:hover, a:focus {
+                text-decoration: underline;
                 color: $color-white;
               }
             }
@@ -100,4 +105,3 @@ core-pages {
 section {
   background: $color-grey-light;
 }
-

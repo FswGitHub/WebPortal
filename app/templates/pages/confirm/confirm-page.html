@@ -2,17 +2,17 @@
     <template>
         <link rel="stylesheet" href="../../../css/confirm-page.css">
         <div vertical layout fit class="confirm-page">
-            <div flex twelve>
-                <div class="header">
-                    <div class="logo-wrapper">
-                        <logo-main url="{{logo}}"></logo-main>
-                    </div>
+            <div class="header" flex>
+                <div class="logo-wrapper">
+                    <logo-main url="{{logo}}"></logo-main>
                 </div>
-                <div class="content" flex>
+            </div>
+            <div flex six relative>
+                <div class="content" fit>
                     <paper-shadow z="1">
-                        Thanks you for signing up.
+                        <span class="confirm-message">Thanks you for signing up.
                         <br>
-                        Please check your email and click the verification link to confirm your email.
+                        Please check your email and click the verification link to confirm your email.</span>
                     </paper-shadow>
                 </div>
             </div>
@@ -22,7 +22,9 @@
     </template>
     <script>
         Polymer('confirm-page', {
+            ready: function(){
 
+            }
         })
     </script>
 </polymer-element>

@@ -2,13 +2,13 @@
     <template>
         <link rel="stylesheet" href="../../../css/signup-page.css">
         <div vertical layout fit class="signup-page">
-            <div flex twelve class="main-signup-form">
-                <div class="header">
-                    <div class="logo-wrapper">
-                        <logo-main url="{{logo}}"></logo-main>
-                    </div>
+            <div class="header" flex relative>
+                <div class="logo-wrapper" fit>
+                    <logo-main url="{{logo}}"></logo-main>
                 </div>
-                <div class="content">
+            </div>
+            <div flex six relative>
+                <div class="content" fit>
                     <paper-shadow z="1">
                         <form vertical layout>
                             <paper-input-decorator id="firstName" label="First Name"

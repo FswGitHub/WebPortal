@@ -32,3 +32,68 @@
     }
   }
 }
+
+//----------Chart boards
+
+.chart-board{
+  width: 48%;
+  float: left;
+
+  paper-shadow{
+    border-radius: 2px;
+    background-color: $color-white;
+    margin: 8px auto 16px;
+    padding: 8px 0 16px 0;
+    .chart-title {
+      padding: 0 8px 0 16px;
+      font-weight: bold;
+      font-size: $font-size-desktop;
+    }
+    .chart{
+      margin: 0 16px;
+    }
+  }
+
+  @media screen and (max-width: $size-tablet) {
+    width: 100%;
+    paper-shadow{
+      .chart-title {
+        font-size: $font-size-mobile;
+      }
+    }
+  }
+}
+
+chart-board {
+  &:nth-child(even){
+    /deep/ .chart-board{
+      padding-right: 4%;
+    }
+    .chart-board:nth-child(even){
+      padding-right: 0;
+    }
+  }
+}
+
+drop-chart {
+  &:nth-child(odd){
+    /deep/ .chart-board{
+      padding-right: 4%;
+    }
+    .chart-board:nth-child(even){
+      padding-right: 0;
+    }
+  }
+}
+
+@media screen and (max-width: $size-tablet) {
+  chart-board {
+    &:nth-child(even) {
+      /deep/ .chart-board {
+        padding-right: 0;
+        margin-left: 0;
+      }
+    }
+  }
+}
+

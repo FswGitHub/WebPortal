@@ -2,12 +2,8 @@
 @import "login-page";
 
 .signup-page {
-  background-color: rgba(151,151,151, 1);
   @extend .login-page;
-  .main-signup-form {
+  .content {
     overflow-y: auto;
-  }
-  @media screen and (max-height: 978px) {
-
   }
 }

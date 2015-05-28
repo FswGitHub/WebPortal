@@ -9,8 +9,9 @@
       right: 45px;
       z-index: 3;
     }
+
     //----------Tabs styles
-    paper-tabs{
+    paper-tabs {
       background-color: $color-main;
       color: $color-white;
       text-transform: uppercase;
@@ -340,10 +341,6 @@
   }
 }
 .filter-icon {
-  /*display: none;
-  position: absolute;
-  top: 16px;
-  right: 0;*/
   opacity: 0;
 }
 
@@ -385,24 +382,6 @@
   line-height: 24px;
   text-align: center;
   color: $color-grey-medium;
-}
-
-@media  screen and (max-width: $size-tablet-max) {
-  /*.cost-price-icon {
-    right: -8px;
-  }
-
-  .book-value-icon {
-    right: -7px;
-  }
-
-  .market-price-icon {
-    right: -4px;
-  }
-
-  .market-value-icon {
-    right: -5px;
-  }*/
 }
 
 //----------Filters menu

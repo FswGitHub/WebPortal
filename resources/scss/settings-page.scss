@@ -9,6 +9,13 @@
       right: 45px;
     }
 
+    .title-item {
+      margin: 5px 0;
+      padding: 3px 0;
+      font-size: $font-size-desktop-small;
+      border-bottom: 1px solid $color-grey-medium-light;
+    }
+
     //----------Tabs styles
 
     paper-tabs{
@@ -32,7 +39,9 @@
     //----------Contents
 
     .design-settings-list {
-      @extend .ul-reset;
+      margin: 0;
+      padding: 0;
+      list-style: none;
       font-size: $font-size-desktop-small;
       color: $color-grey-medium;
     }
@@ -57,7 +66,6 @@
 
     .selected-color {
       font-size: $font-size-mobile-small;
-      //display: block;
       margin-bottom: 10px;
       width: 130px;
       #mainColor {

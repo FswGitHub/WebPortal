@@ -1,92 +1,10 @@
-.chart-board {
-  width: 48%;
-  float: left;
-}
-.chart-board paper-shadow {
-  border-radius: 2px;
-  background-color: #FFFFFF;
-  margin: 8px auto 16px;
-  padding: 8px 0 16px 0;
-}
-.chart-board paper-shadow .chart-title {
-  padding: 0 8px 0 16px;
-  font-weight: bold;
-  font-size: 20px;
-}
-.chart-board paper-shadow .chart {
-  margin: 0 16px;
-}
-@media screen and (max-width: 768px) {
-  .chart-board {
-    width: 100%;
-  }
-  .chart-board paper-shadow .chart-title {
-    font-size: 16px;
-  }
-}
-
-chart-board:nth-child(even) /deep/ .chart-board {
-  padding-right: 4%;
-}
-chart-board:nth-child(even) .chart-board:nth-child(even) {
-  padding-right: 0;
-}
-
-drop-chart:nth-child(odd) /deep/ .chart-board {
-  padding-right: 4%;
-}
-drop-chart:nth-child(odd) .chart-board:nth-child(even) {
-  padding-right: 0;
-}
-
-@media screen and (max-width: 768px) {
-  chart-board:nth-child(even) /deep/ .chart-board {
-    padding-right: 0;
-    margin-left: 0;
-  }
-}
 .content {
   padding: 26px 26px 0 60px;
   overflow-y: auto;
 }
 
-.tab-page-content {
-  overflow-y: auto;
-  padding: 26px 26px 0 60px;
-}
-
-.ul-reset {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 0;
-}
-
-/*
-.spinner {
-  background: $color-grey-light;
-  z-index: 2;
-  paper-spinner::shadow .circle {
-    border-color: $color-main;
-  }
-}*/
-.tabs-panel /deep/ core-toolbar.tabs-toolbar {
-  background-color: #979797;
-}
-
-.title-item {
-  margin: 5px 0;
-  padding: 3px 0;
-  font-size: 18px;
-  border-bottom: 1px solid #D8D8D8;
-}
-
 @media screen and (max-width: 768px) {
   .content {
-    padding: 26px 26px 0 26px;
-  }
-
-  .tab-page-content {
     padding: 26px 26px 0 26px;
   }
 
@@ -101,8 +19,10 @@ paper-fab {
 }
 
 .login-page {
-  overflow-y: auto;
   background-color: #979797;
+}
+.login-page .content {
+  overflow-y: auto;
 }
 .login-page .header .logo-wrapper {
   width: 224px;
@@ -112,9 +32,7 @@ paper-fab {
   width: 100%;
 }
 .login-page .content {
-  margin: 15px;
   font-size: 16px;
-  overflow-y: visible;
 }
 .login-page .content > paper-shadow {
   background-color: #D8D8D8;
@@ -208,11 +126,6 @@ paper-fab {
   font-weight: lighter;
   background-color: transparent;
 }
-@media screen and (max-width: 320px) {
-  .login-page .content {
-    margin: 0;
-  }
-}
 @media screen and (max-height: 670px) {
   .login-page footer-page /deep/ .footer {
     position: initial;
@@ -223,9 +136,7 @@ paper-fab {
     margin: 20px 0 60px 0;
   }
   .login-page .content {
-    margin: 0 30px;
     font-size: 20px;
-    padding: 0;
   }
   .login-page .content > paper-shadow {
     padding: 30px;

@@ -1,0 +1,65 @@
+<polymer-element name="reset-page" attributes="logo">
+    <template>
+        <link rel="stylesheet" href="../../../css/reset-page.css">
+        <div vertical layout fit class="reset-password">
+            <div class="header" flex>
+                <div class="logo-wrapper">
+                    <logo-main url="{{logo}}"></logo-main>
+                </div>
+            </div>
+            <div flex six relative>
+                <div class="content" fit>
+                    <paper-shadow z="1">
+                        <span class="reset-message">Please enter your email address and we`ll send you a link to reset your password.</span>
+                        <form layout vertical>
+                            <paper-input-decorator self-center id="email" label="Email"
+                                                   floatingLabel
+                                                   error="Please enter valid Email">
+                                <input required
+                                       value=""
+                                       type="email">
+                            </paper-input-decorator>
+                            <div class="login-button" self-center>
+                                <paper-button class="submit"
+                                              on-tap="{{resetPassword}}"
+                                              raised>Submit</paper-button>
+                            </div>
+                        </form>
+                    </paper-shadow>
+                </div>
+            </div>
+            <!--Footer-->
+            <footer-page flex></footer-page>
+        </div>
+        <paper-action-dialog id="loginDialog"
+                             backdrop
+                             transition="core-transition-center"
+                             style="width: 300px;"
+                             layered="false">
+            <p>{{dialogText}}</p>
+            <paper-button affirmative autofocus class="action-button" on-tap="{{loginGo}}">Ok</paper-button>
+        </paper-action-dialog>
+    </template>
+    <script>
+        Polymer('reset-page',{
+            resetPassword:function(){
+                var emailField = this.$.email;
+                var email = emailField.input.value;
+                if (emailField.validate()){
+                    //Submit here
+                    //console.log(email);
+                    this.resetMassage();
+                }
+            },
+            resetMassage: function(){
+                this.dialogText = 'Please check your email and click the verification link to reset your password.';
+                this.$.loginDialog.toggle();
+            },
+            loginGo: function(){
+                setTimeout(function(){
+                    document.querySelector('flatiron-director').route = 'login';
+                },2000);
+            }
+        });
+    </script>
+</polymer-element>

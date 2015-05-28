@@ -1,9 +1,11 @@
 @import "_variables";
 
 .login-page {
-  overflow-y: auto;
+  .content {
+    overflow-y: auto;
+  }
   background-color: rgba(151,151,151, 1);
-  .header{
+  .header {
     .logo-wrapper{
       width: 224px;
       margin: 15px;
@@ -12,16 +14,14 @@
       }
     }
   }
-  .content{
-    margin: 15px;
+  .content {
     font-size: $font-size-mobile;
-    overflow-y: visible;
     > paper-shadow{
       background-color: $color-grey-medium-light;
       border-radius: 4px;
       padding: 30px;
       form {
-        paper-input-decorator{
+        paper-input-decorator {
           ::-webkit-input-placeholder {color: $color-black;}
           ::-moz-placeholder          {color: $color-black;}/* Firefox 19+ */
           :-moz-placeholder           {color: $color-black;}/* Firefox 18- */
@@ -109,12 +109,6 @@
     }
   }
 
-  @media screen and (max-width: $size-mobile-mini){
-    .content {
-      margin: 0;
-    }
-  }
-
   @media screen and (max-height: 670px){
     footer-page /deep/ {
       .footer {
@@ -130,9 +124,7 @@
       }
     }
     .content{
-      margin: 0 30px;
       font-size: $font-size-desktop;
-      padding: 0;
       > paper-shadow{
         padding: 30px;
         form{

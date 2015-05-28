@@ -1,0 +1,12 @@
+@import "login-page";
+
+.reset-password {
+  @extend .login-page;
+  .reset-message {
+    display: block;
+    text-align: center;
+  }
+  .content {
+    overflow-y: auto;
+  }
+}
