@@ -1,5 +1,6 @@
 <link rel="import" href="chart-board.html">
 <link rel="import" href="drop-chart.html">
+<link rel="stylesheet" href="../../../css/dialog-styles.css">
 <polymer-element name="dashboard-charts" attributes="dashboardContent">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
@@ -21,6 +22,14 @@
                     </paper-item>-->
                 </div>
             </paper-dropdown>
+            <paper-action-dialog id="errorDialog"
+                                 heading="Error"
+                                 transition="core-transition-center"
+                                 backdrop
+                                 layered="true">
+                <p>{{dialogText}}</p>
+                <paper-button affirmative autofocus class="action-button">Ok</paper-button>
+            </paper-action-dialog>
         </div>
         <div class="dashboard-content" id="dashboardCharts">
             <template repeat="{{val, i in dashboardContent}}">
@@ -69,10 +78,14 @@
             addChart: function(e) {
                 var me = this;
                 if (me.dashboardContent.length == 4) {
-                    alert('All slots for charts are already filled. Please remove any chart to make free slot.');
+                    this.errorMessage('All slots for charts are already filled. Please remove any chart to make free slot.');
                     e.stopPropagation();
                 }
                 return me.dashboardContent;
+            },
+            errorMessage: function(text){
+                this.dialogText = text;
+                this.$.errorDialog.toggle();
             }
         })
     </script>

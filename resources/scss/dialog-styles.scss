@@ -4,6 +4,8 @@
 html {
   /deep/ {
     paper-action-dialog {
+      min-width: 250px;
+      max-width: 300px;
       paper-button.action-button,
       paper-button.action-button {
         color: $color-main;

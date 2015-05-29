@@ -75,49 +75,57 @@
                     </div>
                 </paper-dialog>
                 </div>
-                <!--Users table-->
-                <div class="users-table">
-                 <div class="table-wrapper">
-                     <core-media-query query="max-width: 768px"
-                                       queryMatches="{{phoneScreen}}"></core-media-query>
-                     <div class="table-header-list" layout horizontal?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">
-                         <div class="col-padding table-header" flex eight>Email Address</div>
-                         <div class="col-padding table-header" flex four>First Name</div>
-                         <div class="col-padding table-header" flex four>Last Name</div>
-                         <div class="col-padding table-header" flex four>Status</div>
-                         <div class="col-padding table-header" flex seven>Actions</div>
-                     </div>
-                     <div class="table-body">
-                         <core-selector selected="0" valueattr="number">
-                             <template repeat="{{user, i in allUsers | orderBy('email')}}">
-                                 <div layout vertical?="{{phoneScreen}}" number="{{i}}">
-                                     <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{user.email}}</h1>
-                                     <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
-                                        <!--Users table-headers for mobile view-->
-                                        <div class="col-content labels" hidden?="{{!phoneScreen}}">
-                                            <div class="col-padding table-item table-label">First Name</div>
-                                            <div class="col-padding table-item table-label">Last Name</div>
-                                            <div class="col-padding table-item table-label">Status</div>
-                                            <div class="col-padding table-item table-label">Actions</div>
-                                        </div>
-                                        <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
-                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" eight?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{user.email}}</div>
-                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.firstName}}</div>
-                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.lastName}}</div>
-                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.status}}</div>
-                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">
-                                                <template repeat="{{act in user.action}}">
-                                                    <core-icon icon="{{act}}"></core-icon>
-                                                </template>
-                                            </div>
+            <!--Users table-->
+            <div class="users-table">
+             <div class="table-wrapper">
+                 <core-media-query query="max-width: 768px"
+                                   queryMatches="{{phoneScreen}}"></core-media-query>
+                 <div class="table-header-list" layout horizontal?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">
+                     <div class="col-padding table-header" flex eight>Email Address</div>
+                     <div class="col-padding table-header" flex four>First Name</div>
+                     <div class="col-padding table-header" flex four>Last Name</div>
+                     <div class="col-padding table-header" flex four>Status</div>
+                     <div class="col-padding table-header" flex seven>Actions</div>
+                 </div>
+                 <div class="table-body">
+                     <core-selector selected="0" valueattr="number">
+                         <template repeat="{{user, i in allUsers | orderBy('email')}}">
+                             <div layout vertical?="{{phoneScreen}}" number="{{i}}">
+                                 <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{user.email}}</h1>
+                                 <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
+                                    <!--Users table-headers for mobile view-->
+                                    <div class="col-content labels" hidden?="{{!phoneScreen}}">
+                                        <div class="col-padding table-item table-label">First Name</div>
+                                        <div class="col-padding table-item table-label">Last Name</div>
+                                        <div class="col-padding table-item table-label">Status</div>
+                                        <div class="col-padding table-item table-label">Actions</div>
+                                    </div>
+                                    <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
+                                        <div class="col-padding table-item" flex?="{{!phoneScreen}}" eight?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{user.email}}</div>
+                                        <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.firstName}}</div>
+                                        <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.lastName}}</div>
+                                        <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.status}}</div>
+                                        <div class="col-padding table-item" flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">
+                                            <template repeat="{{act in user.action}}">
+                                                <core-icon icon="{{act}}"></core-icon>
+                                            </template>
                                         </div>
                                     </div>
-                                 </div>
-                             </template>
-                         </core-selector>
-                     </div>
+                                </div>
+                             </div>
+                         </template>
+                     </core-selector>
                  </div>
-                </div>
+             </div>
+            </div>
+            <paper-action-dialog id="errorDialog"
+                                 heading="Error"
+                                 transition="core-transition-center"
+                                 backdrop
+                                 layered="true">
+                <p>{{dialogText}}</p>
+                <paper-button affirmative autofocus class="action-button">Ok</paper-button>
+            </paper-action-dialog>
         </div>
     </template>
     <script>
@@ -195,7 +203,7 @@
                     return this.usersFromFile = usersFromFile;
                 }
                 else {
-                    alert('Error: try another file format');
+                    this.errorMessage('Try another file format');
                     uploadOutput.value = '';
                 }
             },
@@ -255,7 +263,7 @@
                     uploadOutput.value = output;
                 }
                 else {
-                    alert('Error: try another file format');
+                    this.errorMessage('Try another file format');
                     uploadOutput.value = '';
                 }
             },
@@ -315,7 +323,7 @@
                         }
                     }
                     else {
-                        alert('Uploading error');
+                        this.errorMessage('Uploading error');
                     }
 
                     uploadOutput.value = '';
@@ -399,6 +407,11 @@
             },
             any: function() {
                 return (this.Android() || this.BlackBerry() || this.iOS() || this.Opera() || this.Windows());
+            },
+
+            errorMessage: function(text){
+                this.dialogText = text;
+                this.$.errorDialog.toggle();
             }
         });
     </script>

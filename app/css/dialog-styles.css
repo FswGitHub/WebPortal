@@ -19,6 +19,10 @@ paper-fab {
 }
 
 /*Dialogs styles*/
+html /deep/ paper-action-dialog {
+  min-width: 250px;
+  max-width: 300px;
+}
 html /deep/ paper-action-dialog paper-button.action-button,
 html /deep/ paper-action-dialog paper-button.action-button {
   color: #DD1F29;

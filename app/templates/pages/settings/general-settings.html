@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../../../css/dialog-styles.css">
 <polymer-element name="general-settings" attributes="scope">
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
@@ -95,6 +96,14 @@
                 </form>
             </div>
         </div>
+        <paper-action-dialog id="errorDialog"
+                             heading="Error"
+                             transition="core-transition-center"
+                             backdrop
+                             layered="true">
+            <p>{{dialogText}}</p>
+            <paper-button affirmative autofocus class="action-button">Ok</paper-button>
+        </paper-action-dialog>
     </template>
     <script>
         Polymer('general-settings',{
@@ -193,14 +202,9 @@
 
                 if (hex.test(color)){
                     valid = true;
-                }
-                else {
-                    if (rgb.ok) {
-                        valid = true;
-                    }
-                    else {
-                        valid = false;
-                    }
+                } else {
+                    if (rgb.ok) {valid = true;}
+                    else {valid = false;}
                 }
 
                 return valid;
@@ -218,44 +222,51 @@
 
             //upload New Logo functional
             uploadNewLogo: function(event, detail, sendler){
+                var dialog = this.$.errorDialog;
+                var dialogText = this.dialogText;
                 var template = document.querySelector('template[is="auto-binding"]');
                 //template.logo = 'img/logo-dark.png';
-                this.handleFileSelect(event);
+                this.handleFileSelect(event, function(e){
+                    var image = new Image();
+                    image.src = e.target.result;
+                    if (image.width == 250 && image.height == 36){
+                        dialog.removeAttribute('heading');
+                        dialog.querySelector('p').innerHTML = 'Logo updated!';
+                        dialog.toggle();
+                        template.logo = e.target.result;
+                        //Submit must be here!
+                        //console.log(template.logo);
+                    }
+                    else {
+                        dialog.querySelector('p').innerHTML = 'Image must by 250px X 36px!';
+                        dialog.toggle();
+                    }
+                });
             },
-            handleFileSelect: function(evt){
-                var file = evt.target.files[0]; // FileList object
 
+            handleFileSelect: function(evt, callback){
+                var file = evt.target.files[0]; // FileList object
+                var error = this.errorMessage;
                 // Only process image files.
                 if (file.type.match('image.*')) {
                     if (file.type.match('image/png.*')) {
                         var reader = new FileReader();
                         // Closure to capture the file information.
-                        reader.onload = (function (theFile) {
-                            return function (e) {
-                                var image = new Image();
-                                image.src = e.target.result;
-                                if (image.width == 250 && image.height == 36){
-                                    alert('Logo updated!');
-                                    template.logo = e.target.result;
-                                    //Submit must be here!
-                                    //console.log(template.logo);
-                                }
-                                else {
-                                    alert('Image must by 250px X 36px!');
-                                }
-                            };
-                        })(file);
-
+                        reader.onload = callback;
                         // Read in the image file as a data URL.
                         reader.readAsDataURL(file);
                     }
                     else  {
-                        alert('Please choose an ".png" format image!');
+                        this.errorMessage('Please choose an ".png" format image!');
                     }
                 }
                 else {
-                    alert('Please choose an image!');
+                    this.errorMessage('Please choose an image!');
                 }
+            },
+            errorMessage: function(text){
+                this.dialogText = text;
+                this.$.errorDialog.toggle();
             }
         });
     </script>
