@@ -477,6 +477,20 @@
         padding: 16px;
         font-size: $font-size-mobile-small;
       }
+
+      .collapse-content {
+        .mobile-col-content[layout][horizontal] {
+          display: none;
+        }
+      }
+
+      .collapse-content {
+        .core-selected {
+          .mobile-col-content[layout][horizontal]  {
+            display: inherit;
+          }
+        }
+      }
     }
   }
 }

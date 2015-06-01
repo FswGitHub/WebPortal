@@ -490,4 +490,10 @@ paper-fab {
     padding: 16px;
     font-size: 14px;
   }
+  :host /deep/ .collapse-content .mobile-col-content[layout][horizontal] {
+    display: none;
+  }
+  :host /deep/ .collapse-content .core-selected .mobile-col-content[layout][horizontal] {
+    display: inherit;
+  }
 }

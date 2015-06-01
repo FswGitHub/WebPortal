@@ -61,9 +61,9 @@
                                         <div class="col-padding table-item" flex five hidden?="{{phoneScreen}}">{{val.averageExpVal}}</div>
                                     </div>
                                     <core-collapse id="collapse{{val.id+i}}" class="collapse" opened>
-                                        <core-selector selected="0" valueattr="number">
+                                        <core-selector selected="0" valueattr="number" class="collapse-content">
                                             <template repeat="{{item, i in val.categoryItems | orderBy(oderVal) | limitFrom(page.from,page.to)}}">
-                                                <div layout vertical?="{{phoneScreen}}" number="{{i}}">
+                                                <div layout vertical?="{{phoneScreen}}" number="{{i}}" >
                                                     <h1 hidden?="{{!phoneScreen}}" class="table-header-in-collapse">{{item.name}}</h1>
                                                     <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
                                                         <!--Holdings table-headers for mobile view-->

@@ -6,7 +6,7 @@
                               queryMatches="{{phoneScreen}}"></core-media-query>
             <core-field class="search-field" >
                 <input id="searchField" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
-                <core-icon icon="search"></core-icon>
+                <core-icon icon="{{icon}}" on-tap="{{clearSearchValue}}"></core-icon>
             </core-field>
         </div>
         <div hidden?="{{!phoneScreen}}" layout horizontal center-center flex>
@@ -16,7 +16,7 @@
                     <paper-item class="item">
                         <core-field class="search-field" flex>
                             <input id="searchFieldMobile" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
-                            <core-icon icon="search"></core-icon>
+                            <core-icon icon="{{icon}}" on-tap="{{clearSearchValue}}"></core-icon>
                         </core-field>
                     </paper-item>
                     <paper-item class="item" on-tap="{{order}}" orderval="name">
@@ -53,10 +53,12 @@
             filterByName: function (e) {
                 var me = this;
                 var filtered = [];
-                var id = e.currentTarget.id;
+                var phoneScreen = this.phoneScreen;
                 var searchValue = '';
 
-                if (id == 'searchField') {
+                console.log(phoneScreen);
+
+                if (!phoneScreen) {
                     searchValue = me.$.searchField.value;
                 }
                 else {
@@ -84,7 +86,10 @@
                 if (searchValue == '') {
                     if (localStorage.getItem('selectedView') == 'statutory'){
                         me.showAll = 'statutory';
+                        this.icon = 'search';
                     }
+                } else {
+                    this.icon = 'clear';
                 }
 
                 return me.allItems = filtered;
@@ -93,6 +98,18 @@
             //Toggle filtering dropdown(mobile view)
             openFilter: function(){
                 this.filtersStatus = true;
+            },
+
+            icon: 'search',
+
+            clearSearchValue: function(){
+                var phoneScreen = this.phoneScreen;
+                var input = this.$.searchField;
+                if (phoneScreen) {
+                    input = this.$.searchFieldMobile;
+                }
+                input.value = '';
+                this.filterByName();
             }
         });
     </script>
