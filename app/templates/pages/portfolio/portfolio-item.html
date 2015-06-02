@@ -1,46 +1,33 @@
 <link rel="import" href="date-selector.html">
 <link rel="import" href="table-filter.html">
-<link rel="import" href="page-selector.html">
 <link rel="import" href="holdings-table.html">
 <link rel="import" href="../dashboard/dashboard-charts.html">
-<polymer-element name="portfolio-item" attributes="itemId">
+<polymer-element name="portfolio-item" attributes="itemId selectedTab route">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <!-- Main content -->
         <div layout vertical fit>
-            <!-- Tabs toolbar -->
-            <paper-shadow z="1">
-                <core-toolbar>
-                    <div class="bottom fit indent" horizontal layout>
-                        <paper-tabs flex valueattr="name" selected="{{selectedTab}}">
-                            <paper-tab name="dashboard">Dashboard</paper-tab>
-                            <paper-tab name="holdings">Holdings</paper-tab>
-                        </paper-tabs>
-                    </div>
-                </core-toolbar>
-            </paper-shadow>
             <!--Subheader-->
             <paper-shadow z="1" class="subheader-shadow">
                 <core-toolbar id="subheader" class="subheader" layout horizontal relative center>
                     <!--Calendar-->
                     <date-selector curDate="{{date}}"></date-selector>
                     <!--Holdings subheader-->
-                    <!--<template if="{{selectedTab == 'holdings'}}">-->
                         <!--Holdings table view dropdown menu-->
                         <div class="holding-view" layout horizontal center hidden?="{{selectedTab != 'holdings'}}">
                             <core-icon icon="description" class="open-calendar-icon"></core-icon>
                             <paper-dropdown-menu>
                                 <paper-dropdown class="dropdown">
-                                    <core-selector class="menu" valueattr="view" selected="{{selectedView}}" id="views" on-core-select="{{changeView}}">
-                                        <paper-item view="statutory" on-tap="{{toggleStat}}">Statutory</paper-item>
-                                        <paper-item view="icb" on-tap="{{toggleIcb}}">ICB</paper-item>
+                                    <core-selector class="menu" valueattr="view" selected="{{selectedView}}" id="views">
+                                        <template repeat="{{class in classifications}}">
+                                            <paper-item view="{{'classification'+class.id}}">{{class.name}}</paper-item>
+                                        </template>
                                     </core-selector>
                                 </paper-dropdown>
                             </paper-dropdown-menu>
                         </div>
                         <!--"Filter by name" search-->
-                        <table-filter hidden?="{{selectedTab != 'holdings'}}" id="filter" flex showNoMatches="{{showNoMatches}}" allItems="{{allItems}}" portfolioItemsNoCategory="{{portfolioItemsNoCategory}}" showAll="{{selectedView}}"></table-filter>
-                    <!--</template>-->
+                        <table-filter hidden?="{{selectedTab != 'holdings'}}" id="filter" flex showNoMatches="{{showNoMatches}}" allItems="{{allItems}}" portfolioItemsNoCategory="{{portfolioItemsNoCategory}}" showAll="{{showAll}}"></table-filter>
                 </core-toolbar>
             </paper-shadow>
             <core-pages valueattr="name" selected="{{selectedTab}}" flex>
@@ -48,12 +35,13 @@
                     <dashboard-charts class="content" fit dashboardContent="{{portfolioCharts}}" id="charts"></dashboard-charts>
                 </section>
                 <section name="holdings">
-                    <template if="{{selectedTab == 'holdings'}}">
-                        <div class="content" fit>
-                            <page-selector pages="{{allPages}}" selectedPage="{{page}}" sizes="{{sizes}}" size="{{rowSize}}" hidden?="{{selectedView == 'icb'}}"></page-selector>
-                            <holdings-table portfolioHoldings="{{portfolioHoldings}}" selectedPage="{{page}}" selectedSize="{{rowSize}}" pages="{{allPages}}" allItems="{{allItems}}" selectedView="{{selectedView}}" showNoMatches="{{showNoMatches}}"></holdings-table>
-                        </div>
-                    </template>
+                    <core-pages valueattr="view" selected="{{selectedView}}"  fit>
+                        <template repeat="{{class in classifications}}">
+                            <section view="{{'classification'+class.id}}" class="content">
+                                <holdings-table request="{{request+selectedView+'.json'}}" showNoMatches="{{showNoMatches}}" allItems="{{allItems}}" portfolioItemsNoCategory="{{portfolioItemsNoCategory}}" showAll="{{showAll}}" portfolio="{{portfolioItemContent.title}}"></holdings-table>
+                            </section>
+                        </template>
+                    </core-pages>
                 </section>
             </core-pages>
         </div>
@@ -66,151 +54,18 @@
         Polymer('portfolio-item',{
             ready: function(){
                 this.$.portfolioItem.url = this.$.globals.url+'resources/json/portfolio-item'+this.itemId+'.json';
-                //this.$.portfolioItem.url = this.$.globals.url+'resources/json/portfolio-item1.json';
-                localStorage.setItem('selectedView','statutory');
-                this.page = 0;
+                this.request = this.$.globals.url+'resources/json/portfolio-item'+this.itemId;
                 this.selectedTab = 'dashboard';
-                this.selectedView = 'statutory';
-                this.portfolioItemsNoCategory = [];
+                this.selectedView = 'classification1';
             },
             contentResponse: function(e, data){
                 var me = this;
-                if(data.response.success){
+                if(data.response.success) {
                     me.portfolioItemContent = data.response.item;
-                    me.portfolioCharts =  data.response.item.charts;
-                    me.holdings = data.response.item.holdings;
-                    me.allItems = [];
-
-                    me.portfolioHoldings = me.holdings;
-
-                    me.sizes = this.getSizes(me.portfolioHoldings);
-
-                    me.rowSize = me.sizes[1];
-
-                    me.allPages = this.makePages(me.portfolioHoldings, me.rowSize);
-
-                    //Content without categories generation
-                    for (var i=0; i < me.portfolioHoldings.length; i++) {
-                        me.allItems = me.allItems.concat(me.portfolioHoldings[i].categoryItems);
-                    }
-
-                    //Copy content to "filter by name" function
-                    me.portfolioItemsNoCategory = me.allItems;
-                    me.$.charts.updateDragAndDropsArray();
+                    me.portfolioCharts = data.response.item.charts;
+                    me.classifications = data.response.item.classifications;
                 }
-                else {
-                    me.allItems = new Array(10);
-                    me.allPages = [{
-                        cutCategory: 0,
-                        lastCategory: 2
-                    }];
-                    me.portfolioHoldings = {
-                        categoryItems:new Array(10)
-                    };
-                    me.sizes = [50,100,200];
-                    me.rowSize = me.sizes[1];
-                }
-            },
-            //Sort rows to pages
-            makePages: function(data, size){
-                size = parseInt(size);
-                var me  = this;
-                var allPages = [];
-                var maxCateroriesValues = this.getAllValues(data);
-                var maxSize = this.getMaxValue(maxCateroriesValues);
-                var pages = Math.ceil(maxSize/size);
-
-                var f = 0;
-                var n = size;
-
-                for (var i=0; i< pages; i++) {
-                    var page = {};
-                    page.from = f;
-                    page.to  = n;
-
-                    allPages.push(page);
-                    f = n;
-                    n = n+size;
-                }
-
-                return allPages
-            },
-
-            getAllValues: function (array){
-                var newMass = [];
-                for (var i=0; i < array.length; i++) {
-                    var category = array[i];
-                    var fullSize = category.categoryItems.length;
-                    newMass.push(fullSize);
-                }
-                return newMass;
-            },
-
-            getMaxValue: function (array){
-                var max = array[0]; // берем первый элемент массива
-                for (var i = 0; i < array.length; i++) { // переберем весь массив
-                    // если элемент больше, чем в переменной, то присваиваем его значение переменной
-                    if (max < array[i]) max = array[i];
-                }
-                // возвращаем максимальное значение
-                return max;
-            },
-
-            getSizes: function(data){
-                var sizesArray = [];
-                var maxCateroriesValues = this.getAllValues(data);
-                var maxSize = this.getMaxValue(maxCateroriesValues);
-                var categories = maxCateroriesValues.length;
-                var valuesSum = this.getSum(maxCateroriesValues);
-                var average = Math.round(valuesSum/categories);
-                var increment = this.setIncrement(average);
-
-                if (increment == 5) {
-                    sizesArray = [3, 5, 10];
-                } else {
-                    sizesArray = [increment/2, increment, increment*2];
-                }
-                return sizesArray;
-            },
-
-            getSum: function(array){
-                var sum = 0;
-                for(var i=0; i< array.length; i++){
-                    sum = sum + array[i];
-                }
-                return sum;
-            },
-
-            setIncrement: function(average){
-                var increment = 1;
-
-                if (average <= 10){
-                    if (average <= 5){increment = 5;}
-                    else {increment = 10;}
-                }
-                else {
-                    if (average <= 100){
-                        if (average <= 50){increment = 50;}
-                        else {increment = 100;}
-                    }
-                    else {increment = 100;}
-                }
-
-                return increment;
-            },
-
-            rowSizeChanged: function(){
-                var me = this;
-                me.allPages = this.makePages(me.portfolioHoldings, me.rowSize);
-                me.page = 0;
-            },
-
-            //Toggle holdings table view
-            toggleStat: function (){
-                localStorage.setItem('selectedView','statutory');
-            },
-            toggleIcb: function (){
-                localStorage.setItem('selectedView','icb');
+                me.$.charts.updateDragAndDropsArray();
             }
         })
     </script>

@@ -9,7 +9,7 @@
   }
 
   core-toolbar /deep/ .bottom.fit.indent {
-    margin-left: 26px;
+    margin-left: 16px;
   }
 }
 paper-fab {
@@ -123,23 +123,9 @@ paper-fab {
 }
 :host /deep/ .dashboard-dropdown {
   position: fixed;
-  top: 98px;
+  top: 35px;
   right: 45px;
   z-index: 3;
-}
-:host /deep/ paper-tabs {
-  background-color: #DD1F29;
-  color: #FFFFFF;
-  text-transform: uppercase;
-}
-:host /deep/ paper-tabs paper-tab {
-  max-width: 150px;
-}
-:host /deep/ paper-tabs /deep/ #ink {
-  color: #FFFFFF;
-}
-:host /deep/ paper-tabs /deep/ #selectionBar {
-  background-color: #FFFFFF;
 }
 :host /deep/ .subheader-shadow {
   z-index: 2;
@@ -160,6 +146,7 @@ paper-fab {
     right: 16px;
     bottom: 16px;
     top: auto;
+    z-index: 1;
   }
   :host /deep/ .calendar-button /deep/ .button-content {
     font-size: 16px;
@@ -184,6 +171,11 @@ paper-fab {
   :host /deep/ .dialog-wrapper {
     bottom: 75px;
   }
+  :host /deep/ .calendar-button /deep/ .selected-date {
+    text-transform: none;
+    padding: 0;
+    width: 58px;
+  }
 }
 :host /deep/ .subheader {
   position: relative;
@@ -194,6 +186,12 @@ paper-fab {
 :host /deep/ core-toolbar /deep/ ::content > .holding-view {
   margin-right: 8px;
   min-width: 160px;
+}
+@media screen and (max-width: 320px) {
+  :host /deep/ core-toolbar /deep/ ::content > .holding-view {
+    margin-right: 0;
+    min-width: 150px;
+  }
 }
 :host /deep/ .search-block {
   padding: 0.25em 0.57em;
@@ -254,6 +252,14 @@ paper-fab {
   color: #DD1F29;
 }
 
+@media screen and (max-width: 320px) {
+  #calendarDialogWrapper {
+    top: 5px;
+  }
+  #calendarDialogWrapper .actions {
+    margin-top: -16px;
+  }
+}
 .holding-table-navigation {
   margin-bottom: 10px;
 }
@@ -339,7 +345,12 @@ paper-fab {
   color: #FFFFFF;
 }
 .collapse-category .col-padding.category-title {
-  padding-right: 2px;
+  padding-right: 1.5%;
+}
+
+.col-padding:first-child.portfolio-total-label {
+  padding-right: 1.5%;
+  text-transform: uppercase;
 }
 
 .collapse-category:last-child {
@@ -434,6 +445,9 @@ paper-fab {
   :host /deep/ .labels .col-padding:first-child {
     padding: 16px 6px 16px 16px;
   }
+  :host /deep/ .values .table-item {
+    margin: 0;
+  }
   :host /deep/ .values .col-padding:last-child {
     padding: 16px 0;
   }
@@ -495,5 +509,10 @@ paper-fab {
   }
   :host /deep/ .collapse-content .core-selected .mobile-col-content[layout][horizontal] {
     display: inherit;
+  }
+}
+@media screen and (max-width: 320px) {
+  :host /deep/ .table-item {
+    font-size: 12px;
   }
 }

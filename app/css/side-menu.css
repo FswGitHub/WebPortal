@@ -9,7 +9,7 @@
   }
 
   core-toolbar /deep/ .bottom.fit.indent {
-    margin-left: 26px;
+    margin-left: 16px;
   }
 }
 paper-fab {
@@ -23,6 +23,9 @@ core-scaffold /deep/ .aside-menu {
 }
 core-scaffold /deep/ .aside-menu[light] {
   background: #FFFFFF;
+}
+core-scaffold /deep/ .logo-shadow {
+  z-index: 1;
 }
 core-scaffold /deep/ core-toolbar {
   background-color: #DD1F29;
@@ -47,8 +50,22 @@ core-scaffold /deep/ core-toolbar /deep/ .title /deep/ .title-value a:hover, cor
   text-decoration: underline;
   color: #FFFFFF;
 }
-core-scaffold /deep/ core-toolbar /deep/ .title /deep/ .title-value.core-selected {
+core-scaffold /deep/ core-toolbar /deep/ .title .core-selected.title-value {
   display: block;
+}
+core-scaffold /deep/ paper-tabs {
+  background-color: #DD1F29;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+core-scaffold /deep/ paper-tabs paper-tab {
+  max-width: 150px;
+}
+core-scaffold /deep/ paper-tabs /deep/ #ink {
+  color: #FFFFFF;
+}
+core-scaffold /deep/ paper-tabs /deep/ #selectionBar {
+  background-color: #FFFFFF;
 }
 @media screen and (min-width: 1280px) {
   core-scaffold /deep/ core-toolbar /deep/ .title {
@@ -95,4 +112,18 @@ core-pages section.core-selected {
 
 section {
   background: #EDEDED;
+}
+
+@media screen and (max-width: 320px) {
+  .pages-selector /deep/ .button-content {
+    padding: 0.5em 1em;
+  }
+  .pages-selector /deep/ .child {
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+  }
+
+  .settings-tabs paper-tabs paper-tab {
+    font-size: 13px;
+  }
 }

@@ -5,29 +5,12 @@
   /deep/ {
     .dashboard-dropdown{
       position: fixed;
-      top: 98px;
+      top: 35px;
       right: 45px;
       z-index: 3;
     }
 
-    //----------Tabs styles
-    paper-tabs {
-      background-color: $color-main;
-      color: $color-white;
-      text-transform: uppercase;
-      paper-tab{
-        max-width: 150px;
-      }
-      /deep/ {
-        #ink {
-          color: $color-white;
-        }
 
-        #selectionBar {
-          background-color: $color-white;
-        }
-      }
-    }
 
     .subheader-shadow {
       z-index: 2;
@@ -56,6 +39,7 @@
         right: 16px;
         bottom: 16px;
         top: auto;
+        z-index: 1;
       }
 
       .calendar-button {
@@ -96,6 +80,16 @@
       .dialog-wrapper {
         bottom: 75px;
       }
+
+      .calendar-button {
+        /deep/ {
+          .selected-date {
+            text-transform: none;
+            padding: 0;
+            width: 58px;
+          }
+        }
+      }
     }
 
     .subheader {
@@ -109,6 +103,10 @@
     core-toolbar /deep/ ::content > .holding-view {
       margin-right: 8px;
       min-width: 160px;
+      @media screen and (max-width: $size-mobile-mini) {
+        margin-right: 0;
+        min-width: 150px;
+      }
     }
 
     .search-block {
@@ -201,6 +199,17 @@
     }
   }
 }
+
+@media screen and (max-width: $size-mobile-mini) {
+  #calendarDialogWrapper {
+    top: 5px;
+    .actions {
+      margin-top: -16px;
+    }
+  }
+}
+
+
 
 //----------Holdings navigation
 
@@ -300,8 +309,13 @@
     color: $color-white;
   }
   .col-padding.category-title {
-    padding-right: 2px;
+    padding-right: 1.5%;
   }
+}
+
+.col-padding:first-child.portfolio-total-label {
+  padding-right: 1.5%;
+  text-transform: uppercase;
 }
 
 .collapse-category:last-child {
@@ -409,6 +423,10 @@
         }
       }
 
+      .values .table-item {
+        margin: 0;
+      }
+
       .values .col-padding:last-child {
         padding: 16px 0;
       }
@@ -490,6 +508,16 @@
             display: inherit;
           }
         }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $size-mobile-mini) {
+  :host {
+    /deep/ {
+      .table-item {
+        font-size: $font-size-footer;
       }
     }
   }

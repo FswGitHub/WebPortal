@@ -9,7 +9,7 @@
   }
 
   core-toolbar /deep/ .bottom.fit.indent {
-    margin-left: 26px;
+    margin-left: 16px;
   }
 }
 paper-fab {
@@ -123,7 +123,7 @@ paper-fab {
 }
 :host /deep/ .user-actions {
   position: fixed;
-  top: 34px;
+  top: 6px;
   right: 45px;
 }
 :host /deep/ .title-item {
@@ -131,20 +131,6 @@ paper-fab {
   padding: 3px 0;
   font-size: 18px;
   border-bottom: 1px solid #D8D8D8;
-}
-:host /deep/ paper-tabs {
-  background-color: #DD1F29;
-  color: #FFFFFF;
-  text-transform: uppercase;
-}
-:host /deep/ paper-tabs paper-tab {
-  max-width: 150px;
-}
-:host /deep/ paper-tabs /deep/ #ink {
-  color: #FFFFFF;
-}
-:host /deep/ paper-tabs /deep/ #selectionBar {
-  background-color: #FFFFFF;
 }
 :host /deep/ .design-settings-list {
   margin: 0;
@@ -385,9 +371,9 @@ paper-fab {
     max-width: 40%;
   }
   :host /deep/ .settings-panel .col-7 {
-    width: 60%;
-    min-width: 60%;
-    max-width: 60%;
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
   }
   :host /deep/ .theme-color {
     font-size: 16px;
@@ -443,5 +429,22 @@ paper-fab {
   }
   :host /deep/ .table-item {
     font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  :host /deep/ .color-picker {
+    width: 170px;
+  }
+  :host /deep/ canvas {
+    width: 170px;
+    height: 170px;
+  }
+  :host /deep/ paper-tabs paper-tab {
+    font-size: 13px;
+  }
+  :host /deep/ paper-button.set-color,
+  :host /deep/ paper-button.close-color-picker {
+    font-size: 14px;
   }
 }

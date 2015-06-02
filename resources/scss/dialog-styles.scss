@@ -3,9 +3,11 @@
 
 html {
   /deep/ {
+    paper-action-dialog#errorDialog, paper-dialog {
+    min-width: 250px;
+    max-width: 300px;
+  }
     paper-action-dialog {
-      min-width: 250px;
-      max-width: 300px;
       paper-button.action-button,
       paper-button.action-button {
         color: $color-main;
@@ -45,6 +47,7 @@ html {
         border: 1px solid $color-grey-dark;
         display: block;
         border-radius: 5px;
+        margin-bottom: 20px;
       }
       .drag-drop-label {
         display: block;

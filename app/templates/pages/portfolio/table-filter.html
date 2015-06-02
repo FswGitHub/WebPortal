@@ -56,8 +56,6 @@
                 var phoneScreen = this.phoneScreen;
                 var searchValue = '';
 
-                console.log(phoneScreen);
-
                 if (!phoneScreen) {
                     searchValue = me.$.searchField.value;
                 }
@@ -81,13 +79,11 @@
                     me.showNoMatches = true;
                 }
 
-                me.showAll = 'icb';
+                me.showAll = true;
 
                 if (searchValue == '') {
-                    if (localStorage.getItem('selectedView') == 'statutory'){
-                        me.showAll = 'statutory';
-                        this.icon = 'search';
-                    }
+                    me.showAll = false;
+                    this.icon = 'search';
                 } else {
                     this.icon = 'clear';
                 }

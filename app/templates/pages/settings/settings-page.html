@@ -1,27 +1,10 @@
 <link rel="import" href="general-settings.html">
 <link rel="import" href="fpm-configs.html">
 <link rel="import" href="users-list.html">
-<polymer-element name="settings-page">
+<polymer-element name="settings-page" attributes="selectedTab">
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
         <div layout vertical fit>
-            <paper-shadow z="1">
-                <core-toolbar>
-                    <div class="bottom fit indent" horizontal layout>
-                        <paper-tabs flex valueattr="name" selected="{{selectedTab}}">
-                            <paper-tab name="general">
-                                General
-                            </paper-tab>
-                            <paper-tab name="fpmConfig">
-                                FPM Configs
-                            </paper-tab>
-                            <paper-tab name="users">
-                                Users
-                            </paper-tab>
-                        </paper-tabs>
-                    </div>
-                </core-toolbar>
-            </paper-shadow>
             <core-pages valueattr="name" selected="{{selectedTab}}" flex>
                 <section name="general">
                     <general-settings scope="{{usersSettings.general}}" id="general"></general-settings>

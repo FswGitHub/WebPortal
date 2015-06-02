@@ -34,9 +34,12 @@
         <script>Polymer({url: '/WebPortal/'});</script>
     </polymer-element>
     <template is="auto-binding">
-        <core-scaffold responsiveWidth="1280px" id="scaffold">
+        <core-media-query query="max-width: 320px"
+                          queryMatches="{{phoneScreen}}"></core-media-query>
+        <core-scaffold responsiveWidth="1280px" id="scaffold" mode="standart">
+            <!--Aside menu-->
             <nav>
-                <paper-shadow z="1">
+                <paper-shadow z="1" class="logo-shadow">
                     <core-toolbar class="aside-menu" light?="{{themeLight}}">
                         <logo-main url="{{logo}}" scaffold="true"></logo-main>
                     </core-toolbar>
@@ -65,6 +68,7 @@
                     </paper-item>
                 </core-menu>
             </nav>
+            <!--Page title-->
             <core-toolbar tool flex class="page-title">
                 <div class="title">
                     <core-selector valueattr="hash" selected="{{route}}">
@@ -78,8 +82,34 @@
                     </core-selector>
                 </div>
             </core-toolbar>
+            <!--Portfolio item tabs-->
+            <template repeat="{{val in subItems}}">
+                <template if="{{'portfolio/'+val.id == route}}">
+                    <core-toolbar class="portfolio-item-tabs">
+                        <div class="bottom fit indent" horizontal layout>
+                            <paper-tabs flex valueattr="name" selected="{{selectedItemTab}}">
+                                <paper-tab name="dashboard">Dashboard</paper-tab>
+                                <paper-tab name="holdings">Holdings</paper-tab>
+                            </paper-tabs>
+                        </div>
+                    </core-toolbar>
+                </template>
+            </template>
+            <!--Settings tabs-->
+            <template if="{{route=='settings'}}">
+                <core-toolbar class="settings-tabs">
+                    <div class="bottom fit indent" horizontal layout>
+                        <paper-tabs flex valueattr="name" selected="{{selectedSettingsTab}}">
+                            <paper-tab name="general">General</paper-tab>
+                            <paper-tab name="fpmConfig">FPM Configs</paper-tab>
+                            <paper-tab name="users">Users</paper-tab>
+                        </paper-tabs>
+                    </div>
+                </core-toolbar>
+            </template>
+            <!--Pages content-->
             <div layout vertical fit>
-                <core-pages valueattr="hash" selected="{{route}}"  id="pages" flex twelve on-core-select="{{thisPage}}">
+                <core-pages valueattr="hash" selected="{{route}}"  id="pages" flex twelve?="{{!phoneScreen}}" eight="{{phoneScreen}}" on-core-select="{{thisPage}}">
                     <section hash="dashboard" class="content">
                         <dashboard-page></dashboard-page>
                     </section>
@@ -87,9 +117,9 @@
                         <portfolio-page></portfolio-page>
                     </section>
                     <template repeat="{{val in subItems}}">
-                        <section hash="portfolio/{{val.id}}">
+                        <section hash="{{'portfolio/'+val.id}}">
                             <template if="{{'portfolio/'+val.id == route}}">
-                                <portfolio-item itemId="{{val.id}}" fit></portfolio-item>
+                                <portfolio-item itemId="{{val.id}}" selectedTab="{{selectedItemTab}}" fit></portfolio-item>
                             </template>
                         </section>
                     </template>
@@ -97,12 +127,13 @@
                         <profile-page></profile-page>
                     </section>
                     <section hash="settings">
-                        <settings-page fit id="settingsPage"></settings-page>
+                        <settings-page fit id="settingsPage" selectedTab="{{selectedSettingsTab}}"></settings-page>
                     </section>
                 </core-pages>
                 <footer-page flex horizontal layout></footer-page>
             </div>
         </core-scaffold>
+        <!--Authorization pages-->
         <login-page hidden?="{{route != 'login'}}" logo="img/logo-light.png"></login-page>
         <signup-page hidden?="{{route != 'signup'}}" logo="img/logo-light.png"></signup-page>
         <confirm-page hidden?="{{route != 'confirm'}}" logo="img/logo-light.png"></confirm-page>
@@ -173,6 +204,7 @@
         window.addEventListener('hashchange', function(e){
             var hash = window.location.hash.substring(1);
             var pages = document.querySelector('#pages');
+            var portfolioItem = new RegExp('portfolio\/(?=.)','i');
 
             // Close 'confirm page'
             if (hash=='confirm'){
@@ -181,6 +213,9 @@
                 },5000);
             }
         });
+
+        template.selectedItemTab = 'dashboard';
+        template.selectedSettingsTab = 'general';
     </script>
 </body>
 </html>

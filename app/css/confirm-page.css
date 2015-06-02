@@ -9,7 +9,7 @@
   }
 
   core-toolbar /deep/ .bottom.fit.indent {
-    margin-left: 26px;
+    margin-left: 16px;
   }
 }
 paper-fab {
@@ -109,7 +109,7 @@ paper-fab {
   font-size: 14px;
 }
 .login-page .content .create, .confirm-page .content .create {
-  margin: 30px 0 0;
+  margin: 30px 0 10px 0;
   text-align: center;
   color: #FFFFFF;
 }

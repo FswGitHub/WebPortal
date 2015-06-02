@@ -1,7 +1,9 @@
-<polymer-element name="holdings-table" attributes="portfolioHoldings allItems selectedView showNoMatches  selectedPage selectedSize pages">
+<link rel="import" href="page-selector.html">
+<polymer-element name="holdings-table" attributes="showNoMatches allItems portfolioItemsNoCategory showAll request portfolio">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-page.css">
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
+        <page-selector pages="{{allPages}}" selectedPage="{{page}}" sizes="{{sizes}}" size="{{rowSize}}"></page-selector>
         <!--Holdings table-->
         <div class="table-wrapper">
             <core-media-query query="max-width: 768px"
@@ -43,26 +45,27 @@
                 </core-selector>
             </div>
             <!--Holdings table statutory view-->
-            <div hidden?="{{selectedView == 'icb'}}" id="statutoryTable">
-                <core-pages valueattr="page" selected="{{selectedPage}}">
-                    <template repeat="{{page, i in pages}}">
-                        <section page="{{page}}">
+            <div id="statutoryTable" hidden?="{{showAll}}">
+                <core-pages valueattr="page" selected="{{page}}">
+                    <template repeat="{{pageItem, i in allPages}}">
+                        <section page="{{pageItem}}">
                             <div class="table-body no-padding-bottom">
                                 <template repeat="{{val in portfolioHoldings}}">
-                                    <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id+i}}" hidden?="{{val.categoryItems.length <= page.from}}">
-                                        <div class="col-padding table-item category-title" flex eleven>
+                                    <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id+i}}" hidden?="{{val.categoryItems.length <= pageItem.from}}">
+                                        <div class="col-padding table-item category-title" flex seven>
                                             <core-icon id="icon{{val.id+i}}" class="category-icon" icon="arrow-drop-down"></core-icon>
                                             {{val.category}}
                                         </div>
-                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageBookVal}}</div>
-                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMarcPrice}}</div>
-                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMacVal}}</div>
-                                        <div class="col-padding table-item" flex two hidden?="{{phoneScreen}}">{{val.averageMV}}</div>
-                                        <div class="col-padding table-item" flex five hidden?="{{phoneScreen}}">{{val.averageExpVal}}</div>
+                                        <div class="col-padding table-item" flex three hidden?="{{phoneScreen}}">{{val.costPrice}}</div>
+                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.totalBookValue}}</div>
+                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMarketPrice}}</div>
+                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.totalMarketValue}}</div>
+                                        <div class="col-padding table-item" flex two hidden?="{{phoneScreen}}">{{val.totalPercentageMV}}</div>
+                                        <div class="col-padding table-item" flex five hidden?="{{phoneScreen}}">{{val.totalExposureValue}}</div>
                                     </div>
                                     <core-collapse id="collapse{{val.id+i}}" class="collapse" opened>
                                         <core-selector selected="0" valueattr="number" class="collapse-content">
-                                            <template repeat="{{item, i in val.categoryItems | orderBy(oderVal) | limitFrom(page.from,page.to)}}">
+                                            <template repeat="{{item, i in val.categoryItems | orderBy(oderVal) | limitFrom(pageItem.from,pageItem.to)}}">
                                                 <div layout vertical?="{{phoneScreen}}" number="{{i}}" >
                                                     <h1 hidden?="{{!phoneScreen}}" class="table-header-in-collapse">{{item.name}}</h1>
                                                     <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
@@ -93,12 +96,23 @@
                                     </core-collapse>
                                 </template>
                             </div>
+                            <template if="{{i == (allPages.length - 1)}}" hidden?="{{phoneScreen}}">
+                                <div layout horizontal center-center class="category-totals">
+                                    <div class="col-padding table-item portfolio-total-label" flex seven hidden?="{{phoneScreen}}">{{portfolio}} TOTAL</div>
+                                    <div class="col-padding table-item" flex three>{{classificationContent.costPrice}}</div>
+                                    <div class="col-padding table-item" flex four>{{classificationContent.totalBookValue}}</div>
+                                    <div class="col-padding table-item" flex four>{{classificationContent.averageMarketPrice}}</div>
+                                    <div class="col-padding table-item" flex four>{{classificationContent.totalMarketValue}}</div>
+                                    <div class="col-padding table-item" flex two>{{classificationContent.totalPercentageMV}}</div>
+                                    <div class="col-padding table-item" flex five>{{classificationContent.totalExposureValue}}</div>
+                                </div>
+                            </template>
                         </section>
                     </template>
                 </core-pages>
             </div>
             <!--Holdings table ICB view-->
-            <div class="table-body" hidden?="{{selectedView == 'statutory'}}">
+            <div class="table-body" hidden?="{{!showAll}}">
                 <core-selector selected="0" valueattr="number">
                     <template repeat="{{item, i in allItems | orderBy(oderVal)}}">
                         <div layout vertical?="{{phoneScreen}}" number="{{i}}">
@@ -137,10 +151,48 @@
                 </core-selector>
             </div>
         </div>
+        <core-ajax auto
+                   id="classificationItems"
+                   on-core-response="{{contentResponse}}" url="{{request}}"></core-ajax>
     </template>
     <script>
         Polymer('holdings-table',{
-            ready: function(){},
+            ready: function(){
+                //this.$.classificationItems.url = this.request;
+                this.page = 0;
+                this.portfolioItemsNoCategory = [];
+            },
+            contentResponse: function(e, data){
+                var me = this;
+                if(data.response.success) {
+                    me.classificationContent = data.response.item;
+                    me.holdings = data.response.item.holdings;
+                    me.allItems = [];
+                    me.portfolioHoldings = me.holdings;
+                    me.sizes = this.getSizes(me.portfolioHoldings);
+                    me.rowSize = me.sizes[1];
+                    me.allPages = this.makePages(me.portfolioHoldings, me.rowSize);
+                    //Content without categories generation
+                    for (var i=0; i < me.portfolioHoldings.length; i++) {
+                        me.allItems = me.allItems.concat(me.portfolioHoldings[i].categoryItems);
+                    }
+
+                    //Copy content to "filter by name" function
+                    me.portfolioItemsNoCategory = me.allItems;
+                }
+                else {
+                    me.allItems = new Array(10);
+                    me.allPages = [{
+                        cutCategory: 0,
+                        lastCategory: 2
+                    }];
+                    me.portfolioHoldings = {
+                        categoryItems:new Array(10)
+                    };
+                    me.sizes = [50,100,200];
+                    me.rowSize = me.sizes[1];
+                }
+            },
             //Toggle collapses(categories) in the table
             toggle: function(e) {
                 var me = this;
@@ -165,6 +217,100 @@
             order: function (e){
                 var criteria = e.currentTarget.attributes.orderval.value;
                 this.oderVal = criteria;
+            },
+
+            //Sort rows to pages
+            makePages: function(data, size){
+                size = parseInt(size);
+                var me  = this;
+                var allPages = [];
+                var maxCateroriesValues = this.getAllValues(data);
+                var maxSize = this.getMaxValue(maxCateroriesValues);
+                var pages = Math.ceil(maxSize/size);
+
+                var f = 0;
+                var n = size;
+
+                for (var i=0; i< pages; i++) {
+                    var page = {};
+                    page.from = f;
+                    page.to  = n;
+
+                    allPages.push(page);
+                    f = n;
+                    n = n+size;
+                }
+
+                return allPages
+            },
+
+            getAllValues: function (array){
+                var newMass = [];
+                for (var i=0; i < array.length; i++) {
+                    var category = array[i];
+                    var fullSize = category.categoryItems.length;
+                    newMass.push(fullSize);
+                }
+                return newMass;
+            },
+
+            getMaxValue: function (array){
+                var max = array[0]; // берем первый элемент массива
+                for (var i = 0; i < array.length; i++) { // переберем весь массив
+                    // если элемент больше, чем в переменной, то присваиваем его значение переменной
+                    if (max < array[i]) max = array[i];
+                }
+                // возвращаем максимальное значение
+                return max;
+            },
+
+            getSizes: function(data){
+                var sizesArray = [];
+                var maxCateroriesValues = this.getAllValues(data);
+                var maxSize = this.getMaxValue(maxCateroriesValues);
+                var categories = maxCateroriesValues.length;
+                var valuesSum = this.getSum(maxCateroriesValues);
+                var average = Math.round(valuesSum/categories);
+                var increment = this.setIncrement(average);
+
+                if (increment == 5) {
+                    sizesArray = [3, 5, 10];
+                } else {
+                    sizesArray = [increment/2, increment, increment*2];
+                }
+                return sizesArray;
+            },
+
+            getSum: function(array){
+                var sum = 0;
+                for(var i=0; i< array.length; i++){
+                    sum = sum + array[i];
+                }
+                return sum;
+            },
+
+            setIncrement: function(average){
+                var increment = 1;
+
+                if (average <= 10){
+                    if (average <= 5){increment = 5;}
+                    else {increment = 10;}
+                }
+                else {
+                    if (average <= 100){
+                        if (average <= 50){increment = 50;}
+                        else {increment = 100;}
+                    }
+                    else {increment = 100;}
+                }
+
+                return increment;
+            },
+
+            rowSizeChanged: function(){
+                var me = this;
+                me.allPages = this.makePages(me.portfolioHoldings, me.rowSize);
+                me.page = 0;
             }
         });
     </script>

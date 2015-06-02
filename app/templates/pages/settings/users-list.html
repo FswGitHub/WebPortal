@@ -28,7 +28,7 @@
             <!--Options dialogs-->
             <div class="settings-users-dialogs">
                 <!--Import users dialog-->
-                <paper-action-dialog heading="Import" id="importUsersDialog" opened="{{openImport}}" backdrop >
+                <paper-action-dialog heading="Import" id="importUsersDialog" opened="{{openImport}}" backdrop>
                     <form>
                         <label class="upload-label">Upload a file</label>
                         <core-field class="browse-field" relative>
@@ -41,31 +41,30 @@
                             <span class="drag-drop-label">Drag and drop file here</span>
                         </div>
                     </form>
-                    <paper-button affirmative id="cancel" class="action-button" on-tap="{{closeUploadDialog}}">Cancel</paper-button>
-                    <paper-button affirmative class="action-button" on-tap="{{uploadUsers}}">Upload</paper-button>
+                    <div layout horizontal end-justified>
+                        <paper-button affirmative id="cancel" class="action-button" on-tap="{{closeUploadDialog}}">Cancel</paper-button>
+                        <paper-button class="action-button" on-tap="{{uploadUsers}}">Upload</paper-button>
+                    </div>
                 </paper-action-dialog>
                 <!--Add user dialog-->
-                <paper-dialog heading="Add User" id="addUsersDialog" opened="{{openAdd}}" backdrop >
+                <paper-dialog heading="Add User" id="addUsersDialog" opened="{{openAdd}}" backdrop>
                     <form>
                         <paper-input-decorator id="addUserEmail"
                                              label="Email Address"
                                              floatingLabel
-                                             error="Please enter Email"
-                                             isInvalid="{{invalidEmail}}" on-keyup="{{validateField}}">
+                                             error="Please enter valid Email">
                           <input id="userEmail" type="email" required>
                         </paper-input-decorator>
                         <paper-input-decorator id="addUserFirstName"
                                              label="First Name"
                                              floatingLabel
-                                             error="Please enter user First Name"
-                                             isInvalid="{{isName}}" on-keyup="{{validateField}}">
+                                             error="Please enter user First Name">
                           <input id="userFName" type="text" required>
                         </paper-input-decorator>
                         <paper-input-decorator id="addUserLastName"
                                              label="Last Name"
                                              floatingLabel
-                                             error="Please enter user Last Name"
-                                             isInvalid="{{isLastName}}" on-keyup="{{validateField}}">
+                                             error="Please enter user Last Name">
                           <input id="userLName" type="text" required>
                         </paper-input-decorator>
                     </form>
@@ -74,7 +73,12 @@
                         <paper-button class="action-button" on-tap="{{addUser}}">Add</paper-button>
                     </div>
                 </paper-dialog>
-                </div>
+                <paper-action-dialog id="errorDialog"
+                                     heading="Error">
+                    <p>{{dialogText}}</p>
+                    <paper-button affirmative autofocus class="action-button">Ok</paper-button>
+                </paper-action-dialog>
+            </div>
             <!--Users table-->
             <div class="users-table">
              <div class="table-wrapper">
@@ -118,14 +122,6 @@
                  </div>
              </div>
             </div>
-            <paper-action-dialog id="errorDialog"
-                                 heading="Error"
-                                 transition="core-transition-center"
-                                 backdrop
-                                 layered="true">
-                <p>{{dialogText}}</p>
-                <paper-button affirmative autofocus class="action-button">Ok</paper-button>
-            </paper-action-dialog>
         </div>
     </template>
     <script>
@@ -329,7 +325,8 @@
                     uploadOutput.value = '';
                 }
                 else {
-                    me.$.importUsersDialog.toggle();
+                    //me.$.importUsersDialog.toggle();
+                    this.errorMessage('Please, choose a .xlsx or .json file with users!');
                 }
             },
             closeUploadDialog: function(){

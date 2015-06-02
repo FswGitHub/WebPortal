@@ -9,7 +9,7 @@
   }
 
   core-toolbar /deep/ .bottom.fit.indent {
-    margin-left: 26px;
+    margin-left: 16px;
   }
 }
 paper-fab {
@@ -19,7 +19,7 @@ paper-fab {
 }
 
 /*Dialogs styles*/
-html /deep/ paper-action-dialog {
+html /deep/ paper-action-dialog#errorDialog, html /deep/ paper-dialog {
   min-width: 250px;
   max-width: 300px;
 }
@@ -62,6 +62,7 @@ html /deep/ paper-action-dialog .upload-drag-drop-zone {
   border: 1px solid #4A4A4A;
   display: block;
   border-radius: 5px;
+  margin-bottom: 20px;
 }
 html /deep/ paper-action-dialog .drag-drop-label {
   display: block;

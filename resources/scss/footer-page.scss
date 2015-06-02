@@ -26,3 +26,12 @@
     }
   }
 }
+
+@media  screen and (max-width: 530px) {
+  .footer {
+    .footer-content {
+      width: 80%;
+      display: inline-block;
+    }
+  }
+}
