@@ -32,10 +32,13 @@ paper-fab {
 }
 :host /deep/ .profile-photo {
   margin: 0 0 0 20%;
+  -webkit-box-shadow: 0px 0px 5px 0px #323232;
+  -moz-box-shadow: 0px 0px 5px 0px #323232;
+  box-shadow: 0px 0px 5px 0px #323232;
 }
 :host /deep/ .user-data {
   width: 100%;
-  margin-bottom: 150px;
+  margin-bottom: 50px;
   margin-right: 5%;
 }
 :host /deep/ .user-data paper-input-decorator /deep/ .label-text {
@@ -81,7 +84,33 @@ paper-fab {
 :host /deep/ .user-data paper-input-decorator.invalid /deep/ .focused-underline {
   background-color: salmon;
 }
-@media screen and (max-width: 480px) {
+:host /deep/ .control-button {
+  background-color: #979797;
+  color: #FFFFFF;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+:host /deep/ .image-upload-preview {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+:host /deep/ .camera {
+  width: 30%;
+  margin-bottom: 16px;
+}
+:host /deep/ .profile-photo-msg {
+  font-size: 24px;
+  color: #FFFFFF;
+  margin-bottom: 5px;
+}
+:host /deep/ .profile-photo-size {
+  color: #FFFFFF;
+  font-size: 12px;
+}
+:host /deep/ .open-uploader {
+  opacity: 0;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
   :host /deep/ .header {
     margin-bottom: 40px;
   }
@@ -118,5 +147,8 @@ paper-fab {
   }
   :host /deep/ .user-data paper-input-decorator input {
     font-size: 16px;
+  }
+  :host /deep/ .control-button {
+    font-size: 18px;
   }
 }

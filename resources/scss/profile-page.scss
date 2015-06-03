@@ -19,11 +19,14 @@
 
     .profile-photo {
       margin: 0 0 0 20%;
+      -webkit-box-shadow: 0px 0px 5px 0px rgba(50, 50, 50, 1);
+      -moz-box-shadow:    0px 0px 5px 0px rgba(50, 50, 50, 1);
+      box-shadow:         0px 0px 5px 0px rgba(50, 50, 50, 1);
     }
 
     .user-data {
       width: 100%;
-      margin-bottom: 150px;
+      margin-bottom: 50px;
       margin-right: 5%;
       paper-input-decorator {
         /deep/ {
@@ -88,7 +91,39 @@
       }
     }
 
-    @media screen and (max-width: $size-mobile) {
+    .control-button {
+      background-color: $color-grey-medium;
+      color: $color-white;
+      font-size: $font-size-desktop;
+      margin-bottom: 10px;
+    }
+
+    .image-upload-preview {
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .camera {
+      width: 30%;
+      margin-bottom: 16px;
+    }
+
+    .profile-photo-msg {
+      font-size: 24px;
+      color: $color-white;
+      margin-bottom: 5px;
+    }
+
+    .profile-photo-size {
+      color: $color-white;
+      font-size: $font-size-footer;
+    }
+
+    .open-uploader {
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: $size-tablet) {
       .header {
         margin-bottom: 40px;
       }
@@ -138,6 +173,10 @@
             font-size: $font-size-mobile;
           }
         }
+      }
+
+      .control-button {
+        font-size: $font-size-desktop-small;
       }
     }
   }

@@ -96,8 +96,8 @@
                                     </core-collapse>
                                 </template>
                             </div>
-                            <template if="{{i == (allPages.length - 1)}}" hidden?="{{phoneScreen}}">
-                                <div layout horizontal center-center class="category-totals">
+                            <template if="{{i == (allPages.length - 1)}}">
+                                <div layout horizontal center-center class="category-totals" hidden?="{{phoneScreen}}">
                                     <div class="col-padding table-item portfolio-total-label" flex seven hidden?="{{phoneScreen}}">{{portfolio}} TOTAL</div>
                                     <div class="col-padding table-item" flex three>{{classificationContent.costPrice}}</div>
                                     <div class="col-padding table-item" flex four>{{classificationContent.totalBookValue}}</div>

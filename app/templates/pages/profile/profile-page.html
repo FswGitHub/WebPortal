@@ -14,24 +14,24 @@
                                            label="First Name"
                                            floatingLabel
                                            error="Please enter First Name">
-                        <input type="text" value="{{user.firstName}}" required on-blur="{{saveData}}">
+                        <input type="text" value="{{user.firstName}}" required  readonly?="{{!editOpen}}">
                     </paper-input-decorator>
                     <paper-input-decorator id="lastName"
                                            label="Last Name"
                                            floatingLabel
                                            error="Please enter Last Name">
-                        <input type="text" value="{{user.lastName}}" required on-blur="{{saveData}}">
+                        <input type="text" value="{{user.lastName}}" required  readonly?="{{!editOpen}}">
                     </paper-input-decorator>
                     <paper-input-decorator id="email"
                                            label="E-mail"
                                            floatingLabel
                                            error="Please enter correct Email">
-                        <input type="email" value="{{user.email}}" required on-blur="{{saveData}}">
+                        <input type="email" value="{{user.email}}" required  readonly?="{{!editOpen}}">
                     </paper-input-decorator>
                     <paper-input-decorator id="cellphone"
                                            label="Cellphone"
                                            floatingLabel>
-                        <input type="tel" value="{{user.cellphone}}" on-blur="{{saveData}}">
+                        <input type="tel" value="{{user.cellphone}}"  readonly?="{{!editOpen}}">
                     </paper-input-decorator>
                     <paper-input-decorator id="idNumber"
                                            label="ID Number"
@@ -41,9 +41,32 @@
                 </form>
             </div>
             <div flex?="{{!phoneScreen}}" class="profile-image">
-                <core-image class="profile-photo" src="{{user.photo}}" sizing="cover" style="width: 200px; height: 200px"></core-image>
+                <core-image id="photo" relative class="profile-photo" src="{{user.photo}}" sizing="cover" style="width: 200px; height: 200px">
+                    <div fit class="image-upload-preview" vertical layout center-center hidden?="{{!editOpen}}">
+                        <img class="camera" src="../../../img/camera.png">
+                        <span class="profile-photo-msg">Change your <br> Profile Photo</span>
+                        <span class="profile-photo-size">200px x 200px</span>
+                        <input type="file" id="photoUpload" class="open-uploader" fit on-change="{{uploadPhoto}}">
+                    </div>
+                </core-image>
             </div>
         </div>
+        <div class="profile-controls">
+            <div layout horizontal start>
+                <paper-button class="control-button" on-tap="{{openEdit}}" hidden?="{{editOpen}}">Edit Profile</paper-button>
+            </div>
+            <div layout horizontal start-justified hidden?="{{!editOpen}}">
+                <paper-button class="control-button" on-tap="{{saveProfile}}">Save Changes</paper-button>
+                <paper-button class="control-button" on-tap="{{closeEdit}}">Cancel</paper-button>
+            </div>
+        </div>
+        <paper-action-dialog id="errorDialog"
+                             heading="Error"
+                             backdrop
+                             transition="core-transition-center">
+            <p>{{dialogText}}</p>
+            <paper-button affirmative autofocus class="action-button">Ok</paper-button>
+        </paper-action-dialog>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="profileContent"
@@ -97,16 +120,60 @@
                     }
                 }
             },
-            saveData: function(e) {
-                var fieldName = e.currentTarget.parentNode.id;
-                var fieldDecorator = e.currentTarget.parentNode;
+            openEdit: function(){
+                this.editOpen = true;
+            },
+            saveProfile: function(){
+                var firstName = this.$.firstName;
+                var lastName = this.$.lastName;
+                var email = this.$.email;
+                if(firstName.validate()&& lastName.validate() && email.validate()){
+                    //Submit must be here;
+                    this.editOpen = false;
+                }
+            },
+            closeEdit: function(){
+                this.editOpen = false;
+            },
+            errorMessage: function(text){
+                this.dialogText = text;
+                this.$.errorDialog.toggle();
+            },
 
-                if (fieldDecorator.validate()) {
-                    //Submit must be here!
-                    //console.log(this.user[fieldName]);
+            //upload New Photo functional
+            uploadPhoto: function(event, detail, sendler){
+                var dialog = this.$.errorDialog;
+                var dialogText = this.dialogText;
+                var url = this.$.photo;
+
+                this.handleFileSelect(event, function(e){
+                    var image = new Image();
+                    image.src = e.target.result;
+                    if (image.width == 200 && image.height == 200) {
+                        url.src = e.target.result;
+                        //Submit must be here!
+                        //console.log(url);
+                    }
+                    else {
+                        dialog.querySelector('p').innerHTML = 'Image must by 200px X 200px!';
+                        dialog.toggle();
+                    }
+                });
+            },
+
+            handleFileSelect: function(evt, callback){
+                var file = evt.target.files[0]; // FileList object
+                var error = this.errorMessage;
+                // Only process image files.
+                if (file.type.match('image.*')) {
+                    var reader = new FileReader();
+                    // Closure to capture the file information.
+                    reader.onload = callback;
+                    // Read in the image file as a data URL.
+                    reader.readAsDataURL(file);
                 }
                 else {
-                    e.currentTarget.focus();
+                    this.errorMessage('Please choose an image!');
                 }
             }
         });
