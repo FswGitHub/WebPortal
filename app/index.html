@@ -129,11 +129,11 @@
                     <section hash="settings">
                         <settings-page fit id="settingsPage" selectedTab="{{selectedSettingsTab}}"></settings-page>
                     </section>
-                    <section hash="{{route}}">
+                    <!--<section hash="{{route}}">
                         <div vertical layout fit center-center>
                             <h1>No page for url</h1>
                         </div>
-                    </section>
+                    </section>-->
                 </core-pages>
                 <footer-page flex horizontal layout></footer-page>
             </div>
@@ -174,14 +174,22 @@
 
         template.contentResponse = function(e, data){
             var me = this;
+            var i = 0;
+            var counter = '';
             if(data.response.success){
                 me.subItems = data.response.content;
                 me.logo = data.response.logo;
                 if (data.response.theme == 'light'){
                     me.themeLight = true;
                 }
-                /*me.range = '['+me.subItems[0].id+'-'+ me.subItems[me.subItems.length-1].id+']';
-                console.log(me.range);*/
+
+                for (i in me.subItems){
+                    counter =  counter+'^portfolio/'+ me.subItems[i].id+'$|';
+                }
+
+                //me.range = '['+counter+']';
+                //me.range = '[0-9]|10';
+                me.range = counter;
             }
         };
 
@@ -221,25 +229,12 @@
             }
         });
 
-        template.checkRoute = function(){
-            var pages = document.querySelector('#pages').querySelectorAll('section');
-            var i = '';
-            var a = 0;
-            for (i in pages){
-                var hash = pages[i].hash;
-                if (hash == this.route){
-                    a = 1;
-                    break;
-                }
-            }
-            return(a);
-        };
-
         template.routeChan = function(){
             var r = this.route;
-            var value = 'portfolio\/(?=[0-9])';
+            var value = this.range+'^dashboard$|^portfolio$|^profile$|^settings$|^login$|^signup$|^confirm$|^newpass$|^reset$';
             var item = new RegExp(value,'i');
-            if ((r == 'dashboard') || (r == 'portfolio') || (r == 'profile') || (r == 'settings') || (item.test(r))|| (r == 'login') || (r == 'signup') || (r == 'confirm') || (r == 'newpass') || (r == 'reset')){
+
+            if (item.test(r)){
                 document.querySelector('#scaffold').classList.remove('unresolved');
             } else {
                 // Use URL hash for initial route. Otherwise, use the first page.
@@ -253,6 +248,7 @@
             }
         };
 
+        template.range = '^portfolio/1$|';
         template.selectedItemTab = 'dashboard';
         template.selectedSettingsTab = 'general';
     </script>
