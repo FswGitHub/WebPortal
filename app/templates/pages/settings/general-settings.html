@@ -27,13 +27,12 @@
 
                             </paper-input-decorator>
                             <paper-dropdown layout vertical  opened="{{colorPickerStatus}}" class="color-picker">
-                                <color-picker on-colorselected="{{colorSelected}}"></color-picker>
+                                <color-picker id="colorPicker" on-colorselected="{{colorSelected}}" width="200" height="200"></color-picker>
                                 <div layout vertical>
                                     <span id="colorPreview" class="color-preview" self-center></span>
                                     <core-field self-center class="selected-color">
                                         <input type="text" value="{{mainColor}}" id="mainColor" on-keyup="{{checkColor}}">
                                     </core-field>
-                                    <!--<span class="selected-color" self-center>{{mainColor}}</span>-->
                                 </div>
                                 <div class="actions" layout horizontal start reverse>
                                     <paper-button role="button" class="set-color" on-tap="{{saveColor}}">OK</paper-button>

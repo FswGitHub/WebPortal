@@ -1,4 +1,4 @@
-<polymer-element name="page-selector" attributes="pages selectedPage size sizes">
+<polymer-element name="page-selector" attributes="pages selectedPage size sizes oderVal">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <div class="holding-table-navigation-wrapper" id="pagesSelector">
@@ -17,17 +17,36 @@
                     <div><button class="holding-nav-button" on-tap="{{next}}"><span class="hide-nav">Next</span>&#62;&#62;</button></div>
                     <div><button class="holding-nav-button" on-tap="{{last}}">Last</button></div>
                 </core-selector>
-                <div class="size-menu-wrapper">
-                    <span class="size-label">Size</span>
-                    <paper-dropdown-menu>
-                        <paper-dropdown class="dropdown">
-                            <core-selector class="menu" valueattr="val" selected="{{size}}">
-                                <template repeat="{{v in sizes}}">
-                                    <paper-item val="{{v}}">{{v}}</paper-item>
-                                </template>
-                            </core-selector>
-                        </paper-dropdown>
-                    </paper-dropdown-menu>
+                <div class="size-menu-wrapper" horizontal?="{{phoneScreen}}" layout="{{phoneScreen}}">
+                    <div>
+                        <span class="size-label">Size</span>
+                        <paper-dropdown-menu>
+                            <paper-dropdown class="dropdown">
+                                <core-selector class="menu" valueattr="val" selected="{{size}}">
+                                    <template repeat="{{v in sizes}}">
+                                        <paper-item val="{{v}}">{{v}}</paper-item>
+                                    </template>
+                                </core-selector>
+                            </paper-dropdown>
+                        </paper-dropdown-menu>
+                    </div>
+                    <div hidden?="{{!phoneScreen}}">
+                        <span class="size-label">ORDER BY</span>
+                        <paper-dropdown-menu>
+                            <paper-dropdown class="dropdown">
+                                <core-selector class="menu" valueattr="orderval" selected="name" on-core-select="{{order}}">
+                                    <paper-item class="item" orderval="name">NAME</paper-item>
+                                    <paper-item class="item" orderval="nominal">NOMINAL</paper-item>
+                                    <paper-item class="item" orderval="costPrice">COST PRICE</paper-item>
+                                    <paper-item class="item" orderval="bookValue">BOOK VALUE</paper-item>
+                                    <paper-item class="item" orderval="marketPrice">MARKET PRICE</paper-item>
+                                    <paper-item class="item" orderval="marketValue">MARKET VALUE</paper-item>
+                                    <paper-item class="item" orderval="MV">%MV</paper-item>
+                                    <paper-item class="item" orderval="exposureValue">EXPOSURE VALUE</paper-item>
+                                </core-selector>
+                            </paper-dropdown>
+                        </paper-dropdown-menu>
+                    </div>
                 </div>
             </div>
         </div>
@@ -47,6 +66,9 @@
             last: function(){
                 var last = this.pages.length - 1;
                 this.$.pages.selected = last;
+            },
+            order: function (event, detail, sendler){
+                this.oderVal = sendler.selected;
             }
         });
     </script>

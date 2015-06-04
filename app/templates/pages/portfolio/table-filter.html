@@ -1,51 +1,15 @@
 <polymer-element name="table-filter" attributes="showNoMatches allItems portfolioItemsNoCategory showAll">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
-        <div layout horizontal center flex hidden?="{{phoneScreen}}">
-            <core-media-query query="max-width: 768px"
-                              queryMatches="{{phoneScreen}}"></core-media-query>
-            <core-field class="search-field" >
+        <core-media-query query="max-width: 768px"
+                          queryMatches="{{phoneScreen}}"></core-media-query>
+        <div layout horizontal center flex?="{{!phoneScreen}}" fit?="{{phoneScreen}}" class="hide-search" id="field">
+            <core-field class="search-field"  fit?="{{phoneScreen}}">
                 <input id="searchField" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
-                <core-icon icon="{{icon}}" on-tap="{{clearSearchValue}}"></core-icon>
+                <core-icon id="filterIcon" icon="{{icon}}" on-tap="{{clearSearchValue}}"></core-icon>
             </core-field>
         </div>
-        <div hidden?="{{!phoneScreen}}" layout horizontal center-center flex>
-            <core-icon-button icon="filter-list" on-tap="{{openFilter}}"></core-icon-button>
-            <paper-dropdown halign="right" opened="{{filtersStatus}}" class="mobile-filters">
-                <div class="menu filters-menu">
-                    <paper-item class="item">
-                        <core-field class="search-field" flex>
-                            <input id="searchFieldMobile" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
-                            <core-icon icon="{{icon}}" on-tap="{{clearSearchValue}}"></core-icon>
-                        </core-field>
-                    </paper-item>
-                    <paper-item class="item" on-tap="{{order}}" orderval="name">
-                        <div class="label">Order by name</div>
-                    </paper-item>
-                    <paper-item class="item" on-tap="{{order}}" orderval="nominal">
-                        <div class="label">Order by nominal</div>
-                    </paper-item>
-                    <paper-item class="item" on-tap="{{order}}" orderval="costPrice">
-                        <div class="label">Order by cost price</div>
-                    </paper-item>
-                    <paper-item class="item" on-tap="{{order}}" orderval="bookValue">
-                        <div class="label">Order by book value</div>
-                    </paper-item>
-                    <paper-item class="item" on-tap="{{order}}" orderval="marketPrice">
-                        <div class="label">Order by market price</div>
-                    </paper-item>
-                    <paper-item class="item" on-tap="{{order}}" orderval="marketValue">
-                        <div class="label">Order by market value</div>
-                    </paper-item>
-                    <paper-item class="item" on-tap="{{order}}" orderval="MV">
-                        <div class="label">Order by %MV</div>
-                    </paper-item>
-                    <paper-item class="item" on-tap="{{order}}" orderval="exposureValue">
-                        <div class="label">Order by exposure value</div>
-                    </paper-item>
-                </div>
-            </paper-dropdown>
-        </div>
+        <core-icon-button icon="search" on-tap="{{openFilter}}" hidden?="{{!phoneScreen}}"></core-icon-button>
     </template>
     <script>
         Polymer('table-filter',{
@@ -53,15 +17,9 @@
             filterByName: function (e) {
                 var me = this;
                 var filtered = [];
-                var phoneScreen = this.phoneScreen;
                 var searchValue = '';
 
-                if (!phoneScreen) {
-                    searchValue = me.$.searchField.value;
-                }
-                else {
-                    searchValue = me.$.searchFieldMobile.value;
-                }
+                searchValue = me.$.searchField.value;
 
                 var items =  me.portfolioItemsNoCategory;
                 var letterMatch = new RegExp(searchValue, 'i');
@@ -93,16 +51,19 @@
 
             //Toggle filtering dropdown(mobile view)
             openFilter: function(){
-                this.filtersStatus = true;
+                var search = this.$.field;
+                search.classList.remove('hide-search');
+                this.icon = 'clear';
             },
 
             icon: 'search',
 
             clearSearchValue: function(){
                 var phoneScreen = this.phoneScreen;
+                var search = this.$.field;
                 var input = this.$.searchField;
                 if (phoneScreen) {
-                    input = this.$.searchFieldMobile;
+                    search.classList.add('hide-search');
                 }
                 input.value = '';
                 this.filterByName();

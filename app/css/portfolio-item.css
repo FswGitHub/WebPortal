@@ -138,6 +138,20 @@ paper-fab {
   padding: 0 5px;
 }
 @media screen and (max-width: 768px) {
+  :host /deep/ #field {
+    background-color: #979797;
+    z-index: 1;
+  }
+  :host /deep/ #field.hide-search {
+    display: none;
+  }
+  :host /deep/ .search-field {
+    margin: 8px 16px;
+  }
+  :host /deep/ .search-field #filterIcon {
+    margin-right: 8px;
+    z-index: 1;
+  }
   :host /deep/ .subheader {
     padding: 0;
   }
@@ -183,15 +197,9 @@ paper-fab {
 :host /deep/ core-toolbar.portfolio-item-panel {
   background: #979797;
 }
-:host /deep/ core-toolbar /deep/ ::content > .holding-view {
+:host /deep/ #holdingView {
   margin-right: 8px;
   min-width: 160px;
-}
-@media screen and (max-width: 320px) {
-  :host /deep/ core-toolbar /deep/ ::content > .holding-view {
-    margin-right: 0;
-    min-width: 150px;
-  }
 }
 :host /deep/ .search-block {
   padding: 0.25em 0.57em;
@@ -211,6 +219,12 @@ paper-fab {
 }
 :host /deep/ core-selector.menu .core-selected /deep/ .button-content {
   padding-left: 14px;
+}
+@media screen and (max-width: 320px) {
+  :host /deep/ #holdingView {
+    margin-right: 0;
+    min-width: 150px;
+  }
 }
 
 .calendar-button /deep/ .button-content {

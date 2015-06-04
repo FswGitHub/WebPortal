@@ -152,7 +152,7 @@ paper-fab {
 }
 :host /deep/ .color-picker {
   top: 0;
-  width: 300px;
+  width: 200px;
 }
 :host /deep/ .selected-color {
   font-size: 14px;
@@ -172,6 +172,10 @@ paper-fab {
   border-radius: 5px;
   display: block;
   margin-bottom: 10px;
+}
+:host /deep/ paper-button.set-color,
+:host /deep/ paper-button.close-color-picker {
+  font-size: 16px;
 }
 :host /deep/ paper-button.set-color /deep/ .button-content,
 :host /deep/ paper-button.close-color-picker /deep/ .button-content {
@@ -317,17 +321,6 @@ paper-fab {
   min-height: 24px;
 }
 @media screen and (max-width: 768px) {
-  :host /deep/ .color-picker {
-    width: 200px;
-  }
-  :host /deep/ paper-button.set-color,
-  :host /deep/ paper-button.close-color-picker {
-    font-size: 16px;
-  }
-  :host /deep/ canvas {
-    width: 200px;
-    height: 200px;
-  }
   :host /deep/ .user-actions {
     right: 16px;
     bottom: 16px;
@@ -433,13 +426,6 @@ paper-fab {
 }
 
 @media screen and (max-width: 320px) {
-  :host /deep/ .color-picker {
-    width: 170px;
-  }
-  :host /deep/ canvas {
-    width: 170px;
-    height: 170px;
-  }
   :host /deep/ paper-tabs paper-tab {
     font-size: 13px;
   }
