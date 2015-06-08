@@ -11,12 +11,12 @@
     <script type="text/javascript" src="libs/js-xlsx/jszip.js"></script>
     <script type="text/javascript" src="libs/js-xlsx/xlsx.js"></script>
     <script type="text/javascript" src="js/checkColor.js"></script>
-
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="css/side-menu.css" type="text/css">
-    <!--<link rel="import" href="libs/polymer/polymer.html">-->
     <link rel="import" href="libs/font-roboto/roboto.html">
+    <!--Includes of polymer elements-->
     <link rel="import" href="templates/includes.html">
+    <!--Includes of site pages-->
     <link rel="import" href="templates/pages/dashboard/dashboard-page.html">
     <link rel="import" href="templates/pages/portfolio/portfolio-page.html">
     <link rel="import" href="templates/pages/portfolio/portfolio-item.html">
@@ -187,27 +187,7 @@
                     counter =  counter+'^portfolio/'+ me.subItems[i].id+'$|';
                 }
 
-                //me.range = '['+counter+']';
-                //me.range = '[0-9]|10';
                 me.range = counter;
-            }
-        };
-
-        template.keyHandler = function(e, detail, sender) {
-            var pages = document.querySelector('#pages');
-
-            switch (detail.key) {
-                case 'left':
-                case 'up':
-                    pages.selectPrevious();
-                    break;
-                case 'right':
-                case 'down':
-                    pages.selectNext();
-                    break;
-                case 'space':
-                    detail.shift ? pages.selectPrevious() : pages.selectNext();
-                    break;
             }
         };
 
@@ -216,18 +196,6 @@
                 scaffold.closeDrawer();
             }
         };
-
-        window.addEventListener('hashchange', function(e){
-            var hash = window.location.hash.substring(1);
-            var pages = document.querySelector('#pages');
-
-            // Close 'confirm page'
-            if (hash=='confirm'){
-                setTimeout(function(){
-                    document.querySelector('flatiron-director').route = 'login';
-                },5000);
-            }
-        });
 
         template.routeChan = function(){
             var r = this.route;
@@ -246,8 +214,16 @@
                     this.route = 'login';
                 }
             }
+
+            // Close 'confirm page'
+            if (r == 'confirm'){
+                setTimeout(function(){
+                    document.querySelector('flatiron-director').route = 'login';
+                },5000);
+            }
         };
-        //very bad
+
+        //very very bad
         template.range = '^portfolio/[0-9]|';
         template.selectedItemTab = 'dashboard';
         template.selectedSettingsTab = 'general';

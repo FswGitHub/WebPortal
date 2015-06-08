@@ -157,7 +157,6 @@
     <script>
         Polymer('holdings-table',{
             ready: function(){
-                //this.$.classificationItems.url = this.request;
                 this.page = 0;
                 this.portfolioItemsNoCategory = [];
             },
@@ -169,11 +168,9 @@
                     me.portfolioHoldings = me.classificationContent.holdings;
                     me.allItems = [];
                     me.allPages = [{}];
-                    //me.sizes = this.getSizes(me.portfolioHoldings);
                     me.sizes = [50,100,200];
                     me.rowSize = me.sizes[0];
-                    me.allPages = me.makePagesArray(me.portfolioHoldings, me.rowSize);
-                    //console.log(me.portfolioHoldings);
+                    me.allPages = me.makePages(me.portfolioHoldings, me.rowSize);
                     console.log(me.allPages);
                     //Content without categories generation
                     for (var i=0; i < me.portfolioHoldings.length; i++) {
@@ -184,25 +181,26 @@
                 }
                 else {
                     me.allItems = new Array(10);
-                    me.allPages = [{}];
                     me.portfolioHoldings = {
                         categoryItems:new Array(10)
                     };
+                    me.allPages = [[{}]];
+
                     me.sizes = [50,100,200];
                     me.rowSize = me.sizes[0];
                 }
 
             },
 
-            //When data response make pages with size of items
-            makePagesArray: function(classification, size){
+            //When data response make pages with rows size == size selected
+            makePages: function(classification, size){
                 var pages = [];
                 var page = [];
                 var rows = [];
                 var pagesSettings = [];
                 var savedData = classification;
                 rows = this.getAllItems(savedData);
-                pagesSettings = this.getPageSettings(rows,size,savedData);
+                pagesSettings = this.getPageSettings(rows,size);
 
                 pages = this.getPages(classification, pagesSettings);
 
@@ -211,13 +209,10 @@
 
             getPages: function(data, settings){
                 var pages = [];
-                //console.log(settings);
                 for (var i = 0; i< settings.length; i++){
-                    //console.log('i='+i);
                     var page = [];
                     var k = settings[i].categoryStartWith;
                     for (k; k <= settings[i].categoryFinish; k++) {
-                        //console.log('k='+k);
                         var category = data[k];
                         if (k == settings[i].categoryStartWith){
                             var firstCategory = {};
@@ -247,7 +242,6 @@
                             page.push(category);
                         }
                     }
-                    //console.log(page);
                     pages.push(page);
                 }
                 return pages;
@@ -293,7 +287,7 @@
             },
 
             //Define start category, finish category and rows limit there
-            getPageSettings: function(items,size,data){
+            getPageSettings: function(items,size){
                 var settings = [];
                 var firstItem = 0;
                 var lastItem = size-1;
@@ -352,9 +346,7 @@
 
             rowSizeChanged: function(){
                 var me = this;
-                console.log(parseInt(me.rowSize));
-                me.allPages = this.makePagesArray(me.portfolioHoldings, parseInt(me.rowSize));
-
+                me.allPages = this.makePages(me.portfolioHoldings, parseInt(me.rowSize));
                 me.page = 0;
             }
         });

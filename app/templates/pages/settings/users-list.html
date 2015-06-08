@@ -271,7 +271,6 @@
                 var me = this;
                 me.openImport = true;
             },
-            openImport: false,
             openAddDialog: function(e){
                 var me = this;
                 var userEmail = me.$.addUserEmail, userFirstName = me.$.addUserFirstName, userLastName = me.$.addUserLastName;
@@ -294,7 +293,7 @@
             },
 
             //Upload users dialog buttons actions
-            openAdd: false,
+            openImport: false,
             uploadUsers: function(e) {
                 var me = this;
                 var uploadOutput = me.$.importUsersDialog.querySelector('#uploadFile');
@@ -310,6 +309,7 @@
                             me.allUsers = usersArray;
                             me.allUsers = me.addEmptyStrings(me.allUsers);
                         }
+                       this.openImport = false;
                     }
                     else {
                         this.errorMessage('Uploading error');
@@ -328,6 +328,7 @@
             },
 
             //Add user dialog buttons
+            openAdd: false,
             addUser: function (e){
                 var me = this;
                 var userEmail = me.$.addUserEmail, userFirstName = me.$.addUserFirstName, userLastName = me.$.addUserLastName;
