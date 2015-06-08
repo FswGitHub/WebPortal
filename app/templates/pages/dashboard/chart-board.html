@@ -62,6 +62,7 @@
                 setTimeout(function(){
                     me.options = {};
                     Chart.defaults.global.responsive = true;
+                    Chart.defaults.global.animation = false;
                     me.ctx = me.$.canvas.getContext('2d');
                     switch (type){
                         case (0):

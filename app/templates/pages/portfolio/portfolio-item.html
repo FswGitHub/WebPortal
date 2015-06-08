@@ -37,9 +37,11 @@
                 <section name="holdings">
                     <core-pages valueattr="view" selected="{{selectedView}}"  fit>
                         <template repeat="{{class in classifications}}">
-                            <section view="{{'classification'+class.id}}" class="content">
-                                <holdings-table request="{{request+selectedView+'.json'}}" showNoMatches="{{showNoMatches}}" allItems="{{allItems}}" portfolioItemsNoCategory="{{portfolioItemsNoCategory}}" showAll="{{showAll}}" portfolio="{{portfolioItemContent.title}}"></holdings-table>
-                            </section>
+                            <template  if="{{selectedView=='classification'+class.id}}">
+                                <section view="{{'classification'+class.id}}" class="content">
+                                    <holdings-table request="{{request+selectedView+'.json'}}" showNoMatches="{{showNoMatches}}" allItems="{{allItems}}" portfolioItemsNoCategory="{{portfolioItemsNoCategory}}" showAll="{{showAll}}" portfolio="{{portfolioItemContent.title}}"></holdings-table>
+                                </section>
+                            </template>
                         </template>
                     </core-pages>
                 </section>
@@ -61,7 +63,7 @@
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success) {
-                    me.portfolioItemContent = data.response.item;
+                    //me.portfolioItemContent = data.response.item;
                     me.portfolioCharts = data.response.item.charts;
                     me.classifications = data.response.item.classifications;
                 }

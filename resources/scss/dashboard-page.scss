@@ -38,6 +38,7 @@
 .chart-board{
   width: 48%;
   float: left;
+  overflow: hidden;
 
   paper-shadow{
     border-radius: 2px;
@@ -51,6 +52,7 @@
     }
     .chart{
       margin: 0 16px;
+      overflow: hidden;
     }
   }
 

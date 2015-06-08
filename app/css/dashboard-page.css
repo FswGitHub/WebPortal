@@ -46,6 +46,7 @@ paper-fab {
 .chart-board {
   width: 48%;
   float: left;
+  overflow: hidden;
 }
 .chart-board paper-shadow {
   border-radius: 2px;
@@ -60,6 +61,7 @@ paper-fab {
 }
 .chart-board paper-shadow .chart {
   margin: 0 16px;
+  overflow: hidden;
 }
 @media screen and (max-width: 768px) {
   .chart-board {

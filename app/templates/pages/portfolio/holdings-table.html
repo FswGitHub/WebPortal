@@ -48,10 +48,10 @@
             <div id="statutoryTable" hidden?="{{showAll}}">
                 <core-pages valueattr="page" selected="{{page}}">
                     <template repeat="{{pageItem, i in allPages}}">
-                        <section page="{{pageItem}}">
+                        <section page="{{i}}">
                             <div class="table-body no-padding-bottom">
-                                <template repeat="{{val in portfolioHoldings}}">
-                                    <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id+i}}" hidden?="{{val.categoryItems.length <= pageItem.from}}">
+                                <template repeat="{{val in pageItem}}">
+                                    <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id+i}}">
                                         <div class="col-padding table-item category-title" flex seven>
                                             <core-icon id="icon{{val.id+i}}" class="category-icon" icon="arrow-drop-down"></core-icon>
                                             {{val.category}}
@@ -65,7 +65,7 @@
                                     </div>
                                     <core-collapse id="collapse{{val.id+i}}" class="collapse" opened>
                                         <core-selector selected="0" valueattr="number" class="collapse-content">
-                                            <template repeat="{{item, i in val.categoryItems | orderBy(oderVal) | limitFrom(pageItem.from,pageItem.to)}}">
+                                            <template repeat="{{item, i in val.categoryItems | orderBy(oderVal)}}">
                                                 <div layout vertical?="{{phoneScreen}}" number="{{i}}" >
                                                     <h1 hidden?="{{!phoneScreen}}" class="table-header-in-collapse">{{item.name}}</h1>
                                                     <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
@@ -119,7 +119,6 @@
                             <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{item.name}}</h1>
                             <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
                                 <!--Holdings table-headers for mobile view-->
-
                                 <div class="col-content labels" hidden?="{{!phoneScreen}}">
                                     <div class="col-padding table-item table-label">Nominal</div>
                                     <div class="col-padding table-item table-label">Cost Price</div>
@@ -162,37 +161,169 @@
                 this.page = 0;
                 this.portfolioItemsNoCategory = [];
             },
+
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success) {
                     me.classificationContent = data.response.item;
-                    me.holdings = data.response.item.holdings;
+                    me.portfolioHoldings = me.classificationContent.holdings;
                     me.allItems = [];
-                    me.portfolioHoldings = me.holdings;
-                    me.sizes = this.getSizes(me.portfolioHoldings);
-                    me.rowSize = me.sizes[1];
-                    me.allPages = this.makePages(me.portfolioHoldings, me.rowSize);
+                    me.allPages = [{}];
+                    //me.sizes = this.getSizes(me.portfolioHoldings);
+                    me.sizes = [50,100,200];
+                    me.rowSize = me.sizes[0];
+                    me.allPages = me.makePagesArray(me.portfolioHoldings, me.rowSize);
+                    //console.log(me.portfolioHoldings);
+                    console.log(me.allPages);
                     //Content without categories generation
                     for (var i=0; i < me.portfolioHoldings.length; i++) {
                         me.allItems = me.allItems.concat(me.portfolioHoldings[i].categoryItems);
                     }
-
                     //Copy content to "filter by name" function
                     me.portfolioItemsNoCategory = me.allItems;
                 }
                 else {
                     me.allItems = new Array(10);
-                    me.allPages = [{
-                        cutCategory: 0,
-                        lastCategory: 2
-                    }];
+                    me.allPages = [{}];
                     me.portfolioHoldings = {
                         categoryItems:new Array(10)
                     };
                     me.sizes = [50,100,200];
-                    me.rowSize = me.sizes[1];
+                    me.rowSize = me.sizes[0];
+                }
+
+            },
+
+            //When data response make pages with size of items
+            makePagesArray: function(classification, size){
+                var pages = [];
+                var page = [];
+                var rows = [];
+                var pagesSettings = [];
+                var savedData = classification;
+                rows = this.getAllItems(savedData);
+                pagesSettings = this.getPageSettings(rows,size,savedData);
+
+                pages = this.getPages(classification, pagesSettings);
+
+                return pages;
+            },
+
+            getPages: function(data, settings){
+                var pages = [];
+                //console.log(settings);
+                for (var i = 0; i< settings.length; i++){
+                    //console.log('i='+i);
+                    var page = [];
+                    var k = settings[i].categoryStartWith;
+                    for (k; k <= settings[i].categoryFinish; k++) {
+                        //console.log('k='+k);
+                        var category = data[k];
+                        if (k == settings[i].categoryStartWith){
+                            var firstCategory = {};
+                            firstCategory.categoryItems = this.cutFirstCategory(category, settings[i].firstCategoryStartIndex);
+                            firstCategory.id = category.id;
+                            firstCategory.category = category.category;
+                            firstCategory.totalBookValue = category.totalBookValue;
+                            firstCategory.averageMarketPrice = category.averageMarketPrice;
+                            firstCategory.totalMarketValue = category.totalMarketValue;
+                            firstCategory.totalPercentageMV = category.totalPercentageMV;
+                            firstCategory.totalExposureValue = category.totalExposureValue;
+                            page.push(firstCategory);
+                        }
+                        if (k == settings[i].categoryFinish) {
+                            var lastCategory = {};
+                            lastCategory.categoryItems = this.cutLastCategory(category, settings[i].lastCategoryFinishIndex);
+                            lastCategory.id = category.id;
+                            lastCategory.category = category.category;
+                            lastCategory.totalBookValue = category.totalBookValue;
+                            lastCategory.averageMarketPrice = category.averageMarketPrice;
+                            lastCategory.totalMarketValue = category.totalMarketValue;
+                            lastCategory.totalPercentageMV = category.totalPercentageMV;
+                            lastCategory.totalExposureValue = category.totalExposureValue;
+                            page.push(lastCategory);
+                        }
+                        if ((k!=settings[i].categoryFinish) && (k != settings[i].categoryStartWith)){
+                            page.push(category);
+                        }
+                    }
+                    //console.log(page);
+                    pages.push(page);
+                }
+                return pages;
+            },
+
+            cutFirstCategory: function(category, index){
+                var items = [];
+                var k = index;
+                for (k; k < category.categoryItems.length; k++) {
+                    items.push(category.categoryItems[k]);
+                }
+                return items;
+            },
+
+            cutLastCategory:function(category, index){
+                var items = [];
+                var k = 0;
+                for (k; k <= index; k++) {
+                    items.push(category.categoryItems[k]);
+                }
+                return items;
+            },
+
+            //add category index to item and index of row
+            addCategory: function(category, index){
+                var k = 0;
+                for (k; k < category.categoryItems.length; k++) {
+                    category.categoryItems[k].categoryIndex = index;
+                    category.categoryItems[k].itemIndex = k;
                 }
             },
+
+            //sum of all rows
+            getAllItems: function(data){
+                var i = 0;
+                var items=[];
+                //Content without categories generation
+                for (i; i < data.length; i++) {
+                    this.addCategory(data[i],i);
+                    items = items.concat(data[i].categoryItems);
+                }
+                return items;
+            },
+
+            //Define start category, finish category and rows limit there
+            getPageSettings: function(items,size,data){
+                var settings = [];
+                var firstItem = 0;
+                var lastItem = size-1;
+                var pageSettings = {
+                    categoryStartWith:0,
+                    categoryFinish:0,
+                    firstCategoryStartIndex:0,
+                    lastCategoryFinishIndex:0
+                };
+
+                var pagesLength = Math.ceil(items.length/size);
+
+                for(var i=0; i < pagesLength; i++) {
+                    if (i == (pagesLength-1)) {
+                        lastItem = items.length-1;
+                    }
+                    pageSettings = {
+                        categoryStartWith:items[firstItem].categoryIndex,
+                        categoryFinish:items[lastItem].categoryIndex,
+                        firstCategoryStartIndex:items[firstItem].itemIndex,
+                        lastCategoryFinishIndex:items[lastItem].itemIndex
+                    };
+                    settings.push(pageSettings);
+                    lastItem = lastItem+size;
+                    firstItem = (lastItem-size)+1;
+                }
+
+                return settings;
+            },
+
             //Toggle collapses(categories) in the table
             toggle: function(e) {
                 var me = this;
@@ -219,97 +350,11 @@
                 this.oderVal = criteria;
             },
 
-            //Sort rows to pages
-            makePages: function(data, size){
-                size = parseInt(size);
-                var me  = this;
-                var allPages = [];
-                var maxCateroriesValues = this.getAllValues(data);
-                var maxSize = this.getMaxValue(maxCateroriesValues);
-                var pages = Math.ceil(maxSize/size);
-
-                var f = 0;
-                var n = size;
-
-                for (var i=0; i< pages; i++) {
-                    var page = {};
-                    page.from = f;
-                    page.to  = n;
-
-                    allPages.push(page);
-                    f = n;
-                    n = n+size;
-                }
-
-                return allPages
-            },
-
-            getAllValues: function (array){
-                var newMass = [];
-                for (var i=0; i < array.length; i++) {
-                    var category = array[i];
-                    var fullSize = category.categoryItems.length;
-                    newMass.push(fullSize);
-                }
-                return newMass;
-            },
-
-            getMaxValue: function (array){
-                var max = array[0]; // берем первый элемент массива
-                for (var i = 0; i < array.length; i++) { // переберем весь массив
-                    // если элемент больше, чем в переменной, то присваиваем его значение переменной
-                    if (max < array[i]) max = array[i];
-                }
-                // возвращаем максимальное значение
-                return max;
-            },
-
-            getSizes: function(data){
-                var sizesArray = [];
-                var maxCateroriesValues = this.getAllValues(data);
-                var maxSize = this.getMaxValue(maxCateroriesValues);
-                var categories = maxCateroriesValues.length;
-                var valuesSum = this.getSum(maxCateroriesValues);
-                var average = Math.round(valuesSum/categories);
-                var increment = this.setIncrement(average);
-
-                if (increment == 5) {
-                    sizesArray = [3, 5, 10];
-                } else {
-                    sizesArray = [increment/2, increment, increment*2];
-                }
-                return sizesArray;
-            },
-
-            getSum: function(array){
-                var sum = 0;
-                for(var i=0; i< array.length; i++){
-                    sum = sum + array[i];
-                }
-                return sum;
-            },
-
-            setIncrement: function(average){
-                var increment = 1;
-
-                if (average <= 10){
-                    if (average <= 5){increment = 5;}
-                    else {increment = 10;}
-                }
-                else {
-                    if (average <= 100){
-                        if (average <= 50){increment = 50;}
-                        else {increment = 100;}
-                    }
-                    else {increment = 100;}
-                }
-
-                return increment;
-            },
-
             rowSizeChanged: function(){
                 var me = this;
-                me.allPages = this.makePages(me.portfolioHoldings, me.rowSize);
+                console.log(parseInt(me.rowSize));
+                me.allPages = this.makePagesArray(me.portfolioHoldings, parseInt(me.rowSize));
+
                 me.page = 0;
             }
         });
