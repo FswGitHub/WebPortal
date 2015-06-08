@@ -354,12 +354,25 @@ paper-fab {
 }
 .collapse-category .table-item {
   line-height: 24px;
+  font-weight: 500;
 }
 .collapse-category .category-icon {
   color: #FFFFFF;
 }
 .collapse-category .col-padding.category-title {
   padding-right: 1.5%;
+}
+
+.category-totals {
+  background: #D8D8D8;
+  margin-bottom: 10px;
+}
+.category-totals .col-padding:first-child {
+  text-indent: 28px;
+}
+.category-totals .table-item {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .col-padding:first-child.portfolio-total-label {

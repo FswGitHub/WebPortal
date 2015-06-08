@@ -322,12 +322,25 @@
   user-select: none;
   .table-item {
     line-height: 24px;
+    font-weight: 500;
   }
   .category-icon {
     color: $color-white;
   }
   .col-padding.category-title {
     padding-right: 1.5%;
+  }
+}
+
+.category-totals {
+  background: $color-grey-medium-light;
+  margin-bottom: 10px;
+  .col-padding:first-child {
+    text-indent: 28px;
+  }
+  .table-item {
+    font-size: $font-size-mobile;
+    font-weight: bold;
   }
 }
 
