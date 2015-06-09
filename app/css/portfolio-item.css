@@ -474,6 +474,7 @@ paper-fab {
   }
   :host /deep/ .values .table-item {
     margin: 0;
+    min-height: 14px;
   }
   :host /deep/ .values .col-padding:last-child {
     padding: 16px 0;

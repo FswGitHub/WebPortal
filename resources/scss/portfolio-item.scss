@@ -456,6 +456,7 @@
 
       .values .table-item {
         margin: 0;
+        min-height: $font-size-mobile-small;
       }
 
       .values .col-padding:last-child {

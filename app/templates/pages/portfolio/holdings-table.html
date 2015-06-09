@@ -54,7 +54,7 @@
                 <div class="col-padding table-item" flex two>{{classificationContent.totalPercentageMV}}</div>
                 <div class="col-padding table-item" flex five>{{classificationContent.totalExposureValue}}</div>
             </div>
-            <!--Holdings table statutory view-->
+            <!--Holdings table -->
             <div id="statutoryTable" hidden?="{{showAll}}">
                 <core-pages valueattr="page" selected="{{page}}">
                     <template repeat="{{pageItem, i in allPages}}">
@@ -111,7 +111,7 @@
                     </template>
                 </core-pages>
             </div>
-            <!--Holdings table ICB view-->
+            <!--Holdings table search results-->
             <div class="table-body" hidden?="{{!showAll}}">
                 <core-selector selected="0" valueattr="number">
                     <template repeat="{{item, i in allItems | orderBy(oderVal)}}">
@@ -171,7 +171,6 @@
                     me.sizes = [50,100,200];
                     me.rowSize = me.sizes[0];
                     me.allPages = me.makePages(me.portfolioHoldings, me.rowSize);
-                    console.log(me.allPages);
                     //Content without categories generation
                     for (var i=0; i < me.portfolioHoldings.length; i++) {
                         me.allItems = me.allItems.concat(me.portfolioHoldings[i].categoryItems);
@@ -198,7 +197,8 @@
                 var page = [];
                 var rows = [];
                 var pagesSettings = [];
-                var savedData = classification;
+                var savedData = [];
+                savedData = classification;
                 rows = this.getAllItems(savedData);
                 pagesSettings = this.getPageSettings(rows,size);
 
