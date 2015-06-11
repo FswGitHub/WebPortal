@@ -36,7 +36,7 @@
                     <paper-input-decorator id="idNumber"
                                            label="ID Number"
                                            floatingLabel>
-                        <input type="number" value="{{user.idNumber}}" readonly>
+                        <input type="number" value="{{user.idNumber}}" readonly?="{{!editOpen}}">
                     </paper-input-decorator>
                 </form>
             </div>
@@ -155,7 +155,7 @@
                         //console.log(url);
                     }
                     else {
-                        dialog.querySelector('p').innerHTML = 'Image must by 200px X 200px!';
+                        dialog.querySelector('p').innerHTML = 'Image must be 200px X 200px!';
                         dialog.toggle();
                     }
                 });
