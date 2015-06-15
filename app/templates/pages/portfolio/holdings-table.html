@@ -44,24 +44,24 @@
                     </div>
                 </core-selector>
             </div>
-            <!--Totals values-->
-            <div layout horizontal center-center class="category-totals" hidden?="{{phoneScreen}}">
-                <div class="col-padding table-item portfolio-total-label" flex seven hidden?="{{phoneScreen}}">
-                    <core-icon id="toggleAll" class="category-icon" icon="arrow-drop-down" on-tap="{{toggleAllCategories}}"></core-icon>
-                    {{portfolio}} TOTAL
-                </div>
-                <div class="col-padding table-item" flex three></div>
-                <div class="col-padding table-item" flex four>{{classificationContent.totalBookValue}}</div>
-                <div class="col-padding table-item" flex four></div>
-                <div class="col-padding table-item" flex four>{{classificationContent.totalMarketValue}}</div>
-                <div class="col-padding table-item" flex two>{{classificationContent.totalPercentageMV}}</div>
-                <div class="col-padding table-item" flex five>{{classificationContent.totalExposureValue}}</div>
-            </div>
             <!--Holdings table -->
             <div id="statutoryTable" hidden?="{{showAll}}">
                 <core-pages valueattr="page" selected="{{page}}">
                     <template repeat="{{pageItem, i in allPages}}">
                         <section page="{{i}}">
+                            <!--Totals values-->
+                            <div layout horizontal center-center class="category-totals" hidden?="{{phoneScreen}}" id="totalsBlock" on-tap="{{toggleAllCategories}}">
+                                <div class="col-padding table-item portfolio-total-label" flex seven hidden?="{{phoneScreen}}">
+                                    <core-icon id="{{'toggleAllIcon'+i}}" class="category-icon total-icon" icon="arrow-drop-down" ></core-icon>
+                                    {{portfolio}} TOTAL
+                                </div>
+                                <div class="col-padding table-item" flex three></div>
+                                <div class="col-padding table-item" flex four>{{classificationContent.totalBookValue}}</div>
+                                <div class="col-padding table-item" flex four></div>
+                                <div class="col-padding table-item" flex four>{{classificationContent.totalMarketValue}}</div>
+                                <div class="col-padding table-item" flex two>{{classificationContent.totalPercentageMV}}</div>
+                                <div class="col-padding table-item" flex five>{{classificationContent.totalExposureValue}}</div>
+                            </div>
                             <div class="table-body no-padding-bottom">
                                 <template repeat="{{val in pageItem}}">
                                     <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id+i}}">
@@ -332,18 +332,32 @@
 
             toggleAllCategories: function(e){
                 var me = this;
-                var icon = e.currentTarget;
+                var icon = me.$.statutoryTable.querySelector('#toggleAllIcon'+me.page);
                 var page = me.$.statutoryTable.querySelector('section[page="'+me.page+'"]');
                 var collapses = page.querySelectorAll('.collapse');
 
+                if(me.rotateIcon(icon) == 'arrow-drop-down'){
+                    this.toggleAll(collapses, false);
+                }
+                else {
+                    this.toggleAll(collapses, true);
+                }
+            },
+
+            toggleAll: function(array, value){
+                var me = this;
+                var collapses = array;
                 for(var i=0; i<collapses.length; i++){
                     var collapse = me.$.statutoryTable.querySelector('#'+collapses[i].id);
-                    collapse.toggle();
-                    //var open  = collapse.attributes.opened.value;
-                    //collapse.attributes.opened.value = false;
+                    var icon = me.$.statutoryTable.querySelector('#icon'+collapses[i].id.substring(8));
+                    if (value){
+                        icon.attributes.icon.value = 'arrow-drop-down'
+                    }
+                    else {
+                        icon.attributes.icon.value = 'arrow-drop-up'
+                    }
+                    collapse.attributes.opened.value = value;
                 }
-
-                me.rotateIcon(icon);
             },
 
             //Rotate arrow icon function
@@ -356,6 +370,7 @@
                 else {
                     icon.attributes.icon.value = 'arrow-drop-down';
                 }
+                return n;
             },
 
             //"Order by" action

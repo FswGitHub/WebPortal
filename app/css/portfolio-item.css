@@ -366,6 +366,7 @@ paper-fab {
 .category-totals {
   background: #D8D8D8;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 .category-totals .col-padding:first-child core-icon {
   color: #FFFFFF;
