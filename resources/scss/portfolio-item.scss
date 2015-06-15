@@ -335,8 +335,9 @@
 .category-totals {
   background: $color-grey-medium-light;
   margin-bottom: 10px;
-  .col-padding:first-child {
-    text-indent: 28px;
+  .col-padding:first-child core-icon {
+    color: $color-white;
+    //text-indent: 28px;
   }
   .table-item {
     font-size: $font-size-mobile;

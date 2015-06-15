@@ -367,8 +367,8 @@ paper-fab {
   background: #D8D8D8;
   margin-bottom: 10px;
 }
-.category-totals .col-padding:first-child {
-  text-indent: 28px;
+.category-totals .col-padding:first-child core-icon {
+  color: #FFFFFF;
 }
 .category-totals .table-item {
   font-size: 16px;

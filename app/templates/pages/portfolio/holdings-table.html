@@ -46,7 +46,10 @@
             </div>
             <!--Totals values-->
             <div layout horizontal center-center class="category-totals" hidden?="{{phoneScreen}}">
-                <div class="col-padding table-item portfolio-total-label" flex seven hidden?="{{phoneScreen}}">{{portfolio}} TOTAL</div>
+                <div class="col-padding table-item portfolio-total-label" flex seven hidden?="{{phoneScreen}}">
+                    <core-icon id="toggleAll" class="category-icon" icon="arrow-drop-down" on-tap="{{toggleAllCategories}}"></core-icon>
+                    {{portfolio}} TOTAL
+                </div>
                 <div class="col-padding table-item" flex three></div>
                 <div class="col-padding table-item" flex four>{{classificationContent.totalBookValue}}</div>
                 <div class="col-padding table-item" flex four></div>
@@ -106,7 +109,6 @@
                                     </core-collapse>
                                 </template>
                             </div>
-
                         </section>
                     </template>
                 </core-pages>
@@ -324,17 +326,36 @@
                 var id = e.currentTarget.attributes.toggleId.value;
                 var collapse = me.$.statutoryTable.querySelector('#collapse'+id);
                 var icon = me.$.statutoryTable.querySelector('#icon'+id);
-                var action = 'rotate';
                 collapse.toggle();
-                me.rotate(icon, action);
+                me.rotateIcon(icon);
             },
 
-            //Rotate collapse icon function
-            rotate: function (icon, actionClass){
-                if (icon.classList.contains(actionClass)){
-                    icon.classList.remove(actionClass);
+            toggleAllCategories: function(e){
+                var me = this;
+                var icon = e.currentTarget;
+                var page = me.$.statutoryTable.querySelector('section[page="'+me.page+'"]');
+                var collapses = page.querySelectorAll('.collapse');
+
+                for(var i=0; i<collapses.length; i++){
+                    var collapse = me.$.statutoryTable.querySelector('#'+collapses[i].id);
+                    collapse.toggle();
+                    //var open  = collapse.attributes.opened.value;
+                    //collapse.attributes.opened.value = false;
                 }
-                else icon.classList.add(actionClass);
+
+                me.rotateIcon(icon);
+            },
+
+            //Rotate arrow icon function
+            rotateIcon: function (icon){
+                var n = icon.attributes.icon.value;
+
+                if (n == 'arrow-drop-down'){
+                    icon.attributes.icon.value = 'arrow-drop-up';
+                }
+                else {
+                    icon.attributes.icon.value = 'arrow-drop-down';
+                }
             },
 
             //"Order by" action
