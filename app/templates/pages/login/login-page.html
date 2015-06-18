@@ -22,7 +22,7 @@
                                                    floatingLabel
                                                    error="Please enter Password">
                                 <input required
-                                       value="pass1324"
+                                       value="pass13245"
                                        type="password">
                             </paper-input-decorator>
                             <div class="login-button" horizontal layout center>
@@ -33,6 +33,9 @@
                                     <div class="remember">Remember Me</div>
                                     <paper-checkbox for checked="{{rememberUser}}"></paper-checkbox>
                                 </core-label>
+                                <template bind if="{{loginInProgress}}">
+                                    <span class="loader">Loading</span>
+                                </template>
                             </div>
                         </form>
                         <div>
@@ -61,47 +64,51 @@
         </paper-action-dialog>
         <app-globals id="globals"></app-globals>
         <core-ajax auto id="loginSubmitRequest"
+                   method="POST"
+                   handleAs="json"
                    on-core-error="{{loginError}}"
                    on-core-response="{{loginResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('login-page', {
-            ready: function(){
-                this.$.loginSubmitRequest.url = this.$.globals.url+'resources/json/login.json';
-            },
-            loginSubmit: function(){
+            loginInProgress: false,
+            loginSubmit: function () {
                 var email = this.$.email, password = this.$.password;
 
-                if(email.validate() && password.validate()){
-                    /*this.$.loginSubmitRequest.params = {
-                        email: this.login.email,
-                        password: this.login.password
-                    };*/
-
-                    if((this.userEmail == email.input.value)&&(this.userPassword == password.input.value)){
-                        var authorised = localStorage.getItem('webPortalAuthorised');
-                        if (this.rememberUser){
-                            localStorage.setItem('webPortalAuthorised',true);
-                        } else {
-                            if(authorised){
-                                localStorage.setItem('webPortalAuthorised',false);
-                            }
-                        }
-                        document.querySelector('flatiron-director').route = 'dashboard';
-                    }
-                    else{
-                        this.loginError();
-                    }
+                if (email.validate() && password.validate()) {
+                    this.loginInProgress = true;
+                    this.$.loginSubmitRequest.url = this.$.globals.urlws + 'resources/json/login.json';
+                    this.$.loginSubmitRequest.body = "{'email': '" + email.input.value + "','password': '" + password.input.value + "'}" ;
                 }
             },
-            loginError: function(){
+            loginError: function () {
+                this.loginInProgress = false;
                 this.dialogText = 'Wrong login or password.';
                 this.$.loginDialog.toggle();
             },
-            loginResponse: function(e, data){
+            loginResponse: function (e, data) {
+                this.loginInProgress = false;
+                
                 if(data.response.success){
                     this.userEmail = data.response.user.email;
                     this.userPassword = data.response.user.password;
+                }
+
+                var email = this.$.email, password = this.$.password;
+
+                if ((this.userEmail == email.input.value) && (this.userPassword == password.input.value)) {
+                    var authorised = localStorage.getItem('webPortalAuthorised');
+                    if (this.rememberUser) {
+                        localStorage.setItem('webPortalAuthorised', true);
+                    } else {
+                        if (authorised) {
+                            localStorage.setItem('webPortalAuthorised', false);
+                        }
+                    }
+                    document.querySelector('flatiron-director').route = 'dashboard';
+                }
+                else {
+                    this.loginError();
                 }
             },
             signupGo: function(){

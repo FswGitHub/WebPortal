@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head lang="en">
     <meta charset="UTF-8">
@@ -31,7 +31,15 @@
 <body unresolved fullbleed>
     <polymer-element name="app-globals">
         <!--<script>Polymer({url: 'http://freelance/web-polymer/'});</script>-->
-        <script>Polymer({url: '/WebPortal/'});</script>
+        <script>
+            (function () {
+                var urlwsdef = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
+                if (window.location.href.toUpperCase().indexOf("LOCALHOST") > -1 || window.location.href.toUpperCase().indexOf("ANDRE-PC") > -1) {
+                    urlwsdef = 'http://localhost:15021/WebPortalService.svc/';
+                }
+                Polymer({ url: '/WebPortal/', urlws: urlwsdef });
+            })();
+        </script>
     </polymer-element>
     <template is="auto-binding">
         <core-media-query query="max-width: 320px"
