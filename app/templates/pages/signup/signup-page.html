@@ -56,26 +56,19 @@
         </paper-action-dialog>
         <app-globals id="globals"></app-globals>
         <core-ajax id="signUpSubmitRequest"
+                   method="POST"
+                   handleas="json"
                    on-core-error="{{signUpError}}"
                    on-core-response="{{signUpResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('signup-page', {
-            ready: function(){
-                this.$.signUpSubmitRequest.url = this.$.globals.url+'resources/json/signup.json'
-            },
             signUpSubmit: function(){
                 var firstName = this.$.firstName, lastName = this.$.lastName, email = this.$.email, password = this.$.password;
 
-                firstName.validate();
-                lastName.validate();
-                if(firstName.validate() && lastName.validate() && email.validate() && password.validate()){
-                    this.$.signUpSubmitRequest.params = {
-                        firstName: firstName.input.value,
-                        lastName: lastName.input.value,
-                        email: email.input.value,
-                        password: password.input.value
-                    };
+                if (firstName.validate() && lastName.validate() && email.validate() && password.validate()) {
+                    this.$.signUpSubmitRequest.url = this.$.globals.urlws + 'resources/json/signup.json';
+                    this.$.signUpSubmitRequest.body = "{'firstName': '" + firstName.input.value + "', 'lastName': '" + lastName.input.value + "', 'email': '" + email.input.value + "', 'password': '" + password.input.value + "'}";
                     this.$.signUpSubmitRequest.go();
                 }
             },
