@@ -30,13 +30,12 @@
 </head>
 <body unresolved fullbleed>
     <polymer-element name="app-globals">
-        <!--<script>Polymer({url: 'http://freelance/web-polymer/'});</script>-->
         <script>
             (function () {
                 var urlwsdef = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
-                if (window.location.href.toUpperCase().indexOf("LOCALHOST") > -1) {
+                /*if (window.location.href.toUpperCase().indexOf("LOCALHOST") > -1) {
                     urlwsdef = 'http://localhost:15021/WebPortalService.svc/';
-                }
+                }*/
                 Polymer({ url: '/WebPortal/', urlws: urlwsdef });
             })();
         </script>
@@ -147,7 +146,7 @@
             </div>
         </core-scaffold>
         <!--Authorization pages-->
-        <login-page hidden?="{{route != 'login'}}" logo="img/logo-light.png"></login-page>
+        <login-page hidden?="{{route != 'login'}}" logo="img/logo-light.png" on-getid={{getId}} userId="{{userId}}"></login-page>
         <signup-page hidden?="{{route != 'signup'}}" logo="img/logo-light.png"></signup-page>
         <confirm-page hidden?="{{route != 'confirm'}}" logo="img/logo-light.png"></confirm-page>
         <reset-page hidden?="{{route != 'reset'}}" logo="img/logo-light.png"></reset-page>
@@ -156,7 +155,7 @@
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="portfolioItems"
-                   on-core-response="{{contentResponse}}"></core-ajax>
+                   on-core-response="{{contentResponse}}" handleas="json"></core-ajax>
         <flatiron-director id="router" route="{{route}}" autoHash on-director-route="{{routeChan}}"></flatiron-director>
     </template>
     <script>
@@ -166,8 +165,11 @@
             if (this.route != 'newpass'){
                 this.checkAuthorisation();
             }
-            this.$.portfolioItems.url = this.$.globals.url+'resources/json/sidemenu.json';
         });
+
+        template.getId = function(){
+            this.$.portfolioItems.url = this.$.globals.urlws+'resources/json/sidemenu.json/'+this.userId;
+        };
 
         template.checkAuthorisation = function(){
             // Use URL hash for initial route. Otherwise, use the first page.

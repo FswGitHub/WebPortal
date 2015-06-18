@@ -1,4 +1,4 @@
-<polymer-element name="login-page" attributes="logo">
+<polymer-element name="login-page" attributes="logo userId">
     <template>
         <link rel="stylesheet" href="../../../css/login-page.css">
         <div vertical layout fit class="login-page">
@@ -92,6 +92,7 @@
                 if(data.response.success){
                     this.userEmail = data.response.user.email;
                     this.userPassword = data.response.user.password;
+                    this.userId = data.response.user.userId;
                 }
 
                 var email = this.$.email, password = this.$.password;
@@ -113,6 +114,9 @@
             },
             signupGo: function(){
                 document.querySelector('flatiron-director').route = 'signup';
+            },
+            userIdChanged: function(){
+                this.fire('getid');
             }
         });
     </script>
