@@ -133,14 +133,14 @@
             },
 
             filterByLength: function(items){
-                var cateroies = [];
+                var categories = [];
                 for (var i = 0; i < items.length; i++) {
                     var item = items[i];
                     if (item.categoryItems.length > 1) {
-                        cateroies.push(item);
+                        categories.push(item);
                     }
                 }
-                return cateroies;
+                return categories;
             },
 
             pageChanged: function(){

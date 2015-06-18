@@ -165,10 +165,12 @@
             if (this.route != 'newpass'){
                 this.checkAuthorisation();
             }
+            this.$.portfolioItems.url = this.$.globals.urlws+'resources/json/sidemenu.json/'+localStorage.getItem('userId');
         });
 
         template.getId = function(){
-            this.$.portfolioItems.url = this.$.globals.urlws+'resources/json/sidemenu.json/'+this.userId;
+            localStorage.setItem('userId',this.userId);
+            this.$.portfolioItems.url = this.$.globals.urlws+'resources/json/sidemenu.json/'+localStorage.getItem('userId');
         };
 
         template.checkAuthorisation = function(){
