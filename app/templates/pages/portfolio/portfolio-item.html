@@ -27,7 +27,7 @@
                             </paper-dropdown-menu>
                         </div>
                         <!--"Filter by name" search-->
-                        <table-filter hidden?="{{selectedTab != 'holdings'}}" id="filter" flex showNoMatches="{{showNoMatches}}" allItems="{{allItems}}" portfolioItemsNoCategory="{{portfolioItemsNoCategory}}" showAll="{{showAll}}"></table-filter>
+                        <table-filter hidden?="{{selectedTab != 'holdings'}}" id="filter" flex searchValue="{{searchValue}}"></table-filter>
                 </core-toolbar>
             </paper-shadow>
             <core-pages valueattr="name" selected="{{selectedTab}}" flex>
@@ -39,7 +39,7 @@
                         <template repeat="{{class in classifications}}">
                             <template  if="{{selectedView=='classification'+class.id}}">
                                 <section view="{{'classification'+class.id}}" class="content">
-                                    <holdings-table request="{{request+selectedView+'.json'}}" showNoMatches="{{showNoMatches}}" allItems="{{allItems}}" portfolioItemsNoCategory="{{portfolioItemsNoCategory}}" showAll="{{showAll}}" portfolio="{{portfolioItemContent.title}}"></holdings-table>
+                                    <holdings-table request="{{request+selectedView+'.json'}}" portfolio="{{portfolioItemContent.title}}" searchValue="{{searchValue}}"></holdings-table>
                                 </section>
                             </template>
                         </template>

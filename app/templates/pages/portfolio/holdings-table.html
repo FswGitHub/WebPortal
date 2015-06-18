@@ -1,5 +1,5 @@
 <link rel="import" href="page-selector.html">
-<polymer-element name="holdings-table" attributes="showNoMatches allItems portfolioItemsNoCategory showAll request portfolio">
+<polymer-element name="holdings-table" attributes="showNoMatches allItems portfolioItemsNoCategory request portfolio searchValue">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-page.css">
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
@@ -45,7 +45,7 @@
                 </core-selector>
             </div>
             <!--Holdings table -->
-            <div id="statutoryTable" hidden?="{{showAll}}">
+            <div id="statutoryTable">
                 <core-pages valueattr="page" selected="{{page}}">
                     <template repeat="{{pageItem, i in allPages}}">
                         <section page="{{i}}">
@@ -63,7 +63,7 @@
                                 <div class="col-padding table-item" flex five>{{classificationContent.totalExposureValue}}</div>
                             </div>
                             <div class="table-body no-padding-bottom">
-                                <template repeat="{{val in pageItem}}">
+                                <template repeat="{{val in pageItem | filterByLength}}">
                                     <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id+i}}">
                                         <div class="col-padding table-item category-title" flex seven>
                                             <core-icon id="icon{{val.id+i}}" class="category-icon" icon="arrow-drop-down"></core-icon>
@@ -77,9 +77,10 @@
                                         <div class="col-padding table-item" flex five hidden?="{{phoneScreen}}">{{val.totalExposureValue}}</div>
                                     </div>
                                     <core-collapse id="collapse{{val.id+i}}" class="collapse" opened>
+                                        <!-- All category items -->
                                         <core-selector selected="0" valueattr="number" class="collapse-content">
-                                            <template repeat="{{item, i in val.categoryItems | orderBy(oderVal)}}">
-                                                <div layout vertical?="{{phoneScreen}}" number="{{i}}" >
+                                            <template repeat="{{item, i in val.categoryItems | orderBy(oderVal) | filterByName(searchValue)}}">
+                                                <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                                     <h1 hidden?="{{!phoneScreen}}" class="table-header-in-collapse">{{item.name}}</h1>
                                                     <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
                                                         <!--Holdings table-headers for mobile view-->
@@ -108,48 +109,16 @@
                                         </core-selector>
                                     </core-collapse>
                                 </template>
+                                <!--No matches message-->
+                                <div layout vertical?="{{phoneScreen}}">
+                                    <template if="{{showNoMatches}}">
+                                        <span class="no-matches">No matches for your request. Try again!</span>
+                                    </template>
+                                </div>
                             </div>
                         </section>
                     </template>
                 </core-pages>
-            </div>
-            <!--Holdings table search results-->
-            <div class="table-body" hidden?="{{!showAll}}">
-                <core-selector selected="0" valueattr="number">
-                    <template repeat="{{item, i in allItems | orderBy(oderVal)}}">
-                        <div layout vertical?="{{phoneScreen}}" number="{{i}}">
-                            <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{item.name}}</h1>
-                            <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
-                                <!--Holdings table-headers for mobile view-->
-                                <div class="col-content labels" hidden?="{{!phoneScreen}}">
-                                    <div class="col-padding table-item table-label">Nominal</div>
-                                    <div class="col-padding table-item table-label">Cost Price</div>
-                                    <div class="col-padding table-item table-label">Book Value (R)</div>
-                                    <div class="col-padding table-item table-label">Market Price</div>
-                                    <div class="col-padding table-item table-label">Market Value</div>
-                                    <div class="col-padding table-item table-label">%MV</div>
-                                    <div class="col-padding table-item table-label">Exposure Value (R)</div>
-                                </div>
-                                <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
-                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{item.name}}</div>
-                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.nominal}}</div>
-                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.costPrice}}</div>
-                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.bookValue}}</div>
-                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketPrice}}</div>
-                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketValue}}</div>
-                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" two?="{{!phoneScreen}}">{{item.MV}}</div>
-                                    <div class="col-padding table-item" flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{item.exposureValue}}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    <!--No matches message-->
-                    <div layout vertical?="{{phoneScreen}}">
-                        <template if="{{showNoMatches}}">
-                            <span class="no-matches">No matches for your request. Try again!</span>
-                        </template>
-                    </div>
-                </core-selector>
             </div>
         </div>
         <core-ajax auto
@@ -161,6 +130,34 @@
             ready: function(){
                 this.page = 0;
                 this.portfolioItemsNoCategory = [];
+            },
+
+            filterByLength: function(items){
+                var cateroies = [];
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    if (item.categoryItems.length > 1) {
+                        cateroies.push(item);
+                    }
+                }
+                return cateroies;
+            },
+
+            pageChanged: function(){
+                this.searchValue = '';
+            },
+
+            //Search "Filter by name" function
+            filterByName: function(items, value){
+                var filtered = [];
+                var letterMatch = new RegExp(value, 'i');
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    if (letterMatch.test(item.name)) {
+                        filtered.push(item);
+                    }
+                }
+                return filtered;
             },
 
             contentResponse: function(e, data){

@@ -1,11 +1,12 @@
-<polymer-element name="table-filter" attributes="showNoMatches allItems portfolioItemsNoCategory showAll">
+<polymer-element name="table-filter" attributes="searchValue">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <core-media-query query="max-width: 768px"
                           queryMatches="{{phoneScreen}}"></core-media-query>
         <div layout horizontal center flex?="{{!phoneScreen}}" fit?="{{phoneScreen}}" class="hide-search" id="field">
             <core-field class="search-field"  fit?="{{phoneScreen}}">
-                <input id="searchField" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">
+                <!--<input id="searchField" is="core-input" name="input" placeholder="Filter by name" flex on-keyup="{{filterByName}}">-->
+                <input id="searchField" is="core-input" name="input" placeholder="Filter by name" flex value="{{searchValue}}">
                 <core-icon id="filterIcon" icon="{{icon}}" on-tap="{{clearSearchValue}}"></core-icon>
             </core-field>
         </div>
@@ -21,6 +22,7 @@
 
                 searchValue = me.$.searchField.value;
 
+                //var items =  me.portfolioItemsNoCategory;
                 var items =  me.portfolioItemsNoCategory;
                 var letterMatch = new RegExp(searchValue, 'i');
 
@@ -61,12 +63,19 @@
             clearSearchValue: function(){
                 var phoneScreen = this.phoneScreen;
                 var search = this.$.field;
-                var input = this.$.searchField;
                 if (phoneScreen) {
                     search.classList.add('hide-search');
                 }
-                input.value = '';
-                this.filterByName();
+                this.searchValue = '';
+                //this.filterByName();
+            },
+
+            searchValueChanged: function(){
+                if (this.searchValue > ''){
+                    this.icon = 'clear';
+                } else {
+                    this.icon = 'search';
+                }
             }
         });
     </script>
