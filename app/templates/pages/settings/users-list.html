@@ -146,6 +146,15 @@
                 if (this.width <= '768') {
                     this.allUsers = new Array(1);
                 }
+
+                this.$.usersPageItems.url = this.$.globals.urlws + 'resources/json/users.json';
+            },
+
+            contentResponse: function (e, data) {
+                var me = this;
+                if (data.response.success) {
+                    me.allUsers = data.response.users;
+                }
             },
 
             userIdChanged:function(){
