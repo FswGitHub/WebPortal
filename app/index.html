@@ -33,9 +33,9 @@
         <script>
             (function () {
                 var urlwsdef = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
-                /*if (window.location.href.toUpperCase().indexOf("LOCALHOST") > -1) {
+                if (window.location.href.toUpperCase().indexOf("LOCALHOST") > -1) {
                     urlwsdef = 'http://localhost:15021/WebPortalService.svc/';
-                }*/
+                }
                 Polymer({ url: '/WebPortal/', urlws: urlwsdef });
             })();
         </script>
@@ -165,7 +165,6 @@
             if (this.route != 'newpass'){
                 this.checkAuthorisation();
             }
-            this.$.portfolioItems.url = this.$.globals.urlws+'resources/json/sidemenu.json/'+localStorage.getItem('userId');
         });
 
         template.getId = function(){
