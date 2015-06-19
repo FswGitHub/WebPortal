@@ -33,7 +33,7 @@
         <script>
             (function () {
                 var urlwsdef = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
-                if (window.location.href.toUpperCase().indexOf("LOCALHOST") > -1) {
+                if (window.location.href.toUpperCase().indexOf("127.0.0.1") > -1) {
                     urlwsdef = 'http://localhost:15021/WebPortalService.svc/';
                 }
                 Polymer({ url: '/WebPortal/', urlws: urlwsdef });

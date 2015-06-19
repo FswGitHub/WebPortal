@@ -39,12 +39,13 @@
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="portfolioPageItems"
+                   handleas="json"
                    on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('portfolio-page',{
             ready: function(){
-                this.$.portfolioPageItems.url = this.$.globals.url+'resources/json/portfolio.json';
+                this.$.portfolioPageItems.url = this.$.globals.urlws + 'resources/json/portfolio.json/' + localStorage.getItem('userId');
             },
             contentResponse: function(e, data){
                 var me = this;
