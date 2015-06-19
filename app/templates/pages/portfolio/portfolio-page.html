@@ -1,4 +1,4 @@
-<polymer-element name="portfolio-page">
+<polymer-element name="portfolio-page" attributes="userId">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-page.css">
         <div class="table-wrapper">
@@ -44,7 +44,7 @@
     </template>
     <script>
         Polymer('portfolio-page',{
-            ready: function(){
+            userIdChanged: function(){
                 this.$.portfolioPageItems.url = this.$.globals.urlws + 'resources/json/portfolio.json/' + localStorage.getItem('userId');
             },
             contentResponse: function(e, data){

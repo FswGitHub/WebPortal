@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="../../../css/dialog-styles.css">
-<polymer-element name="users-list">
+<polymer-element name="users-list" attributes="userId">
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
         <div class="content" fit relative>
@@ -123,6 +123,11 @@
              </div>
             </div>
         </div>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+                   id="usersPageItems"
+                   handleas="json"
+                   on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('users-list',{
@@ -140,6 +145,20 @@
 
                 if (this.width <= '768') {
                     this.allUsers = new Array(1);
+                }
+            },
+
+            userIdChanged:function(){
+                this.$.usersPageItems.url = this.$.globals.urlws + 'resources/json/users.json';
+            },
+
+            contentResponse: function (e, data) {
+                var me = this;
+                if (data.response.success) {
+                    me.allUsers = data.response.users;
+                    if(me.allUsers.length < 10){
+                        me.allUsers = me.addEmptyStrings(me.allUsers);
+                    }
                 }
             },
 

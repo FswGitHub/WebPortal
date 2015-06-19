@@ -1,4 +1,4 @@
-<polymer-element name="profile-page">
+<polymer-element name="profile-page" attributes="userId">
     <template>
         <link rel="stylesheet" href="../../../css/profile-page.css">
         <div class="header">
@@ -83,7 +83,7 @@
                 idNumber: 0,
                 photo: 'img/icon-profile.png'
             },
-            ready: function (){
+            userIdChanged: function (){
                 this.$.profileContent.url = this.$.globals.url+'resources/json/user.json';
             },
             contentResponse: function(e, data){

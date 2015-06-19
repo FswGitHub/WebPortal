@@ -12,16 +12,11 @@
     <script type="text/javascript" src="libs/js-xlsx/xlsx.js"></script>
     <script type="text/javascript" src="js/checkColor.js"></script>
     <link rel="stylesheet" href="css/style.css" type="text/css">
-    <link rel="stylesheet" href="css/side-menu.css" type="text/css">
     <link rel="import" href="libs/font-roboto/roboto.html">
     <!--Includes of polymer elements-->
     <link rel="import" href="templates/includes.html">
     <!--Includes of site pages-->
-    <link rel="import" href="templates/pages/dashboard/dashboard-page.html">
-    <link rel="import" href="templates/pages/portfolio/portfolio-page.html">
-    <link rel="import" href="templates/pages/portfolio/portfolio-item.html">
-    <link rel="import" href="templates/pages/profile/profile-page.html">
-    <link rel="import" href="templates/pages/settings/settings-page.html">
+    <link rel="import" href="templates/pages/sidemenu/side-menu.html">
     <link rel="import" href="templates/pages/login/login-page.html">
     <link rel="import" href="templates/pages/signup/signup-page.html">
     <link rel="import" href="templates/pages/confirm/confirm-page.html">
@@ -43,110 +38,11 @@
     <template is="auto-binding">
         <core-media-query query="max-width: 320px"
                           queryMatches="{{phoneScreen}}"></core-media-query>
-        <core-scaffold responsiveWidth="1280px" id="scaffold" mode="standart" class="unresolved">
-            <!--Aside menu-->
-            <nav>
-                <paper-shadow z="1" class="logo-shadow">
-                    <core-toolbar class="aside-menu" light?="{{themeLight}}">
-                        <logo-main url="{{logo}}" scaffold="true"></logo-main>
-                    </core-toolbar>
-                </paper-shadow>
-                <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}" class="pages-selector">
-                    <paper-item hash="dashboard">
-                        <core-icon icon="dashboard"></core-icon>
-                        <a href="#dashboard">Dashboard</a>
-                    </paper-item>
-                    <paper-item hash="portfolio">
-                        <core-icon icon="perm-media"></core-icon>
-                        <a href="#portfolio">Portfolio</a>
-                    </paper-item>
-                    <template repeat="{{val,i in subItems}}">
-                        <paper-item class="child"  hash="portfolio/{{val.id}}" hidden?="{{i>4}}">
-                            <a href="#portfolio/{{val.id}}">{{val.title}}</a>
-                        </paper-item>
-                    </template>
-                    <paper-item  hash="profile">
-                        <core-icon icon="account-circle"></core-icon>
-                        <a href="#profile">Profile</a>
-                    </paper-item>
-                    <paper-item  hash="settings">
-                        <core-icon icon="settings"></core-icon>
-                        <a href="#settings">Settings</a>
-                    </paper-item>
-                </core-menu>
-            </nav>
-            <!--Page title-->
-            <core-toolbar tool flex class="page-title">
-                <div class="title">
-                    <core-selector valueattr="hash" selected="{{route}}">
-                        <div hash="dashboard" class="title-value">{{route}}</div>
-                        <div  hash="portfolio" class="title-value">{{route}}</div>
-                        <template repeat="{{val in subItems}}">
-                            <div hash="portfolio/{{val.id}}" class="title-value"><a href="#portfolio">Portfolio</a> > {{val.title}}</div>
-                        </template>
-                        <div hash="profile" class="title-value">{{route}}</div>
-                        <div hash="settings" class="title-value">{{route}}</div>
-                    </core-selector>
-                </div>
-            </core-toolbar>
-            <!--Portfolio item tabs-->
-            <template repeat="{{val in subItems}}">
-                <template if="{{'portfolio/'+val.id == route}}">
-                    <core-toolbar class="portfolio-item-tabs">
-                        <div class="bottom fit indent" horizontal layout>
-                            <paper-tabs flex valueattr="name" selected="{{selectedItemTab}}">
-                                <paper-tab name="dashboard">Dashboard</paper-tab>
-                                <paper-tab name="holdings">Holdings</paper-tab>
-                            </paper-tabs>
-                        </div>
-                    </core-toolbar>
-                </template>
-            </template>
-            <!--Settings tabs-->
-            <template if="{{route=='settings'}}">
-                <core-toolbar class="settings-tabs">
-                    <div class="bottom fit indent" horizontal layout>
-                        <paper-tabs flex valueattr="name" selected="{{selectedSettingsTab}}">
-                            <paper-tab name="general">General</paper-tab>
-                            <paper-tab name="fpmConfig">FPM Configs</paper-tab>
-                            <paper-tab name="users">Users</paper-tab>
-                        </paper-tabs>
-                    </div>
-                </core-toolbar>
-            </template>
-            <!--Pages content-->
-            <div layout vertical fit>
-                <core-pages valueattr="hash" selected="{{route}}"  id="pages" flex twelve?="{{!phoneScreen}}" eight="{{phoneScreen}}" on-core-select="{{thisPage}}">
-                    <section hash="dashboard" class="content">
-                        <dashboard-page></dashboard-page>
-                    </section>
-                    <section  hash="portfolio" class="content">
-                        <portfolio-page></portfolio-page>
-                    </section>
-                    <template repeat="{{val in subItems}}">
-                        <section hash="{{'portfolio/'+val.id}}">
-                            <template if="{{'portfolio/'+val.id == route}}">
-                                <portfolio-item itemId="{{val.id}}" selectedTab="{{selectedItemTab}}" fit></portfolio-item>
-                            </template>
-                        </section>
-                    </template>
-                    <section hash="profile" class="content">
-                        <profile-page></profile-page>
-                    </section>
-                    <section hash="settings">
-                        <settings-page fit id="settingsPage" selectedTab="{{selectedSettingsTab}}"></settings-page>
-                    </section>
-                    <!--<section hash="{{route}}">
-                        <div vertical layout fit center-center>
-                            <h1>No page for url</h1>
-                        </div>
-                    </section>-->
-                </core-pages>
-                <footer-page flex horizontal layout></footer-page>
-            </div>
-        </core-scaffold>
+        <template if="{{userLogIn}}">
+            <side-menu route="{{route}}" userId="{{userId}}"></side-menu>
+        </template>
         <!--Authorization pages-->
-        <login-page hidden?="{{route != 'login'}}" logo="img/logo-light.png" on-getid={{getId}} userId="{{userId}}"></login-page>
+        <login-page hidden?="{{route != 'login'}}" logo="img/logo-light.png" on-getid={{getId}} userId="{{userId}}" userLogIn={{userLogIn}}></login-page>
         <signup-page hidden?="{{route != 'signup'}}" logo="img/logo-light.png"></signup-page>
         <confirm-page hidden?="{{route != 'confirm'}}" logo="img/logo-light.png"></confirm-page>
         <reset-page hidden?="{{route != 'reset'}}" logo="img/logo-light.png"></reset-page>
@@ -167,15 +63,12 @@
             }
         });
 
-        template.getId = function(){
-            localStorage.setItem('userId',this.userId);
-            this.$.portfolioItems.url = this.$.globals.urlws+'resources/json/sidemenu.json/'+localStorage.getItem('userId');
-        };
-
         template.checkAuthorisation = function(){
             // Use URL hash for initial route. Otherwise, use the first page.
             var authorised = localStorage.getItem('webPortalAuthorised');
             if(authorised == 'true'){
+                this.userLogIn = true; // set user log in variable if user just log in(at login page) or if user already authorised
+                this.userId = localStorage.getItem('userId'); // set user id variable if user just log in(at login page) or if user already authorised(from local storage)
                 this.route = this.route || 'dashboard';
             }
             else {
@@ -183,38 +76,26 @@
             }
         };
 
-        template.contentResponse = function(e, data){
-            var me = this;
-            var i = 0;
-            var counter = '';
-            if(data.response.success){
-                me.subItems = data.response.content;
-                me.logo = data.response.logo;
-                if (data.response.theme == 'light'){
-                    me.themeLight = true;
-                }
-
-                for (i in me.subItems){
-                    counter =  counter+'^portfolio/'+ me.subItems[i].id+'$|';
-                }
-
-                me.range = counter;
-            }
-        };
-
-        template.menuItemSelected = function(e, detail, sender) {
-            if (detail.isSelected) {
-                scaffold.closeDrawer();
-            }
-        };
-
         template.routeChan = function(){
             var r = this.route;
-            var value = this.range+'^dashboard$|^portfolio$|^profile$|^settings$|^login$|^signup$|^confirm$|^newpass$|^reset$';
+
+            if (r == 'confirm'){ // Close 'confirm page'
+                setTimeout(function(){
+                    document.querySelector('flatiron-director').route = 'login';
+                },5000);
+            }
+
+            //bad solution of broken urls (will rewrite)
+            /*var value = this.range+'^dashboard$|^portfolio$|^profile$|^settings$|^login$|^signup$|^confirm$|^newpass$|^reset$';
             var item = new RegExp(value,'i');
 
             if (item.test(r)){
-                document.querySelector('#scaffold').classList.remove('unresolved');
+                if(this.userLogIn){
+                    this.route = 'dashboard';
+                }
+                else {
+                    this.route = 'login';
+                }
             } else {
                 // Use URL hash for initial route. Otherwise, use the first page.
                 var authorised = localStorage.getItem('webPortalAuthorised');
@@ -224,20 +105,8 @@
                 else {
                     this.route = 'login';
                 }
-            }
-
-            // Close 'confirm page'
-            if (r == 'confirm'){
-                setTimeout(function(){
-                    document.querySelector('flatiron-director').route = 'login';
-                },5000);
-            }
+            }*/
         };
-
-        //very very bad
-        template.range = '^portfolio/[0-9]|';
-        template.selectedItemTab = 'dashboard';
-        template.selectedSettingsTab = 'general';
     </script>
 </body>
 </html>

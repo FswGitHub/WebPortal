@@ -2,7 +2,7 @@
 <link rel="import" href="table-filter.html">
 <link rel="import" href="holdings-table.html">
 <link rel="import" href="../dashboard/dashboard-charts.html">
-<polymer-element name="portfolio-item" attributes="itemId selectedTab route">
+<polymer-element name="portfolio-item" attributes="itemId selectedTab route userId">
     <template>
         <link rel="stylesheet" href="../../../css/portfolio-item.css">
         <!-- Main content -->
@@ -55,10 +55,12 @@
     <script>
         Polymer('portfolio-item',{
             ready: function(){
-                this.$.portfolioItem.url = this.$.globals.url+'resources/json/portfolio-item'+this.itemId+'.json';
-                this.request = this.$.globals.url+'resources/json/portfolio-item'+this.itemId;
                 this.selectedTab = 'dashboard';
                 this.selectedView = 'classification1';
+            },
+            userIdChanged: function(){
+                this.$.portfolioItem.url = this.$.globals.url+'resources/json/portfolio-item'+this.itemId+'.json';
+                this.request = this.$.globals.url+'resources/json/portfolio-item'+this.itemId;
             },
             contentResponse: function(e, data){
                 var me = this;

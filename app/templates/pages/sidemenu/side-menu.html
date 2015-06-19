@@ -1,0 +1,151 @@
+<!--Includes of site pages-->
+<link rel="import" href="../../../templates/pages/dashboard/dashboard-page.html">
+<link rel="import" href="../../../templates/pages/portfolio/portfolio-page.html">
+<link rel="import" href="../../../templates/pages/portfolio/portfolio-item.html">
+<link rel="import" href="../../../templates/pages/profile/profile-page.html">
+<link rel="import" href="../../../templates/pages/settings/settings-page.html">
+<polymer-element name="side-menu" attributes="route userId">
+    <template>
+        <link rel="stylesheet" href="../../../css/side-menu.css" type="text/css">
+        <core-scaffold responsiveWidth="1280px" mode="standart" id="scaffold">
+            <!--Aside menu-->
+            <nav>
+                <paper-shadow z="1" class="logo-shadow">
+                    <core-toolbar class="aside-menu" light?="{{themeLight}}">
+                        <logo-main url="{{logo}}" scaffold="true"></logo-main>
+                    </core-toolbar>
+                </paper-shadow>
+                <core-menu valueattr="hash" selected="{{route}}" on-core-select="{{menuItemSelected}}" class="pages-selector">
+                    <paper-item hash="dashboard">
+                        <core-icon icon="dashboard"></core-icon>
+                        <a href="#dashboard">Dashboard</a>
+                    </paper-item>
+                    <paper-item hash="portfolio">
+                        <core-icon icon="perm-media"></core-icon>
+                        <a href="#portfolio">Portfolio</a>
+                    </paper-item>
+                    <template repeat="{{val,i in subItems}}">
+                        <paper-item class="child"  hash="portfolio/{{val.id}}" hidden?="{{i>4}}">
+                            <a href="#portfolio/{{val.id}}">{{val.title}}</a>
+                        </paper-item>
+                    </template>
+                    <paper-item  hash="profile">
+                        <core-icon icon="account-circle"></core-icon>
+                        <a href="#profile">Profile</a>
+                    </paper-item>
+                    <paper-item  hash="settings">
+                        <core-icon icon="settings"></core-icon>
+                        <a href="#settings">Settings</a>
+                    </paper-item>
+                </core-menu>
+            </nav>
+            <!--Page title-->
+            <core-toolbar tool flex class="page-title">
+                <div class="title">
+                    <core-selector valueattr="hash" selected="{{route}}">
+                        <div hash="dashboard" class="title-value">{{route}}</div>
+                        <div  hash="portfolio" class="title-value">{{route}}</div>
+                        <template repeat="{{val in subItems}}">
+                            <div hash="portfolio/{{val.id}}" class="title-value"><a href="#portfolio">Portfolio</a> > {{val.title}}</div>
+                        </template>
+                        <div hash="profile" class="title-value">{{route}}</div>
+                        <div hash="settings" class="title-value">{{route}}</div>
+                    </core-selector>
+                </div>
+            </core-toolbar>
+            <!--Portfolio item tabs-->
+            <template repeat="{{val in subItems}}">
+                <template if="{{'portfolio/'+val.id == route}}">
+                    <core-toolbar class="portfolio-item-tabs">
+                        <div class="bottom fit indent" horizontal layout>
+                            <paper-tabs flex valueattr="name" selected="{{selectedItemTab}}">
+                                <paper-tab name="dashboard">Dashboard</paper-tab>
+                                <paper-tab name="holdings">Holdings</paper-tab>
+                            </paper-tabs>
+                        </div>
+                    </core-toolbar>
+                </template>
+            </template>
+            <!--Settings tabs-->
+            <template if="{{route=='settings'}}">
+                <core-toolbar class="settings-tabs">
+                    <div class="bottom fit indent" horizontal layout>
+                        <paper-tabs flex valueattr="name" selected="{{selectedSettingsTab}}">
+                            <paper-tab name="general">General</paper-tab>
+                            <paper-tab name="fpmConfig">FPM Configs</paper-tab>
+                            <paper-tab name="users">Users</paper-tab>
+                        </paper-tabs>
+                    </div>
+                </core-toolbar>
+            </template>
+            <!--Pages content-->
+            <div layout vertical fit>
+                <core-pages valueattr="hash" selected="{{route}}"  id="pages" flex twelve?="{{!phoneScreen}}" eight="{{phoneScreen}}" on-core-select="{{thisPage}}">
+                    <section hash="dashboard" class="content">
+                        <dashboard-page userId="{{userId}}"></dashboard-page>
+                    </section>
+                    <section  hash="portfolio" class="content">
+                        <portfolio-page userId="{{userId}}"></portfolio-page>
+                    </section>
+                    <template repeat="{{val in subItems}}">
+                        <section hash="{{'portfolio/'+val.id}}">
+                            <template if="{{'portfolio/'+val.id == route}}">
+                                <portfolio-item userId="{{userId}}" itemId="{{val.id}}" selectedTab="{{selectedItemTab}}" fit></portfolio-item>
+                            </template>
+                        </section>
+                    </template>
+                    <section hash="profile" class="content">
+                        <profile-page userId="{{userId}}"></profile-page>
+                    </section>
+                    <section hash="settings">
+                        <settings-page id="settingsPage" userId="{{userId}}" selectedTab="{{selectedSettingsTab}}" themeLight="{{themeLight}}" fit></settings-page>
+                    </section>
+                </core-pages>
+                <footer-page flex horizontal layout></footer-page>
+            </div>
+        </core-scaffold>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+                   id="portfolioItems"
+                   on-core-response="{{contentResponse}}" handleas="json"></core-ajax>
+    </template>
+    <script>
+        Polymer('side-menu',{
+            selectedItemTab:'dashboard',
+            selectedSettingsTab:'general',
+
+            userIdChanged:function(){
+                this.$.portfolioItems.url = this.$.globals.urlws+'resources/json/sidemenu.json/'+ this.userId;
+            },
+
+            contentResponse: function(e, data){
+                var me = this;
+                if(data.response.success){
+                    me.subItems = data.response.content;
+                    me.logo = data.response.logo;
+                    if (data.response.theme == 'light'){
+                        me.themeLight = true;
+                    }
+                }
+
+                //bad solution of broken urls(will rewrite)
+
+                //var i = 0;
+                //var counter = '';
+                /*for (i in me.subItems){
+                    counter =  counter+'^portfolio/'+ me.subItems[i].id+'$|';
+                 }
+                 me.range = counter;*/
+            },
+
+            menuItemSelected: function(e, detail, sender) {
+                if (detail.isSelected) {
+                    this.$.scaffold.closeDrawer();
+                }
+            },
+
+            //bad solution of broken urls(will rewrite)
+            range:'^portfolio/[0-9]|'
+        });
+    </script>
+</polymer-element>

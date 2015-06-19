@@ -1,19 +1,19 @@
 <link rel="import" href="general-settings.html">
 <link rel="import" href="fpm-configs.html">
 <link rel="import" href="users-list.html">
-<polymer-element name="settings-page" attributes="selectedTab">
+<polymer-element name="settings-page" attributes="selectedTab userId themeLight">
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
         <div layout vertical fit>
             <core-pages valueattr="name" selected="{{selectedTab}}" flex>
                 <section name="general">
-                    <general-settings scope="{{usersSettings.general}}" id="general"></general-settings>
+                    <general-settings scope="{{usersSettings.general}}" themeLight="{{themeLight}}" id="general"></general-settings>
                 </section>
                 <section name="fpmConfig">
                     <fpm-configs scope="{{usersSettings.fpm}}" id="fpmConfigs"></fpm-configs>
                 </section>
                 <section name="users">
-                    <users-list id="userList"></users-list>
+                    <users-list id="userList" userId="{{userId}}"></users-list>
                 </section>
             </core-pages>
         </div>
@@ -24,7 +24,7 @@
 </template>
     <script>
         Polymer('settings-page',{
-            ready: function (){
+            userIdChanged: function (){
                 this.$.settingsContent.url = this.$.globals.url+'resources/json/settings.json';
             },
             contentResponse: function(e, data){

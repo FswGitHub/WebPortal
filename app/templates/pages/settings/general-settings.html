@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="../../../css/dialog-styles.css">
-<polymer-element name="general-settings" attributes="scope">
+<polymer-element name="general-settings" attributes="scope themeLight">
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
         <div class="content" fit>
@@ -150,15 +150,15 @@
             saveTheme: function(e){
                 var fieldName = e.currentTarget.id;
                 var theme = this.$.theme.selected;
-                var template = document.querySelector('template[is="auto-binding"]');
+                //var template = document.querySelector('template[is="auto-binding"]');
 
                 if (theme == 'light'){
-                    template.themeLight = true;
+                    this.themeLight = true;
                     //only for current company
                     //template.logo = 'img/logo-dark.png';
                 }
                 else {
-                    template.themeLight = false;
+                    this.themeLight = false;
                     //template.logo = 'img/logo-light.png';
                 }
                 //Submit must be here!

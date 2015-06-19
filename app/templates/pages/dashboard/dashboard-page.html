@@ -1,5 +1,5 @@
 <link rel="import" href="dashboard-charts.html">
-<polymer-element name="dashboard-page">
+<polymer-element name="dashboard-page" attributes="userId">
     <template>
         <dashboard-charts dashboardContent="{{dashboardContent}}" id="dashboardCharts"></dashboard-charts>
         <app-globals id="globals"></app-globals>
@@ -9,7 +9,7 @@
     </template>
     <script>
         Polymer('dashboard-page', {
-            ready: function(){
+            userIdChanged: function(){
                 this.$.dashboardItems.url = this.$.globals.url+'resources/json/charts.json';
             },
             contentResponse: function(e, data){
