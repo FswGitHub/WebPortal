@@ -123,6 +123,11 @@
              </div>
             </div>
         </div>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+                   id="usersPageItems"
+                   handleas="json"
+                   on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('users-list',{
@@ -140,6 +145,15 @@
 
                 if (this.width <= '768') {
                     this.allUsers = new Array(1);
+                }
+
+                this.$.usersPageItems.url = this.$.globals.urlws + 'resources/json/users.json';
+            },
+
+            contentResponse: function (e, data) {
+                var me = this;
+                if (data.response.success) {
+                    me.allUsers = data.response.users;
                 }
             },
 
