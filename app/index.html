@@ -39,7 +39,7 @@
         <core-media-query query="max-width: 320px"
                           queryMatches="{{phoneScreen}}"></core-media-query>
         <template if="{{userLogIn}}">
-            <side-menu route="{{route}}" userId="{{userId}}"></side-menu>
+            <side-menu route="{{route}}" userId="{{userId}}" logo="{{logo}}"></side-menu>
         </template>
         <!--Authorization pages-->
         <login-page hidden?="{{route != 'login'}}" logo="img/logo-light.png" on-getid={{getId}} userId="{{userId}}" userLogIn={{userLogIn}}></login-page>

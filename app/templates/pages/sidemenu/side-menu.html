@@ -4,7 +4,7 @@
 <link rel="import" href="../../../templates/pages/portfolio/portfolio-item.html">
 <link rel="import" href="../../../templates/pages/profile/profile-page.html">
 <link rel="import" href="../../../templates/pages/settings/settings-page.html">
-<polymer-element name="side-menu" attributes="route userId">
+<polymer-element name="side-menu" attributes="route userId logo">
     <template>
         <link rel="stylesheet" href="../../../css/side-menu.css" type="text/css">
         <core-scaffold responsiveWidth="1280px" mode="standart" id="scaffold">
@@ -98,7 +98,7 @@
                         <profile-page userId="{{userId}}"></profile-page>
                     </section>
                     <section hash="settings">
-                        <settings-page id="settingsPage" userId="{{userId}}" selectedTab="{{selectedSettingsTab}}" themeLight="{{themeLight}}" fit></settings-page>
+                        <settings-page id="settingsPage" userId="{{userId}}" selectedTab="{{selectedSettingsTab}}" themeLight="{{themeLight}}" logo="{{logo}}" fit></settings-page>
                     </section>
                 </core-pages>
                 <footer-page flex horizontal layout></footer-page>

@@ -1,13 +1,13 @@
 <link rel="import" href="general-settings.html">
 <link rel="import" href="fpm-configs.html">
 <link rel="import" href="users-list.html">
-<polymer-element name="settings-page" attributes="selectedTab userId themeLight">
+<polymer-element name="settings-page" attributes="selectedTab userId themeLight logo">
     <template>
         <link rel="stylesheet" href="../../../css/settings-page.css">
         <div layout vertical fit>
             <core-pages valueattr="name" selected="{{selectedTab}}" flex>
                 <section name="general">
-                    <general-settings scope="{{usersSettings.general}}" themeLight="{{themeLight}}" id="general"></general-settings>
+                    <general-settings scope="{{usersSettings.general}}" themeLight="{{themeLight}}" logo="{{logo}}" id="general"></general-settings>
                 </section>
                 <section name="fpmConfig">
                     <fpm-configs scope="{{usersSettings.fpm}}" id="fpmConfigs"></fpm-configs>
@@ -27,6 +27,7 @@
             userIdChanged: function (){
                 this.$.settingsContent.url = this.$.globals.url+'resources/json/settings.json';
             },
+
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success){
