@@ -103,6 +103,7 @@
                             me.chart = new Chart(me.ctx).Pie(me.data, me.options);
                             break;
                         case (5):
+//                            DOUGHNUT
                             me.data = me.setDatasetToPie() || {};
                             me.chart = new Chart(me.ctx).Doughnut(me.data, me.options);
                             break;
@@ -168,23 +169,40 @@
             },
             setDatasetToPie: function (){
                 var me = this;
+                var i = 0;
                 var datasetsArray = [];
+                var data = me.values.datasets[0].data;
                 var datasetLength = me.values.datasets.length;
-                for (var i=0; i<datasetLength; i++) {
-                    var dataItem = {};
-                    var sum = 0;
-                    var dataArray = me.values.datasets[i].data;
-                    for (var j=0; j<dataArray.length; j++) {
-                        sum = sum + parseInt(dataArray[j]);
+                if (datasetLength > 1){
+                    for (i; i<datasetLength; i++) {
+                        var dataItem = {};
+                        var sum = 0;
+                        var dataArray = me.values.datasets[i].data;
+                        for (var j=0; j<dataArray.length; j++) {
+                            sum = sum + parseInt(dataArray[j]);
+                        }
+                        dataItem = {
+                            value: sum,
+                            label:me.values.datasets[i].label,
+                            color:me.values.colors[i],
+                            highlight:me.values.highlights[i]
+                        };
+                        datasetsArray[i] = dataItem;
                     }
-                    dataItem = {
-                        value: sum,
-                        label:me.values.datasets[i].label,
-                        color:me.values.colors[i],
-                        highlight:me.values.highlights[i]
-                    };
-                    datasetsArray[i] = dataItem;
                 }
+                else {
+                    for (i; i < data.length; i++) {
+                        var item = {};
+                        item = {
+                            value: data[i],
+                            label:me.values.labels[i],
+                            color:me.values.colors[i],
+                            highlight:me.values.highlights[i]
+                        };
+                        datasetsArray.push(item);
+                    }
+                }
+                console.log(datasetsArray);
                 return(datasetsArray);
             }
         });
