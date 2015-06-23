@@ -5,12 +5,13 @@
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="dashboardItems"
+                   handleAs="json"
                    on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('dashboard-page', {
             userIdChanged: function(){
-                this.$.dashboardItems.url = this.$.globals.url+'resources/json/charts.json';
+                this.$.dashboardItems.url = this.$.globals.urlws+'resources/json/charts.json/' + localStorage.getItem('userId');
             },
             contentResponse: function(e, data){
                 var me = this;
