@@ -9,7 +9,11 @@
             <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" relatedTarget valign="{{menuPosition}}">
                 <div class="menu-list menu">
                     <paper-item class="item" on-tap="{{addChart}}">
-                        <div class="label">Holding Charts</div>
+                        <div class="label">Bar Holdings Chart</div>
+                        <paper-ripple fit></paper-ripple>
+                    </paper-item>
+                    <paper-item class="item" on-tap="{{addChart}}">
+                        <div class="label">Pie Holdings Chart</div>
                         <paper-ripple fit></paper-ripple>
                     </paper-item>
                     <!--<paper-item class="item">
