@@ -1,7 +1,7 @@
 <link rel="import" href="chart-board.html">
 <link rel="import" href="drop-chart.html">
 <link rel="stylesheet" href="../../../css/dialog-styles.css">
-<polymer-element name="dashboard-charts" attributes="dashboardContent">
+<polymer-element name="dashboard-charts" attributes="dashboardContent itemId">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <div horizontal layout reverse class="dashboard-dropdown">
@@ -37,7 +37,7 @@
         </div>
         <div class="dashboard-content" id="dashboardCharts">
             <template repeat="{{val, i in dashboardContent}}">
-                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" id="{{val.name}}" dashboardContent="{{dashboardContent}}" dragAndDropsArray="{{dragAndDropsArray}}" func="{{updateDragAndDropsArray}}"></chart-board>
+                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" id="{{i}}" dashboardContent="{{dashboardContent}}" dragAndDropsArray="{{dragAndDropsArray}}" on-rmch="{{updateDragAndDropsArray}}" on-tich="{{sendChartsToWS}}"></chart-board>
             </template>
             <template repeat="{{val in dragAndDropsArray}}">
                 <drop-chart id="dropZone"></drop-chart>
@@ -60,6 +60,27 @@
                     //console.log(me.menuPosition);
                 }
                 me.menuStatus = true;
+            },
+
+            sendChartsToWS: function(){
+                var dashboardContent = {};
+                var item = {};
+
+                dashboardContent.charts = [];
+                dashboardContent.chartsLength = this.dashboardContent.length;
+                for (var i=0; i<dashboardContent.chartsLength; i++){
+                    item = {
+                        type:this.dashboardContent[i].type
+                    };
+                    dashboardContent.charts.push(item);
+                }
+
+                if(this.itemId){
+                    dashboardContent.portfolioId = this.itemId;
+                }
+
+                console.log(dashboardContent);
+                return dashboardContent;
             },
 
             updateDragAndDropsArray: function() {
