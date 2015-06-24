@@ -128,6 +128,11 @@
                    id="usersPageItems"
                    handleas="json"
                    on-core-response="{{contentResponse}}"></core-ajax>
+        <core-ajax auto
+                   id="addUserSave"
+                   method="POST"
+                   handleAs="json"
+                   on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('users-list',{
@@ -352,7 +357,9 @@
                 var me = this;
                 var userEmail = me.$.addUserEmail, userFirstName = me.$.addUserFirstName, userLastName = me.$.addUserLastName;
 
-                if(userEmail.validate() && userFirstName.validate() && userLastName.validate()){
+                if(userEmail.validate() && userFirstName.validate() && userLastName.validate()) {
+					this.$.addUserSave.url = this.$.globals.urlws+'resources/json/adduser.json';    
+					this.$.addUserSave.body = "{'email': '" + userEmail.input.value + "','firstName': '" + userFirstName.input.value + "','lastName': '" + userLastName.input.value + "'}" ;            	
                     var newUserData = {
                         status:'Pending',
                         action:['visibility','refresh']};
