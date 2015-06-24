@@ -1,4 +1,4 @@
-<polymer-element name="chart-board" attributes="name type values dashboardContent dragAndDropsArray func">
+<polymer-element name="chart-board" attributes="name type values dashboardContent dragAndDropsArray">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <div class="chart-board" id="board">
@@ -8,30 +8,35 @@
                     <paper-icon-button icon="settings" on-tap="{{openMenu}}" relative></paper-icon-button>
                     <paper-dropdown opened="{{menuStatus}}" halign="right" valign="top" class="chart-dropdown">
                         <div class="menu-list menu">
-                            <paper-item class="item" hidden?="{{type==1}}" type="1" on-tap="{{changeChartType}}">
-                                <div class="label">Bar</div>
-                                <paper-ripple fit></paper-ripple>
-                            </paper-item>
-                            <paper-item class="item" hidden?="{{type==4}}" type="4" on-tap="{{changeChartType}}">
-                                <div class="label">Pie</div>
-                                <paper-ripple fit></paper-ripple>
-                            </paper-item>
-                            <paper-item class="item" hidden?="{{type==0}}" type="0" on-tap="{{changeChartType}}">
-                                <div class="label">Line</div>
-                                <paper-ripple fit></paper-ripple>
-                            </paper-item>
-                            <paper-item class="item" hidden?="{{type==2}}" type="2" on-tap="{{changeChartType}}">
-                                <div class="label">Radar</div>
-                                <paper-ripple fit></paper-ripple>
-                            </paper-item>
-                            <paper-item class="item" hidden?="{{type==3}}" type="3" on-tap="{{changeChartType}}">
-                                <div class="label">Polar</div>
-                                <paper-ripple fit></paper-ripple>
-                            </paper-item>
-                            <paper-item class="item" hidden?="{{type==5}}" type="5" on-tap="{{changeChartType}}">
-                                <div class="label">Doughnut</div>
-                                <paper-ripple fit></paper-ripple>
-                            </paper-item>
+                            <template if="{{(type == 0)||(type == 1)||(type == 2)}}">
+                                <paper-item class="item" hidden?="{{type==0}}" type="0" on-tap="{{changeChartType}}">
+                                    <div class="label">Line</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" hidden?="{{type==1}}" type="1" on-tap="{{changeChartType}}">
+                                    <div class="label">Bar</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" hidden?="{{type==2}}" type="2" on-tap="{{changeChartType}}">
+                                    <div class="label">Radar</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                            </template>
+                            <template if="{{(type == 3)||(type == 4)||(type == 5)}}">
+                                <paper-item class="item" hidden?="{{type==4}}" type="4" on-tap="{{changeChartType}}">
+                                    <div class="label">Pie</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+
+                                <paper-item class="item" hidden?="{{type==3}}" type="3" on-tap="{{changeChartType}}">
+                                    <div class="label">Polar</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                                <paper-item class="item" hidden?="{{type==5}}" type="5" on-tap="{{changeChartType}}">
+                                    <div class="label">Doughnut</div>
+                                    <paper-ripple fit></paper-ripple>
+                                </paper-item>
+                            </template>
                         </div>
                     </paper-dropdown>
                     <paper-icon-button icon="close" on-tap="{{removeChart}}"></paper-icon-button>
@@ -121,18 +126,24 @@
             },
             menuStatus: false,
             apply: function(){
-                var chartId = this.id;
-                this.dashboardContent.splice(chartId ,1);
-                if (this.dashboardContent.length < 4) {
-                    this.dragAndDropsArray = new Array(4);
+                var me = this;
+                var chartId = me.id;
+
+                me.dashboardContent.splice(chartId, 1);
+
+                if (me.dashboardContent.length < 4) {
+                    me.dragAndDropsArray = new Array(4);
                 }
-                this.func();
+
+                me.fire('rmch', {});
+                me.fire('tich', {});
             },
             changeChartType: function(e){
                 var me = this;
                 var chartType = e.currentTarget.attributes.type.value;
-                this.type = parseInt(chartType);
-                this.chartGo(this.type);
+                me.type = parseInt(chartType);
+                me.chartGo(me.type);
+                me.fire('tich', {});
             },
             hexToRGB: function(hex){
                 var RGB = [];
