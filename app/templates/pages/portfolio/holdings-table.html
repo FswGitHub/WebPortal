@@ -46,7 +46,7 @@
                                 <div class="col-padding table-item" flex five>{{classificationContent.totalExposureValue}}</div>
                             </div>
                             <div class="table-body no-padding-bottom">
-                                <template repeat="{{val in pageItem | filterByLength}}">
+                                <template repeat="{{val in pageItem | filterByLength(hasResults)}}">
                                     <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id+i}}">
                                         <div class="col-padding table-item category-title" flex seven>
                                             <core-icon id="icon{{val.id+i}}" class="category-icon" icon="arrow-drop-down"></core-icon>
@@ -182,14 +182,9 @@
 
             },
 
-            filterByLength: function(items){
-                var categories = [];
-                for (var i = 0; i < items.length; i++) {
-                    var item = items[i];
-                    if (item.categoryItems.length > 1) {
-                        categories.push(item);
-                    }
-                }
+            filterByLength: function(items, fullCat){
+                var categories = items;
+                console.log(fullCat);
                 return categories;
             },
 
@@ -200,13 +195,19 @@
             //Search "Filter by name" function
             filterByName: function(items, value){
                 var filtered = [];
+                this.hasResults = [];
                 var letterMatch = new RegExp(value, 'i');
                 for (var i = 0; i < items.length; i++) {
                     var item = items[i];
+                    var categoryIndex = items[i].categoryIndex;
                     if (letterMatch.test(item.name)) {
                         filtered.push(item);
                     }
+                    if (filtered.length > 0){
+                        this.hasResults.push(categoryIndex);
+                    }
                 }
+
                 return filtered;
             },
 
