@@ -24,6 +24,14 @@ paper-fab {
 .login-page .content, .confirm-page .content {
   overflow-y: auto;
 }
+.login-page /deep/ paper-spinner::shadow .circle, .confirm-page /deep/ paper-spinner::shadow .circle {
+  border-color: #DD1F29;
+}
+.login-page /deep/ .spinner, .confirm-page /deep/ .spinner {
+  position: absolute;
+  top: 8px;
+  right: -42px;
+}
 .login-page .header .logo-wrapper, .confirm-page .header .logo-wrapper {
   width: 224px;
   margin: 15px;
@@ -70,6 +78,7 @@ paper-fab {
 }
 .login-page .content > paper-shadow form .login-button, .confirm-page .content > paper-shadow form .login-button {
   margin: 20px auto 20px;
+  position: relative;
 }
 .login-page .content > paper-shadow form .login-button .submit, .confirm-page .content > paper-shadow form .login-button .submit {
   margin: 0;
