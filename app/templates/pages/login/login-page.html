@@ -86,7 +86,7 @@
             },
             loginError: function () {
                 this.loginInProgress = false;
-                this.dialogText = 'Wrong login or password.';
+                this.dialogText = 'Wrong login, password or your account has not been verified. Please check the verification email that was sent.';
                 this.$.loginDialog.toggle();
             },
             loginResponse: function (e, data) {
