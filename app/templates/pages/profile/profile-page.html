@@ -90,7 +90,8 @@
                 photo: 'img/icon-profile.png'
             },            
             userIdChanged: function (){
-                this.$.profileContent.url = this.$.globals.urlws+'resources/json/user.json/'+ localStorage.getItem('userId');                 
+ //               this.$.profileContent.url = this.$.globals.urlws+'resources/json/user.json/'+ localStorage.getItem('userId');
+                this.$.profileContent.url = this.$.globals.urlws+'resources/json/user.json/'+ this.userId;
             },
             contentResponse: function(e, data){
                 var me = this;

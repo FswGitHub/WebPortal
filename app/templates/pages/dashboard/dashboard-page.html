@@ -11,7 +11,9 @@
     <script>
         Polymer('dashboard-page', {
             userIdChanged: function(){
-                this.$.dashboardItems.url = this.$.globals.urlws+'resources/json/charts.json/' + localStorage.getItem('userId');
+//                this.$.dashboardItems.url = this.$.globals.urlws+'resources/json/charts.json/' + localStorage.getItem('userId');
+                this.$.dashboardItems.url = this.$.globals.urlws+'resources/json/charts.json/' + this.userId;
+
             },
             contentResponse: function(e, data){
                 var me = this;
