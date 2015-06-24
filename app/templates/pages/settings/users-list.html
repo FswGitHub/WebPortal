@@ -110,8 +110,11 @@
                                         <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.lastName}}</div>
                                         <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.status}}</div>
                                         <div class="col-padding table-item" flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">
-                                            <template repeat="{{act in user.action}}">
-                                                <core-icon icon="{{act}}"></core-icon>
+                                            <template if="{{user.status}}">
+                                                <core-icon icon="visibility"></core-icon>
+                                                <template if="{{user.status == 'Pending'}}">
+                                                    <core-icon icon="refresh"></core-icon>
+                                                </template>
                                             </template>
                                         </div>
                                     </div>
@@ -354,8 +357,9 @@
 
                 if(userEmail.validate() && userFirstName.validate() && userLastName.validate()){
                     var newUserData = {
-                        status:'Pending',
-                        action:['visibility','refresh']};
+                        //status:'Pending',
+                        //action:['visibility','refresh']
+                        };
                     newUserData.email = userEmail.input.value;
                     newUserData.firstName = userFirstName.input.value;
                     newUserData.lastName = userLastName.input.value;
