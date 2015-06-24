@@ -1,23 +1,10 @@
 @import "_variables";
 
 .login-page {
-
-  background-color: rgba(151,151,151, 1);
   .content {
     overflow-y: auto;
   }
-  /deep/ {
-    paper-spinner::shadow .circle {
-      border-color: $color-main;
-    }
-    .spinner {
-      position: absolute;
-      top: 8px;
-      right: -42px;
-    }
-
-  }
-
+  background-color: rgba(151,151,151, 1);
   .header {
     .logo-wrapper{
       width: 224px;
@@ -59,7 +46,6 @@
         }
         .login-button{
           margin: 20px auto 20px;
-          position: relative;
           .submit{
             margin: 0;
             background-color: $color-main;

@@ -24,14 +24,6 @@ paper-fab {
 .login-page .content, .reset-password .content {
   overflow-y: auto;
 }
-.login-page /deep/ paper-spinner::shadow .circle, .reset-password /deep/ paper-spinner::shadow .circle {
-  border-color: #DD1F29;
-}
-.login-page /deep/ .spinner, .reset-password /deep/ .spinner {
-  position: absolute;
-  top: 8px;
-  right: -42px;
-}
 .login-page .header .logo-wrapper, .reset-password .header .logo-wrapper {
   width: 224px;
   margin: 15px;
@@ -78,7 +70,6 @@ paper-fab {
 }
 .login-page .content > paper-shadow form .login-button, .reset-password .content > paper-shadow form .login-button {
   margin: 20px auto 20px;
-  position: relative;
 }
 .login-page .content > paper-shadow form .login-button .submit, .reset-password .content > paper-shadow form .login-button .submit {
   margin: 0;

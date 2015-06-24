@@ -43,6 +43,11 @@
                 <drop-chart id="dropZone"></drop-chart>
             </template>
         </div>
+        <app-globals id="globals"></app-globals>
+        <core-ajax auto
+               id="dashboardSave"
+               method="POST"
+               handleAs="json"></core-ajax>
     </template>
     <script>
         Polymer('dashboard-charts', {
@@ -65,6 +70,8 @@
                 var dashboardContent = {};
                 var item = {};
 
+                var chartTypes = [];
+
                 dashboardContent.charts = [];
                 dashboardContent.chartsLength = this.dashboardContent.length;
                 for (var i=0; i<dashboardContent.chartsLength; i++){
@@ -72,13 +79,16 @@
                         type:this.dashboardContent[i].type
                     };
                     dashboardContent.charts.push(item);
+                    chartTypes.push(dashboardContent.charts[i].type);
                 }
 
                 if(this.itemId){
                     dashboardContent.portfolioId = this.itemId;
                 }
 
-                //console.log(dashboardContent);
+                this.$.dashboardSave.url = this.$.globals.urlws+'resources/json/savedashboard.json';
+                this.$.dashboardSave.body = "{'userId': '" + this.userId + "','portfolioId': '" + dashboardContent.portfolioId + "','chartsLength': '" + dashboardContent.chartsLength + "','chartTypes': '" + chartTypes + "'}";
+                
                 return dashboardContent;
             },
 
