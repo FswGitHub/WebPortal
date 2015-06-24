@@ -85,7 +85,7 @@
                 firstName: ' ',
                 lastName: ' ',
                 email: 'example@com',
-                cellphone: ' ',
+                cellPhone: ' ',
                 idNumber: 0,
                 photo: 'img/icon-profile.png'
             },            
@@ -107,6 +107,7 @@
                 if(data.response.success){
                     me.userData = data.response.user;
                     me.user = me.userData;
+
                     if((me.user.photo == '') || (!me.user.photo)){
                         me.user.photo = 'img/icon-profile.png';
                     }

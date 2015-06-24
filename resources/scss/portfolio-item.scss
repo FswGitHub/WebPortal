@@ -144,6 +144,10 @@
       padding-left: 14px;
     }
 
+    core-selector.headers-filters-item .core-selected {
+      display: none;
+    }
+
     @media screen and (max-width: $size-mobile-mini) {
       #holdingView{
         margin-right: 0;
@@ -380,13 +384,28 @@
   padding: 0;
 }
 
+.table-header-label {
+  position: relative;
+  core-icon {
+    position: absolute;
+    right: -24px;
+    top: 0;
+  }
+}
+
 #tableHeader {
+  vertical-align: top;
   .core-selected {
     span {
       border-bottom: 1px solid $color-white;
     }
   }
+
+  #name {
+    padding: 16px 6px 16px 16px;
+  }
 }
+
 .filter-icon {
   opacity: 0;
 }

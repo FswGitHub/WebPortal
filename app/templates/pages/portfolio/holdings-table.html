@@ -10,38 +10,21 @@
                               queryMatches="{{phoneScreen}}"></core-media-query>
             <div class="table-header-list" hidden?="{{phoneScreen}}">
                 <core-selector id="tableHeader" selected="{{orderVal}}" valueattr="orderval" layout horizontal?="{{!phoneScreen}}">
-                    <div class="col-padding table-header link" flex four orderval="name">
-                        <span>Name</span>
-                        <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                    </div>
-                    <div class="col-padding table-header link" flex three orderval="nominal">
-                        <span>Nominal</span>
-                        <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                    </div>
-                    <div class="col-padding table-header link" flex three orderval="costPrice">
-                        <span>Cost Price</span>
-                        <core-icon icon="arrow-drop-down" class="filter-icon cost-price-icon"></core-icon>
-                    </div>
-                    <div class="col-padding table-header link" flex four orderval="bookValue">
-                        <span>Book value (R)</span>
-                        <core-icon icon="arrow-drop-down" class="filter-icon book-value-icon"></core-icon>
-                    </div>
-                    <div class="col-padding table-header link" flex four orderval="marketPrice">
-                        <span>Market Price</span>
-                        <core-icon icon="arrow-drop-down" class="filter-icon market-price-icon"></core-icon>
-                    </div>
-                    <div class="col-padding table-header link" flex four orderval="marketValue">
-                        <span>Market Value</span>
-                        <core-icon icon="arrow-drop-down" class="filter-icon market-value-icon"></core-icon>
-                    </div>
-                    <div class="col-padding table-header link" flex two orderval="MV">
-                        <span>%MV</span>
-                        <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                    </div>
-                    <div class="col-padding table-header link" flex five orderval="exposureValue">
-                        <span>Exposure Value (R)</span>
-                        <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
-                    </div>
+                    <template repeat="{{header in headers}}">
+                        <div class="col-padding table-header link" id="{{header.orderval}}" flex three?="{{header.flex == 'three'}}" four?="{{header.flex == 'four'}}" five?="{{header.flex == 'five'}}" two?="{{header.flex == 'two'}}"  orderval="{{header.orderval}}">
+                            <core-selector class="headers-filters-item" selected="{{selectedDirection}}" valueattr="to"  horizontal layout>
+                                <div to="up" class="table-header-label">
+                                    <span>{{header.name}}</span>
+                                    <core-icon icon="arrow-drop-up" class="filter-icon"></core-icon>
+                                </div>
+                                <div to="down" class="table-header-label">
+                                    <span>{{header.name}}</span>
+                                    <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
+                                </div>
+                            </core-selector>
+
+                        </div>
+                    </template>
                 </core-selector>
             </div>
             <!--Holdings table -->
@@ -85,13 +68,9 @@
                                                     <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
                                                         <!--Holdings table-headers for mobile view-->
                                                         <div class="col-content labels" hidden?="{{!phoneScreen}}">
-                                                            <div class="col-padding table-item table-label">Nominal</div>
-                                                            <div class="col-padding table-item table-label">Cost Price</div>
-                                                            <div class="col-padding table-item table-label">Book Value (R)</div>
-                                                            <div class="col-padding table-item table-label">Market Price</div>
-                                                            <div class="col-padding table-item table-label">Market Value</div>
-                                                            <div class="col-padding table-item table-label">%MV</div>
-                                                            <div class="col-padding table-item table-label">Exposure Value (R)</div>
+                                                            <template repeat="{{header in headers}}">
+                                                                <div class="col-padding table-item table-label" hidden?="{{header.name == 'Name'}}">{{header.name}}</div>
+                                                            </template>
                                                         </div>
                                                         <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
                                                             <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{item.name}}</div>
@@ -131,6 +110,47 @@
                 this.page = 0;
                 this.portfolioItemsNoCategory = [];
             },
+
+            headers:[{
+                name:'Name',
+                flex: 'four',
+                orderval: 'name'
+            },
+            {
+                name:'Nominal',
+                flex: 'three',
+                orderval: 'nominal'
+            },
+            {
+                name:'Cost Price',
+                flex:'three',
+                orderval:'costPrice'
+            },
+            {
+                name:'Book Value (R)',
+                flex:'four',
+                orderval:'bookValue'
+            },
+            {
+                name:'Market Price',
+                flex:'four',
+                orderval:'marketPrice'
+            },
+            {
+                name:'Market Value',
+                flex:'four',
+                orderval:'marketValue'
+            },
+            {
+                name: '%MV',
+                flex:'two',
+                orderval:'MV'
+            },
+            {
+                name:'Exposure Value (R)',
+                flex:'five',
+                orderval:'exposureValue'
+            }],
 
             contentResponse: function(e, data){
                 var me = this;
@@ -372,6 +392,18 @@
 
             //"Order by" action
             orderVal:'name',
+            selectedDirection: 'up',
+            orderValChanged: function(){
+                this.selectedDirection = 'up';
+            },
+
+            selectedDirectionChanged: function(e, detail){
+                if(this.selectedDirection == 'up'){
+                    this.reverse = false;
+                }else {
+                    this.reverse = true;
+                }
+            },
 
             rowSizeChanged: function(){
                 var me = this;

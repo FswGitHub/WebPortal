@@ -1,7 +1,7 @@
 <link rel="import" href="dashboard-charts.html">
 <polymer-element name="dashboard-page" attributes="userId">
     <template>
-        <dashboard-charts dashboardContent="{{dashboardContent}}" id="dashboardCharts"></dashboard-charts>
+        <dashboard-charts dashboardContent="{{dashboardContent}}" id="dashboardCharts" userId="{{userId}}"></dashboard-charts>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="dashboardItems"

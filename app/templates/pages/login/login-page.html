@@ -34,7 +34,10 @@
                                     <paper-checkbox for checked="{{rememberUser}}"></paper-checkbox>
                                 </core-label>
                                 <template bind if="{{loginInProgress}}">
-                                    <span class="loader">Loading</span>
+                                    <!--<span class="loader">Loading</span>-->
+                                    <div layout>
+                                        <paper-spinner active></paper-spinner>
+                                    </div>
                                 </template>
                             </div>
                         </form>

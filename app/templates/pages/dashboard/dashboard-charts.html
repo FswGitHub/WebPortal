@@ -1,7 +1,7 @@
 <link rel="import" href="chart-board.html">
 <link rel="import" href="drop-chart.html">
 <link rel="stylesheet" href="../../../css/dialog-styles.css">
-<polymer-element name="dashboard-charts" attributes="dashboardContent itemId">
+<polymer-element name="dashboard-charts" attributes="dashboardContent itemId userId">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <div horizontal layout reverse class="dashboard-dropdown">
@@ -57,7 +57,6 @@
                 var width = window.innerWidth;
                 if (width <= '768') {
                     me.menuPosition = 'bottom';
-                    //console.log(me.menuPosition);
                 }
                 me.menuStatus = true;
             },
@@ -80,6 +79,7 @@
                 }
 
                 console.log(dashboardContent);
+                console.log(this.userId);
                 return dashboardContent;
             },
 

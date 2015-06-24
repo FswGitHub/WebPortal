@@ -93,7 +93,7 @@
                  </div>
                  <div class="table-body">
                      <core-selector selected="0" valueattr="number">
-                         <template repeat="{{user, i in allUsers | orderBy('email')}}">
+                         <template repeat="{{user, i in allUsers | orderBy('i')}}">
                              <div layout vertical?="{{phoneScreen}}" number="{{i}}">
                                  <h1 hidden?="{{!phoneScreen}}" class="table-header table-header-list">{{user.email}}</h1>
                                  <div layout horizontal?="{{phoneScreen}}" class="mobile-col-content">
