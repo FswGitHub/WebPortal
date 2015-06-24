@@ -10,19 +10,19 @@
             <div flex six relative>
                 <div class="content" fit>
                     <paper-shadow z="1">
-                        <form vertical layout on-submit="{{loginSubmit}}">
+                        <form vertical layout>
                             <paper-input-decorator id="email" label="Email"
                                                    floatingLabel
                                                    error="Please enter valid Email">
                                 <input required
-                                       value="alan.ball@outlook.com"
+                                       value="{{userEmail}}"
                                        type="email">
                             </paper-input-decorator>
                             <paper-input-decorator id="password" label="Password"
                                                    floatingLabel
                                                    error="Please enter Password">
                                 <input required
-                                       value="pass13245"
+                                       value="{{userPassword}}"
                                        type="password">
                             </paper-input-decorator>
                             <div class="login-button" horizontal layout center>
@@ -66,7 +66,7 @@
             <paper-button affirmative autofocus class="action-button">Ok</paper-button>
         </paper-action-dialog>
         <app-globals id="globals"></app-globals>
-        <core-ajax auto id="loginSubmitRequest"
+        <core-ajax id="loginSubmitRequest"
                    method="POST"
                    handleAs="json"
                    on-core-error="{{loginError}}"
@@ -74,22 +74,32 @@
     </template>
     <script>
         Polymer('login-page', {
+            userEmail:'alan.ball@outlook.com',
+            userPassword:'pass13245',
             loginInProgress: false,
             loginSubmit: function () {
+                this.$.loginSubmitRequest.abort();
+                console.log('login submit');
                 var email = this.$.email, password = this.$.password;
 
                 if (email.validate() && password.validate()) {
+
                     this.loginInProgress = true;
                     this.$.loginSubmitRequest.url = this.$.globals.urlws + 'resources/json/login.json';
-                    this.$.loginSubmitRequest.body = "{'email': '" + email.input.value + "','password': '" + password.input.value + "'}" ;
+                    this.$.loginSubmitRequest.body = "{'email': '" + this.userEmail + "','password': '" + this.userPassword + "'}" ;
+                    this.$.loginSubmitRequest.go();
                 }
             },
             loginError: function () {
+                console.log('login error');
                 this.loginInProgress = false;
                 this.dialogText = 'Wrong login, password or your account has not been verified. Please check the verification email that was sent.';
                 this.$.loginDialog.toggle();
+                localStorage.setItem('webPortalAuthorised', false);
+
             },
             loginResponse: function (e, data) {
+                console.log('login response');
                 this.loginInProgress = false;
                 
                 if(data.response.success){
@@ -97,31 +107,18 @@
                     this.userPassword = data.response.user.password;
                     this.userId = data.response.user.userId;
                     localStorage.setItem('userId', this.userId);
-                }
-
-                var email = this.$.email, password = this.$.password;
-
-                if ((this.userEmail == email.input.value) && (this.userPassword == password.input.value)) {
-                    var authorised = localStorage.getItem('webPortalAuthorised');
-                    if (this.rememberUser) {
-                        localStorage.setItem('webPortalAuthorised', true);
-                    } else {
-                        if (authorised) {
-                            localStorage.setItem('webPortalAuthorised', false);
-                        }
-                    }
+                    localStorage.setItem('webPortalAuthorised', true);
                     this.userLogIn = true;
+
                     document.querySelector('flatiron-director').route = 'dashboard';
                 }
                 else {
                     this.loginError();
+                    localStorage.setItem('webPortalAuthorised', false);
                 }
             },
             signupGo: function(){
                 document.querySelector('flatiron-director').route = 'signup';
-            },
-            userIdChanged: function(){
-                //this.fire('getid');
             }
         });
     </script>
