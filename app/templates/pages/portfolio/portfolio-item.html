@@ -60,7 +60,7 @@
                 this.selectedView = 'classification1';
             },
             userIdChanged: function(){
-                this.$.portfolioItem.url = this.$.globals.urlws+'resources/json/portfolio-item'+this.itemId+'.json';
+                this.$.portfolioItem.url = this.$.globals.urlws+'resources/json/portfolio-item'+this.itemId +'/' + this.userId + '.json';
                 this.request = this.$.globals.urlws+'resources/json/portfolio-item'+this.itemId;
             },
             contentResponse: function(e, data){
