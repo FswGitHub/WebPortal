@@ -28,10 +28,10 @@
                                            error="Please enter correct Email">
                         <input type="email" value="{{user.email}}" required  readonly?="{{!editOpen}}">
                     </paper-input-decorator>
-                    <paper-input-decorator id="cellphone"
+                    <paper-input-decorator id="cellPhone"
                                            label="Cellphone"
                                            floatingLabel>
-                        <input type="tel" value="{{user.cellphone}}"  readonly?="{{!editOpen}}">
+                        <input type="tel" value="{{user.cellPhone}}"  readonly?="{{!editOpen}}">
                     </paper-input-decorator>
                     <paper-input-decorator id="idNumber"
                                            label="ID Number"
@@ -70,6 +70,12 @@
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="profileContent"
+                   handleAs="json"
+                   on-core-response="{{contentResponse}}"></core-ajax>
+        <core-ajax auto
+                   id="profileContentSave"
+                   method="POST"
+                   handleAs="json"
                    on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
@@ -82,9 +88,9 @@
                 cellphone: ' ',
                 idNumber: 0,
                 photo: 'img/icon-profile.png'
-            },
+            },            
             userIdChanged: function (){
-                this.$.profileContent.url = this.$.globals.url+'resources/json/user.json';
+                this.$.profileContent.url = this.$.globals.urlws+'resources/json/user.json/'+ localStorage.getItem('userId');                 
             },
             contentResponse: function(e, data){
                 var me = this;
@@ -127,8 +133,14 @@
                 var firstName = this.$.firstName;
                 var lastName = this.$.lastName;
                 var email = this.$.email;
-                if(firstName.validate()&& lastName.validate() && email.validate()){
-                    //Submit must be here;
+                var idnumber = this.$.idNumber;
+                var cellphone = this.$.cellPhone;
+                var photourl = this.$.photo.src;
+                if(firstName.validate()&& lastName.validate() && email.validate()) {
+                    
+                    this.$.profileContentSave.url = this.$.globals.urlws+'resources/json/editprofile.json';
+                    this.$.profileContentSave.body = "{'userId': '" + localStorage.getItem('userId') + "','firstName': '" + firstName.input.value + "','lastName': '" + lastName.input.value + "','email': '" + email.input.value + "','cellPhone': '" + cellphone.input.value + "','idNumber': '" + idnumber.input.value + "','photo': '" + photourl + "'}" ;
+
                     this.editOpen = false;
                 }
             },
@@ -151,8 +163,6 @@
                     image.src = e.target.result;
                     if (image.width == 200 && image.height == 200) {
                         url.src = e.target.result;
-                        //Submit must be here!
-                        //console.log(url);
                     }
                     else {
                         dialog.querySelector('p').innerHTML = 'Image must be 200px X 200px!';
