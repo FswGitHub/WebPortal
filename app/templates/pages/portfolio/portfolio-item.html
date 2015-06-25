@@ -32,7 +32,7 @@
             </paper-shadow>
             <core-pages valueattr="name" selected="{{selectedTab}}" flex>
                 <section name="dashboard" class="content" fit>
-                    <dashboard-charts class="content" fit dashboardContent="{{portfolioCharts}}" itemId="{{itemId}}" id="charts"></dashboard-charts>
+                    <dashboard-charts id="charts" class="content" dashboardContent="{{portfolioCharts}}" itemId="{{itemId}}" on-getcharts="{{getPortfolioFromWS}}" chartslth="{{4 - portfolioCharts.length}}" fit></dashboard-charts>
                 </section>
                 <section name="holdings">
                     <core-pages valueattr="view" selected="{{selectedView}}"  fit>
@@ -48,8 +48,7 @@
             </core-pages>
         </div>
         <app-globals id="globals"></app-globals>
-        <core-ajax auto
-                   id="portfolioItem"
+        <core-ajax id="portfolioItem"
                    handleas="json"
                    on-core-response="{{contentResponse}}"></core-ajax>
     </template>
@@ -59,19 +58,27 @@
                 this.selectedTab = 'dashboard';
                 this.selectedView = 'classification1';
             },
+
             userIdChanged: function(){
+                this.getPortfolioFromWS();
+            },
+
+            getPortfolioFromWS:function(){
                 this.$.portfolioItem.url = this.$.globals.urlws+'resources/json/portfolio-item'+this.itemId +'/' + this.userId + '.json';
+                this.$.portfolioItem.go();
                 this.request = this.$.globals.urlws+'resources/json/portfolio-item'+this.itemId;
             },
+
             contentResponse: function(e, data){
                 var me = this;
+
                 if(data.response.success) {
-                    //me.portfolioItemContent = data.response.item;
                     me.portfolioCharts = data.response.item.charts;
                     me.classifications = data.response.item.classifications;
                 }
-                me.$.charts.updateDragAndDropsArray();
-            }
+            },
+
+            portfolioCharts: new Array (0)
         })
     </script>
 </polymer-element>

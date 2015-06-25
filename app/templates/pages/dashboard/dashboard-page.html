@@ -1,26 +1,27 @@
 <link rel="import" href="dashboard-charts.html">
 <polymer-element name="dashboard-page" attributes="userId">
     <template>
-        <dashboard-charts dashboardContent="{{dashboardContent}}" id="dashboardCharts" userId="{{userId}}"></dashboard-charts>
+        <dashboard-charts dashboardContent="{{dashboardContent}}" id="dashboardCharts" userId="{{userId}}" on-getcharts="{{getChartsFromWS}}" chartslth="{{dashboardContent.length - 4}}"></dashboard-charts>
         <app-globals id="globals"></app-globals>
-        <core-ajax auto
-                   id="dashboardItems"
+        <core-ajax id="dashboardItems"
                    handleAs="json"
                    on-core-response="{{contentResponse}}"></core-ajax>
     </template>
     <script>
         Polymer('dashboard-page', {
             userIdChanged: function(){
-//                this.$.dashboardItems.url = this.$.globals.urlws+'resources/json/charts.json/' + localStorage.getItem('userId');
-                this.$.dashboardItems.url = this.$.globals.urlws+'resources/json/charts.json/' + this.userId;
-
+                this.getChartsFromWS();
             },
+
+            getChartsFromWS: function(){
+                this.$.dashboardItems.url = this.$.globals.urlws+'resources/json/charts.json/' + this.userId;
+                this.$.dashboardItems.go();
+            },
+
             contentResponse: function(e, data){
                 var me = this;
                 if(data.response.success){
-                    me.dashboardContentUploaded = data.response.content;
-                    me.dashboardContent = me.dashboardContentUploaded;
-                    me.$.dashboardCharts.updateDragAndDropsArray();
+                    me.dashboardContent = data.response.content;
                 }
             }
         })

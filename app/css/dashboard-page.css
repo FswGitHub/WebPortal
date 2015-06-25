@@ -18,6 +18,23 @@ paper-fab {
   margin-bottom: 16px;
 }
 
+:host /deep/ {
+  /*
+      .add-chart-text {
+        text-transform: initial;
+      }
+  
+      .drop-chart-here:hover {
+        background-color: rgba(237,237,237,0.7);
+        cursor: pointer;
+      }
+  
+      .white-bg {
+        background: $color-white;
+        border: 0;
+      }
+  */
+}
 :host /deep/ .chart-dropdown {
   font-weight: normal;
 }
@@ -29,7 +46,8 @@ paper-fab {
   font-size: 18px;
   border-radius: 2px;
   border: 1px solid #979797;
-  background: #EDEDED;
+  margin: 0;
+  background-color: #EDEDED;
 }
 @media screen and (max-width: 768px) {
   :host /deep/ .dashboard-dropdown {

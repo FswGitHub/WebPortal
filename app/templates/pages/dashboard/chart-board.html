@@ -1,4 +1,4 @@
-<polymer-element name="chart-board" attributes="name type values dashboardContent dragAndDropsArray">
+<polymer-element name="chart-board" attributes="name type values dashboardContent">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <div class="chart-board" id="board">
@@ -130,20 +130,14 @@
                 var chartId = me.id;
 
                 me.dashboardContent.splice(chartId, 1);
-
-                if (me.dashboardContent.length < 4) {
-                    me.dragAndDropsArray = new Array(4);
-                }
-
-                me.fire('rmch', {});
-                me.fire('tich', {});
+                me.fire('typechanged', {});
             },
             changeChartType: function(e){
                 var me = this;
                 var chartType = e.currentTarget.attributes.type.value;
                 me.type = parseInt(chartType);
                 me.chartGo(me.type);
-                me.fire('tich', {});
+                me.fire('typechanged', {});
             },
             hexToRGB: function(hex){
                 var RGB = [];

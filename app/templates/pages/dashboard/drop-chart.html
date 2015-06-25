@@ -10,7 +10,7 @@
                     <canvas id="canvas"></canvas>
                 </div>
                 <div fit class="drop-chart-here" layout horizontal center-center>
-                    <div><span>Drop chart here</span></div>
+                    <div><span>Add new chart here</span></div>
                 </div>
             </paper-shadow>
 
@@ -26,6 +26,7 @@
                 if (me.chart) me.chart.destroy();
                 setTimeout(function(){
                     Chart.defaults.global.responsive = true;
+
                     me.ctx = me.$.canvas.getContext('2d');
                     me.data = {
                         labels: [],

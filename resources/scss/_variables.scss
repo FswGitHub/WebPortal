@@ -56,3 +56,11 @@ paper-fab {
   color: $color-grey-dark;
   margin-bottom: 16px;
 }
+
+
+@mixin transition($option, $time, $function, $sec){
+  -webkit-transition: $option $time $function $sec;
+  -moz-transition: $option $time $function $sec;
+  -o-transition: $option $time $function $sec;
+  transition: $option $time $function $sec;
+}

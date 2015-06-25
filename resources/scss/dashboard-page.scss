@@ -15,9 +15,25 @@
       font-size: $font-size-desktop-small;
       border-radius: 2px;
       border: 1px solid $color-grey-medium;
-      background: $color-grey-light;
+      margin: 0;
+      background-color: $color-grey-light;
+      //@include transition(background-color, 100ms, ease-out, 0);
+    }
+/*
+    .add-chart-text {
+      text-transform: initial;
     }
 
+    .drop-chart-here:hover {
+      background-color: rgba(237,237,237,0.7);
+      cursor: pointer;
+    }
+
+    .white-bg {
+      background: $color-white;
+      border: 0;
+    }
+*/
     @media screen and (max-width: $size-tablet) {
       .dashboard-dropdown {
         position: fixed;

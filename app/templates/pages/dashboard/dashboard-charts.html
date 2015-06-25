@@ -1,18 +1,18 @@
 <link rel="import" href="chart-board.html">
 <link rel="import" href="drop-chart.html">
 <link rel="stylesheet" href="../../../css/dialog-styles.css">
-<polymer-element name="dashboard-charts" attributes="dashboardContent itemId userId">
+<polymer-element name="dashboard-charts" attributes="dashboardContent itemId userId chartslth">
     <template>
         <link rel="stylesheet" href="../../../css/dashboard-page.css">
         <div horizontal layout reverse class="dashboard-dropdown">
             <paper-fab icon="add" on-tap="{{openMenu}}" id="addChart"></paper-fab>
             <paper-dropdown opened="{{menuStatus}}" class="dashboard-menu-dropdown" halign="right" relatedTarget valign="{{menuPosition}}">
                 <div class="menu-list menu">
-                    <paper-item class="item" on-tap="{{addChart}}">
+                    <paper-item class="item" on-tap="{{addChart}}" type="1">
                         <div class="label">Bar Holdings Chart</div>
                         <paper-ripple fit></paper-ripple>
                     </paper-item>
-                    <paper-item class="item" on-tap="{{addChart}}">
+                    <paper-item class="item" on-tap="{{addChart}}" type="4">
                         <div class="label">Pie Holdings Chart</div>
                         <paper-ripple fit></paper-ripple>
                     </paper-item>
@@ -37,22 +37,25 @@
         </div>
         <div class="dashboard-content" id="dashboardCharts">
             <template repeat="{{val, i in dashboardContent}}">
-                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" id="{{i}}" dashboardContent="{{dashboardContent}}" dragAndDropsArray="{{dragAndDropsArray}}" on-rmch="{{updateDragAndDropsArray}}" on-tich="{{sendChartsToWS}}"></chart-board>
+                <chart-board name="{{val.name}}" type="{{val.type}}" values="{{val.data}}" id="{{i}}" dashboardContent="{{dashboardContent}}" on-typechanged="{{sendChartsToWS}}"></chart-board>
             </template>
-            <template repeat="{{val in dragAndDropsArray}}">
+            <template repeat="{{val in dragAndDropsArray | limitTo(chartslth)}}">
                 <drop-chart id="dropZone"></drop-chart>
             </template>
         </div>
         <app-globals id="globals"></app-globals>
-        <core-ajax auto
+        <core-ajax
                id="dashboardSave"
                method="POST"
-               handleAs="json"></core-ajax>
+               handleAs="json"
+               on-core-response="{{saved}}"></core-ajax>
+        <core-ajax
+                id="dashboardChange"
+                method="POST"
+                handleAs="json"></core-ajax>
     </template>
     <script>
         Polymer('dashboard-charts', {
-            ready: function(){},
-            newCharts: [],
             menuStatus: false,
             menuPosition: 'top',
             dragAndDropsArray: new Array(4),
@@ -67,56 +70,54 @@
             },
 
             sendChartsToWS: function(){
+                var dashboardContent = this.getDataToWS();
+
+                this.$.dashboardChange.url = this.$.globals.urlws+'resources/json/savedashboard.json';
+                this.$.dashboardChange.body = "{'userId': '" + this.userId + "','portfolioId': '" + dashboardContent.portfolioId + "','chartsLength': '" + dashboardContent.chartsLength + "','chartTypes': '" + dashboardContent.chartTypes + "'}";
+                this.$.dashboardChange.go();
+            },
+
+            getDataToWS: function(){
                 var dashboardContent = {};
-                var item = {};
-
-                var chartTypes = [];
-
-                dashboardContent.charts = [];
+                dashboardContent.chartTypes = [];
                 dashboardContent.chartsLength = this.dashboardContent.length;
+
                 for (var i=0; i<dashboardContent.chartsLength; i++){
-                    item = {
-                        type:this.dashboardContent[i].type
-                    };
-                    dashboardContent.charts.push(item);
-                    chartTypes.push(dashboardContent.charts[i].type);
+                    var type = this.dashboardContent[i].type;
+                    dashboardContent.chartTypes.push(type);
                 }
 
                 if(this.itemId){
                     dashboardContent.portfolioId = this.itemId;
                 }
 
-                this.$.dashboardSave.url = this.$.globals.urlws+'resources/json/savedashboard.json';
-                this.$.dashboardSave.body = "{'userId': '" + this.userId + "','portfolioId': '" + dashboardContent.portfolioId + "','chartsLength': '" + dashboardContent.chartsLength + "','chartTypes': '" + chartTypes + "'}";
-                
                 return dashboardContent;
-            },
-
-            updateDragAndDropsArray: function() {
-                var me = this;
-                if (me.dashboardContent) {
-                    var boards = me.dashboardContent.length;
-                    if (boards < 4) {
-                        var different = 4-boards;
-                        var cleanArray = new Array(different);
-                        me.dragAndDropsArray = cleanArray;
-                    }
-                    else {
-                        me.dragAndDropsArray = [];
-                    }
-                }
-                return this.dragAndDropsArray;
             },
 
             //Add holdings chart by button
             addChart: function(e) {
                 var me = this;
+                var type = e.currentTarget.attributes.type.value;
+                var dashboardContent = this.getDataToWS();
+
                 if (me.dashboardContent.length == 4) {
-                    this.errorMessage('All slots for charts are already filled. Please remove any chart to make free slot.');
+                    this.errorMessage('Only 4 charts allowed.');
                     e.stopPropagation();
+                } else {
+                    dashboardContent.chartsLength++;
+                    dashboardContent.chartTypes.push(parseInt(type));
+                    this.$.dashboardSave.url = this.$.globals.urlws+'resources/json/savedashboard.json';
+                    this.$.dashboardSave.body = "{'userId': '" + this.userId + "','portfolioId': '" + dashboardContent.portfolioId + "','chartsLength': '" + dashboardContent.chartsLength + "','chartTypes': '" + dashboardContent.chartTypes + "'}";
+                    this.$.dashboardSave.go();
                 }
-                return me.dashboardContent;
             },
+
+            saved: function(e, data){
+                if(data.response.success){
+                    this.fire('getcharts',{});
+                }
+            },
+
             errorMessage: function(text){
                 this.dialogText = text;
                 this.$.errorDialog.toggle();
