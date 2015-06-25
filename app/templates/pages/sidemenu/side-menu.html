@@ -24,8 +24,8 @@
                         <core-icon icon="perm-media"></core-icon>
                         <a href="#portfolio">Portfolio</a>
                     </paper-item>
-                    <template repeat="{{val,i in subItems}}">
-                        <paper-item class="child"  hash="portfolio/{{val.id}}" hidden?="{{i>4}}">
+                    <template repeat="{{val,i in subItems | limitTo(5)}}">
+                        <paper-item class="child"  hash="portfolio/{{val.id}}">
                             <a href="#portfolio/{{val.id}}">{{val.title}}</a>
                         </paper-item>
                     </template>

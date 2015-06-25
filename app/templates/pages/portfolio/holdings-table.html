@@ -184,7 +184,6 @@
 
             filterByLength: function(items, fullCat){
                 var categories = items;
-                console.log(fullCat);
                 return categories;
             },
 
@@ -195,7 +194,6 @@
             //Search "Filter by name" function
             filterByName: function(items, value){
                 var filtered = [];
-                this.hasResults = [];
                 var letterMatch = new RegExp(value, 'i');
                 for (var i = 0; i < items.length; i++) {
                     var item = items[i];
@@ -204,10 +202,9 @@
                         filtered.push(item);
                     }
                     if (filtered.length > 0){
-                        this.hasResults.push(categoryIndex);
+
                     }
                 }
-
                 return filtered;
             },
 
