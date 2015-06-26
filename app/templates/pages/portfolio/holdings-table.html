@@ -22,7 +22,6 @@
                                     <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
                                 </div>
                             </core-selector>
-
                         </div>
                     </template>
                 </core-selector>
@@ -39,11 +38,11 @@
                                     {{portfolio}} TOTAL
                                 </div>
                                 <div class="col-padding table-item" flex three></div>
-                                <div class="col-padding table-item" flex four>{{classificationContent.totalBookValue}}</div>
+                                <div class="col-padding table-item" flex four>{{classificationContent.totalBookValueFormated}}</div>
                                 <div class="col-padding table-item" flex four></div>
-                                <div class="col-padding table-item" flex four>{{classificationContent.totalMarketValue}}</div>
-                                <div class="col-padding table-item" flex two>{{classificationContent.totalPercentageMV}}</div>
-                                <div class="col-padding table-item" flex five>{{classificationContent.totalExposureValue}}</div>
+                                <div class="col-padding table-item" flex four>{{classificationContent.totalMarketValueFormated}}</div>
+                                <div class="col-padding table-item" flex two>{{classificationContent.totalPercentageMVFormated}}</div>
+                                <div class="col-padding table-item" flex five>{{classificationContent.totalExposureValueFormated}}</div>
                             </div>
                             <div class="table-body no-padding-bottom">
                                 <template repeat="{{val in pageItem | filterByLength(hasResults)}}">
@@ -52,11 +51,11 @@
                                             <core-icon id="icon{{val.id+i}}" class="category-icon" icon="arrow-drop-down"></core-icon>
                                             {{val.category}}
                                         </div>
-                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.totalBookValue}}</div>
-                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMarketPrice}}</div>
-                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.totalMarketValue}}</div>
-                                        <div class="col-padding table-item" flex two hidden?="{{phoneScreen}}">{{val.totalPercentageMV}}</div>
-                                        <div class="col-padding table-item" flex five hidden?="{{phoneScreen}}">{{val.totalExposureValue}}</div>
+                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.totalBookValueFormated}}</div>
+                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMarketPriceFormated}}</div>
+                                        <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.totalMarketValueFormated}}</div>
+                                        <div class="col-padding table-item" flex two hidden?="{{phoneScreen}}">{{val.totalPercentageMVFormated}}</div>
+                                        <div class="col-padding table-item" flex five hidden?="{{phoneScreen}}">{{val.totalExposureValueFormated}}</div>
                                     </div>
                                     <core-collapse id="collapse{{val.id+i}}" class="collapse" opened>
                                         <!-- All category items -->
@@ -74,12 +73,12 @@
                                                         <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
                                                             <div class="col-padding table-item text-value" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{item.name}}</div>
                                                             <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.nominal}}</div>
-                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.costPrice}}</div>
-                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.bookValue}}</div>
-                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketPrice}}</div>
-                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketValue}}</div>
-                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" two?="{{!phoneScreen}}">{{item.MV}}</div>
-                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{item.exposureValue}}</div>
+                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.costPriceFormated}}</div>
+                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.bookValueFormated}}</div>
+                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketPriceFormated}}</div>
+                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.marketValueFormated}}</div>
+                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" two?="{{!phoneScreen}}">{{item.percentageMVFormated}}</div>
+                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" five?="{{!phoneScreen}}">{{item.exposureValueFormated}}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -155,9 +154,9 @@
                 var me = this;
                 if(data.response.success) {
                     me.classificationContent = data.response.item;
+                    me.classificationContent = this.formatTotals(me.classificationContent);
                     me.portfolioHoldings = data.response.item.holdings;
                     me.allItems = [];
-                    me.allPages = [{}];
                     me.sizes = [50,100,200];
                     me.rowSize = me.sizes[0];
                     me.allPages = me.makePages(me.portfolioHoldings, me.rowSize);
@@ -240,6 +239,11 @@
                             firstCategory.totalMarketValue = category.totalMarketValue;
                             firstCategory.totalPercentageMV = category.totalPercentageMV;
                             firstCategory.totalExposureValue = category.totalExposureValue;
+                            firstCategory.averageMarketPriceFormated = category.averageMarketPriceFormated;
+                            firstCategory.totalBookValueFormated = category.totalBookValueFormated;
+                            firstCategory.totalExposureValueFormated = category.totalExposureValueFormated;
+                            firstCategory.totalMarketValueFormated = category.totalMarketValueFormated;
+                            firstCategory.totalPercentageMVFormated = category.totalPercentageMVFormated;
                             page.push(firstCategory);
                         }
                         if (k == settings[i].categoryFinish) {
@@ -252,6 +256,11 @@
                             lastCategory.totalMarketValue = category.totalMarketValue;
                             lastCategory.totalPercentageMV = category.totalPercentageMV;
                             lastCategory.totalExposureValue = category.totalExposureValue;
+                            lastCategory.averageMarketPriceFormated = category.averageMarketPriceFormated;
+                            lastCategory.totalBookValueFormated = category.totalBookValueFormated;
+                            lastCategory.totalExposureValueFormated = category.totalExposureValueFormated;
+                            lastCategory.totalMarketValueFormated = category.totalMarketValueFormated;
+                            lastCategory.totalPercentageMVFormated = category.totalPercentageMVFormated;
                             page.push(lastCategory);
                         }
                         if ((k!=settings[i].categoryFinish) && (k != settings[i].categoryStartWith)){
@@ -284,10 +293,47 @@
             //add category index to item and index of row
             addCategory: function(category, index){
                 var k = 0;
+                category.averageMarketPriceFormated = this.formating(category.averageMarketPrice);
+                category.totalBookValueFormated = this.formating(category.totalBookValue);
+                category.totalExposureValueFormated = this.formating(category.totalExposureValue);
+                category.totalMarketValueFormated = this.formating(category.totalMarketValue);
+                category.totalPercentageMVFormated = this.formating(category.totalPercentageMV);
+
                 for (k; k < category.categoryItems.length; k++) {
                     category.categoryItems[k].categoryIndex = index;
                     category.categoryItems[k].itemIndex = k;
+                    category.categoryItems = this.formatData(category.categoryItems);
                 }
+            },
+
+            formatData:function(items){
+                var i = 0;
+                for (i; i<items.length; i++){
+                    items[i].bookValueFormated = this.formating(items[i].bookValue);
+                    items[i].costPriceFormated = this.formating(items[i].costPrice);
+                    items[i].exposureValueFormated = this.formating(items[i].exposureValue);
+                    items[i].marketPriceFormated = this.formating(items[i].marketPrice);
+                    items[i].marketValueFormated = this.formating(items[i].marketValue);
+                    items[i].percentageMVFormated = this.formating(items[i].percentageMV);
+                }
+                return items;
+            },
+
+            formating: function(value){
+                value = this.roundDecimal(value);
+                value = this.addCommas(value);
+                return value;
+            },
+
+            addCommas: function(value){
+                value = value.toString();
+                value = value.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
+                return value;
+            },
+
+            roundDecimal: function(value){
+                value = Math.round(value * 100) / 100;
+                return value;
             },
 
             //sum of all rows
@@ -332,6 +378,13 @@
                 }
 
                 return settings;
+            },
+
+            formatTotals: function(items){
+                for(var item in items) {
+                    items[item+'Formated'] = this.formating(items[item]);
+                }
+                return items;
             },
 
             //Toggle collapses(categories) in the table
