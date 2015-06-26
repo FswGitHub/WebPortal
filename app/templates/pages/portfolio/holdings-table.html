@@ -11,14 +11,14 @@
             <div class="table-header-list" hidden?="{{phoneScreen}}">
                 <core-selector id="tableHeader" selected="{{orderVal}}" valueattr="orderval" layout horizontal?="{{!phoneScreen}}">
                     <template repeat="{{header in headers}}">
-                        <div class="col-padding table-header link" id="{{header.orderval}}" flex three?="{{header.flex == 'three'}}" four?="{{header.flex == 'four'}}" five?="{{header.flex == 'five'}}" two?="{{header.flex == 'two'}}"  orderval="{{header.orderval}}">
-                            <core-selector class="headers-filters-item" selected="{{selectedDirection}}" valueattr="to"  horizontal layout>
+                        <div class="col-padding table-header link" id="{{header.orderval}}" flex three?="{{header.flex == 'three'}}" four?="{{header.flex == 'four'}}" five?="{{header.flex == 'five'}}" two?="{{header.flex == 'two'}}"  orderval="{{header.orderval}}" textvalue?="{{header.name == 'name'}}">
+                            <core-selector class="headers-filters-item" selected="{{selectedDirection}}" valueattr="to"  horizontal layout reverse?="{{header.orderval!='name'}}">
                                 <div to="up" class="table-header-label">
-                                    <span>{{header.name}}</span>
+                                    <span class="header-name">{{header.name}}</span>
                                     <core-icon icon="arrow-drop-up" class="filter-icon"></core-icon>
                                 </div>
                                 <div to="down" class="table-header-label">
-                                    <span>{{header.name}}</span>
+                                    <span class="header-name">{{header.name}}</span>
                                     <core-icon icon="arrow-drop-down" class="filter-icon"></core-icon>
                                 </div>
                             </core-selector>
@@ -34,7 +34,7 @@
                         <section page="{{i}}">
                             <!--Totals values-->
                             <div layout horizontal center-center class="category-totals" hidden?="{{phoneScreen}}" id="totalsBlock" on-tap="{{toggleAllCategories}}">
-                                <div class="col-padding table-item portfolio-total-label" flex seven hidden?="{{phoneScreen}}">
+                                <div class="col-padding table-item portfolio-total-label text-value" flex seven hidden?="{{phoneScreen}}">
                                     <core-icon id="{{'toggleAllIcon'+i}}" class="category-icon total-icon" icon="arrow-drop-down" ></core-icon>
                                     {{portfolio}} TOTAL
                                 </div>
@@ -48,11 +48,10 @@
                             <div class="table-body no-padding-bottom">
                                 <template repeat="{{val in pageItem | filterByLength(hasResults)}}">
                                     <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id+i}}">
-                                        <div class="col-padding table-item category-title" flex seven>
+                                        <div class="col-padding table-item category-title text-value" flex ten>
                                             <core-icon id="icon{{val.id+i}}" class="category-icon" icon="arrow-drop-down"></core-icon>
                                             {{val.category}}
                                         </div>
-                                        <div class="col-padding table-item" flex three hidden?="{{phoneScreen}}">{{val.costPrice}}</div>
                                         <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.totalBookValue}}</div>
                                         <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.averageMarketPrice}}</div>
                                         <div class="col-padding table-item" flex four hidden?="{{phoneScreen}}">{{val.totalMarketValue}}</div>
@@ -69,11 +68,11 @@
                                                         <!--Holdings table-headers for mobile view-->
                                                         <div class="col-content labels" hidden?="{{!phoneScreen}}">
                                                             <template repeat="{{header in headers}}">
-                                                                <div class="col-padding table-item table-label" hidden?="{{header.name == 'Name'}}">{{header.name}}</div>
+                                                                <div class="col-padding table-item table-label text-value" hidden?="{{header.name == 'Name'}}">{{header.name}}</div>
                                                             </template>
                                                         </div>
                                                         <div class="col-content values" layout?="{{!phoneScreen}}" horizontal?="{{!phoneScreen}}">
-                                                            <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{item.name}}</div>
+                                                            <div class="col-padding table-item text-value" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}" hidden?="{{phoneScreen}}">{{item.name}}</div>
                                                             <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.nominal}}</div>
                                                             <div class="col-padding table-item" flex?="{{!phoneScreen}}" three?="{{!phoneScreen}}">{{item.costPrice}}</div>
                                                             <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{item.bookValue}}</div>

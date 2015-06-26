@@ -346,8 +346,8 @@ paper-fab {
 }
 
 .collapse-category {
+  padding: 0 16px;
   background: #D8D8D8;
-  padding: 0;
   border-bottom: 1px solid #EDEDED;
   cursor: pointer;
   -webkit-user-select: none;
@@ -363,13 +363,14 @@ paper-fab {
   color: #FFFFFF;
 }
 .collapse-category .col-padding.category-title {
-  padding-right: 1.5%;
+  padding-right: 3.7%;
 }
 
 .category-totals {
   background: #D8D8D8;
   margin-bottom: 10px;
   cursor: pointer;
+  padding: 0 16px;
 }
 .category-totals .col-padding:first-child core-icon {
   color: #FFFFFF;
@@ -377,10 +378,11 @@ paper-fab {
 .category-totals .table-item {
   font-size: 16px;
   font-weight: bold;
+  min-height: 24px;
 }
 
 .col-padding:first-child.portfolio-total-label {
-  padding-right: 1.5%;
+  padding-right: 2.3%;
   text-transform: uppercase;
 }
 
@@ -418,20 +420,28 @@ paper-fab {
 .table-header-label {
   position: relative;
 }
-.table-header-label core-icon {
-  position: absolute;
-  right: -24px;
-  top: 0;
+
+.col-padding.table-header.link {
+  text-align: right;
 }
 
 #tableHeader {
   vertical-align: top;
 }
-#tableHeader .core-selected span {
+#tableHeader .core-selected .header-name {
   border-bottom: 1px solid #FFFFFF;
+}
+#tableHeader .header-name {
+  position: absolute;
+  top: 0;
+  right: 24px;
 }
 #tableHeader #name {
   padding: 16px 6px 16px 16px;
+}
+#tableHeader #name .header-name {
+  position: relative;
+  right: auto;
 }
 
 .filter-icon {
@@ -445,10 +455,12 @@ paper-fab {
 .col-content {
   margin: 0 16px;
 }
-.col-content .col-padding:last-child {
+
+.col-padding:last-child {
   padding: 16px 0 16px 6px;
 }
-.col-content .col-padding:first-child {
+
+.col-padding:first-child {
   padding: 16px 6px 16px 0;
 }
 
@@ -456,12 +468,21 @@ paper-fab {
   padding: 16px 6px;
 }
 
+/*
 .col-padding:last-child {
-  padding: 16px 16px 16px 6px;
+  padding: 16px 30px 16px 0;
 }
 
 .col-padding:first-child {
   padding: 16px 6px 16px 16px;
+}
+*/
+.table-item {
+  text-align: right;
+}
+
+.text-value, [textvalue] {
+  text-align: left;
 }
 
 .no-matches {
