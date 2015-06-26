@@ -363,7 +363,7 @@ paper-fab {
   color: #FFFFFF;
 }
 .collapse-category .col-padding.category-title {
-  padding-right: 3.7%;
+  padding-right: 34px;
 }
 
 .category-totals {
@@ -376,13 +376,14 @@ paper-fab {
   color: #FFFFFF;
 }
 .category-totals .table-item {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   min-height: 24px;
+  line-height: 24px;
 }
 
 .col-padding:first-child.portfolio-total-label {
-  padding-right: 2.3%;
+  padding-right: 20px;
   text-transform: uppercase;
 }
 
@@ -413,16 +414,19 @@ paper-fab {
   position: relative;
 }
 
-.table-header-list {
-  padding: 0;
-}
-
 .table-header-label {
   position: relative;
 }
 
 .col-padding.table-header.link {
   text-align: right;
+}
+
+.table-header-list .col-padding:last-child {
+  padding: 16px 0 16px 6px;
+}
+.table-header-list .col-padding:first-child {
+  padding: 16px 6px 16px 0;
 }
 
 #tableHeader {
@@ -437,11 +441,46 @@ paper-fab {
   right: 24px;
 }
 #tableHeader #name {
-  padding: 16px 6px 16px 16px;
+  padding-left: 0;
 }
 #tableHeader #name .header-name {
   position: relative;
   right: auto;
+}
+#tableHeader #costPrice .header-name {
+  min-width: 78px;
+}
+#tableHeader #bookValue .header-name {
+  min-width: 106px;
+}
+#tableHeader #marketPrice .header-name {
+  min-width: 98px;
+}
+#tableHeader #marketValue .header-name {
+  min-width: 103px;
+}
+#tableHeader #exposureValue .header-name {
+  min-width: 138px;
+}
+@media screen and (max-width: 1060px) {
+  #tableHeader .header-name {
+    letter-spacing: -1px;
+  }
+  #tableHeader #exposureValue .header-name {
+    min-width: 120px;
+  }
+  #tableHeader #marketValue .header-name {
+    min-width: 90px;
+  }
+  #tableHeader #marketPrice .header-name {
+    min-width: 87px;
+  }
+  #tableHeader #bookValue .header-name {
+    min-width: 92px;
+  }
+  #tableHeader #costPrice .header-name {
+    min-width: 68px;
+  }
 }
 
 .filter-icon {

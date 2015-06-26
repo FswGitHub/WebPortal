@@ -332,7 +332,7 @@
     color: $color-white;
   }
   .col-padding.category-title {
-    padding-right: 3.7%;
+    padding-right: 34px;
   }
 }
 
@@ -345,14 +345,15 @@
     color: $color-white;
   }
   .table-item {
-    font-size: $font-size-mobile;
+    font-size: $font-size-mobile-small;
     font-weight: bold;
     min-height: 24px;
+    line-height: 24px;
   }
 }
 
 .col-padding:first-child.portfolio-total-label {
-  padding-right: 2.3%;
+  padding-right: 20px;
   text-transform: uppercase;
 }
 
@@ -381,21 +382,21 @@
   position: relative;
 }
 
-.table-header-list {
-  padding: 0;
-}
-
 .table-header-label {
   position: relative;
-  core-icon {
-    //position: absolute;
-    //right: -24px;
-    //top: 0;
-  }
 }
 
 .col-padding.table-header.link {
   text-align: right;
+}
+
+.table-header-list {
+  .col-padding:last-child {
+    padding: 16px 0 16px 6px;
+  }
+  .col-padding:first-child {
+    padding: 16px 6px 16px 0;
+  }
 }
 
 #tableHeader {
@@ -413,16 +414,57 @@
   }
 
   #name {
-    padding: 16px 6px 16px 16px;
+    padding-left: 0;
     .header-name {
       position: relative;
       right: auto;
     }
-
-    core-icon {
-      //position: absolute;
-      //right: -24px;
-      //top: 0;
+  }
+  #costPrice {
+    .header-name {
+      min-width: 78px;
+    }
+  }
+  #bookValue {
+    .header-name {
+      min-width: 106px;
+    }
+  }
+  #marketPrice {
+    .header-name {
+      min-width: 98px;
+    }
+  }
+  #marketValue {
+    .header-name {
+      min-width: 103px;
+    }
+  }
+  #exposureValue {
+    .header-name {
+      min-width: 138px;
+    }
+  }
+  @media screen and (max-width: 1060px) {
+    .header-name {
+      letter-spacing: -1px;
+    }
+    #exposureValue {
+      .header-name {
+        min-width: 120px;
+      }
+    }
+    #marketValue .header-name {
+      min-width: 90px;
+    }
+    #marketPrice .header-name {
+      min-width: 87px;
+    }
+    #bookValue .header-name {
+      min-width: 92px;
+    }
+    #costPrice .header-name {
+      min-width: 68px;
     }
   }
 }
