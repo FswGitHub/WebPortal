@@ -17,7 +17,7 @@
                           <div class="label" >Add User</div>
                         </paper-item>
                         <paper-item class="item" hidden?="{{mobile}}">
-                          <a class="bulk-link" href="../../../../resources/json/users.json" download layout horizontal center>
+                          <a class="bulk-link" href="../../../../resources/json/UserUpload.xlsx" download layout horizontal center>
                               <core-icon icon="file-download"></core-icon>
                               <div class="label">Bulk User Template</div>
                           </a>
@@ -113,7 +113,7 @@
                                             <template if="{{user.viewProfile}}">
                                                 <core-icon icon="visibility"></core-icon>
                                                 <template if="{{user.resendConfirmation}}">
-                                                    <core-icon icon="refresh" on-tap="{{resendConfirmation}}"></core-icon>
+                                                    <core-icon icon="refresh" label="{{user.userId}}" on-tap="{{resendConfirmation}}"></core-icon>
                                                 </template>
                                             </template>
                                         </div>
@@ -131,16 +131,21 @@
                    id="usersPageItems"
                    handleas="json"
                    on-core-response="{{contentResponse}}"></core-ajax>
-        <core-ajax auto
+        <core-ajax 
                    id="addUserSave"
                    method="POST"
                    handleAs="json"
                    on-core-response="{{contentResponse}}"></core-ajax>
-        <core-ajax auto
+        <core-ajax 
                    id="userSendConfirmation"
                    method="POST"
                    handleAs="json"
-                   on-core-response="{{userSendConfirmationResponse}}"></core-ajax>                   
+                   on-core-response="{{userSendConfirmationResponse}}"></core-ajax>         
+        <core-ajax 
+                   id="uploadUsersWs"
+                   method="POST"
+                   handleAs="json"
+                   on-core-response="{{contentResponse}}"></core-ajax>               
     </template>
     <script>
         Polymer('users-list',{
@@ -199,28 +204,15 @@
                             var first_sheet_name = workbook.SheetNames[0];
                             //Get worksheet
                             var worksheet = workbook.Sheets[first_sheet_name];
-                            var content = XLSX.utils.sheet_to_json(worksheet);
-                            //Remove spaces in actions array
-                            for (var i=0; i<content.length; i++){
-                                content[i].action = content[i].action.replace(/\s+/g, '');
-                                content[i].action = content[i].action.split(',');
-                            }
+                            var content = XLSX.utils.sheet_to_json(worksheet);                           
                             content = JSON.stringify(content);
                             localStorage.setItem('usersArray', content);
                         };
                         reader.readAsBinaryString(file);
-                    }
-                    //If file has JSON format
-                    else {
-                        reader.onload = function(e){
-                            var content = JSON.parse(e.target.result);
-                            content = JSON.stringify(content);
-                            localStorage.setItem('usersArray', content);
-                        };
-                        reader.readAsText(file);
-                    }
+                    }                   
 
-                    uploadOutput.value = output;
+                    uploadOutput.value = output;					
+
                     return this.usersFromFile = usersFromFile;
                 }
                 else {
@@ -261,28 +253,13 @@
                             //Get worksheet
                             var worksheet = workbook.Sheets[first_sheet_name];
                             var content = XLSX.utils.sheet_to_json(worksheet);
-                            //Remove spaces in actions array
-                            for (var i=0; i<content.length; i++){
-                                content[i].action = content[i].action.replace(/\s+/g, '');
-                                content[i].action = content[i].action.split(',');
-                            }
                             content = JSON.stringify(content);
                             localStorage.setItem('usersArray', content);
                         };
                         reader.readAsBinaryString(file);
                     }
-                    //If file has JSON format
-                    else {
-                        reader.onload = function(e){
-                            var content = JSON.parse(e.target.result);
-                            content = JSON.stringify(content);
-                            localStorage.setItem('usersArray', content);
-                        };
-                        reader.readAsText(file);
-                    }
-
                     uploadOutput.value = output;
-                }
+                 }
                 else {
                     this.errorMessage('Try another file format');
                     uploadOutput.value = '';
@@ -341,6 +318,11 @@
                             me.allUsers = usersArray;
                             me.allUsers = me.addEmptyStrings(me.allUsers);
                         }
+
+ 						this.$.uploadUsersWs.url = this.$.globals.urlws+'resources/json/uploadusers.json';
+                        this.$.uploadUsersWs.body = "{'success': true, 'users': " + getUsers + "}";
+                        this.$.uploadUsersWs.go();
+
                        this.openImport = false;
                     }
                     else {
@@ -367,7 +349,8 @@
 
                 if(userEmail.validate() && userFirstName.validate() && userLastName.validate()) {
 					this.$.addUserSave.url = this.$.globals.urlws+'resources/json/adduser.json';    
-					this.$.addUserSave.body = "{'email': '" + userEmail.input.value + "','firstName': '" + userFirstName.input.value + "','lastName': '" + userLastName.input.value + "'}" ;            	
+					this.$.addUserSave.body = "{'email': '" + userEmail.input.value + "','firstName': '" + userFirstName.input.value + "','lastName': '" + userLastName.input.value + "'}" ;   
+					this.$.addUserSave.go();         	
                     var newUserData = {
                         //status:'Pending',
                         //action:['visibility','refresh']
@@ -387,13 +370,15 @@
                 me.openAdd = false;
             },
 
-            resendConfirmation: function() {
+            resendConfirmation: function(e) {
                 this.$.userSendConfirmation.url = this.$.globals.urlws + 'resources/json/sendconfirmationemail.json';
+                this.$.userSendConfirmation.body = "{'userId': '" + e.currentTarget.attributes.label.value + "'}";
+                this.$.userSendConfirmation.go();
             },
 
             userSendConfirmationResponse:  function (e, data) {
                 var me = this;
-                if (!data.response.success) {
+                if (data.response.success) {
                     this.confirmationMessage('Email sent', 'Confirmation email sent');
                 } else {
                 	this.errorMessage('There was an error in sending the confirmation email');
