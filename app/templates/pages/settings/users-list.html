@@ -113,7 +113,7 @@
                                             <template if="{{user.viewProfile}}">
                                                 <core-icon icon="visibility"></core-icon>
                                                 <template if="{{user.resendConfirmation}}">
-                                                    <core-icon icon="refresh"></core-icon>
+                                                    <core-icon icon="refresh" on-tap="{{resendConfirmation}}"></core-icon>
                                                 </template>
                                             </template>
                                         </div>
@@ -136,6 +136,11 @@
                    method="POST"
                    handleAs="json"
                    on-core-response="{{contentResponse}}"></core-ajax>
+        <core-ajax auto
+                   id="userSendConfirmation"
+                   method="POST"
+                   handleAs="json"
+                   on-core-response="{{userSendConfirmationResponse}}"></core-ajax>                   
     </template>
     <script>
         Polymer('users-list',{
@@ -382,6 +387,19 @@
                 me.openAdd = false;
             },
 
+            resendConfirmation: function() {
+                this.$.userSendConfirmation.url = this.$.globals.urlws + 'resources/json/sendconfirmationemail.json';
+            },
+
+            userSendConfirmationResponse:  function (e, data) {
+                var me = this;
+                if (!data.response.success) {
+                    this.confirmationMessage('Email sent', 'Confirmation email sent');
+                } else {
+                	this.errorMessage('There was an error in sending the confirmation email');
+                }
+            },
+
             //Add/delete empty table strings
             addEmptyStrings: function (items){
                 if (this.width > '768') {
@@ -432,6 +450,13 @@
 
             errorMessage: function(text){
                 this.dialogText = text;
+                this.$.errorDialog.heading = "Error";
+                this.$.errorDialog.toggle();
+            },
+
+            confirmationMessage: function(heading, text){
+                this.dialogText = text;
+                this.$.errorDialog.heading = heading;
                 this.$.errorDialog.toggle();
             }
         });
