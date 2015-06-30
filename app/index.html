@@ -17,6 +17,7 @@
     <link rel="import" href="templates/includes.html">
     <!--Includes of site pages-->
     <link rel="import" href="templates/pages/sidemenu/side-menu.html">
+    <link rel="import" href="templates/pages/signin/signin-page.html">
     <link rel="import" href="templates/pages/login/login-page.html">
     <link rel="import" href="templates/pages/signup/signup-page.html">
     <link rel="import" href="templates/pages/confirm/confirm-page.html">
@@ -43,6 +44,7 @@
         </template>
         <!--Authorization pages-->
         <login-page hidden?="{{route != 'login'}}" logo="img/logo-light.png" on-getid={{getId}} userId="{{userId}}" userLogIn={{userLogIn}}></login-page>
+        <signin-page hidden?="{{route != 'signin'}}" logo="img/logo-light.png" on-getid={{getId}} userId="{{userId}}" userLogIn={{userLogIn}}></signin-page>
         <signup-page hidden?="{{route != 'signup'}}" logo="img/logo-light.png"></signup-page>
         <confirm-page hidden?="{{route != 'confirm'}}" logo="img/logo-light.png"></confirm-page>
         <reset-page hidden?="{{route != 'reset'}}" logo="img/logo-light.png"></reset-page>
