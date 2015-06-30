@@ -45,7 +45,7 @@
                                 <div class="col-padding table-item" flex five>{{classificationContent.totalExposureValueFormated}}</div>
                             </div>
                             <div class="table-body no-padding-bottom">
-                                <template repeat="{{val in pageItem | filterByLength(hasResults)}}">
+                                <template repeat="{{val in pageItem}}">
                                     <div layout horizontal class="collapse-category" on-tap="{{toggle}}" toggleId="{{val.id+i}}">
                                         <div class="col-padding table-item category-title text-value" flex ten>
                                             <core-icon id="icon{{val.id+i}}" class="category-icon" icon="arrow-drop-down"></core-icon>
@@ -86,18 +86,15 @@
                                         </core-selector>
                                     </core-collapse>
                                 </template>
-                                <!--No matches message-->
-                                <div layout vertical?="{{phoneScreen}}">
-                                    <template if="{{showNoMatches}}">
-                                        <span class="no-matches">No matches for your request. Try again!</span>
-                                    </template>
-                                </div>
+
                             </div>
                         </section>
                     </template>
                 </core-pages>
             </div>
         </div>
+        <!--No matches message-->
+        <div layout vertical?="{{phoneScreen}}" class="no-matches" id="noMatches"> No matches for your request. Try again!</div>
         <core-ajax auto
                    id="classificationItems"
                    on-core-response="{{contentResponse}}" url="{{request}}"></core-ajax>
@@ -180,9 +177,19 @@
 
             },
 
-            filterByLength: function(items, fullCat){
-                var categories = items;
-                return categories;
+            hideCollapse: function(){
+                var me = this;
+                var collapses = me.$.statutoryTable.querySelectorAll('.collapse-category');
+
+                for (var i=0; i < collapses.length; i++) {
+                    var collapse = collapses[i].nextElementSibling.id;
+                    var collapseFull = me.$.statutoryTable.querySelector('#'+collapse);
+                    if (collapseFull.offsetHeight != 0) {
+                        collapses[i].style.display = 'flex';
+                    } else {
+                        collapses[i].style.display = 'none';
+                    }
+                }
             },
 
             pageChanged: function(){
@@ -195,14 +202,11 @@
                 var letterMatch = new RegExp(value, 'i');
                 for (var i = 0; i < items.length; i++) {
                     var item = items[i];
-                    var categoryIndex = items[i].categoryIndex;
                     if (letterMatch.test(item.name)) {
                         filtered.push(item);
                     }
-                    if (filtered.length > 0){
-
-                    }
                 }
+                this.hideCollapse();
                 return filtered;
             },
 
