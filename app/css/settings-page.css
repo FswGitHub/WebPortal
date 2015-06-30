@@ -320,6 +320,9 @@ paper-fab {
   padding: 11px 16px;
   min-height: 24px;
 }
+:host /deep/ .user-list-action {
+  padding: 1px;
+}
 @media screen and (max-width: 768px) {
   :host /deep/ .user-actions {
     right: 16px;

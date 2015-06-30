@@ -111,9 +111,9 @@
                                         <div class="col-padding table-item" flex?="{{!phoneScreen}}" four?="{{!phoneScreen}}">{{user.status}}</div>
                                         <div class="col-padding table-item" flex?="{{!phoneScreen}}" seven?="{{!phoneScreen}}">
                                             <template if="{{user.viewProfile}}">
-                                                <core-icon icon="visibility"></core-icon>
+                                                <core-icon-button icon="visibility" on-tap="{{changeUser}}" currentuser="{{user.userId}}" fname="{{user.firstName}}" lname="{{user.lastName}}" class="user-list-action"></core-icon-button>
                                                 <template if="{{user.resendConfirmation}}">
-                                                    <core-icon icon="refresh" label="{{user.userId}}" on-tap="{{resendConfirmation}}"></core-icon>
+                                                    <core-icon-button icon="refresh" label="{{user.userId}}" on-tap="{{resendConfirmation}}" class="user-list-action"></core-icon-button>
                                                 </template>
                                             </template>
                                         </div>
@@ -411,6 +411,16 @@
                 }
                 items = newItems;
                 return items;
+            },
+
+            changeUser: function(e){
+                var id = e.currentTarget.attributes.currentuser.value;
+                var fname = e.currentTarget.attributes.fname.value;
+                var lname = e.currentTarget.attributes.lname.value;
+                console.log(id);
+                this.userId = id;
+                localStorage.setItem('userId', this.userId);
+                this.errorMessage('You login as '+fname+' '+lname);
             },
 
             //Identify mobile/tablet devices
