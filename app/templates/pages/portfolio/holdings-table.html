@@ -325,6 +325,7 @@
 
             formating: function(value){
                 value = this.roundDecimal(value);
+                value = value.toFixed(2);
                 value = this.addCommas(value);
                 return value;
             },
