@@ -77,7 +77,7 @@ paper-fab {
   font-size: 14px;
 }
 .login-page .content > paper-shadow form .login-button, .signup-page .content > paper-shadow form .login-button {
-  margin: 20px auto 20px;
+  margin: 20px 0;
   position: relative;
 }
 .login-page .content > paper-shadow form .login-button .submit, .signup-page .content > paper-shadow form .login-button .submit {

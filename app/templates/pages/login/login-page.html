@@ -25,20 +25,22 @@
                                        value="{{userPassword}}"
                                        type="password">
                             </paper-input-decorator>
-                            <div class="login-button" horizontal layout center>
-                                <paper-button class="submit"
-                                              on-tap="{{loginSubmit}}"
-                                              raised>Submit</paper-button>
-                                <core-label horizontal layout center>
-                                    <div class="remember">Remember Me</div>
-                                    <paper-checkbox for checked="{{rememberUser}}"></paper-checkbox>
-                                </core-label>
-                                <template bind if="{{loginInProgress}}">
-                                    <!--<span class="loader">Loading</span>-->
-                                    <div layout horizontal class="spinner">
-                                        <img src="../../../img/FPM-loader.gif">
-                                    </div>
-                                </template>
+                            <div horizontal layout center-center>
+                                <div class="login-button" horizontal layout center>
+                                    <paper-button class="submit"
+                                                  on-tap="{{loginSubmit}}"
+                                                  raised>Submit</paper-button>
+                                    <core-label horizontal layout center>
+                                        <div class="remember">Remember Me</div>
+                                        <paper-checkbox for checked="{{rememberUser}}"></paper-checkbox>
+                                    </core-label>
+                                    <template bind if="{{loginInProgress}}">
+                                        <!--<span class="loader">Loading</span>-->
+                                        <div layout horizontal class="spinner">
+                                            <img src="../../../img/FPM-loader.gif">
+                                        </div>
+                                    </template>
+                                </div>
                             </div>
                         </form>
                         <div>
