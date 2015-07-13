@@ -49,6 +49,14 @@
         <confirm-page hidden?="{{route != 'confirm'}}" logo="img/logo-light.png"></confirm-page>
         <reset-page hidden?="{{route != 'reset'}}" logo="img/logo-light.png"></reset-page>
         <newpass-page hidden?="{{route != 'newpass'}}" logo="img/logo-light.png"></newpass-page>
+        <!--Action dialog -->
+        <paper-action-dialog id="errorDialog"
+                             heading=""
+                             backdrop
+                             transition="core-transition-center">
+            <p>{{dialogText}}</p>
+            <paper-button affirmative autofocus class="action-button">Ok</paper-button>
+        </paper-action-dialog>
 
         <app-globals id="globals"></app-globals>
         <core-ajax auto
@@ -109,6 +117,39 @@
                 }
             }*/
         };
+
+        template.errorMessage = function(text){
+            this.dialogText = text;
+            this.$.errorDialog.toggle();
+        };
+
+        //Session timeout(5 minutes))
+        var IDLE_TIMEOUT = 300; //seconds
+        var _idleSecondsCounter = 0;
+        document.onclick = function() {
+            _idleSecondsCounter = 0;
+        };
+        document.onmousemove = function() {
+            _idleSecondsCounter = 0;
+        };
+        document.onkeypress = function() {
+            _idleSecondsCounter = 0;
+        };
+        window.setInterval(CheckIdleTime, 1000);
+
+        function CheckIdleTime() {
+            if (template.route != 'login') {
+                _idleSecondsCounter++;
+                var oPanel = document.getElementById("SecondsUntilExpire");
+                if (oPanel)
+                    oPanel.innerHTML = (IDLE_TIMEOUT - _idleSecondsCounter) + "";
+                if (_idleSecondsCounter >= IDLE_TIMEOUT) {
+                    template.errorMessage("Time expired!");
+                    document.querySelector('flatiron-director').route = 'login';
+                    localStorage.clear();
+                }
+            }
+        }
     </script>
 </body>
 </html>

@@ -37,6 +37,10 @@
                         <core-icon icon="settings"></core-icon>
                         <a href="#settings">Settings</a>
                     </paper-item>
+                    <paper-item hash="{{route}}">
+                        <core-icon icon="exit-to-app"></core-icon>
+                        <a on-tap="{{logOutAsk}}">Logout</a>
+                    </paper-item>
                 </core-menu>
             </nav>
             <!--Page title-->
@@ -104,6 +108,14 @@
                 <footer-page flex horizontal layout></footer-page>
             </div>
         </core-scaffold>
+        <paper-action-dialog id="errorDialog"
+                             heading="Error"
+                             backdrop
+                             transition="core-transition-center">
+            <p>{{dialogText}}</p>
+            <paper-button affirmative autofocus class="action-button" on-tap="{{logOut}}">Ok</paper-button>
+            <paper-button affirmative autofocus class="action-button">Cancel</paper-button>
+        </paper-action-dialog>
         <app-globals id="globals"></app-globals>
         <core-ajax auto
                    id="portfolioItems"
@@ -142,6 +154,20 @@
                 if (detail.isSelected) {
                     this.$.scaffold.closeDrawer();
                 }
+            },
+
+            logOutAsk: function(){
+                this.errorMessage('Are you sure you want to log out?');
+            },
+
+            logOut: function(){
+                document.querySelector('flatiron-director').route = 'login';
+                localStorage.clear();
+            },
+
+            errorMessage: function(text){
+                this.dialogText = text;
+                this.$.errorDialog.toggle();
             },
 
             //bad solution of broken urls(will rewrite)
