@@ -1,49 +1,23 @@
 {
-  "name": "web-polymer",
-  "version": "0.1.0",
+  "name": "Fundamental",
+  "description": "Fundamental Polymer 1.0 Project",
+  "main": "",
   "authors": [
     "Serhii Hordiichuk <kingnlo@gmail.com>"
   ],
-  "description": "Polymer Project",
   "license": "MIT",
-  "private": true,
+  "homepage": "https://github.com/FswGitHub/WebPortal",
+  "moduleType": [],
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
+    "app/libs",
     "test",
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#~0.5.6",
-    "font-roboto": "Polymer/font-roboto#~0.5.2",
-    "paper-shadow": "Polymer/paper-shadow#~0.5.2",
-    "paper-input": "Polymer/paper-input#~0.5.4",
-    "paper-checkbox": "Polymer/paper-checkbox#~0.5.4",
-    "core-label": "Polymer/core-label#~0.5.4",
-    "core-animated-pages": "Polymer/core-animated-pages#~0.5.4",
-    "core-ajax": "Polymer/core-ajax#~0.5.4",
-    "paper-dialog": "Polymer/paper-dialog#~0.5.4",
-    "core-scaffold": "Polymer/core-scaffold#~0.5.4",
-    "core-menu": "Polymer/core-menu#~0.5.4",
-    "d-calendar": "~1.0.1",
-    "paper-item": "Polymer/paper-item#~0.5.4",
-    "paper-fab": "Polymer/paper-fab#~0.5.4",
-    "chart-elements": "~0.2.0",
-    "paper-tabs": "Polymer/paper-tabs#~0.5.5",
-    "core-image": "Polymer/core-image#~0.5.5",
-    "paper-radio-group": "Polymer/paper-radio-group#~0.5.5",
-    "core-pages": "Polymer/core-pages#~0.5.5",
-    "paper-dropdown": "Polymer/paper-dropdown#~0.5.6",
-    "core-field": "Polymer/core-field#^0.5",
-    "core-collapse": "Polymer/core-collapse#^0.5",
-    "paper-dropdown-menu": "Polymer/paper-dropdown-menu#^0.5",
-    "polymer-filters": "addyosmani/polymer-filters#~0.2.1",
-    "flatiron-director": "PolymerLabs/flatiron-director#~0.5.0",
-    "core-a11y-keys": "Polymer/core-a11y-keys#~0.5.6",
-    "js-xlsx": "~0.8.0",
-    "color-picker-element": "~0.0.3",
-    "Chart.js": "nnnick/Chart.js#~1.0.2",
-    "paper-spinner": "Polymer/paper-spinner#0.5"
+    "polymer": "Polymer/polymer#1.2.0",
+    "paper-button": "PolymerElements/paper-button#~1.0.8"
   }
 }

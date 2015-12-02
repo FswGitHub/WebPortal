@@ -1,9 +1,0 @@
-@import "_variables";
-@import "login-page";
-
-.signup-page {
-  @extend .login-page;
-  .content {
-    overflow-y: auto;
-  }
-}
