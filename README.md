@@ -1,12 +1,18 @@
 ## Fundamental
 #FPM Web Portal
 
-at first run
-*npm install
-*bower install
+At first run:
+```sh
+npm install
+bower install
+```
 
-to build project run
-*gulp build
+To build project run:
+```sh
+gulp build
+```
 
-to start project local run
-*gulp
+To start project local run:
+```sh
+gulp
+```
