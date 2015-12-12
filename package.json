@@ -1,20 +1,14 @@
 {
   "name": "Fundamental",
-  "description": "Fundamental Polymer 1.0 Project",
-  "version": "0.2.0",
   "author": {
-    "name": "Serhii Hordiichuk <kingnlo@gmail.com>",
-    "url": "http://pascalium.com"
+    "name": "Pascalium Team",
+    "email": "request@pascalium.com"
   },
-  "root": "./app",
-  "projectRoot": "./",
-  "dependencies": {},
-  "devDependencies": {
-    "bower": "^1.6.8",
-    "gulp": "^3.9.0",
-    "gulp-util": "latest",
-    "gulp-sass": "^2.1.0",
-    "gulp-minify-css": "^1.2.2",
-    "gulp-rename": "^1.2.2"
+  "dependencies": {
+    "browser-sync": "^2.2.0",
+    "gulp": "^3.8.11",
+    "gulp-jade": "^1.0.0",
+    "gulp-sass": "^2.0.0",
+    "del": "^2.0.2"
   }
 }

@@ -1,5 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
-/.sass-cache
-/node_modules
-/.idea
-/app/libs
+node_modules
+.idea
+app/bower_components
+dist

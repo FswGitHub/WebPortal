@@ -1,44 +1,59 @@
-var gulp = require('gulp'),
-    bower = require('bower'),
-    gutil = require('gulp-util'),
-    compass = require('gulp-compass'),
-    sass = require('gulp-sass'),
-    minifyCss = require('gulp-minify-css'),
-    rename = require('gulp-rename');
+var gulp        = require('gulp');
+var browserSync = require('browser-sync');
+var sass        = require('gulp-sass');
+var jade        = require('gulp-jade');
+var del         = require('del');
+var reload      = browserSync.reload;
 
-var paths = {
-    app:    './app',
-    dist:   './resources/dist',
-    sass:   './resources/scss/**/*.scss'
-};
-
-gulp.task('default', ['sass']);
-gulp.task('watch', function () {
-    gulp.watch(paths.sass, ['sass']);
-    //gulp.watch(paths.js, ['lint', 'js']);
-});
-gulp.task('sass', function(ready) {
-    gulp.src('./resources/scss/*.scss')
-        .pipe(compass({
-            config_file: './config.rb',
-            css: 'app/css',
-            sass: 'resources/scss'
-        }))
-        .pipe(minifyCss({
-            keepSpecialComments: 0
-        }))
-        .pipe(rename({ extname: '.min.css' }))
-        .pipe(gulp.dest('./app/css/'))
-        .on('error', function(error) {
-            console.log(error);
-            this.emit('end');
-        })
-        .on('end', ready);
+/**
+ * Compile jade files into HTML
+ */
+gulp.task('templates', function() {
+    return gulp.src('./app/**/*.jade')
+        .pipe(jade())
+        .pipe(gulp.dest('./dist/'))
 });
 
-gulp.task('install', function(){
-    return bower.commands.install()
-        .on('log', function (data) {
-            gutil.log('bower', gutil.colors.cyan(data.id), data.message);
-        });
+/**
+ * Important!!
+ * Separate task for the reaction to `.jade` files
+ */
+gulp.task('jade-watch', ['templates'], reload);
+
+/**
+ * Sass task for live injecting into all browsers
+ */
+gulp.task('sass', function () {
+    return gulp.src('./app/scss/**/*.scss')
+        .pipe(sass())
+        .pipe(gulp.dest('./dist/'))
+        .pipe(reload({stream: true}));
+});
+
+gulp.task('copy', function(){
+    gulp.src('./app/bower_components/**')
+        .pipe(gulp.dest('./dist/bower_components/'));
+    gulp.src('./app/assets/**')
+        .pipe(gulp.dest('./dist/assets/'));
+});
+
+// Clean output directory
+gulp.task('clean', function() {
+    return del('./dist');
+});
+
+/**
+ * Serve and watch the scss/jade files for changes
+ */
+gulp.task('default', ['copy', 'sass', 'templates'], function () {
+
+    browserSync({server: './dist'});
+
+    gulp.watch('./app/scss/**/*.scss', ['sass']);
+    gulp.watch('./app/**/*.jade',      ['jade-watch']);
+});
+
+gulp.task('build', ['clean','copy', 'sass', 'templates'], function () {
+
+    browserSync({server: './dist'});
 });

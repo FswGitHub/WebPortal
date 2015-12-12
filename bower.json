@@ -2,9 +2,10 @@
   "name": "Fundamental",
   "description": "Fundamental Polymer 1.0 Project",
   "main": "",
-  "authors": [
-    "Serhii Hordiichuk <kingnlo@gmail.com>"
-  ],
+  "authors": {
+    "name": "Pascalium Team",
+    "email": "request@pascalium.com"
+  },
   "license": "MIT",
   "homepage": "https://github.com/FswGitHub/WebPortal",
   "moduleType": [],
@@ -17,7 +18,7 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#1.2.0",
+    "polymer": "Polymer/polymer#1.2.3",
     "paper-button": "PolymerElements/paper-button#~1.0.8"
   }
 }
