@@ -1,12 +1,12 @@
-# Fundamental
-FPM Web Portal
+## Fundamental
+#FPM Web Portal
 
 at first run
-    npm install
-    bower install
+*npm install
+*bower install
 
 to build project run
-    gulp build
+*gulp build
 
 to start project local run
-    gulp
+*gulp
