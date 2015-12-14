@@ -5,10 +5,26 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0')
         meta(name='mobile-web-app-capable', content='yes')
         meta(name='apple-mobile-web-app-capable', content='yes')
-        title Polymer App
+        title Fundamental Polymer App
         script(src='bower_components/webcomponentsjs/webcomponents.js')
+        script(src="bower_components/page/page.js")
         link(rel="stylesheet" href="styles.css")
         include templates/imports
-    body
-        h1 Fundamental
-        paper-button(raised='') Button
+    body(unresolved="")
+        template(is="dom-bind", id="app")
+            div(hidden="{{route.main}}")
+                include templates/login/login-page
+            div(hidden="{{!route.main}}")
+                include templates/main-page/main-page
+        script.
+            (function (){
+                var app = document.querySelector('#app');
+                // Sets app default base URL
+                app.baseUrl = '/';
+                console.log(window.location);
+                //if (window.location.port === '') {  // if production
+                    // Uncomment app.baseURL below and
+                    // set app.baseURL to '/your-pathname/' if running from folder in production
+                    //app.baseUrl = '/Fundamental v.2/';
+                //}
+            })()

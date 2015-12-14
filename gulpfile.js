@@ -51,6 +51,7 @@ gulp.task('default', ['copy', 'sass', 'templates'], function () {
 
     gulp.watch('./app/scss/**/*.scss', ['sass']);
     gulp.watch('./app/**/*.jade',      ['jade-watch']);
+    gulp.watch(['./app/bower_components/**', './app/assets/**'], ['copy']);
 });
 
 gulp.task('build', ['clean','copy', 'sass', 'templates'], function () {

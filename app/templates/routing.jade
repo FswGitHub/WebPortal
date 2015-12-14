@@ -1,0 +1,69 @@
+script(src='../bower_components/page/page.js')
+script.
+    window.addEventListener('WebComponentsReady', function () {
+        // Removes end / from app.baseUrl which page.base requires for production
+        if (window.location.port === '') {  // if production
+            page.base(app.baseUrl.replace(/\/$/, ''));
+        }
+
+        // Routes
+        page(app.baseUrl, function () {
+            if(app.userId){
+                app.route = {
+                    name: 'dashboard',
+                    main: true
+                };
+            } else {
+                app.route = {
+                    name: 'login',
+                    main: false
+                }
+            }
+            return app.route;
+        });
+        page('/login', function () {
+            app.route = {
+                name: 'login',
+                main: false
+            }
+        });
+        page('/dashboard', function () {
+            app.route = {
+                name: 'dashboard',
+                main: true
+            }
+        });
+        page('/portfolio', function () {
+            app.route = {
+                name: 'portfolio',
+                main: true
+            }
+        });
+        page('/portfolio/:id', function (data) {
+            app.route = {
+                name: 'portfolio-item',
+                params: data.params,
+                main: true
+            }
+        });
+        page('/profile', function () {
+            app.route = {
+                name: 'profile',
+                main: true
+        }
+        });
+        page('/settings', function () {
+            app.route = {
+                name: 'settings',
+                main: true
+            }
+        });
+        // 404
+        page('*', function () {
+            page.redirect(app.baseUrl);
+        });
+        // add #! before urls
+        page({
+            hashbang: true
+        });
+    });

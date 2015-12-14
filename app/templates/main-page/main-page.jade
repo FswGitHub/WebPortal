@@ -1,0 +1,49 @@
+paper-drawer-panel#paperDrawerPanel
+    // Drawer Scroll Header Panel
+    paper-scroll-header-panel(drawer='', fixed='')
+        // Drawer Toolbar
+        paper-toolbar#drawerToolbar
+            span Fundamental
+        // Drawer Content
+        paper-menu(attr-for-selected='data-route', selected='{{route.name}}')
+            paper-item.relative
+                a.fit(href='{{baseUrl}}dashboard', data-route="dashboard")
+                    iron-icon(icon='dashboard')
+                    span Dashboard
+            paper-item
+                a(href='{{baseUrl}}portfolio', data-route="portfolio")
+                    iron-icon(icon='perm-media')
+                    span Portfolio
+            paper-item
+                a(href="{{baseUrl}}portfolio/123", data-route="portfolio-item")
+                    span Portfolio-item
+            paper-item
+                a(href="{{baseUrl}}profile", data-route="profile")
+                    iron-icon(icon='account-circle')
+                    span Profile
+            paper-item
+                a(href="{{baseUrl}}settings", data-route="settings")
+                    iron-icon(icon='settings')
+                    span Settings
+            paper-item
+                a(href="{{baseUrl}}login")
+                    iron-icon(icon='exit-to-app')
+                    span Logout
+    // Main Area
+    paper-scroll-header-panel#headerPanelMain(main='', condenses='', keep-condensed-header='')
+        // Main Toolbar
+        paper-toolbar#mainToolbar
+            h1 {{route.name}}
+        // Main Content
+        #mainContent
+            iron-pages(attr-for-selected='data-route', selected='{{route.name}}')
+                section(data-route='dashboard')
+                    p {{route.name}}
+                section(data-route='portfolio')
+                    p {{route.name}}
+                section(data-route='portfolio-item')
+                    p {{route.name}} {{route.params.id}}
+                section(data-route='profile')
+                    p {{route.name}}
+                section(data-route='settings')
+                    p {{route.name}}
