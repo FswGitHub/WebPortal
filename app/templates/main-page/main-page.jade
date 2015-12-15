@@ -6,29 +6,24 @@ paper-drawer-panel#paperDrawerPanel
             span Fundamental
         // Drawer Content
         paper-menu(attr-for-selected='data-route', selected='{{route.name}}')
-            paper-item.relative
-                a.fit(href='{{baseUrl}}dashboard', data-route="dashboard")
-                    iron-icon(icon='dashboard')
-                    span Dashboard
-            paper-item
-                a(href='{{baseUrl}}portfolio', data-route="portfolio")
-                    iron-icon(icon='perm-media')
-                    span Portfolio
-            paper-item
-                a(href="{{baseUrl}}portfolio/123", data-route="portfolio-item")
-                    span Portfolio-item
-            paper-item
-                a(href="{{baseUrl}}profile", data-route="profile")
-                    iron-icon(icon='account-circle')
-                    span Profile
-            paper-item
-                a(href="{{baseUrl}}settings", data-route="settings")
-                    iron-icon(icon='settings')
-                    span Settings
-            paper-item
-                a(href="{{baseUrl}}login")
-                    iron-icon(icon='exit-to-app')
-                    span Logout
+            a(href='{{baseUrl}}dashboard', data-route="dashboard")
+                iron-icon(icon='dashboard')
+                span Dashboard
+            a(href='{{baseUrl}}portfolio', data-route="portfolio")
+                iron-icon(icon='perm-media')
+                span Portfolio
+            a(href="{{baseUrl}}portfolio/123", data-route="portfolio-item")
+                iron-icon(icon='')
+                span Portfolio-item
+            a(href="{{baseUrl}}profile", data-route="profile")
+                iron-icon(icon='account-circle')
+                span Profile
+            a(href="{{baseUrl}}settings", data-route="settings")
+                iron-icon(icon='settings')
+                span Settings
+            a(href="{{baseUrl}}login")
+                iron-icon(icon='exit-to-app')
+                span Logout
     // Main Area
     paper-scroll-header-panel#headerPanelMain(main='', condenses='', keep-condensed-header='')
         // Main Toolbar

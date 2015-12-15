@@ -26,7 +26,7 @@ gulp.task('jade-watch', ['templates'], reload);
 gulp.task('sass', function () {
     return gulp.src('./app/scss/**/*.scss')
         .pipe(sass())
-        .pipe(gulp.dest('./dist/'))
+        .pipe(gulp.dest('./dist/css'))
         .pipe(reload({stream: true}));
 });
 

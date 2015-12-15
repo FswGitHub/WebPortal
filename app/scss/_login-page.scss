@@ -1,0 +1,81 @@
+.login-page {
+    background-color: $color-grey-medium-dark;
+}
+
+.login-form {
+    background-color: $color-grey-medium-light;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.login-logo-wrapper {
+    font-size: 0;
+    padding: 24px;
+}
+
+.fundamental-logo {
+    width: 192px;
+}
+
+@media screen and (max-width: $size-small) {
+
+}
+
+@media screen and (min-width: $size-small) and (max-width: $size-medium) {
+
+}
+
+@media screen and (max-width: $size-medium) {
+    .login-page-content {
+        margin: 0 16px;
+    }
+}
+
+@media screen and (min-width: $size-medium) and (max-width: $size-large) {
+    .login-page-content {
+        margin: 0 24px;
+    }
+    .login-form {
+        max-width: $size-small;
+    }
+}
+
+@media screen and (max-width: $size-large) {
+    .login-logo-wrapper {
+        padding: 24px 0 16px;
+    }
+    .fundamental-logo {
+        width: 100%;
+        max-width: 288px;
+        margin: 0 auto;
+        display: block;
+    }
+}
+
+@media screen and (min-width: $size-large) {
+    .login-form {
+        max-width: $size-medium;
+    }
+}
+@media screen and (min-width: $size-large) and (max-width: $size-x-large) {
+    .login-page-content {
+        margin: 0 32px;
+    }
+
+    .login-logo-wrapper {
+        margin:0 52px 30px;
+    }
+}
+
+@media screen and (min-width: $size-x-large) {
+    .login-page-content {
+        width: $size-large;
+        margin: 0 auto;
+    }
+
+    .login-logo-wrapper {
+        margin:0 52px 30px;
+    }
+}

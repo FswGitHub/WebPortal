@@ -7,20 +7,27 @@ script.
         }
 
         // Routes
-        page(app.baseUrl, function () {
-            if(app.userId){
-                app.route = {
-                    name: 'dashboard',
-                    main: true
-                };
-            } else {
+
+        page('/', function () {
+            app.route = {
+                name: 'login',
+                main: false
+            }
+        });
+
+        //page(app.baseUrl, function () {
+            //if(app.userId){
+            //    app.route = {
+            //        name: 'dashboard',
+            //        main: true
+            //    };
+            //} else {
                 app.route = {
                     name: 'login',
                     main: false
                 }
-            }
-            return app.route;
-        });
+            //}
+        //});
         page('/login', function () {
             app.route = {
                 name: 'login',

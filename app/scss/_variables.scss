@@ -1,1 +1,34 @@
+$color-red: #DD1F29;
 $color-main: #DD1F29;
+$color-grey-dark: #4A4A4A;
+$color-grey-medium-dark: #8e8e9a;
+$color-grey-medium: #979797;
+$color-grey-medium-light: #D8D8D8;
+$color-grey-light: #EDEDED;
+$color-white: #FFFFFF;
+$color-black: #000000;
+
+$size-small: 480px;
+$size-medium: 600px;
+$size-large: 960px;
+$size-x-large: 1280px;
+
+$font-size-20: 20px;
+$font-size-18: 18px;
+$font-size-16: 16px;
+$font-size-14: 14px;
+$font-size-12: 12px;
+
+@mixin placeholder($color) {
+    ::-webkit-input-placeholder {color: $color}
+    ::-moz-placeholder          {color: $color}// Firefox 19+
+    :-moz-placeholder           {color: $color}// Firefox 18-
+    :-ms-input-placeholder      {color: $color}
+}
+
+@mixin transition($option, $time, $function, $sec){
+    -webkit-transition: $option $time $function $sec;
+    -moz-transition: $option $time $function $sec;
+    -o-transition: $option $time $function $sec;
+    transition: $option $time $function $sec;
+}

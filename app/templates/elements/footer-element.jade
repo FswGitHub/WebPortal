@@ -1,0 +1,18 @@
+dom-module#footer-element
+    template
+        link(rel="stylesheet" href="../../css/footer-element.css")
+        .footer-wrapper.layout.horisontal
+            hr.footer-border
+            ul.footer-content.flex
+                li.footer-content-item
+                    span.footer-text 2015 Fundamental Software Pty Ltd. All Rights Reserved
+                li.footer-content-item
+                    a.privacy-link Privacy
+                li.footer-content-item
+                    a.terms-of-use-link Terms of Use
+    script.
+        HTMLImports.whenReady(function () {
+            Polymer({
+                is: 'footer-element'
+            });
+        });

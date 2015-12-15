@@ -6,12 +6,20 @@ html
         meta(name='mobile-web-app-capable', content='yes')
         meta(name='apple-mobile-web-app-capable', content='yes')
         title Fundamental Polymer App
-        script(src='bower_components/webcomponentsjs/webcomponents.js')
+        script(src='bower_components/webcomponentsjs/webcomponents-lite.js')
         script(src="bower_components/page/page.js")
-        link(rel="stylesheet" href="styles.css")
+        link(rel="stylesheet" href="css/styles.css")
         include templates/imports
-    body(unresolved="")
+    body.relative(unresolved="")
         template(is="dom-bind", id="app")
+            style(is="custom-style").
+                paper-input.red-color {
+                    --paper-input-container-focus-color: #DD1F29;
+                }
+
+                paper-input.main-color {
+                    --paper-input-container-focus-color: green;
+                }
             div(hidden="{{route.main}}")
                 include templates/login/login-page
             div(hidden="{{!route.main}}")
@@ -21,7 +29,15 @@ html
                 var app = document.querySelector('#app');
                 // Sets app default base URL
                 app.baseUrl = '/';
-                console.log(window.location);
+                app.mainColor = 'green';
+
+                /*window.addEventListener('WebComponentsReady', function (e) {
+                    console.log(app.currentStyle);
+                    if (app.mainColor) {
+                        app.customStyle['--paper-input-container-focus-color'] = app.mainColor;
+                        app.updateStyles();
+                    }
+                });*/
                 //if (window.location.port === '') {  // if production
                     // Uncomment app.baseURL below and
                     // set app.baseURL to '/your-pathname/' if running from folder in production

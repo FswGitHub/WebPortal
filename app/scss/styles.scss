@@ -1,10 +1,48 @@
 @import "variables";
 
-body {
-  font-family: 'Roboto', 'Noto', sans-serif;
-  font-size: 14px;
+html, body {
+    font-family: 'Roboto', 'Noto', sans-serif;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
 }
 
-h1 {
-  color: $color-main;
+paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
+    pointer-events: none;
 }
+
+@import "login-page";
+
+//@media screen and (max-width: $size-small) {
+//
+//}
+//
+//@media screen and (min-width: $size-small) and (max-width: $size-medium) {
+//
+//}
+//
+//@media screen and (max-width: $size-medium) {
+//
+//}
+//
+//@media screen and (min-width: $size-medium) and (max-width: $size-large) {
+//
+//}
+//
+//@media screen and (max-width: $size-large) {
+//
+//}
+//
+//@media screen and (min-width: $size-large) and (max-width: $size-x-large) {
+//
+//}
+//
+//@media screen and (max-width: $size-x-large) {
+//
+//}
+//
+//@media screen and (min-width: $size-x-large) {
+//
+//}
