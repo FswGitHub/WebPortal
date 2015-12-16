@@ -15,11 +15,13 @@ paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
 
 @import "login-page";
 
+
+////------------media screen width-----------------
 //@media screen and (max-width: $size-small) {
 //
 //}
 //
-//@media screen and (min-width: $size-small) and (max-width: $size-medium) {
+//@media screen and (min-width: $size-small+1px) and (max-width: $size-medium) {
 //
 //}
 //
@@ -27,7 +29,7 @@ paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
 //
 //}
 //
-//@media screen and (min-width: $size-medium) and (max-width: $size-large) {
+//@media screen and (min-width: $size-medium+1px) and (max-width: $size-large) {
 //
 //}
 //
@@ -35,7 +37,7 @@ paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
 //
 //}
 //
-//@media screen and (min-width: $size-large) and (max-width: $size-x-large) {
+//@media screen and (min-width: $size-large+1px) and (max-width: $size-x-large) {
 //
 //}
 //
@@ -44,5 +46,38 @@ paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
 //}
 //
 //@media screen and (min-width: $size-x-large) {
+//
+//}
+
+////------------media screen height-----------------
+//@media screen and (max-height: $size-small) {
+//
+//}
+//
+//@media screen and (min-height: $size-small+1px) and (max-height: $size-medium) {
+//
+//}
+//
+//@media screen and (max-height: $size-medium) {
+//
+//}
+//
+//@media screen and (min-height: $size-medium+1px) and (max-height: $size-large) {
+//
+//}
+//
+//@media screen and (max-height: $size-large) {
+//
+//}
+//
+//@media screen and (min-height: $size-large+1px) and (max-height: $size-x-large) {
+//
+//}
+//
+//@media screen and (max-height: $size-x-large) {
+//
+//}
+//
+//@media screen and (min-height: $size-x-large) {
 //
 //}

@@ -10,18 +10,11 @@ html
         script(src="bower_components/page/page.js")
         link(rel="stylesheet" href="css/styles.css")
         include templates/imports
+        include templates/custom-style
     body.relative(unresolved="")
         template(is="dom-bind", id="app")
-            style(is="custom-style").
-                paper-input.red-color {
-                    --paper-input-container-focus-color: #DD1F29;
-                }
-
-                paper-input.main-color {
-                    --paper-input-container-focus-color: green;
-                }
             div(hidden="{{route.main}}")
-                include templates/login/login-page
+                include templates/login-page/login-page
             div(hidden="{{!route.main}}")
                 include templates/main-page/main-page
         script.
@@ -30,6 +23,14 @@ html
                 // Sets app default base URL
                 app.baseUrl = '/';
                 app.mainColor = 'green';
+                app.rememberMeSave = function(){
+                    console.log(app.rememberMe);
+                }
+
+                //window.addEventListener('resize', function (e) {
+                //    var appHeight = window.innerHeight;
+                //    console.log(appHeight);
+                //});
 
                 /*window.addEventListener('WebComponentsReady', function (e) {
                     console.log(app.currentStyle);

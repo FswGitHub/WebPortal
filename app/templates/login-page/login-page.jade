@@ -1,0 +1,20 @@
+#loginPage.login-page.fit.layout.vertical
+    #loginPageContent.login-page-content.layout.vertical.fit
+        .login-logo-wrapper
+            img.fundamental-logo(src="assets/images/logo-light.png")
+        .login-form-wrapper.flex
+            form#loginForm.login-form(is="iron-form")
+                .fields-wrapper
+                    paper-input.login-field(name="loginEmail", type="text", validator="", label="Email")
+                    paper-input.login-field(name="loginPass", type="password", validator="", label="Password")
+                .submit-wrapper.layout.horizontal.center-center
+                    paper-button.submit-button Submit
+                    .remember-me-wrapper
+                        span.remember-me-text Remember me
+                        paper-checkbox(on-tap="rememberMeSave", active="{{rememberMe}}")
+                .fogrot-pass-wrapper.layout.horizontal.center-center
+                    a.forgot-pass-link(href="{{baseUrl}}forgot-pass") Help, I forgot my password
+            .sign-up-link-wrapper.layout.vertical.center-center
+                span.have-not-account Don`t have an account?
+                paper-button.submit-button  Sign up here
+        footer-element

@@ -1,4 +1,4 @@
-$color-red: #DD1F29;
+$color-main-login: #DD1F29;
 $color-main: #DD1F29;
 $color-grey-dark: #4A4A4A;
 $color-grey-medium-dark: #8e8e9a;
@@ -18,6 +18,16 @@ $font-size-18: 18px;
 $font-size-16: 16px;
 $font-size-14: 14px;
 $font-size-12: 12px;
+
+$padding-small: 16px;
+$padding-medium: 24px;
+$padding-large: 32px;
+$padding-x-large: 72px;
+
+$margin-small: 16px;
+$margin-medium: 24px;
+$margin-large: 32px;
+$margin-x-large: 72px;
 
 @mixin placeholder($color) {
     ::-webkit-input-placeholder {color: $color}
