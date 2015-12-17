@@ -40,6 +40,7 @@
 
 .submit-wrapper {
     margin-bottom: $margin-large;
+    position: relative;
 }
 
 paper-button.submit-button {
@@ -95,6 +96,16 @@ paper-button.submit-button {
 .forgot-pass {
     padding-top: 0;
 }
+
+.loader {
+    margin-left: 10px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 50%;
+    margin-top: -12px;
+}
+
 //------------media screen width-----------------
 
 @media screen and (max-width: $size-small) {
@@ -114,6 +125,15 @@ paper-button.submit-button {
 @media screen and (max-width: $size-medium) {
     .login-page-content {
         margin: 0 $margin-small;
+    }
+
+    .loader {
+        top: auto;
+        bottom: -27px;
+        width: 24px;
+        margin-top: auto;
+        margin-left: -12px;
+        left: 50%;
     }
 }
 

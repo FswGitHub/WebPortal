@@ -6,13 +6,14 @@
             form#signInForm.login-form(is="iron-form")
                 p.login-text(hidden="{{!route.verify}}") Thanks you for confirmed your email. Please sign in.
                 div(class$="fields-wrapper {{addClass(route.verify, 'login-verify')}}")
-                    paper-input.login-field(name="signInEmail", type="email", validator="", label="Email")
-                    paper-input.login-field(name="signInPass", type="password", validator="", label="Password")
+                    paper-input#signInEmail.login-field(type="email", label="Email", value="{{login.signInEmail}}", error-message="Please enter valid Email", required)
+                    paper-input#signInPass.login-field(type="password", label="Password", value="{{login.signInPass}}", error-message="Please enter Password", required)
                 .submit-wrapper.layout.horizontal.center-center
-                    paper-button.submit-button Submit
+                    paper-button.submit-button(on-tap="signInSubmit") Submit
                     .remember-me-wrapper
                         span.remember-me-text Remember me
-                        paper-checkbox(on-tap="rememberMeSave", active="{{rememberMe}}")
+                        paper-checkbox(active="{{rememberMe}}")
+                    img.loader(src="assets/images/FPM-loader.gif", hidden="{{!loader}}")
                 .fogrot-pass-wrapper.layout.horizontal.center-center
                     a.forgot-pass-link(on-tap="toggleForgotPass") Help, I forgot my password
             .sign-up-link-wrapper.layout.vertical.center-center(hidden="{{route.verify}}")
@@ -43,3 +44,10 @@
                     br
                     | Please check your email and click the verification link to confirm your email.
         footer-element
+paper-dialog#alert.login-alert(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, role="alertdialog")
+    h2.login-alert-header {{alert.header}}
+    .login-alert-content
+        p Error text
+    .login-alert-actions
+        paper-button(dialog-dismiss) Ok
+
