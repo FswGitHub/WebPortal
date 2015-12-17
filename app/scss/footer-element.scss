@@ -1,7 +1,7 @@
 @import "variables";
 
 .footer-wrapper {
-    padding-top: $padding-large;
+    padding: $padding-large 0;
 }
 
 .footer-border {
@@ -40,7 +40,13 @@
 
 @media screen and (max-height: $size-small) {
     .footer-wrapper {
-        padding-top: $padding-small;
+        padding: $padding-small 0 0;
+    }
+}
+
+@media screen and (min-height: $size-small+1px) and (max-height: $size-medium) {
+    .footer-wrapper {
+        padding: $padding-medium 0 0;
     }
 }
 

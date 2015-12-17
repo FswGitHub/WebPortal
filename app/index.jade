@@ -13,35 +13,9 @@ html
         include templates/custom-style
     body.relative(unresolved="")
         template(is="dom-bind", id="app")
+            include templates/query-matches
             div(hidden="{{route.main}}")
                 include templates/login-page/login-page
             div(hidden="{{!route.main}}")
                 include templates/main-page/main-page
-        script.
-            (function (){
-                var app = document.querySelector('#app');
-                // Sets app default base URL
-                app.baseUrl = '/';
-                app.mainColor = 'green';
-                app.rememberMeSave = function(){
-                    console.log(app.rememberMe);
-                }
-
-                //window.addEventListener('resize', function (e) {
-                //    var appHeight = window.innerHeight;
-                //    console.log(appHeight);
-                //});
-
-                /*window.addEventListener('WebComponentsReady', function (e) {
-                    console.log(app.currentStyle);
-                    if (app.mainColor) {
-                        app.customStyle['--paper-input-container-focus-color'] = app.mainColor;
-                        app.updateStyles();
-                    }
-                });*/
-                //if (window.location.port === '') {  // if production
-                    // Uncomment app.baseURL below and
-                    // set app.baseURL to '/your-pathname/' if running from folder in production
-                    //app.baseUrl = '/Fundamental v.2/';
-                //}
-            })()
+        script(src="app.js", rel="text/javascript")

@@ -29,6 +29,10 @@
     margin-bottom: $margin-large;
 }
 
+.login-verify {
+    padding-top: 0;
+}
+
 .login-field {
     margin: 0 auto;
     max-width: 256px;
@@ -79,6 +83,17 @@ paper-button.submit-button {
     font-size: 32px;
     margin-bottom: 10px;
     text-align: center;
+}
+
+.login-text {
+    font-size: 20px;
+    padding: 0 $padding-medium;
+    margin: $margin-small 0;
+    text-align: center;
+}
+
+.forgot-pass {
+    padding-top: 0;
 }
 //------------media screen width-----------------
 

@@ -1,20 +1,45 @@
-#loginPage.login-page.fit.layout.vertical
-    #loginPageContent.login-page-content.layout.vertical.fit
+#loginPage.login-page.fit.layout.vertical(style$="{{addClass(mobileHeightScreen, 'overflow-y: auto')}}")
+    #loginPageContent(class$="login-page-content layout vertical {{addClass(tabHeightScreen, 'fit')}}")
         .login-logo-wrapper
             img.fundamental-logo(src="assets/images/logo-light.png")
-        .login-form-wrapper.flex
-            form#loginForm.login-form(is="iron-form")
-                .fields-wrapper
-                    paper-input.login-field(name="loginEmail", type="text", validator="", label="Email")
-                    paper-input.login-field(name="loginPass", type="password", validator="", label="Password")
+        .login-form-wrapper.flex(hidden="{{showSignInForm(signUp, forgotPass, confirm)}}")
+            form#signInForm.login-form(is="iron-form")
+                p.login-text(hidden="{{!route.verify}}") Thanks you for confirmed your email. Please sign in.
+                div(class$="fields-wrapper {{addClass(route.verify, 'login-verify')}}")
+                    paper-input.login-field(name="signInEmail", type="email", validator="", label="Email")
+                    paper-input.login-field(name="signInPass", type="password", validator="", label="Password")
                 .submit-wrapper.layout.horizontal.center-center
                     paper-button.submit-button Submit
                     .remember-me-wrapper
                         span.remember-me-text Remember me
                         paper-checkbox(on-tap="rememberMeSave", active="{{rememberMe}}")
                 .fogrot-pass-wrapper.layout.horizontal.center-center
-                    a.forgot-pass-link(href="{{baseUrl}}forgot-pass") Help, I forgot my password
-            .sign-up-link-wrapper.layout.vertical.center-center
+                    a.forgot-pass-link(on-tap="toggleForgotPass") Help, I forgot my password
+            .sign-up-link-wrapper.layout.vertical.center-center(hidden="{{route.verify}}")
                 span.have-not-account Don`t have an account?
-                paper-button.submit-button  Sign up here
+                paper-button.submit-button(on-tap="toggleSignUp") Sign up here
+        .login-form-wrapper.flex(hidden="{{showSignUpForm(signUp, confirm)}}")
+            form#signUpForm.login-form(is="iron-form")
+                .fields-wrapper.sign-up
+                    paper-input.login-field(name="signUpFirstName", type="text", validator="", label="First Name")
+                    paper-input.login-field(name="signUpLastName", type="text", validator="", label="Last Name")
+                    paper-input.login-field(name="signUpEmail", type="email", validator="", label="Email")
+                    paper-input.login-field(name="signUpPass", type="password", validator="", label="Password")
+                .submit-wrapper.layout.horizontal.center-center
+                    paper-button.submit-button(on-tap="toggleConfirm") Sign Up
+            .sign-up-link-wrapper.layout.vertical.center-center
+                span.have-not-account Already have an account?
+                paper-button.submit-button(on-tap="toggleSignUp") Login
+        .login-form-wrapper.flex(hidden="{{!forgotPass}}")
+            form#forgotPassword.login-form(is="iron-form")
+                p.login-text Please enter your email address and we`ll send you a link to reset your password.
+                .fields-wrapper.forgot-pass
+                    paper-input.login-field(name="forgotPassEmail", type="email", validator="", label="Email")
+                .submit-wrapper.layout.horizontal.center-center
+                    paper-button.submit-button(on-tap="toggleForgotPass") Submit
+        .login-form-wrapper.flex(hidden="{{!confirm}}")
+            form#confirmForm.login-form
+                p.login-text Thanks you for signing up.
+                    br
+                    | Please check your email and click the verification link to confirm your email.
         footer-element

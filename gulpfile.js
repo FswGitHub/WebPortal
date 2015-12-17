@@ -30,11 +30,19 @@ gulp.task('sass', function () {
         .pipe(reload({stream: true}));
 });
 
+gulp.task('js-watch', function(){
+    return gulp.src('./app/**/*.js')
+        .pipe(gulp.dest('./dist/'))
+        .pipe(reload({stream: true}));
+});
+
 gulp.task('copy', function(){
     gulp.src('./app/bower_components/**')
         .pipe(gulp.dest('./dist/bower_components/'));
     gulp.src('./app/assets/**')
         .pipe(gulp.dest('./dist/assets/'));
+    gulp.src('./app/**/*.js')
+        .pipe(gulp.dest('./dist/'));
 });
 
 // Clean output directory
@@ -51,7 +59,8 @@ gulp.task('default', ['copy', 'sass', 'templates'], function () {
 
     gulp.watch('./app/scss/**/*.scss', ['sass']);
     gulp.watch('./app/**/*.jade',      ['jade-watch']);
-    gulp.watch(['./app/bower_components/**', './app/assets/**'], ['copy']);
+    gulp.watch('./app/**/*.js',        ['js-watch']);
+    gulp.watch(['./app/bower_components/**', './app/assets/**', './app/**/*.js'], ['copy']);
 });
 
 gulp.task('build', ['clean','copy', 'sass', 'templates'], function () {

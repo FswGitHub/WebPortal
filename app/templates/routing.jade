@@ -15,23 +15,19 @@ script.
             }
         });
 
-        //page(app.baseUrl, function () {
-            //if(app.userId){
-            //    app.route = {
-            //        name: 'dashboard',
-            //        main: true
-            //    };
-            //} else {
-                app.route = {
-                    name: 'login',
-                    main: false
+        page('/login', function (ctx) {
+            var token = false;
+            var queryString = ctx.querystring;
+            if(queryString.length > 0){
+                if(queryString.match(new RegExp('^token='))){
+                    token = queryString.replace('token=', '');
+                    //check token valid
                 }
-            //}
-        //});
-        page('/login', function () {
+            }
             app.route = {
                 name: 'login',
-                main: false
+                main: false,
+                verify: token
             }
         });
         page('/dashboard', function () {
