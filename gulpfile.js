@@ -55,7 +55,20 @@ gulp.task('clean', function() {
  */
 gulp.task('default', ['copy', 'sass', 'templates'], function () {
 
-    browserSync({server: './dist'});
+    browserSync({
+        port: 5000,
+        notify: false,
+        logPrefix: 'PSK',
+        snippetOptions: {
+            rule: {
+                match: '<span id="browser-sync-binding"></span>',
+                fn: function(snippet) {
+                    return snippet;
+                }
+            }
+        },
+        server: './dist'
+    });
 
     gulp.watch('./app/scss/**/*.scss', ['sass']);
     gulp.watch('./app/**/*.jade',      ['jade-watch']);
