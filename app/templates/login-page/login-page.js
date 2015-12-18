@@ -7,10 +7,6 @@
         signInPass: 'pass13245'
     };
     app.loader = false;
-    app.alert = {
-        header: 'Error',
-        text: '123'
-    };
 
     app.toggleSignUp = function(){
         app.signUp = !app.signUp;
@@ -39,6 +35,7 @@
     };
 
     app.signInSubmit = function(){
+        var request = document.getElementById('request');
         var email = document.getElementById('signInEmail');
         var pass = document.getElementById('signInPass');
 
@@ -48,6 +45,7 @@
             app.method = 'POST';
             app.body = JSON.stringify({email: app.login.signInEmail, password: app.login.signInPass});
             app.url = app.apiUrl + 'resources/json/login.json';
+            request.generateRequest();
         }
     };
 
@@ -57,12 +55,17 @@
         if(details.response.success){
             app.loader = false;
             app.sessionId = details.response.user.userId;
-            localStorage.setItem('sessionId', app.sessionId);
+            if(app.rememberMe){
+                localStorage.setItem('sessionId', app.sessionId);
+            }
             page('/dashboard');
         } else {
-            app.alert.text = 'Wrong login, password or your account has not been verified. Please check the verification email that was sent.';
+            app.alert = {
+                header: 'Error',
+                text: 'Wrong login, password or your account has not been verified. Please check the verification email that was sent.'
+            };
+            app.loader = false;
             alert.open();
         }
-        //console.log(details.response);
     };
 })();

@@ -5,15 +5,12 @@
     app.baseUrl = '/';
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.mainColor = 'green';
+    app.sessionId = localStorage.getItem('sessionId');
 
     app.addClass = function(variable, classString){
         if(variable){
             return classString
         }
-    };
-
-    app.rememberMeSave = function(){
-        console.log(app.rememberMe);
     };
 
     app.handleResponse = function(data){

@@ -13,6 +13,10 @@ paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
     pointer-events: none;
 }
 
+paper-dialog {
+    max-width: 300px;
+}
+
 @import "login-page";
 
 

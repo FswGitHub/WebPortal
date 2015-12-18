@@ -18,6 +18,6 @@ html
                 include templates/login-page/login-page
             div(hidden="{{!route.main}}")
                 include templates/main-page/main-page
-            iron-ajax(auto, url="{{url}}", body='{{body}}', method="{{method}}", handle-as="json", on-response="handleResponse", debounce-duration="300")
+            iron-ajax#request(url="{{url}}", body='{{body}}', method="{{method}}", handle-as="json", on-response="handleResponse", debounce-duration="300")
         script(src="app.js", rel="text/javascript")
         script(src="templates/login-page/login-page.js", rel="text/javascript")

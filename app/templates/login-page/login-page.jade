@@ -45,9 +45,9 @@
                     | Please check your email and click the verification link to confirm your email.
         footer-element
 paper-dialog#alert.login-alert(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, role="alertdialog")
-    h2.login-alert-header {{alert.header}}
+    h2 {{alert.header}}
     .login-alert-content
-        p Error text
-    .login-alert-actions
+        p {{alert.text}}
+    .login-alert-actions.buttons
         paper-button(dialog-dismiss) Ok
 
