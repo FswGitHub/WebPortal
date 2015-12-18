@@ -14,6 +14,7 @@ script.
 
         page('/login', function (ctx) {
             var token = false;
+            var reset = false;
             var queryString = ctx.querystring;
 
             if(app.sessionId){
@@ -24,11 +25,19 @@ script.
                         token = queryString.replace('token=', '');
                         //check token valid
                     }
+                    if (queryString.match(new RegExp('^reset='))) {
+                        reset = queryString.replace('reset=', '');
+                        //check token valid
+                        console.log(reset);
+                    }
+
                 }
+
                 app.route = {
                     name: 'login',
                     main: false,
-                    verify: token
+                    verify: token,
+                    reset: reset
                 }
             }
         });
@@ -84,8 +93,14 @@ script.
             }
         });
         // 404
-        page('*', function () {
-            page.redirect(app.baseUrl);
+        page('*', function (ctx) {
+            var queryString = ctx.querystring;
+            if(queryString){
+                page.redirect('/login?' + queryString);
+            } else {
+                page.redirect('/login');
+            }
+
         });
         // add #! before urls
         page({

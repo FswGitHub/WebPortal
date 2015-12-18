@@ -2,15 +2,17 @@ style(is="custom-style").
     :root {
         /* Primary and accent colors. Also see color.html for more colors.
         */
+        --main-color: #DD1F29;
+        --black-color: #000000;
         --light-primary-color: rgba(255, 150, 150, 1);
-        --default-primary-color: rgba(221, 31, 41, 1);
+        --default-primary-color: var(--main-color);
         --dark-primary-color: rgba(150, 0, 0, 1);
     }
 
     paper-input.login-field {
-        --default-primary-color: #DD1F29;
-        --primary-text-color: #000000;
-        --secondary-text-color: #000000;
+        --default-primary-color: var(--main-color);
+        --primary-text-color: var(--black-color);
+        --secondary-text-color: var(--black-color);
         --paper-input-container-label: {
             font-size: 20px;
         };
@@ -20,6 +22,9 @@ style(is="custom-style").
     }
 
     paper-dialog#alert {
-        --paper-dialog-title: purple;
+        --paper-dialog-button-color: var(--main-color);
+    }
+
+    paper-dialog#alert {
         --paper-dialog-button-color: #DD1F29;
     }

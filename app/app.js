@@ -18,7 +18,6 @@
     };
 
     window.addEventListener('WebComponentsReady', function (e) {
-         //console.log(app.currentStyle);
          //if (app.mainColor) {
              //app.customStyle['--paper-input-container-focus-color'] = app.mainColor;
              //app.updateStyles();
