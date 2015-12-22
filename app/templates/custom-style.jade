@@ -9,6 +9,7 @@ style(is="custom-style").
         --dark-primary-color: rgba(150, 0, 0, 1);
     }
 
+        /*login styles*/
     paper-input.login-field {
         --default-primary-color: var(--main-color);
         --primary-text-color: var(--black-color);
@@ -21,10 +22,11 @@ style(is="custom-style").
         }
     }
 
-    paper-dialog#alert {
-        --paper-dialog-button-color: var(--main-color);
+    paper-dialog {
+        --paper-dialog-button-color: var(--login-color);
     }
+        /*main styles*/
 
-    paper-dialog#alert {
-        --paper-dialog-button-color: #DD1F29;
+    .main-menu-item:focus, .selectable-content.paper-menu > .main-menu-item.iron-selected {
+        border-left-color: var(--main-color);
     }

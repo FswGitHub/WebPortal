@@ -10,8 +10,6 @@
     };
     app.loader = false;
 
-    app.dialogClose = function(){};
-
     app.toggleSignUp = function(){
         app.signUp = !app.signUp;
     };
@@ -47,7 +45,6 @@
     };
 
     app.signInSubmit = function(){
-        var request = document.getElementById('request');
         var email = document.getElementById('signInEmail');
         var pass = document.getElementById('signInPass');
 
@@ -63,27 +60,26 @@
     };
 
     app.signInResponse = function(event, details){
-        var alert = document.getElementById('alert');
-
         if(details.response.success){
             app.loader = false;
             app.sessionId = details.response.user.userId;
+            app.menuSubItems = app.getMenuSubItems();
             if(app.rememberMe){
                 localStorage.setItem('sessionId', app.sessionId);
             }
             page('/dashboard');
         } else {
-            app.alert = {
+            app.dialog = {
+                dismissText: 'OK',
                 header: 'Error',
                 text: 'Wrong login, password or your account has not been verified. Please check the verification email that was sent.'
             };
             app.loader = false;
-            alert.open();
+            dialog.open();
         }
     };
 
     app.signUpSubmit = function(){
-        var request = document.getElementById('request');
         var first = document.getElementById('signUpFirstName');
         var last = document.getElementById('signUpLastName');
         var email = document.getElementById('signUpEmail');
@@ -104,33 +100,32 @@
     };
 
     app.signUpResponse = function(event, details){
-        var alert = document.getElementById('alert');
-
         if(details.response.success){
             app.toggleConfirm();
         } else {
-            app.alert = {
+            app.dialog = {
+                dismissText: 'OK',
                 header: 'Error',
                 text: 'Something wrong, try again later'
             };
-            alert.open();
+            dialog.open();
         }
 
         app.login.signUp = null;
     };
 
     app.sentForgotPass = function(){
-        var alert = document.getElementById('alert');
         var forgotPassEmail = document.getElementById('forgotPassEmail');
 
         if(app.login.forgotPassEmail && app.login.forgotPassEmail.length > 0){
             if(forgotPassEmail.validate()){
-                app.alert = {
+                app.dialog = {
+                    dismissText: 'OK',
                     header: '',
                     text: 'Please check your email and click the verification link to reset your password.'
                 };
                 app.dialogClose = app.toggleForgotPass;
-                alert.open();
+                dialog.open();
             }
         } else {
             app.login.forgotPassEmail = null;
@@ -140,20 +135,20 @@
     };
 
     app.submitNewPass = function(){
-        var alert = document.getElementById('alert');
         var newPass = document.getElementById('newPass');
 
         app.passNotMatch = false;
         if(newPass.validate()){
             if(app.login.newPassConfirm == app.login.newPass){
-                app.alert = {
+                app.dialog = {
+                    dismissText: 'OK',
                     header: '',
                     text: 'Your password is update.'
                 };
                 app.dialogClose = function(){
                     page('/login');
                 };
-                alert.open();
+                dialog.open();
             } else {
                 app.passNotMatch = true;
             }

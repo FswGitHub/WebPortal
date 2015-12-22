@@ -1,0 +1,66 @@
+paper-toolbar.menu-toolbar {
+    &.dark {
+        background-color: $color-grey-medium;
+    }
+    &.light {
+        background-color: $color-white;
+    }
+}
+
+.main-logo {
+    width: 100%;
+}
+
+.main-menu {
+    padding-bottom: 0;
+}
+
+.main-menu-item {
+    display: flex;
+    height: 57px;
+    padding: 0 $padding-small 0 8px;
+    align-items: center;
+    border-left: 8px solid transparent;
+    color: $color-black;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+}
+
+.selectable-content.paper-menu > .main-menu-item.iron-selected {
+    font-weight: normal;
+    background-color: $color-grey-medium-light;
+}
+
+.selectable-content.paper-menu > .main-menu-item:focus {
+    background-color: inherit;
+}
+
+.menu-item-text {
+    font-size: $font-size-16;
+}
+
+.main-menu-item-icon {
+    margin-right: 8px;
+}
+
+
+.menu-sub-item {
+    padding: 0 8px 0 50px;
+    height: 48px;
+    .menu-item-text {
+        font-size: $font-size-14;
+    }
+}
+
+@media screen and (max-height: $size-small) {
+    .main-menu-item {
+        height: 50px;
+    }
+
+    .menu-sub-item {
+        height: 42px;
+    }
+}
+
+

@@ -9,8 +9,9 @@ html
         script(src='bower_components/webcomponentsjs/webcomponents-lite.js')
         script(src="bower_components/page/page.js")
         link(rel="stylesheet" href="css/styles.css")
+        link(rel='shortcut icon', href='assets/images/favicon.ico', type='image/x-icon')
         include templates/imports
-    body.relative(unresolved="")
+    body.relative(unresolved, fullbleed)
         span#browser-sync-binding
         template(is="dom-bind", id="app")
             include templates/custom-style
@@ -20,5 +21,13 @@ html
             div(hidden="{{!route.main}}")
                 include templates/main-page/main-page
             iron-ajax#request(url="{{url}}", body='{{body}}', method="{{method}}", handle-as="json", on-response="handleResponse", debounce-duration="300")
+            paper-dialog#dialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-closed="dialogClose")
+                h2 {{dialog.header}}
+                .dialog-content
+                    p {{dialog.text}}
+                .dialog-actions.buttons
+                    paper-button(dialog-confirm, on-tap="dialogConfirmed", hidden="{{!dialog.confirm}}") Ok
+                    paper-button(dialog-dismiss) {{dialogDismissText(dialog.confirm)}}
         script(src="app.js", rel="text/javascript")
         script(src="templates/login-page/login-page.js", rel="text/javascript")
+        script(src="templates/main-page/main-page.js", rel="text/javascript")

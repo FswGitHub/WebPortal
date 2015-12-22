@@ -56,9 +56,9 @@ gulp.task('clean', function() {
 gulp.task('default', ['copy', 'sass', 'templates'], function () {
 
     browserSync({
-        port: 5000,
-        notify: false,
-        logPrefix: 'PSK',
+        //port: 6000,
+        //notify: false,
+        //logPrefix: 'FWP',
         snippetOptions: {
             rule: {
                 match: '<span id="browser-sync-binding"></span>',

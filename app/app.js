@@ -1,5 +1,7 @@
 (function (){
     var app = document.querySelector('#app');
+    var request = document.getElementById('request');
+    var dialog = document.getElementById('dialog');
 
     // Sets app default base URL
     app.baseUrl = '/';
@@ -15,6 +17,21 @@
 
     app.handleResponse = function(data){
         console.log(data);
+    };
+
+    app.dialogClose = function(){};
+
+    app.dialogDismissText = function(confirm){
+        if(confirm){
+            return 'Cancel';
+        } else {
+            return 'OK';
+        }
+
+    };
+
+    app.dialogConfirmed = function(){
+        app.dialog.confirmed = true;
     };
 
     window.addEventListener('WebComponentsReady', function (e) {

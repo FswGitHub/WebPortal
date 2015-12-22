@@ -47,6 +47,7 @@ script.
                     name: 'dashboard',
                     main: true
                 }
+                closeMenu();
             } else {
                 page('/login');
             }
@@ -57,6 +58,7 @@ script.
                     name: 'portfolio',
                     main: true
                 }
+                closeMenu();
             } else {
                 page('/login');
             }
@@ -64,10 +66,11 @@ script.
         page('/portfolio/:id', function (data) {
             if(app.sessionId){
                 app.route = {
-                    name: 'portfolio-item',
+                    name: 'portfolio-item-'+data.params.id,
                     params: data.params,
                     main: true
                 }
+                closeMenu();
             } else {
                 page('/login');
             }
@@ -78,6 +81,7 @@ script.
                     name: 'profile',
                     main: true
                 }
+                closeMenu();
             } else {
                 page('/login');
             }
@@ -88,6 +92,7 @@ script.
                     name: 'settings',
                     main: true
                 }
+                closeMenu();
             } else {
                 page('/login');
             }
@@ -106,4 +111,9 @@ script.
         page({
             hashbang: true
         });
+
+        function closeMenu(){
+            var drawer = document.getElementById('paperDrawerPanel');
+            drawer.closeDrawer();
+        }
     });
