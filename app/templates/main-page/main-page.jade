@@ -15,7 +15,7 @@ paper-drawer-panel(responsive-width="1280px")#paperDrawerPanel
                 span.menu-item-text Portfolio
                 paper-ripple
             template(is="dom-repeat" items="{{menuSubItems}}", filter="{{limitTo(5)}}")
-                a.main-menu-item.relative.menu-sub-item(href="{{baseUrl}}portfolio/{{item.id}}", data-route="portfolio-item-{{item.id}}")
+                a.main-menu-item.relative.menu-sub-item(href="{{baseUrl}}portfolio/{{item.id}}", data-route$="portfolio-item-{{item.id}}")
                     span.menu-item-text {{item.title}}
                     paper-ripple
             a.main-menu-item.relative(href="{{baseUrl}}profile", data-route="profile")
@@ -44,7 +44,7 @@ paper-drawer-panel(responsive-width="1280px")#paperDrawerPanel
                 section(data-route='portfolio')
                     p {{route.name}}
                 template(is="dom-repeat" items="{{menuSubItems}}")
-                    section(data-route="portfolio-item-{{item.id}}")
+                    section(data-route$='portfolio-item-{{item.id}}')
                         p {{item.title}}
                 section(data-route='profile')
                     p {{route.name}}

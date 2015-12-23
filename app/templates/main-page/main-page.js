@@ -37,6 +37,10 @@
         }
     };
 
+    app.makeDataRoute = function(id){
+        return 'portfolio-item-'+id;
+    };
+
     app.logout = function(){
         app.dialog = {
             confirm: true,
