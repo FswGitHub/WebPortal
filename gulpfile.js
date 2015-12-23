@@ -36,14 +36,22 @@ gulp.task('js-watch', function(){
         .pipe(reload({stream: true}));
 });
 
-gulp.task('copy', function(){
-    gulp.src('./app/bower_components/**')
+gulp.task('copy-bower-components', function(){
+    return gulp.src('./app/bower_components/**')
         .pipe(gulp.dest('./dist/bower_components/'));
-    gulp.src('./app/assets/**')
+});
+
+gulp.task('copy-assets', function(){
+    return gulp.src('./app/assets/**')
         .pipe(gulp.dest('./dist/assets/'));
-    gulp.src('./app/**/*.js')
+});
+
+gulp.task('copy-js', function(){
+    return gulp.src('./app/**/*.js')
         .pipe(gulp.dest('./dist/'));
 });
+
+gulp.task('copy', ['copy-bower-components', 'copy-assets', 'copy-js']);
 
 // Clean output directory
 gulp.task('clean', function() {
