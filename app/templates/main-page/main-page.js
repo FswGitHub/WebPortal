@@ -37,18 +37,15 @@
         }
     };
 
-    app.makeDataRoute = function(id){
-        return 'portfolio-item-'+id;
-    };
-
     app.logout = function(){
         app.dialog = {
             confirm: true,
             header: 'Confirm',
             text: 'Are you sure you want to log out?'
         };
+
         app.dialogClose = function(){
-            if(app.dialog.confirmed){
+            if(app.dialog.confirmed) {
                 app.dialog.confirmed = false;
                 app.sessionId = null;
                 localStorage.clear();
@@ -60,7 +57,37 @@
             app.dialog.confirm = false;
         };
         dialog.open();
-
-        //console.log('main.page');
     };
+
+    //Session timeout(5 minutes))
+    var IDLE_TIMEOUT = 300; //seconds
+    var _idleSecondsCounter = 0;
+    document.onclick = function() {
+        _idleSecondsCounter = 0;
+    };
+    document.onmousemove = function() {
+        _idleSecondsCounter = 0;
+    };
+    document.onkeypress = function() {
+        _idleSecondsCounter = 0;
+    };
+    window.setInterval(CheckIdleTime, 1000);
+
+    function CheckIdleTime() {
+        if (app.sessionId) {
+            _idleSecondsCounter++;
+            if (_idleSecondsCounter >= IDLE_TIMEOUT) {
+                app.dialog = {
+                    header: '',
+                    text: 'Time expired!'
+                };
+                app.dialogClose = function(){
+                    app.sessionId = null;
+                    localStorage.clear();
+                    page('/login');
+                };
+                dialog.open();
+            }
+        }
+    }
 })();

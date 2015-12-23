@@ -81,7 +81,8 @@ gulp.task('default', ['copy', 'sass', 'templates'], function () {
     gulp.watch('./app/scss/**/*.scss', ['sass']);
     gulp.watch('./app/**/*.jade',      ['jade-watch']);
     gulp.watch('./app/**/*.js',        ['js-watch']);
-    gulp.watch(['./app/bower_components/**', './app/assets/**', './app/**/*.js'], ['copy']);
+    gulp.watch('./app/bower_components/**', ['copy-bower-components']);
+    gulp.watch('./app/assets/**', ['copy-assets']);
 });
 
 gulp.task('build', ['clean','copy', 'sass', 'templates'], function () {
