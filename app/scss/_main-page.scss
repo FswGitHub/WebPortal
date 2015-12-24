@@ -53,6 +53,26 @@ paper-toolbar.menu-toolbar {
     }
 }
 
+paper-tabs {
+    text-transform: uppercase;
+    margin: 16px 0 0 64px;
+}
+
+paper-tab {
+    padding: 0 $padding-small;
+}
+
+.with-tabs {
+    margin-top: 64px;
+}
+
+@media screen and (max-width: $size-large) {
+    paper-tabs {
+        margin: 16px 0 0 0;
+    }
+}
+
+
 @media screen and (max-height: $size-small) {
     .main-menu-item {
         height: 50px;

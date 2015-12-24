@@ -40,6 +40,8 @@ script.
                     reset: reset
                 }
             }
+
+            app.tabs = null;
         });
         page('/dashboard', function () {
             if (app.sessionId) {
@@ -65,6 +67,7 @@ script.
         });
         page('/portfolio/:id', function (data) {
             if(app.sessionId){
+                app.selectedPortfolioTab = 'Dashboard';
                 app.route = {
                     name: 'portfolio-item-'+data.params.id,
                     params: data.params,
@@ -88,6 +91,7 @@ script.
         });
         page('/settings', function () {
             if(app.sessionId){
+                app.selectedSettingsTab = 'General';
                 app.route = {
                     name: 'settings',
                     main: true
@@ -115,5 +119,6 @@ script.
         function closeMenu(){
             var drawer = document.getElementById('paperDrawerPanel');
             drawer.closeDrawer();
+            var routeName = app.route.name;
         }
     });

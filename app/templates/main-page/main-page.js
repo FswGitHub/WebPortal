@@ -37,6 +37,32 @@
         }
     };
 
+    app.showToolbar = function(name){
+        if(name.indexOf('portfolio-item') == -1 && name.indexOf('settings') == -1){
+            return true;
+        }
+    };
+
+    app.checkRoute = function(name, value){
+        if(name.indexOf(value) > -1){
+            return true;
+        }
+    };
+
+    app.getAppTitle = function(route){
+        if(route.params){
+            if(app.menuSubItems){
+                for(var i=0; i<app.menuSubItems.length; i++){
+                    if(app.menuSubItems[i].id === route.params.id){
+                        return app.menuSubItems[i].title;
+                    }
+                }
+            }
+        } else {
+            return route.name;
+        }
+    };
+
     app.logout = function(){
         app.dialog = {
             confirm: true,

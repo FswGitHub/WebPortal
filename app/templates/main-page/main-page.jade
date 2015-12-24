@@ -31,11 +31,25 @@ paper-drawer-panel(responsive-width="1280px")#paperDrawerPanel
             span.menu-item-text Logout
             paper-ripple
     // Main Area
-    paper-scroll-header-panel#headerPanelMain(main='', condenses='', keep-condensed-header='')
+    paper-scroll-header-panel#headerPanelMain(main='')
         // Main Toolbar
         paper-toolbar#mainToolbar
             paper-icon-button(icon="menu", paper-drawer-toggle)
-            h1 {{route.name}}
+            h1.title
+                template(is="dom-if", if="{{checkRoute(route.name, 'portfolio-item')}}")
+                    a(href='{{baseUrl}}portfolio') Portfolio
+                    span  >
+                span  {{getAppTitle(route)}}
+        paper-toolbar(hidden="{{showToolbar(route.name)}}")
+            template(is="dom-if", if="{{checkRoute(route.name, 'portfolio-item')}}")
+                paper-tabs#portfolioTabs(selected="{{selectedPortfolioTab}}", attr-for-selected="data-tab")
+                    paper-tab(data-tab="Dashboard") Dashboard
+                    paper-tab(data-tab="Holdings") Holdings
+            template(is="dom-if", if="{{checkRoute(route.name, 'settings')}}")
+                paper-tabs#settingsTabs(selected="{{selectedSettingsTab}}", attr-for-selected="data-tab")
+                    paper-tab(data-tab="General") General
+                    paper-tab(data-tab="FPM Config") FPM Config
+                    paper-tab(data-tab="Users") Users
         // Main Content
         #mainContent
             iron-pages(attr-for-selected='data-route', selected='{{route.name}}')
@@ -44,9 +58,9 @@ paper-drawer-panel(responsive-width="1280px")#paperDrawerPanel
                 section(data-route='portfolio')
                     p {{route.name}}
                 template(is="dom-repeat" items="{{menuSubItems}}")
-                    section(data-route$='portfolio-item-{{item.id}}')
-                        p {{item.title}}
+                    section.with-tabs(data-route$='portfolio-item-{{item.id}}')
+                        p {{route.name}}
                 section(data-route='profile')
                     p {{route.name}}
-                section(data-route='settings')
+                section.with-tabs(data-route='settings')
                     p {{route.name}}
