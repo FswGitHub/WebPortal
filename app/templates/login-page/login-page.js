@@ -63,7 +63,7 @@
         if(details.response.success){
             app.loader = false;
             app.sessionId = details.response.user.userId;
-            app.menuSubItems = app.getMenuSubItems();
+            app.getMenuSubItems();
             if(app.rememberMe){
                 localStorage.setItem('sessionId', app.sessionId);
             }

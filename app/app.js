@@ -11,7 +11,7 @@
 
     app.addClass = function(variable, classString){
         if(variable){
-            return classString
+            return classString;
         }
     };
 

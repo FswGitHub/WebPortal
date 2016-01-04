@@ -35,9 +35,9 @@ paper-drawer-panel(responsive-width="1280px")#paperDrawerPanel
         // Main Toolbar
         paper-toolbar#mainToolbar
             paper-icon-button(icon="menu", paper-drawer-toggle)
-            h1.title
+            .title
                 template(is="dom-if", if="{{checkRoute(route.name, 'portfolio-item')}}")
-                    a(href='{{baseUrl}}portfolio') Portfolio
+                    a.portfolio-title-link(href='{{baseUrl}}portfolio') Portfolio
                     span  >
                 span  {{getAppTitle(route)}}
         paper-toolbar(hidden="{{showToolbar(route.name)}}")

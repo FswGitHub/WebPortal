@@ -56,6 +56,7 @@ paper-toolbar.menu-toolbar {
 paper-tabs {
     text-transform: uppercase;
     margin: 16px 0 0 64px;
+    user-select: none;
 }
 
 paper-tab {
@@ -64,6 +65,20 @@ paper-tab {
 
 .with-tabs {
     margin-top: 64px;
+}
+
+.title {
+    text-transform: capitalize;
+}
+
+.portfolio-title-link {
+    pointer-events: initial;
+    color: $color-white;
+    text-decoration: none;
+    &:hover {
+        color: $color-white;
+        text-decoration: underline;
+    }
 }
 
 @media screen and (max-width: $size-large) {

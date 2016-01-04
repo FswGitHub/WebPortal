@@ -1,7 +1,9 @@
 (function (){
-    app.theme = localStorage.getItem('appTheme') || 'dark';
-    app.logo = localStorage.getItem('appLogo') || 'assets/images/logo-light.png';
-    app.menuSubItems = JSON.parse(localStorage.getItem('portfolioItems'));
+    app.theme =  app.sessionId ? localStorage.getItem('appTheme') : 'dark';
+    app.logo = app.sessionId ? localStorage.getItem('appLogo') : 'assets/images/logo-light.png';
+    app.menuSubItems = app.sessionId ? JSON.parse(localStorage.getItem('portfolioItems')) : null;
+    console.log('parsed');
+    console.log(app.menuSubItems);
 
     app.getMenuSubItems = function(){
         app.method = 'GET';
@@ -13,13 +15,13 @@
     app.sideMenuResponse = function(event, details){
         if(details.response.success){
             app.menuSubItems = details.response.content;
+            console.log('downloaded');
+            console.log(app.menuSubItems);
             app.theme = details.response.theme;
             app.logo = 'assets/' + details.response.logo;
             localStorage.setItem('portfolioItems', JSON.stringify(app.menuSubItems));
             localStorage.setItem('appTheme', app.theme);
             localStorage.setItem('appLogo', app.logo);
-        } else {
-            app.menuSubItems = null;
         }
     };
 
