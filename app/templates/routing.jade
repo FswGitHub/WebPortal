@@ -23,14 +23,12 @@ script.
                 if (queryString.length > 0) {
                     if (queryString.match(new RegExp('^token='))) {
                         token = queryString.replace('token=', '');
-                        //check token valid
+                        //token validation here
                     }
                     if (queryString.match(new RegExp('^reset='))) {
                         reset = queryString.replace('reset=', '');
-                        //check token valid
-                        console.log(reset);
+                        //token validation here
                     }
-
                 }
 
                 app.route = {
@@ -40,8 +38,6 @@ script.
                     reset: reset
                 }
             }
-
-            app.tabs = null;
         });
         page('/dashboard', function () {
             if (app.sessionId) {
@@ -65,11 +61,11 @@ script.
                 page('/login');
             }
         });
-        page('/portfolio/:id', function (data) {
+        page('/portfolio/:id/:tab', function (data) {
             if(app.sessionId){
-                app.selectedPortfolioTab = 'Dashboard';
                 app.route = {
                     name: 'portfolio-item-'+data.params.id,
+                    tabs: ['dashboard', 'holdings'],
                     params: data.params,
                     main: true
                 }
@@ -82,19 +78,21 @@ script.
             if(app.sessionId){
                 app.route = {
                     name: 'profile',
-                    main: true
+                    main: true,
                 }
                 closeMenu();
             } else {
                 page('/login');
             }
         });
-        page('/settings', function () {
+        page('/settings/:tab', function (data) {
             if(app.sessionId){
-                app.selectedSettingsTab = 'General';
                 app.route = {
                     name: 'settings',
-                    main: true
+                    main: true,
+                    tabs: ['general', 'configs', 'users'],
+                    params: data.params
+
                 }
                 closeMenu();
             } else {
@@ -118,7 +116,6 @@ script.
 
         function closeMenu(){
             var drawer = document.getElementById('paperDrawerPanel');
-            drawer.closeDrawer();
-            var routeName = app.route.name;
+            drawer ? drawer.closeDrawer() : null;
         }
     });

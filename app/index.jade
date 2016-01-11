@@ -11,14 +11,16 @@ html
         link(rel="stylesheet" href="css/styles.css")
         link(rel='shortcut icon', href='assets/images/favicon.ico', type='image/x-icon')
         include templates/imports
-    body.relative(unresolved, fullbleed)
+    body.relative(unresolved)
         span#browser-sync-binding
         template(is="dom-bind", id="app")
             include templates/custom-style
             include templates/query-matches
-            div(hidden="{{route.main}}")
+            //If user not signed in, open login page
+            template(is="dom-if", if="{{!route.main}}")
                 include templates/login-page/login-page
-            div(hidden="{{!route.main}}")
+            //If user already signed in, open main page
+            template(is="dom-if", if="{{route.main}}")
                 include templates/main-page/main-page
             iron-ajax#request(url="{{url}}", body='{{body}}', method="{{method}}", handle-as="json", on-response="handleResponse", debounce-duration="300")
             paper-dialog#dialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-closed="dialogClose")

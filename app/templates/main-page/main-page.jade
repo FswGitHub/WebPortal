@@ -1,4 +1,4 @@
-paper-drawer-panel(responsive-width="1280px")#paperDrawerPanel
+paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
     // Drawer Scroll Header Panel
     paper-header-panel(drawer='', mode="seamed")
         // Drawer Toolbar
@@ -15,14 +15,14 @@ paper-drawer-panel(responsive-width="1280px")#paperDrawerPanel
                 span.menu-item-text Portfolio
                 paper-ripple
             template(is="dom-repeat" items="{{menuSubItems}}", filter="{{limitTo(5)}}")
-                a.main-menu-item.relative.menu-sub-item(href="{{baseUrl}}portfolio/{{item.id}}", data-route$="portfolio-item-{{item.id}}")
+                a.main-menu-item.relative.menu-sub-item(href="{{baseUrl}}portfolio/{{item.id}}/dashboard", data-route$="portfolio-item-{{item.id}}")
                     span.menu-item-text {{item.title}}
                     paper-ripple
             a.main-menu-item.relative(href="{{baseUrl}}profile", data-route="profile")
                 iron-icon.main-menu-item-icon(icon='account-circle')
                 span.menu-item-text Profile
                 paper-ripple
-            a.main-menu-item.relative(href="{{baseUrl}}settings", data-route="settings")
+            a.main-menu-item.relative(href="{{baseUrl}}settings/general", data-route="settings")
                 iron-icon.main-menu-item-icon(icon='settings')
                 span.menu-item-text Settings
                 paper-ripple
@@ -31,36 +31,41 @@ paper-drawer-panel(responsive-width="1280px")#paperDrawerPanel
             span.menu-item-text Logout
             paper-ripple
     // Main Area
-    paper-scroll-header-panel#headerPanelMain(main='')
+    paper-scroll-header-panel#headerPanelMain(main='', unresolved)
         // Main Toolbar
-        paper-toolbar#mainToolbar
+        paper-toolbar#mainToolbar(class$="x-scope paper-toolbar-0 {{showTabs(route.name, 'medium-tall')}}")
             paper-icon-button(icon="menu", paper-drawer-toggle)
             .title
                 template(is="dom-if", if="{{checkRoute(route.name, 'portfolio-item')}}")
                     a.portfolio-title-link(href='{{baseUrl}}portfolio') Portfolio
                     span  >
                 span  {{getAppTitle(route)}}
-        paper-toolbar(hidden="{{showToolbar(route.name)}}")
-            template(is="dom-if", if="{{checkRoute(route.name, 'portfolio-item')}}")
-                paper-tabs#portfolioTabs(selected="{{selectedPortfolioTab}}", attr-for-selected="data-tab")
-                    paper-tab(data-tab="Dashboard") Dashboard
-                    paper-tab(data-tab="Holdings") Holdings
-            template(is="dom-if", if="{{checkRoute(route.name, 'settings')}}")
-                paper-tabs#settingsTabs(selected="{{selectedSettingsTab}}", attr-for-selected="data-tab")
-                    paper-tab(data-tab="General") General
-                    paper-tab(data-tab="FPM Config") FPM Config
-                    paper-tab(data-tab="Users") Users
+            paper-tabs#tabs.title(hidden="{{!route.tabs}}", selected="{{route.params.tab}}", on-iron-items-changed="fixTabs", attr-for-selected="data-tab", class$="bottom self-end x-scope paper-tabs-0 {{addClass(responsiveWidth, 'title-aligned')}}")
+                template(is="dom-repeat", items="{{route.tabs}}", restamp)
+                        paper-tab(data-tab$="{{item}}", on-tap="tabGo") {{getTabName(item)}}
         // Main Content
-        #mainContent
-            iron-pages(attr-for-selected='data-route', selected='{{route.name}}')
-                section(data-route='dashboard')
-                    p {{route.name}}
-                section(data-route='portfolio')
-                    p {{route.name}}
+        #mainContent.main-wrapper.relative
+            iron-pages.main-pages(attr-for-selected='data-route', selected='{{route.name}}')
+                section.page(data-route='dashboard')
+                    .page-wrapper.layout.vertical.fit
+                        .page-content.flex
+                        footer-element
+                section.page(data-route='portfolio')
+                    .page-wrapper.layout.vertical.fit
+                        .page-content.flex
+                        footer-element
                 template(is="dom-repeat" items="{{menuSubItems}}")
-                    section.with-tabs(data-route$='portfolio-item-{{item.id}}')
-                        p {{route.name}}
-                section(data-route='profile')
-                    p {{route.name}}
-                section.with-tabs(data-route='settings')
-                    p {{route.name}}
+                    section.page(data-route$='portfolio-item-{{item.id}}')
+                        .page-wrapper.with-tabs.layout.vertical.fit
+                            .page-content.flex
+                                    p {{route.params.tab}}
+                            footer-element
+                section.page(data-route='profile')
+                    .page-wrapper.layout.vertical.fit
+                        .page-content.flex
+                        footer-element
+                section.page(data-route='settings')
+                    .page-wrapper.with-tabs.layout.vertical.fit
+                        .page-content.flex
+                            p {{route.params.tab}}
+                        footer-element

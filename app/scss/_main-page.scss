@@ -53,18 +53,31 @@ paper-toolbar.menu-toolbar {
     }
 }
 
-paper-tabs {
+paper-tabs#tabs {
     text-transform: uppercase;
-    margin: 16px 0 0 64px;
     user-select: none;
+    max-width: 400px;
+    //pointer-events: initial;
+    //margin: 16px 0 0;
+    #selectionBar {
+        width: 100%;
+    }
+}
+
+
+
+paper-tabs.title-aligned {
+   margin: 0 0 0 64px;
 }
 
 paper-tab {
     padding: 0 $padding-small;
+    min-width: 100px;
+    max-width: 100px;
 }
 
 .with-tabs {
-    margin-top: 64px;
+    padding-top: 80px;
 }
 
 .title {
@@ -81,9 +94,18 @@ paper-tab {
     }
 }
 
+.main-wrapper {
+    height: 100%;
+}
+
+.page-wrapper {
+    background-color: $color-grey-light;
+    padding: $padding-small;
+}
+
 @media screen and (max-width: $size-large) {
     paper-tabs {
-        margin: 16px 0 0 0;
+        //margin: 16px 0 0 0;
     }
 }
 
@@ -96,6 +118,35 @@ paper-tab {
     .menu-sub-item {
         height: 42px;
     }
+
+    //paper-tabs {
+    //    margin: 8px 0 0 0;
+    //}
+    //
+    //.with-tabs {
+    //    margin-top: 56px;
+    //}
 }
+
+@media screen and (max-width: $size-small) {
+    paper-tabs.title-aligned {
+        margin: 0;
+    }
+
+    paper-tab {
+        min-width: 50px;
+        max-width: 60px;
+    }
+}
+
+//@media screen and (max-height: $size-large) {
+//    paper-tabs {
+//        margin: 8px 0 0 0;
+//    }
+//
+//    .with-tabs {
+//        margin-top: 56px;
+//    }
+//}
 
 

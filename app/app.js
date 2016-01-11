@@ -3,7 +3,7 @@
     var request = document.getElementById('request');
     var dialog = document.getElementById('dialog');
 
-    // Sets app default base URL
+    // Sets app default base URL and globals
     app.baseUrl = '/';
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.mainColor = 'green';

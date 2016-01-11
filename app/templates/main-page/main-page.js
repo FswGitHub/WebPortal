@@ -2,8 +2,6 @@
     app.theme =  app.sessionId ? localStorage.getItem('appTheme') : 'dark';
     app.logo = app.sessionId ? localStorage.getItem('appLogo') : 'assets/images/logo-light.png';
     app.menuSubItems = app.sessionId ? JSON.parse(localStorage.getItem('portfolioItems')) : null;
-    console.log('parsed');
-    console.log(app.menuSubItems);
 
     app.getMenuSubItems = function(){
         app.method = 'GET';
@@ -15,8 +13,6 @@
     app.sideMenuResponse = function(event, details){
         if(details.response.success){
             app.menuSubItems = details.response.content;
-            console.log('downloaded');
-            console.log(app.menuSubItems);
             app.theme = details.response.theme;
             app.logo = 'assets/' + details.response.logo;
             localStorage.setItem('portfolioItems', JSON.stringify(app.menuSubItems));
@@ -39,10 +35,33 @@
         }
     };
 
-    app.showToolbar = function(name){
-        if(name.indexOf('portfolio-item') == -1 && name.indexOf('settings') == -1){
+    app.showTabs = function(name, className){
+        var tabs = name.indexOf('portfolio-item') == -1 && name.indexOf('settings') == -1;
+        if(!tabs){
+            return className;
+        } else {
             return true;
         }
+    };
+
+    app.tabGo = function(e){
+        var item = e.model.item;
+        var state = app.route.params.id ? 'portfolio/'+ app.route.params.id + '/' : 'settings/';
+        var path = '/'+state+item;
+        page(path);
+    };
+
+    app.getTabName = function(name){
+        if(name === 'configs'){
+            return 'FPM configs';
+        } else {
+            return name;
+        }
+    };
+
+    app.fixTabs = function(){
+        var tabs = document.getElementsByTagName('paper-tabs')[0];
+        tabs.notifyResize();
     };
 
     app.checkRoute = function(name, value){
@@ -52,7 +71,7 @@
     };
 
     app.getAppTitle = function(route){
-        if(route.params){
+        if(route.name.indexOf('portfolio-item') > -1){
             if(app.menuSubItems){
                 for(var i=0; i<app.menuSubItems.length; i++){
                     if(app.menuSubItems[i].id === route.params.id){
@@ -88,7 +107,7 @@
     };
 
     //Session timeout(5 minutes))
-    var IDLE_TIMEOUT = 300; //seconds
+    var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
     var _idleSecondsCounter = 0;
     document.onclick = function() {
         _idleSecondsCounter = 0;
