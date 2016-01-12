@@ -57,14 +57,7 @@ paper-tabs#tabs {
     text-transform: uppercase;
     user-select: none;
     max-width: 400px;
-    //pointer-events: initial;
-    //margin: 16px 0 0;
-    #selectionBar {
-        width: 100%;
-    }
 }
-
-
 
 paper-tabs.title-aligned {
    margin: 0 0 0 64px;
@@ -74,10 +67,6 @@ paper-tab {
     padding: 0 $padding-small;
     min-width: 100px;
     max-width: 100px;
-}
-
-.with-tabs {
-    padding-top: 80px;
 }
 
 .title {
@@ -95,37 +84,20 @@ paper-tab {
 }
 
 .main-wrapper {
+    background-color: $color-grey-light;
+}
+
+.main-content {
     height: 100%;
 }
 
-.page-wrapper {
-    background-color: $color-grey-light;
-    padding: $padding-small;
+.main-toolbar {
+    box-shadow: 0 5px 6px -3px rgba(0, 0, 0, 0.4);
 }
 
-@media screen and (max-width: $size-large) {
-    paper-tabs {
-        //margin: 16px 0 0 0;
-    }
-}
-
-
-@media screen and (max-height: $size-small) {
-    .main-menu-item {
-        height: 50px;
-    }
-
-    .menu-sub-item {
-        height: 42px;
-    }
-
-    //paper-tabs {
-    //    margin: 8px 0 0 0;
-    //}
-    //
-    //.with-tabs {
-    //    margin-top: 56px;
-    //}
+.page-scroll {
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 @media screen and (max-width: $size-small) {
@@ -137,16 +109,69 @@ paper-tab {
         min-width: 50px;
         max-width: 60px;
     }
+
+    .main-wrapper {
+        .footer-wrapper {
+            padding: $padding-small $padding-small 0;
+        }
+    }
+
+    .page-wrapper {
+        padding: $padding-small  $padding-small 0;
+    }
 }
 
-//@media screen and (max-height: $size-large) {
-//    paper-tabs {
-//        margin: 8px 0 0 0;
-//    }
-//
-//    .with-tabs {
-//        margin-top: 56px;
-//    }
-//}
+@media screen and (min-width: $size-small+1) and (max-width: $size-large) {
+    .main-wrapper {
+        .footer-wrapper {
+            padding: $padding-medium $padding-medium 0;
+        }
+    }
+
+    .page-wrapper {
+        padding: $padding-medium $padding-medium 0;
+    }
+}
+
+@media screen and (min-width: $size-large+1) and (max-width: $size-x-large) {
+    .main-wrapper {
+        .footer-wrapper {
+            padding: $padding-large;
+        }
+    }
+
+    .page-wrapper {
+        padding: $padding-large  $padding-large 0;
+    }
+}
+
+
+@media screen and (min-width: $size-x-large+1) {
+    .main-wrapper {
+        .footer-wrapper {
+            padding: $padding-large $padding-x-large;
+        }
+    }
+
+    .page-wrapper {
+        padding: $padding-large $padding-x-large 0;
+    }
+}
+
+@media screen and (max-width: $size-large) {
+
+}
+
+
+@media screen and (max-height: $size-small) {
+    .main-menu-item {
+        height: 50px;
+    }
+
+    .menu-sub-item {
+        height: 42px;
+    }
+}
+
 
 

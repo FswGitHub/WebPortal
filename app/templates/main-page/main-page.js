@@ -62,6 +62,15 @@
     app.fixTabs = function(){
         var tabs = document.getElementsByTagName('paper-tabs')[0];
         tabs.notifyResize();
+
+    };
+
+    app.getSelectedTab = function(){
+        //var tabs = document.getElementsByTagName('paper-tabs')[0];
+        //setTimeout(function(){
+        //    var selectedValue = tabs.selected;
+        //    var selectedTab  = document.getElementById(selectedValue+'Tab');
+        //});
     };
 
     app.checkRoute = function(name, value){
