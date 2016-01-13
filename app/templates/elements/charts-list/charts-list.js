@@ -10,7 +10,7 @@
                 type: Array,
                 value: {}
             },
-            data: {
+            dataBar: {
                 type: Object,
                 value: {
                     labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -37,12 +37,36 @@
                         }
                     ]
                 }
+            },
+            dataPie: {
+                type: Array,
+                value: [
+                    {
+                        value: 300,
+                        color:"#F7464A",
+                        highlight: "#FF5A5E",
+                        label: "Red"
+                    },
+                    {
+                        value: 50,
+                        color: "#46BFBD",
+                        highlight: "#5AD3D1",
+                        label: "Green"
+                    },
+                    {
+                        value: 100,
+                        color: "#FDB45C",
+                        highlight: "#FFC870",
+                        label: "Yellow"
+                    }
+                ]
             }
         },
         updateCharts: function(){
             var self = this;
             setTimeout(function(){
                 self.$.chartBar.updateChart();
+                self.$.chartPie.updateChart();
             }, 0);
         },
         getChartsData: function(){
