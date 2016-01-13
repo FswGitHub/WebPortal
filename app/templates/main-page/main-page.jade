@@ -14,7 +14,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                 iron-icon.main-menu-item-icon(icon='perm-media')
                 span.menu-item-text Portfolio
                 paper-ripple
-            template(is="dom-repeat", items="[[menuSubItems]]", filter="{{limitTo(5)}}", restamp)
+            template(is="dom-repeat", items="[[limitTo(menuSubItems, 5)]]", restamp)
                 a.main-menu-item.relative.menu-sub-item(href="{{baseUrl}}portfolio/{{item.id}}/dashboard", data-route$="portfolio-item-{{item.id}}")
                     span.menu-item-text {{item.title}}
                     paper-ripple
@@ -47,6 +47,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
         #mainContent.main-content.layout.vertical
             iron-pages.main-pages(attr-for-selected='data-route', selected='[[route.name]]', class$="main-pages {{addClass(tabHeightScreen, 'flex page-scroll')}}")
                 section.page-wrapper(data-route='dashboard')
+                    include ../dashboard-page/dashboard-page
                 section.page-wrapper(data-route='portfolio')
                 template(is="dom-repeat" items="{{menuSubItems}}", restamp)
                     section(data-route$='portfolio-item-{{item.id}}')

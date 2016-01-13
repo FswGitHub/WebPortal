@@ -43,6 +43,8 @@
     "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#~1.1.0",
     "paper-menu-button": "PolymerElements/paper-menu-button#~1.0.4",
     "paper-header-panel": "PolymerElements/paper-header-panel#~1.1.2",
-    "paper-tabs": "PolymerElements/paper-tabs#~1.2.4"
+    "paper-tabs": "PolymerElements/paper-tabs#~1.2.4",
+    "chart-elements": "~2.0.0",
+    "paper-fab": "PolymerElements/paper-fab#~1.1.2"
   }
 }

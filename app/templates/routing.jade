@@ -113,8 +113,11 @@ script.
             hashbang: true
         });
 
-        function closeMenu(){
+        function closeMenu(callback){
             var drawer = document.getElementById('paperDrawerPanel');
             drawer ? drawer.closeDrawer() : null;
+            if(callback){
+                return callback;
+            }
         }
     });

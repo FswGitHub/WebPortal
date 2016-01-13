@@ -15,10 +15,12 @@ paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
 
 paper-dialog {
     max-width: 300px;
+    min-width: 250px;
 }
 
 @import "login-page";
 @import "main-page";
+@import "dahsboard-page";
 
 
 ////------------media screen width-----------------

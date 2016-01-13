@@ -40,11 +40,6 @@
              //app.updateStyles();
          //}
      });
-
-    window.onload = function (e) {
-        //if spinner
-    };
-
     //if (window.location.port === '') {  // if production
         // Uncomment app.baseURL below and
         // set app.baseURL to '/your-pathname/' if running from folder in production

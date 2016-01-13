@@ -18,20 +18,23 @@
             localStorage.setItem('portfolioItems', JSON.stringify(app.menuSubItems));
             localStorage.setItem('appTheme', app.theme);
             localStorage.setItem('appLogo', app.logo);
+            app.dashboardCharts = app.getChartsData();
         }
     };
 
-    app.limitTo = function(numb){
-        var output = [];
-        if(!numb){
+    app.limitTo = function(items, numb){
+        if(!items){
             return null;
+        } else if(!numb){
+            return items;
         } else {
-            return function(item) {
-                if(output.length < numb){
-                    output.push(item);
-                    return output;
+            var limited = [];
+            for(var i = 0; i< items.length; i++){
+                if(limited.length < numb){
+                    limited.push(items[i]);
                 }
-            };
+            }
+            return limited;
         }
     };
 

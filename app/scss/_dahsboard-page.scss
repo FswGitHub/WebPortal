@@ -1,0 +1,16 @@
+paper-fab.grey-button {
+    color: $color-black;
+}
+
+paper-menu-button.dropdown-menu {
+    paper-menu {
+        padding: 0;
+    }
+
+    .selectable-content.paper-menu > .iron-selected {
+        font-weight: normal;
+    }
+}
+
+
+
