@@ -11,7 +11,7 @@ html
         link(rel="stylesheet" href="css/styles.css")
         link(rel='shortcut icon', href='assets/images/favicon.ico', type='image/x-icon')
         include templates/imports
-    body.relative(unresolved)
+    body.relative(unresolved, fullbleed)
         span#browser-sync-binding
         template(is="dom-bind", id="app")
             include templates/custom-style

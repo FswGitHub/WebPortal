@@ -1,20 +1,25 @@
 (function(){
+    var resizeTimer = null;
+    window.addEventListener('resize', function(){
+        if(resizeTimer) {
+            clearTimeout(resizeTimer);
+        }
+        resizeTimer = setTimeout(function() {
+            var chartsLists = document.getElementsByTagName('charts-list');
+            for(var i=0; i< chartsLists.length; i++) {
+                chartsLists[i].updateCharts();
+            }
+        }, 500);
+    });
+
     Polymer({
         is: 'charts-list',
         ready: function () {
             var self = this;
-            self.updateCharts();
-        },
-        properties: {
-            charts: {
-                type: Array,
-                value: {}
-            },
-            dataBar: {
-                type: Object,
-                value: {
+            self.charts = [
+                {
                     labels: ["January", "February", "March", "April", "May", "June", "July"],
-                        datasets: [
+                    datasets: [
                         {
                             label: "My First dataset",
                             fillColor: "rgba(220,220,220,0.2)",
@@ -36,11 +41,8 @@
                             data: [28, 48, 40, 19, 86, 27, 90]
                         }
                     ]
-                }
-            },
-            dataPie: {
-                type: Array,
-                value: [
+                },
+                [
                     {
                         value: 300,
                         color:"#F7464A",
@@ -60,31 +62,58 @@
                         label: "Yellow"
                     }
                 ]
+            ];
+            self.barChart = self.charts[0];
+            self.barPie = self.charts[1];
+            self.openAnimationConfig = app.openAnimationConfig;
+        },
+        properties: {
+            charts: {
+                type: Array,
+                value: [],
+                observer: '_chartsChanged'
+            },
+            openAnimationConfig: {
+                type: Object,
+                value: {}
+            }
+        },
+        _chartsChanged: function(){
+            var self = this;
+            if(self.charts.length){
+                //for(var i=0; i< self.charts.length; i++){
+                    //self.charts[i] = self.formatChartsDatasets(self.charts[i]);
+                    //if(i == self.charts.length - 1){
+                        self.updateCharts();
+                    //}
+                //}
             }
         },
         updateCharts: function(){
-            var self = this;
+            var chartsElements = document.getElementsByClassName('holding-chart');
             setTimeout(function(){
-                self.$.chartBar.updateChart();
-                self.$.chartPie.updateChart();
+                for(var i=0; i< chartsElements.length; i++) {
+                    chartsElements[i].updateChart();
+                }
             }, 0);
         },
-        getChartsData: function(){
-            var self = this;
-            app.method = 'GET';
-            app.url = app.apiUrl + 'resources/json/charts.json/' + app.sessionId;
-            app.handleResponse = self.chartsResponse;
-            request.generateRequest();
+        resizeCharts: function(){
+            var charts = document.getElementsByClassName('holding-chart');
+            setTimeout(function(){
+                for(var i=0; i< charts.length; i++) {
+                    charts[i].resize();
+                }
+            }, 0);
         },
-        chartsResponse: function(event, details){
-            var self = this;
-            var chart1 = {};
-            if(details.response.success){
-                self.charts = details.response.content;
-                chart1 = self.charts[0];
-                localStorage.setItem('chart1', JSON.stringify(chart1));
+        formatChartsDatasets: function(data){
+            var formated;
+            switch (data.type){
+                case 'Bar' || 'Line' || 'Radar':
+                    break;
+                case 'Pie' || 'Doughnut' || 'Polar':
+                    break;
             }
-            return chart1;
+            return formated;
         }
     });
 })();

@@ -4,10 +4,18 @@
     var dialog = document.getElementById('dialog');
 
     // Sets app default base URL and globals
+    app.properties = {
+        dashboardCharts: {
+            type: Array,
+            value: []
+            //observer: '_dashboardChartsChanged'
+        }
+    };
+
     app.baseUrl = '/';
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.mainColor = 'green';
-    app.sessionId = localStorage.getItem('sessionId');
+    app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
 
     app.addClass = function(variable, classString){
         if(variable){

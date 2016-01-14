@@ -65,7 +65,7 @@
             app.sessionId = details.response.user.userId;
             app.getMenuSubItems();
             if(app.rememberMe){
-                localStorage.setItem('sessionId', app.sessionId);
+                localStorage.setItem(app.apiUrl + 'session_id', app.sessionId);
             }
             page('/dashboard');
         } else {

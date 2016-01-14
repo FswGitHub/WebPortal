@@ -1,4 +1,5 @@
-(function(){
+function dashboardController(){
+    //console.log('dashboard controller');
     app.dashboardCharts = app.sessionId ? localStorage.getItem(app.apiUrl +'dashboard/charts') : null;
     app.openAnimationConfig = [
         {name: 'fade-in-animation', timing: {delay: 100, duration: 200}},
@@ -17,11 +18,11 @@
 
     app.chartsResponse = function(e, details){
         if(details.response.success){
-            console.log(details.response.content);
+            console.log(details.response);
             localStorage.setItem(app.apiUrl+ 'dashboard/charts', JSON.stringify(details.response.content));
             return details.response.content;
         } else {
             return null;
         }
     };
-})();
+}

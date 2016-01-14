@@ -1,7 +1,7 @@
 (function (){
-    app.theme =  app.sessionId ? localStorage.getItem('appTheme') : 'dark';
-    app.logo = app.sessionId ? localStorage.getItem('appLogo') : 'assets/images/logo-light.png';
-    app.menuSubItems = app.sessionId ? JSON.parse(localStorage.getItem('portfolioItems')) : null;
+    app.theme =  app.sessionId ? localStorage.getItem(app.apiUrl + 'theme') : 'dark';
+    app.logo = app.sessionId ? localStorage.getItem(app.apiUrl + 'logo') : 'assets/images/logo-light.png';
+    app.menuSubItems = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl +'portfolio_items')) : null;
 
     app.getMenuSubItems = function(){
         app.method = 'GET';
@@ -15,10 +15,10 @@
             app.menuSubItems = details.response.content;
             app.theme = details.response.theme;
             app.logo = 'assets/' + details.response.logo;
-            localStorage.setItem('portfolioItems', JSON.stringify(app.menuSubItems));
-            localStorage.setItem('appTheme', app.theme);
-            localStorage.setItem('appLogo', app.logo);
-            app.dashboardCharts = app.getChartsData();
+            localStorage.setItem(app.apiUrl +'portfolio_items', JSON.stringify(app.menuSubItems));
+            localStorage.setItem(app.apiUrl + 'theme', app.theme);
+            localStorage.setItem(app.apiUrl + 'logo', app.logo);
+            //app.dashboardCharts = app.getChartsData();
         }
     };
 

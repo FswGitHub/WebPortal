@@ -1,8 +1,39 @@
 dom-module#charts-list
     template
         link(rel="stylesheet" href="../../../css/charts-list.css")
-        chart-bar#chartBar.holding-chart(data="{{dataBar}}")
-        chart-pie#chartPie.holding-chart(data="{{dataPie}}")
+        .chart-item-wrapper
+            .chart-options.layout.horizontal.center
+                h1.chart-item-name.flex Chart 1
+                paper-menu-button.dropdown-menu(horizontal-align="right", horizontal-offset="8", vertical-offset="32", open-animation-config='[[openAnimationConfig]]')
+                    paper-icon-button.dropdown-trigger(icon="settings")
+                    paper-menu.dropdown-content
+                        paper-item Radar Chart
+                        paper-item Line Chart
+                paper-icon-button(icon="close")
+            chart-bar#chartBar.chart-item.holding-chart(data="[[barChart]]")
+        .chart-item-wrapper
+            .chart-options.layout.horizontal.center
+                h1.chart-item-name.flex Chart 2
+                paper-menu-button.dropdown-menu(horizontal-align="right", horizontal-offset="8", vertical-offset="32", open-animation-config='[[openAnimationConfig]]')
+                    paper-icon-button.dropdown-trigger(icon="settings")
+                    paper-menu.dropdown-content
+                        paper-item Radar Chart
+                        paper-item Line Chart
+                paper-icon-button(icon="close")
+            chart-pie#chartPie.chart-item.holding-chart(data="[[barPie]]")
+        .chart-item-wrapper
+            .chart-options.layout.horizontal.center
+                h1.chart-item-name.flex Chart 2
+                paper-menu-button.dropdown-menu(horizontal-align="right", horizontal-offset="8", vertical-offset="32", open-animation-config='[[openAnimationConfig]]')
+                    paper-icon-button.dropdown-trigger(icon="settings")
+                    paper-menu.dropdown-content
+                        paper-item Radar Chart
+                        paper-item Line Chart
+                paper-icon-button(icon="close")
+            chart-line#chartPie2.chart-item.holding-chart(data="[[barChart]]")
+        .chart-item-wrapper.empty
+            .empty-chart-place
+                span.empty-place-text Drop chart here
     script(src="charts-list.js", rel="text/javascript")
 
 

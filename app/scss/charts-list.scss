@@ -1,6 +1,88 @@
 @import "variables";
-.holding-chart {
-    width: 500px;
-    height: 300px;
+
+#chartsList {
+    width: 100%;
+    display: block;
+}
+
+.chart-item-wrapper {
+    margin-bottom: 2%;
+    display: inline-block;
     background-color: $color-white;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 0;
+    box-shadow: 0 2px 5px -1px rgba(0,0,0,0.5);
+    &.empty {
+        background-color: transparent;
+        border: 1px solid $color-grey-medium-dark;
+        box-shadow: none;
+    }
+}
+
+.chart-item {
+    width: 100%;
+    #canvas {
+        padding: 8px 16px;
+        box-sizing: border-box;
+        height: auto !important;
+        width: auto !important;
+        max-width: 100%;
+        min-width: 100%;
+        max-height: 300px;
+        min-height: 300px;
+    }
+}
+
+.chart-options {
+    padding: 3px 3px 0 16px;
+    height: 40px;
+    paper-menu-button {
+        padding: 0;
+    }
+}
+
+.chart-item-name {
+
+    font-size: $font-size-20;
+    margin: 0;
+}
+
+.empty-chart-place {
+    width: 100%;
+    display: inline-block;
+    height: 342px;
+    box-sizing: border-box;
+    font-size: 0;
+    position: relative;
+}
+
+.empty-place-text {
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 138px;
+    height: 24px;
+    margin: -12px -69px;
+    color: $color-grey-medium;
+}
+
+//------------media screen width-----------------
+
+
+@media screen and (max-width: $size-large) {
+    .chart-item-wrapper {
+        width: 100%;
+        margin-bottom: $margin-small;
+    }
+}
+
+@media screen and (min-width: $size-large + 1) {
+    .chart-item-wrapper  {
+        width: 49%;
+        &:nth-child(even){
+            margin-right: 2%;
+        }
+    }
 }
