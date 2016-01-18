@@ -22,7 +22,7 @@ html
             //If user already signed in, open main page
             template(is="dom-if", if="{{route.main}}")
                 include templates/main-page/main-page
-            iron-ajax#request(url="{{url}}", body='{{body}}', method="{{method}}", handle-as="json", on-response="handleResponse", debounce-duration="300")
+            iron-ajax#request(handle-as="json", debounce-duration="300")
             paper-dialog#dialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-closed="dialogClose")
                 h2 {{dialog.header}}
                 .dialog-content

@@ -3,10 +3,8 @@
     app.forgotPass = false;
     app.confirm = false;
     app.login = {
-        signIn: {
-            email: 'alan.ball@outlook.com',
-            pass: 'pass13245'
-        }
+        signIn: {email: 'alan.ball@outlook.com', pass: 'pass13245'},
+        signUp: {}
     };
     app.loader = false;
 
@@ -51,23 +49,35 @@
         app.loader = true;
 
         if(email.validate() && pass.validate()){
-            app.method = 'POST';
-            app.body = JSON.stringify({email: app.login.signIn.email, password: app.login.signIn.pass});
-            app.url = app.apiUrl + 'resources/json/login.json';
-            app.handleResponse = app.signInResponse;
-            request.generateRequest();
+            var url = app.apiUrl + 'resources/json/login.json';
+            sendRequest(url, 'POST', {email: app.login.signIn.email, password: app.login.signIn.pass}, signInResponse);
         }
     };
 
-    app.signInResponse = function(event, details){
-        if(details.response.success){
-            app.loader = false;
-            app.sessionId = details.response.user.userId;
-            app.getMenuSubItems();
-            if(app.rememberMe){
-                localStorage.setItem(app.apiUrl + 'session_id', app.sessionId);
-            }
-            page('/dashboard');
+    function signInResponse(response){
+        var loadData;
+        if(response.success){
+            app.sessionId = response.user.userId;
+            loadData = [
+                {url: app.apiUrl + 'resources/json/sidemenu.json/' + app.sessionId, method: 'GET'},
+                {url: app.apiUrl + 'resources/json/charts.json/' + app.sessionId, method: 'GET'}
+            ];
+            sendMultipleRequest(loadData, function(data){
+                app.menuSubItems = data[0].content;
+                app.theme = data[0].theme;
+                app.logo = 'assets/' + data[0].logo;
+                app.dashboardCharts = data[1].content;
+                if(app.rememberMe){
+                    localStorage.setItem(app.apiUrl + 'session_id', app.sessionId);
+                    localStorage.setItem(app.apiUrl + 'portfolio_items', JSON.stringify(app.menuSubItems));
+                    localStorage.setItem(app.apiUrl + 'theme', app.theme);
+                    localStorage.setItem(app.apiUrl + 'logo', app.logo);
+                    localStorage.setItem(app.apiUrl+ 'dashboard/charts', JSON.stringify(app.dashboardCharts));
+                }
+                app.loader = false;
+                page('/dashboard');
+            });
+
         } else {
             app.dialog = {
                 dismissText: 'OK',
@@ -77,7 +87,7 @@
             app.loader = false;
             dialog.open();
         }
-    };
+    }
 
     app.signUpSubmit = function(){
         var first = document.getElementById('signUpFirstName');
@@ -86,21 +96,19 @@
         var pass = document.getElementById('signUpPass');
 
         if(first.validate() && last.validate() && email.validate() && pass.validate()){
-            app.method = 'POST';
-            app.body = JSON.stringify({
+            var url = app.apiUrl + 'resources/json/signup.json';
+            var body = {
                 firstName: app.login.signUp.firstName,
                 lastName: app.login.signUp.lastName,
                 email: app.login.signUp.email,
                 password: app.login.signUp.pass
-            });
-            app.url = app.apiUrl + 'resources/json/signup.json';
-            app.handleResponse = app.signUpResponse;
-            request.generateRequest();
+            };
+            sendRequest(url, 'POST', body, signUpResponse);
         }
     };
 
-    app.signUpResponse = function(event, details){
-        if(details.response.success){
+    function signUpResponse(response){
+        if(response.success){
             app.toggleConfirm();
         } else {
             app.dialog = {
@@ -112,7 +120,7 @@
         }
 
         app.login.signUp = null;
-    };
+    }
 
     app.sentForgotPass = function(){
         var forgotPassEmail = document.getElementById('forgotPassEmail');
@@ -152,7 +160,6 @@
             } else {
                 app.passNotMatch = true;
             }
-
         }
     }
 })();

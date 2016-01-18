@@ -5,7 +5,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
         paper-toolbar#drawerToolbar(class$="menu-toolbar {{theme}}")
             img.main-logo(src="{{logo}}")
         // Drawer Content
-        paper-menu#drawerMenu.main-menu(attr-for-selected="data-route", selected="[[route.name]]", on-iron-select="getSelectedTab")
+        paper-menu#drawerMenu.main-menu(attr-for-selected="data-route", selected="[[route.name]]")
             a.main-menu-item.relative(href='{{baseUrl}}dashboard', data-route="dashboard")
                 iron-icon.main-menu-item-icon(icon='dashboard')
                 span.menu-item-text Dashboard

@@ -1,6 +1,53 @@
 (function(){
-    //console.log('dashboard controller');
-    app.dashboardCharts = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl +'dashboard/charts')) : null;
+    var fakeData = [
+        {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [65, 59, 80, 81, 56, 55, 40]
+                },
+                {
+                    label: "My Second dataset",
+                    fillColor: "rgba(151,187,205,0.2)",
+                    strokeColor: "rgba(151,187,205,1)",
+                    pointColor: "rgba(151,187,205,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
+        },
+        [
+            {
+                value: 300,
+                color:"#F7464A",
+                highlight: "#FF5A5E",
+                label: "Red"
+            },
+            {
+                value: 50,
+                color: "#46BFBD",
+                highlight: "#5AD3D1",
+                label: "Green"
+            },
+            {
+                value: 100,
+                color: "#FDB45C",
+                highlight: "#FFC870",
+                label: "Yellow"
+            }
+        ]
+    ];
+
+    app.dashboardCharts = (app.sessionId && localStorage.getItem(app.apiUrl +'dashboard/charts')) ? JSON.parse(localStorage.getItem(app.apiUrl +'dashboard/charts')) : fakeData;
     app.openAnimationConfig = [
         {name: 'fade-in-animation', timing: {delay: 100, duration: 200}},
         //{name: 'paper-menu-grow-width-animation', timing: {duration: 300, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'both'}},
@@ -9,30 +56,14 @@
         //{name: 'paper-menu-shrink-height-animation', timing: {duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', "fill": 'both'}}
     ];
 
-    app.getChartsData = function(){
-        app.method = 'GET';
-        app.url = app.apiUrl + 'resources/json/charts.json/' + app.sessionId;
-        app.handleResponse = app.chartsResponse;
-        request.generateRequest();
-        console.log('sendes');
-    };
-
-    app.chartsResponse = function(e, details){
-        if(details.response.success){
-            console.log(details.response);
-            localStorage.setItem(app.apiUrl+ 'dashboard/charts', JSON.stringify(details.response.content));
-            return details.response.content;
-        } else {
-            return null;
-        }
-    };
-
     app._dashboardChartsChanged = function(){
-        setTimeout(function(){
-            var chartsElem = document.getElementById('chartsList');
-            chartsElem.barChart = formatChartsDatasets(app.dashboardCharts[0]);
-            chartsElem.barPie = formatChartsDatasets(app.dashboardCharts[3]);
-        }, 0);
+        if(app.dashboardCharts && app.dashboardCharts[0].type){
+            setTimeout(function(){
+                var chartsElem = document.getElementById('chartsList');
+                chartsElem.barChart = formatChartsDatasets(app.dashboardCharts[0]);
+                chartsElem.barPie = formatChartsDatasets(app.dashboardCharts[3]);
+            });
+        }
     };
 
     function formatChartsDatasets(item){
@@ -93,3 +124,10 @@
         }
     }
 })();
+
+function getChartsData(apiUrl, sessionId){
+    var url = apiUrl + 'resources/json/charts.json/' + sessionId;
+    sendRequest(url, 'GET', null, function(response){
+        return response;
+    });
+}
