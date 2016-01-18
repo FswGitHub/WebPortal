@@ -10,7 +10,7 @@ dom-module#charts-list
                         paper-item Radar Chart
                         paper-item Line Chart
                 paper-icon-button(icon="close")
-            chart-bar#chartBar.chart-item.holding-chart(data="[[barChart]]")
+            chart-bar#chartBar.chart-item.holding-chart(data="[[barChart]]", options="[[options]]")
         .chart-item-wrapper
             .chart-options.layout.horizontal.center
                 h1.chart-item-name.flex Chart 2
@@ -30,7 +30,7 @@ dom-module#charts-list
                         paper-item Radar Chart
                         paper-item Line Chart
                 paper-icon-button(icon="close")
-            chart-line#chartPie2.chart-item.holding-chart(data="[[barChart]]")
+            chart-line#chartPie2.chart-item.holding-chart(data="[[barChart]]", options="[[options]]")
         .chart-item-wrapper.empty
             .empty-chart-place
                 span.empty-place-text Drop chart here

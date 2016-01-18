@@ -18,7 +18,7 @@
             localStorage.setItem(app.apiUrl +'portfolio_items', JSON.stringify(app.menuSubItems));
             localStorage.setItem(app.apiUrl + 'theme', app.theme);
             localStorage.setItem(app.apiUrl + 'logo', app.logo);
-            //app.dashboardCharts = app.getChartsData();
+            app.dashboardCharts = app.getChartsData();
         }
     };
 

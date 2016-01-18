@@ -7,8 +7,8 @@
     app.properties = {
         dashboardCharts: {
             type: Array,
-            value: []
-            //observer: '_dashboardChartsChanged'
+            value: [],
+            observer: '_dashboardChartsChanged'
         }
     };
 
