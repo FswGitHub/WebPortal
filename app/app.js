@@ -91,27 +91,30 @@
 
 function sendRequest(url, method, body, callback){
     var requester = document.createElement('iron-ajax');
-
     requester.url = url;
     requester.method = method;
     requester.body = JSON.stringify(body);
     requester.generateRequest();
 
     requester.addEventListener('response', function(e){
-        callback.call(this, e.detail.response);
+        var response = e.detail.response ?e.detail.response : {};
         requester.remove();
+        callback.call(this, response);
+    });
+    requester.addEventListener('error', function(){
+        requester.remove();
+        return callback.call(this, {});
     });
 }
 
 function sendMultipleRequest(data, callback){
     var response = [];
-    for(var i=0; i < data.length; i++){
-        sendRequest(data[i].url, data[i].method, data[i].body || null,
-            function(content){
-                response.push(content);
-                if( response.length == data.length){
-                    callback.call(this, response);
-                }
-            });
+    for(var i = 0; i < data.length; i++){
+        sendRequest(data[i].url, data[i].method, data[i].body || null, function(val){
+            response.push(val);
+            if(response.length == data.length){
+                return callback.call(this, response);
+            }
+        });
     }
 }

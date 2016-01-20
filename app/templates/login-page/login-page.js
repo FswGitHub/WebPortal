@@ -60,7 +60,11 @@
             app.sessionId = response.user.userId;
             loadData = [
                 {url: app.apiUrl + 'resources/json/sidemenu.json/' + app.sessionId, method: 'GET'},
-                {url: app.apiUrl + 'resources/json/charts.json/' + app.sessionId, method: 'GET'}
+                {url: app.apiUrl + 'resources/json/charts.json/' + app.sessionId, method: 'GET'},
+                //{url: app.apiUrl + 'resources/json/portfolio.json/' + app.sessionId, method: 'GET'},
+                //{url: app.apiUrl + 'resources/json/user.json/' + app.sessionId, method: 'GET'},
+                //{url: app.apiUrl + 'resources/json/settings.json', method: 'GET'},
+                //{url: app.apiUrl + 'resources/json/users.json', method: 'GET'}
             ];
             sendMultipleRequest(loadData, function(data){
                 app.menuSubItems = data[0].content;
@@ -73,9 +77,10 @@
                     localStorage.setItem(app.apiUrl + 'theme', app.theme);
                     localStorage.setItem(app.apiUrl + 'logo', app.logo);
                     localStorage.setItem(app.apiUrl+ 'dashboard/charts', JSON.stringify(app.dashboardCharts));
-        }
+                }
                 app.loader = false;
                 page('/dashboard');
+                getPortfolioItemsContent(data[0].content);
             });
         } else {
             app.dialog = {
@@ -162,3 +167,13 @@
         }
     }
 })();
+
+function getPortfolioItemsContent(content){
+    var portfolioItemsRequestData = [];
+    for(var i=0; i< content.length; i++){
+        portfolioItemsRequestData.push({url: app.apiUrl + 'resources/json/portfolio-item' +  content[i].id + '/' + app.sessionId  + '.json', method: 'GET'});
+    }
+    sendMultipleRequest(portfolioItemsRequestData, function(data){
+        console.log(data);
+    });
+}
