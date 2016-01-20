@@ -66,18 +66,17 @@
                 app.menuSubItems = data[0].content;
                 app.theme = data[0].theme;
                 app.logo = 'assets/' + data[0].logo;
-                app.dashboardCharts = data[1].content;
+                app.dashboardCharts = formatChartsDatasets(data[1].content);
                 if(app.rememberMe){
                     localStorage.setItem(app.apiUrl + 'session_id', app.sessionId);
                     localStorage.setItem(app.apiUrl + 'portfolio_items', JSON.stringify(app.menuSubItems));
                     localStorage.setItem(app.apiUrl + 'theme', app.theme);
                     localStorage.setItem(app.apiUrl + 'logo', app.logo);
                     localStorage.setItem(app.apiUrl+ 'dashboard/charts', JSON.stringify(app.dashboardCharts));
-                }
+        }
                 app.loader = false;
                 page('/dashboard');
             });
-
         } else {
             app.dialog = {
                 dismissText: 'OK',

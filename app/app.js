@@ -1,6 +1,8 @@
 (function (){
     var app = document.querySelector('#app');
     var dialog = document.getElementById('dialog');
+    var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
+    var _idleSecondsCounter = 0;
 
     // Sets app default base URL and globals
     app.properties = {
@@ -14,11 +16,6 @@
             value: [],
             observer: '_dashboardChartsChanged'
         }
-        //},
-        //sessionId: {
-        //    type: Number,
-        //    observer: '_sessionIdChanged'
-        //}
     };
 
     app.baseUrl = '/';
@@ -60,9 +57,8 @@
         // set app.baseURL to '/your-pathname/' if running from folder in production
         //app.baseUrl = '/Fundamental v.2/';
     //}
+
     //Session timeout(5 minutes))
-    var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
-    var _idleSecondsCounter = 0;
     document.onclick = function() {
         _idleSecondsCounter = 0;
     };
