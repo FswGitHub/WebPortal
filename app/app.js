@@ -97,23 +97,36 @@ function sendRequest(url, method, body, callback){
     requester.generateRequest();
 
     requester.addEventListener('response', function(e){
-        var response = e.detail.response ?e.detail.response : {};
         requester.remove();
-        callback.call(this, response);
+        callback.call(this, e);
     });
-    requester.addEventListener('error', function(){
+    requester.addEventListener('error', function(e){
+        e.detail.url = url;
         requester.remove();
-        return callback.call(this, {});
+        return callback.call(this, e);
     });
 }
 
 function sendMultipleRequest(data, callback){
     var response = [];
+    var requests = data;
+
     for(var i = 0; i < data.length; i++){
-        sendRequest(data[i].url, data[i].method, data[i].body || null, function(val){
-            response.push(val);
-            if(response.length == data.length){
-                return callback.call(this, response);
+        sendRequest(data[i].url, data[i].method, data[i].body || null, function(e){
+            response.push({
+                data: e.detail.response ? e.detail.response : {},
+                url: e.detail.url
+            });
+
+            if(response.length == requests.length){
+                for(var j = 0; j < response.length; j++){
+                    for(var k = 0; k < requests.length; k++){
+                        if(requests[k].url == response[j].url){
+                            requests[k] = response[j].data;
+                        }
+                    }
+                }
+                return callback.call(this, requests);
             }
         });
     }

@@ -54,19 +54,20 @@
         }
     };
 
-    function signInResponse(response){
+    function signInResponse(e){
         var loadData;
-        if(response.success){
-            app.sessionId = response.user.userId;
+        if(e.detail.response.success){
+            app.sessionId = e.detail.response.user.userId;
             loadData = [
                 {url: app.apiUrl + 'resources/json/sidemenu.json/' + app.sessionId, method: 'GET'},
                 {url: app.apiUrl + 'resources/json/charts.json/' + app.sessionId, method: 'GET'},
-                //{url: app.apiUrl + 'resources/json/portfolio.json/' + app.sessionId, method: 'GET'},
-                //{url: app.apiUrl + 'resources/json/user.json/' + app.sessionId, method: 'GET'},
-                //{url: app.apiUrl + 'resources/json/settings.json', method: 'GET'},
-                //{url: app.apiUrl + 'resources/json/users.json', method: 'GET'}
+                {url: app.apiUrl + 'resources/json/portfolio.json/' + app.sessionId, method: 'GET'},
+                {url: app.apiUrl + 'resources/json/user.json/' + app.sessionId, method: 'GET'},
+                {url: app.apiUrl + 'resources/json/settings.json', method: 'GET'},
+                {url: app.apiUrl + 'resources/json/users.json', method: 'GET'}
             ];
             sendMultipleRequest(loadData, function(data){
+                console.log(data);
                 app.menuSubItems = data[0].content;
                 app.theme = data[0].theme;
                 app.logo = 'assets/' + data[0].logo;
@@ -111,8 +112,8 @@
         }
     };
 
-    function signUpResponse(response){
-        if(response.success){
+    function signUpResponse(e){
+        if(e.detail.response.success){
             app.toggleConfirm();
         } else {
             app.dialog = {
