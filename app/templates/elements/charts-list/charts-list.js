@@ -23,6 +23,7 @@ Polymer({
     },
     ready: function () {
         this.openAnimationConfig = app.openAnimationConfig;
+
     },
     _chartsChanged: function(){
         var self = this;
@@ -59,7 +60,7 @@ Polymer({
                 var oldChart = elements[i].getElementsByClassName('chart-item')[0];
                 var empty = elements[i].classList.contains('empty');
 
-                if(charts[i]&& charts[i].data){
+                if(charts[i] && charts[i].data){
                     var type = charts[i].type || 'line';
                     var newChart = document.createElement('chart-'+type);
                     newChart.data = charts[i].data;
@@ -76,6 +77,54 @@ Polymer({
                     oldChart ? elements[i].removeChild(oldChart) : null;
                     elements[i].classList.add('empty');
                 }
+            }
+        });
+    },
+    removeChart: function(e){
+        var self = this;
+        var index = e.model.index;
+        var charts = self.charts;
+        charts.splice(index, 1);
+        return self.changeCharts(charts);
+    },
+    addChart: function(type){
+        var self = this;
+        var charts = self.charts;
+        charts.push({type: type});
+        return self.changeCharts(charts);
+    },
+    changeCharts: function(charts){
+        var self = this;
+        var url = app.apiUrl + 'resources/json/savedashboard.json';
+        var body;
+        var types = [];
+
+        for(var i=0; i < charts.length; i++){
+            charts[i].type ? types.push(charts[i].type) : null;
+        }
+
+        body = {'userId': app.sessionId, 'chartsLength': types.length, 'chartTypes': types};
+        app.route.params && app.route.params.id ? body.portfolioId = app.route.params.id : null;
+
+        sendRequest(url, 'POST', body, function(e){
+            if(e.detail.response.success){
+                self.charts = e.detail.response;
+                //self.charts = charts;
+                if(app.route.params){
+                    for(var i=0; i < charts.length; i++){
+                        if(app.portfolioItems[i].item.id == app.route.params.id){
+                            app.portfolioItems[i].item.charts = charts;
+                        }
+                    }
+                } else {
+                    app.dashboardCharts = charts;
+                    localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
+                }
+            //console.log(e);
+                return self.buildChartsList(self.charts);
+                //return self.buildChartsList(self.charts);
+            } else {
+                showAlert('Error', 'Server error');
             }
         });
     }

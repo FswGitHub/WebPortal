@@ -78,7 +78,7 @@
                     localStorage.setItem(app.apiUrl + 'portfolio_items', JSON.stringify(app.menuSubItems));
                     localStorage.setItem(app.apiUrl + 'theme', app.theme);
                     localStorage.setItem(app.apiUrl + 'logo', app.logo);
-                    localStorage.setItem(app.apiUrl+ 'dashboard/charts', JSON.stringify(app.dashboardCharts));
+                    localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
                 }
                 return (function (){
                     app.loader = false;
@@ -155,6 +155,6 @@ function getPortfolioItemsContent(content){
         portfolioItemsRequestData.push({url: app.apiUrl + 'resources/json/portfolio-item' +  content[i].id + '/' + app.sessionId  + '.json', method: 'GET'});
     }
     sendMultipleRequest(portfolioItemsRequestData, function(data){
-        app.porfolioItems = data;
+        app.portfolioItems = data;
     });
 }
