@@ -2,6 +2,7 @@
     paper-menu-button#chartsMenu.dropdown-menu.charts-options(horizontal-align="right", horizontal-offset="36", open-animation-config='[[openAnimationConfig]]')
         paper-fab.grey-button.dropdown-trigger(icon="add", unresolved)
         paper-menu.dropdown-content
-            paper-item Bar Holdings Chart
-            paper-item Pie Holdings Chart
-charts-list#chartsList(charts="{{dashboardCharts}}")
+            paper-item(on-tap="addBarChart") Bar Holdings Chart
+            paper-item(on-tap="addPieChart") Pie Holdings Chart
+charts-list#chartsList.dashboard-charts-list(charts="{{dashboardCharts}}")
+//charts-list#chartsList

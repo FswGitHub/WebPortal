@@ -46,7 +46,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
         // Main Content
         #mainContent.main-content.layout.vertical
             iron-pages.main-pages(attr-for-selected='data-route', selected='[[route.name]]', class$="main-pages {{addClass(tabHeightScreen, 'flex page-scroll')}}")
-                section.page-wrapper(data-route='dashboard')
+                section#dashboard.page-wrapper(data-route='dashboard')
                     include ../dashboard-page/dashboard-page
                 section.page-wrapper(data-route='portfolio')
                 template(is="dom-repeat" items="{{menuSubItems}}", restamp)

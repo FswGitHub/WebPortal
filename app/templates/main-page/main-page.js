@@ -71,25 +71,11 @@
 })();
 
 app.logout = function(){
-    app.dialog = {
-        confirm: true,
-        header: 'Confirm',
-        text: 'Are you sure you want to log out?'
-    };
-
-    app.dialogClose = function(){
-        if(app.dialog.confirmed) {
-            app.dialog.confirmed = false;
-            app.sessionId = null;
-            localStorage.clear();
-            page('/login');
-        } else {
-            var drawer = document.getElementById('paperDrawerPanel');
-            drawer.closeDrawer();
-        }
-        app.dialog.confirm = false;
-    };
-    dialog.open();
+    showConfirm('Confirm','Are you sure you want to log out?', function(){
+        app.sessionId = null;
+        localStorage.clear();
+        page('/login');
+    });
 };
 
 function getMenuData(apiUrl, sessionId){

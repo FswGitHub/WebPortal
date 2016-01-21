@@ -22,13 +22,19 @@ html
             //If user already signed in, open main page
             template(is="dom-if", if="{{route.main}}")
                 include templates/main-page/main-page
-            paper-dialog#dialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-closed="dialogClose")
-                h2 {{dialog.header}}
+            paper-dialog#alertDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop)
+                h2#alertHeader
                 .dialog-content
-                    p {{dialog.text}}
+                    p#alertText
                 .dialog-actions.buttons
-                    paper-button(dialog-confirm, on-tap="dialogConfirmed", hidden="{{!dialog.confirm}}") Ok
-                    paper-button(dialog-dismiss) {{dialogDismissText(dialog.confirm)}}
+                    paper-button(dialog-dismiss) OK
+            paper-dialog#confirmDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop)
+                h2#confirmHeader
+                .dialog-content
+                    p#confirmText
+                .dialog-actions.buttons
+                    paper-button#confirmButton(dialog-confirm) Ok
+                    paper-button(dialog-dismiss) Cancel
         script(src="app.js", rel="text/javascript")
         script(src="templates/login-page/login-page.js", rel="text/javascript")
         script(src="templates/main-page/main-page.js", rel="text/javascript")

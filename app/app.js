@@ -1,6 +1,5 @@
 (function (){
     var app = document.querySelector('#app');
-    var dialog = document.getElementById('dialog');
     var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
     var _idleSecondsCounter = 0;
 
@@ -9,15 +8,12 @@
         route: {
             type: Object,
             value: {}
-            //observer: '_routeChanged'
         },
         dashboardCharts: {
             type: Array,
-            value: [],
-            observer: '_dashboardChartsChanged'
+            value: []
         }
     };
-
     app.baseUrl = '/';
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
@@ -28,65 +24,26 @@
         }
     };
 
-    app.dialogClose = function(){};
-
-    app.dialogDismissText = function(confirm){
-        if(confirm){
-            return 'Cancel';
-        } else {
-            return 'OK';
-        }
-
-    };
-
-    app.dialogConfirmed = function(){
-        app.dialog.confirmed = true;
-    };
-
-    window.addEventListener('WebComponentsReady', function (e) {
-        //sendRequest(app.apiUrl + 'resources/json/login.json', 'POST', {email: app.login.signIn.email, password: app.login.signIn.pass}, function(e, detail){
-        //    console.log(detail.response);
-        //});
-         //if (app.mainColor) {
-             //app.customStyle['--paper-input-container-focus-color'] = app.mainColor;
-             //app.updateStyles();
-         //}
-     });
-    //if (window.location.port === '') {  // if production
-        // Uncomment app.baseURL below and
-        // set app.baseURL to '/your-pathname/' if running from folder in production
-        //app.baseUrl = '/Fundamental v.2/';
-    //}
-
     //Session timeout(5 minutes))
-    document.onclick = function() {
-        _idleSecondsCounter = 0;
-    };
-    document.onmousemove = function() {
-        _idleSecondsCounter = 0;
-    };
-    document.onkeypress = function() {
-        _idleSecondsCounter = 0;
-    };
+    document.onclick = function() {_idleSecondsCounter = 0;};
+    document.onmousemove = function() {_idleSecondsCounter = 0;};
+    document.onkeypress = function() {_idleSecondsCounter = 0;};
     window.setInterval(CheckIdleTime, 1000);
 
     function CheckIdleTime() {
         if (app.sessionId) {
             _idleSecondsCounter++;
             if (_idleSecondsCounter >= IDLE_TIMEOUT) {
-                app.dialog = {
-                    header: '',
-                    text: 'Time expired!'
-                };
-                app.dialogClose = function(){
-                    app.sessionId = null;
-                    localStorage.clear();
-                    page('/login');
-                };
-                dialog.open();
+                app.sessionId = null;
+                localStorage.clear();
+                page('/login');
+                showAlert(null, 'Time expired!');
             }
         }
     }
+
+    //app.addEventListener('dom-change', function() {});
+    //window.addEventListener('WebComponentsReady', function (e) {});
 })();
 
 function sendRequest(url, method, body, callback){
@@ -130,4 +87,47 @@ function sendMultipleRequest(data, callback){
             }
         });
     }
+}
+
+function showAlert(header, text, callback){
+    var alert = document.querySelector('#alertDialog');
+    var alertHeader = alert.querySelector('#alertHeader');
+    var alertText = alert.querySelector('#alertText');
+    var drawer = document.getElementById('paperDrawerPanel');
+
+    alertHeader.innerHTML = header ? header : null;
+    alertText.innerHTML = text ? text : null;
+    drawer ? drawer.closeDrawer() : null;
+    alert.open();
+
+    alert.addEventListener('iron-overlay-closed', function(){
+        return callback ? callback.call() : null;
+    });
+}
+
+function showConfirm(header, text, confirmCallback, closeCallback){
+    var confirm = document.querySelector('#confirmDialog');
+    var confirmButton = confirm.querySelector('#confirmButton');
+    var confirmHeader = confirm.querySelector('#confirmHeader');
+    var confirmText = confirm.querySelector('#confirmText');
+    var drawer = document.getElementById('paperDrawerPanel');
+    var confirmed;
+
+    confirmHeader.innerHTML = header ? header : null;
+    confirmText.innerHTML = text ? text : null;
+    drawer ? drawer.closeDrawer() : null;
+    confirm.open();
+
+    confirmButton.addEventListener('tap', function(){
+        confirmed = true;
+    });
+
+    confirm.addEventListener('iron-overlay-closed', function(){
+        if(confirmed){
+            confirmed = false;
+            return confirmCallback ? confirmCallback.call() : null;
+        } else {
+            return closeCallback ? closeCallback.call() : null;
+        }
+    });
 }

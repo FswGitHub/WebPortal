@@ -67,11 +67,12 @@
                 {url: app.apiUrl + 'resources/json/users.json', method: 'GET'}
             ];
             sendMultipleRequest(loadData, function(data){
-                console.log(data);
+                //console.log(data);
                 app.menuSubItems = data[0].content;
                 app.theme = data[0].theme;
                 app.logo = 'assets/' + data[0].logo;
                 app.dashboardCharts = formatChartsDatasets(data[1].content);
+                getPortfolioItemsContent(data[0].content);
                 if(app.rememberMe){
                     localStorage.setItem(app.apiUrl + 'session_id', app.sessionId);
                     localStorage.setItem(app.apiUrl + 'portfolio_items', JSON.stringify(app.menuSubItems));
@@ -79,18 +80,14 @@
                     localStorage.setItem(app.apiUrl + 'logo', app.logo);
                     localStorage.setItem(app.apiUrl+ 'dashboard/charts', JSON.stringify(app.dashboardCharts));
                 }
-                app.loader = false;
-                page('/dashboard');
-                getPortfolioItemsContent(data[0].content);
+                return (function (){
+                    app.loader = false;
+                    page('/dashboard');
+                })();
             });
         } else {
-            app.dialog = {
-                dismissText: 'OK',
-                header: 'Error',
-                text: 'Wrong login, password or your account has not been verified. Please check the verification email that was sent.'
-            };
             app.loader = false;
-            dialog.open();
+            showAlert('Error', 'Wrong login, password or your account has not been verified. Please check the verification email that was sent.');
         }
     }
 
@@ -116,14 +113,8 @@
         if(e.detail.response.success){
             app.toggleConfirm();
         } else {
-            app.dialog = {
-                dismissText: 'OK',
-                header: 'Error',
-                text: 'Something wrong, try again later'
-            };
-            dialog.open();
+            showAlert('Error', 'Something wrong, try again later');
         }
-
         app.login.signUp = null;
     }
 
@@ -132,13 +123,7 @@
 
         if(app.login.forgotPassEmail && app.login.forgotPassEmail.length > 0){
             if(forgotPassEmail.validate()){
-                app.dialog = {
-                    dismissText: 'OK',
-                    header: '',
-                    text: 'Please check your email and click the verification link to reset your password.'
-                };
-                app.dialogClose = app.toggleForgotPass;
-                dialog.open();
+                showAlert(null, 'Please check your email and click the verification link to reset your password.', app.toggleForgotPass);
             }
         } else {
             app.login.forgotPassEmail = null;
@@ -151,17 +136,12 @@
         var newPass = document.getElementById('newPass');
 
         app.passNotMatch = false;
+
         if(newPass.validate()){
             if(app.login.newPassConfirm == app.login.newPass){
-                app.dialog = {
-                    dismissText: 'OK',
-                    header: '',
-                    text: 'Your password is update.'
-                };
-                app.dialogClose = function(){
+                showAlert(null, 'Your password is update.', function(){
                     page('/login');
-                };
-                dialog.open();
+                });
             } else {
                 app.passNotMatch = true;
             }

@@ -1,4 +1,4 @@
-(function(){
+window.addEventListener('WebComponentsReady', function (e) {
     app.dashboardCharts = (app.sessionId && localStorage.getItem(app.apiUrl +'dashboard/charts')) ? JSON.parse(localStorage.getItem(app.apiUrl +'dashboard/charts')) : getChartsData(app.apiUrl, app.sessionId);
     app.openAnimationConfig = [
         {name: 'fade-in-animation', timing: {delay: 100, duration: 200}},
@@ -7,28 +7,7 @@
         //{name: 'paper-menu-shrink-width-animation', timing:{duration: 3000, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', "fill": 'both'}}
         //{name: 'paper-menu-shrink-height-animation', timing: {duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', "fill": 'both'}}
     ];
-
-    app._dashboardChartsChanged = function(){
-        //if(app.dashboardCharts && app.dashboardCharts.length){
-        //    setTimeout(function(){
-        //        app.dashboardCharts = formatChartsDatasets(app.dashboardCharts);
-        //    });
-        //}
-    };
-})();
-
-//setTimeout(function(){
-//    var newCharts = [];
-//    for(var i=0; i< app.dashboardCharts.length; i++) {
-//        if(i != 2){
-//            newCharts.push(app.dashboardCharts[i]);
-//        }
-//        if(i == app.dashboardCharts.length - 1){
-//            app.dashboardCharts = newCharts;
-//            return app.dashboardCharts;
-//        }
-//    }
-//}, 5000);
+});
 
 function formatChartsDatasets(items){
     var formatedData = [];
