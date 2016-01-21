@@ -175,6 +175,6 @@ function getPortfolioItemsContent(content){
         portfolioItemsRequestData.push({url: app.apiUrl + 'resources/json/portfolio-item' +  content[i].id + '/' + app.sessionId  + '.json', method: 'GET'});
     }
     sendMultipleRequest(portfolioItemsRequestData, function(data){
-        console.log(data);
+        app.porfolioItems = data;
     });
 }
