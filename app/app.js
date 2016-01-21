@@ -51,15 +51,16 @@ function sendRequest(url, method, body, callback){
     requester.url = url;
     requester.method = method;
     requester.body = JSON.stringify(body);
+    document.body.appendChild(requester);
     requester.generateRequest();
 
     requester.addEventListener('response', function(e){
-        requester.remove();
+        requester.parentNode.removeChild(requester);
         callback.call(this, e);
     });
     requester.addEventListener('error', function(e){
         e.detail.url = url;
-        requester.remove();
+        requester.parentNode.removeChild(requester);
         return callback.call(this, e);
     });
 }
