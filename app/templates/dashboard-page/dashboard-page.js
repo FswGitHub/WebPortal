@@ -10,11 +10,7 @@
     app.addChart = function(e){
         var type = e.target.getAttribute('data-type');
         var chartList = document.getElementsByClassName('dashboard-charts-list')[0];
-        if(app.dashboardCharts.length < 4){
-            chartList.addChart(type);
-        } else {
-            showAlert(null, 'Only 4 charts allowed.');
-        }
+        chartList.addChart(type);
     };
 })();
 

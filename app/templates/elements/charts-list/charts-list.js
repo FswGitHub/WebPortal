@@ -23,7 +23,6 @@ Polymer({
     },
     ready: function () {
         this.openAnimationConfig = app.openAnimationConfig;
-
     },
     _chartsChanged: function(){
         var self = this;
@@ -34,6 +33,24 @@ Polymer({
             }
             return self.buildChartsList(self.charts);
         });
+    },
+    setTypes: function(type){
+        type = type == 'polar-area' ? 'polar' : type;
+        if(!type) {
+            return null;
+        } else {
+            var types = ['line', 'bar', 'radar', 'pie', 'doughnut', 'polar'];
+            var index = types.indexOf(type);
+            if(index > -1 && index < 3){
+                types.splice(index, 1).splice(2, 3);
+                types.splice(2, 3);
+                return types;
+            } else if(index > -1 && index > 2){
+                types.splice(index, 1);
+                types.splice(0, 3);
+                return types;
+            }
+        }
     },
     updateCharts: function(list){
         var chartsElements = list.getElementsByClassName('holding-chart');
@@ -90,8 +107,27 @@ Polymer({
     addChart: function(type){
         var self = this;
         var charts = self.charts;
-        charts.push({type: type});
-        return self.changeCharts(charts);
+        var types = [];
+
+        for(var i=0; i < charts.length; i++){
+            charts[i].type && charts[i].data ? types.push(charts[i].type) : null;
+        }
+
+        if(types.length < self.listLength){
+            charts.push({type: type});
+            return self.changeCharts(charts);
+        } else {
+            return showAlert(null, 'Only 4 charts allowed.');
+        }
+    },
+    changeTypeChart: function(e){
+        var self = this;
+        var charts = self.charts;
+        var chartIndex = e.target.getAttribute('data-index');
+        var newType = e.model.type;
+
+        charts[chartIndex].type = newType == 'polar' ? 'polar-area' : newType;
+        return self.changeCharts(charts)
     },
     changeCharts: function(charts){
         var self = this;
@@ -109,20 +145,20 @@ Polymer({
         sendRequest(url, 'POST', body, function(e){
             if(e.detail.response.success){
                 self.charts = e.detail.response;
-                //self.charts = charts;
+                for(var k=0; k <self.listLength; k++){
+                    charts[k] ? self.charts[k] = charts[k] : self.charts[k] = {};
+                }
                 if(app.route.params){
                     for(var i=0; i < charts.length; i++){
                         if(app.portfolioItems[i].item.id == app.route.params.id){
-                            app.portfolioItems[i].item.charts = charts;
+                            app.portfolioItems[i].item.charts = e.detail.response;
                         }
                     }
                 } else {
-                    app.dashboardCharts = charts;
+                    app.dashboardCharts = e.detail.response;
                     localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
                 }
-            //console.log(e);
                 return self.buildChartsList(self.charts);
-                //return self.buildChartsList(self.charts);
             } else {
                 showAlert('Error', 'Server error');
             }

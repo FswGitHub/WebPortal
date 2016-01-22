@@ -5,15 +5,12 @@ dom-module#charts-list
             .chart-item-wrapper.empty
                 .empty-chart-place
                     span.empty-place-text Drop chart here
-                .chart-options.layout.horizontal.center(data-index="[[index]]")
+                .chart-options.layout.horizontal.center
                     h1.chart-item-name.flex [[item.name]]
                     paper-menu-button.dropdown-menu(horizontal-align="right", horizontal-offset="8", vertical-offset="32", open-animation-config='[[openAnimationConfig]]')
                         paper-icon-button.dropdown-trigger(icon="settings")
                         paper-menu.dropdown-content
-                            paper-item Radar Chart
-                            paper-item Line Chart
+                            template(is="dom-repeat", items="[[setTypes(item.type)]]", as="type", index-as="type_index")
+                                paper-item.chart-type-change-btn(on-tap="changeTypeChart", data-index$="[[index]]") [[type]] Chart
                     paper-icon-button(on-tap="removeChart", icon="close")
     script(src="charts-list.js", rel="text/javascript")
-
-
-
