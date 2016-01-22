@@ -72,6 +72,7 @@
                 app.theme = data[0].theme;
                 app.logo = 'assets/' + data[0].logo;
                 app.dashboardCharts = formatChartsDatasets(data[1].content);
+                app.portfolioData = data[2];
                 getPortfolioItemsContent(data[0].content);
                 if(app.rememberMe){
                     localStorage.setItem(app.apiUrl + 'session_id', app.sessionId);
@@ -79,6 +80,7 @@
                     localStorage.setItem(app.apiUrl + 'theme', app.theme);
                     localStorage.setItem(app.apiUrl + 'logo', app.logo);
                     localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
+                    localStorage.setItem(app.apiUrl+ 'portfolio', JSON.stringify(app.portfolioData));
                 }
                 return (function (){
                     app.loader = false;

@@ -1,0 +1,123 @@
+.portfolio-table-wrapper {
+    padding-bottom: 40px;
+    background-color: #fff;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    min-width: 950px;
+    border-bottom: 1px solid $color-grey-medium;
+}
+.portfolio-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.portfolio-thead, .mobile-portfolio-thead {
+    background-color: $color-grey-dark;
+    color: $color-white;
+    border-top: 1px solid $color-grey-medium;
+    border-bottom: 1px solid $color-grey-medium;
+    font-size: $font-size-20;
+}
+
+.portfolio-thead-th {
+    text-transform: uppercase;
+    font-weight: 400;
+    text-align: left;
+}
+
+.portfolio-tbody {
+    font-size: $font-size-14;
+    background: $color-white;
+    border-top: 1px solid $color-grey-medium;
+}
+
+.portfolio-tbody-tr {
+    cursor: pointer;
+}
+
+.table-end {
+
+}
+
+.portfolio-tbody-td, .portfolio-thead-th {
+    padding: 0;
+    &.row-end  {
+        padding-right: $padding-medium;
+    }
+    &.row-start  {
+        padding-left: $padding-medium;
+    }
+}
+
+.td-content, .th-content, .td-label {
+    padding: 14px 24px;
+    display: block;
+}
+
+.td-content {
+    border-bottom: 1px solid $color-grey-light;
+}
+
+.mobile-portfolio-thead {
+    .portfolio-tbody-td {
+        display: table-cell;
+    }
+    .td-content {
+        border-bottom: none;
+    }
+}
+
+.mobile-portfolio-td {
+    display: none;
+}
+////------------media screen width-----------------
+@media screen and (max-width: $size-large) {
+    .portfolio-table-wrapper {
+        min-width: 100%;
+        padding-bottom: 5px;
+        border-bottom: 0;
+    }
+
+    .portfolio-tbody-td {
+        display: table-row;
+    }
+
+
+    .portfolio-tbody-td {
+        .td-content {
+            display: table-cell;
+            width: 100%;
+            padding: 14px 16px;
+            border-bottom: none;
+            position: relative;
+            &:after {
+                content: " ";
+                position: absolute;
+                height: 1px;
+                display: inline-block;
+                background: $color-grey-light;
+                bottom: 0;
+                left: 16px;
+                right: 16px;
+            }
+        }
+        &.row-end .td-content:after {
+            content: none;
+        }
+    }
+
+    .portfolio-tbody-td {
+        &.row-end  {
+            padding: 0;
+        }
+        &.row-start  {
+            padding: 0;
+        }
+    }
+
+    .td-label {
+        display: table-cell;
+        border-right: 1px solid $color-grey-light;
+        padding-bottom: 15px;
+    }
+}

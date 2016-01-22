@@ -1,0 +1,36 @@
+#portfolio-page.portfolio-page-wrapper
+    .portfolio-table-wrapper
+        table.portfolio-table(hidden="[[!portfolioData]]")
+            thead.portfolio-thead(hidden="[[tabWidthScreen]]")
+                tr.portfolio-thead-tr
+                    th.portfolio-thead-th.row-start
+                        span.th-content Code
+                    th.portfolio-thead-th
+                        span.th-content Name
+                    th.portfolio-thead-th
+                        span.th-content Status
+                    th.portfolio-thead-th
+                        span.th-content Tax currency
+                    th.portfolio-thead-th.row-end
+                        span.th-content Residency
+            tbody.portfolio-tbody
+                template(is="dom-repeat", items="[[portfolioData.item]]")
+                    tr.mobile-portfolio-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
+                        td
+                            span.td-content [[item.name]]
+                    tr(on-tap="goToPortfolioItem", class$="portfolio-tbody-tr [[addClass(tabWidthScreen, 'mobile-portfolio-td')]]")
+                        td.portfolio-tbody-td.row-start
+                            span.td-label(hidden="[[!tabWidthScreen]]") Code
+                            span.td-content [[item.code]]
+                        td.portfolio-tbody-td(hidden="[[tabWidthScreen]]")
+                            span.td-content [[item.name]]
+                        td.portfolio-tbody-td
+                            span.td-label(hidden="[[!tabWidthScreen]]") Status
+                            span.td-content [[item.status]]
+                        td.portfolio-tbody-td
+                            span.td-label(hidden="[[!tabWidthScreen]]") Tax currency
+                            span.td-content [[item.taxCurrency]]
+                        td.portfolio-tbody-td.row-end
+                            span.td-label(hidden="[[!tabWidthScreen]]") Residency
+                            span.td-content [[item.residency]]
+

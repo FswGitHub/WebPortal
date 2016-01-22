@@ -49,6 +49,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                 section#dashboard.page-wrapper(data-route='dashboard')
                     include ../dashboard-page/dashboard-page
                 section.page-wrapper(data-route='portfolio')
+                    include ../portfolio-page/portfolio-page
                 template(is="dom-repeat" items="{{menuSubItems}}", restamp)
                     section(data-route$='portfolio-item-{{item.id}}')
                         iron-pages(attr-for-selected='data-tab', selected='[[route.params.tab]]')
