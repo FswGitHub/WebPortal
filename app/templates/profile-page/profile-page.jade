@@ -1,6 +1,6 @@
 #profile-page.profile-page-wrapper
-    .profile-full-name-wrapper
-        h2.profile-full-name Profile: [[userData.firstName]] [[userData.lastName]]
+    .page-header-wrapper
+        h2.page-header Profile: [[userData.firstName]] [[userData.lastName]]
     div(class$="profile-form-wrapper layout horizontal[[addClass(mobileWidthScreen,' vertical-reverse')]]")
         .profile-filds.flex
             paper-input(label="First Name", value="[[userData.firstName]]", readonly$="[[!showEdit]]")

@@ -60,6 +60,9 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                 section(data-route='settings')
                         iron-pages(attr-for-selected='data-tab', selected='[[route.params.tab]]')
                             section.page-wrapper(data-tab="general")
+                                include ../settings-page/general-page
                             section.page-wrapper(data-tab="configs")
+                                include ../settings-page/configs-page
                             section.page-wrapper(data-tab="users")
+                                include ../settings-page/users-page
             footer-element

@@ -1,0 +1,68 @@
+.page-subheader {
+    font-size: $font-size-18;
+    color: $color-grey-medium;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.settings-row {
+    margin-bottom: 5px;
+}
+
+.settings-labels {
+    font-size: $font-size-18;
+    color: $color-grey-medium-dark;
+    font-weight: bold;
+    min-width: 100px;
+}
+
+.theme-options {
+    font-size: $font-size-18;
+}
+
+.color-selector-wrapper {
+    padding-left: 8px;
+}
+
+.color-selector {
+    .floated-label-placeholder.paper-input-container {
+        display: none;
+    }
+}
+
+iron-icon.upload-logo-icon {
+    color: $color-grey-medium-dark;
+}
+
+.upload-logo-btn {
+    font-size: $font-size-18;
+    margin: 0;
+}
+
+.upload-logo-size {
+    color: $color-grey-medium-dark;
+    font-size: $font-size-14;
+    text-align: center;
+}
+
+//------------media screen width-----------------
+
+@media screen and (min-width: $size-medium) {
+    .design-settings-wrapper, .email-settings-wrapper {
+        max-width: 450px;
+    }
+
+    .settings-labels {
+        min-width: 220px;
+    }
+}
+
+@media screen and (max-width: $size-medium - 1px) {
+    .design-settings-wrapper, .email-settings-wrapper {
+        max-width: 100%;
+    }
+
+    .settings-labels {
+        min-width: 100px;
+    }
+}

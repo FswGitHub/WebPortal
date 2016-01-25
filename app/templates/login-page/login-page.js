@@ -74,6 +74,8 @@
                 app.dashboardCharts = formatChartsDatasets(data[1].content);
                 app.portfolioData = data[2].item;
                 app.userData = data[3].user;
+                app.settings = data[4];
+                app.users = data[5].users;
                 getPortfolioItemsContent(data[0].content);
                 if(app.rememberMe){
                     localStorage.setItem(app.apiUrl + 'session_id', app.sessionId);
@@ -83,6 +85,8 @@
                     localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
                     localStorage.setItem(app.apiUrl+ 'portfolio', JSON.stringify(app.portfolioData));
                     localStorage.setItem(app.apiUrl+ 'user', JSON.stringify(app.userData));
+                    localStorage.setItem(app.apiUrl+ 'settings', JSON.stringify(app.settings));
+                    localStorage.setItem(app.apiUrl+ 'users', JSON.stringify(app.users));
                 }
                 return (function (){
                     app.loader = false;

@@ -2,11 +2,10 @@
     margin-bottom: 20px;
 }
 
-.profile-full-name {
+.page-header{
     font-size: $font-size-18;
     border-bottom: 1px solid $color-grey-medium-light;
 }
-
 
 .profile-image-wrapper {
     margin: 16px 0 16px 120px;
@@ -66,8 +65,10 @@
         max-width: 800px;
     }
 
-    .profile-full-name {
-        margin-bottom: 50px;
+    .profile-page-wrapper {
+        .page-header {
+            margin-bottom: 50px;
+        }
     }
 }
 

@@ -10,7 +10,8 @@ style(is="custom-style").
         --paper-yellow-a100: #ffffff;
         --paper-fab-background: #D8D8D8;
         --paper-fab-keyboard-focus-background: #D8D8D8;
-        --paper-button-raised-keyboard-focus: {  font-weight: normal;}
+        --primary-text-color: #8e8e9a;
+        --paper-button-raised-keyboard-focus: {  font-weight: normal};
     }
 
         /*login styles*/
@@ -33,4 +34,15 @@ style(is="custom-style").
 
     .main-menu-item:focus, .selectable-content.paper-menu > .main-menu-item.iron-selected {
         border-left-color: var(--main-color);
+    }
+
+    paper-input.color-selector {
+        --paper-input-container-input: {
+            font-size: 18px;
+        };
+        --paper-input-container-input-color: var(--main-color);
+    }
+
+    paper-button.upload-logo-btn {
+        color: var(--main-color);
     }

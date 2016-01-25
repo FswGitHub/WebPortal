@@ -1,35 +1,35 @@
 #portfolio-page.portfolio-page-wrapper
-    .portfolio-table-wrapper(hidden="[[!portfolioData]]")
-        table.portfolio-table
-            thead.portfolio-thead(hidden="[[tabWidthScreen]]")
-                tr.portfolio-thead-tr
-                    th.portfolio-thead-th.row-start
+    .data-table-wrapper(hidden="[[!portfolioData]]")
+        table.data-table
+            thead.data-thead(hidden="[[tabWidthScreen]]")
+                tr.data-thead-tr
+                    th.data-thead-th.row-start
                         span.th-content Code
-                    th.portfolio-thead-th
+                    th.data-thead-th
                         span.th-content Name
-                    th.portfolio-thead-th
+                    th.data-thead-th
                         span.th-content Status
-                    th.portfolio-thead-th
+                    th.data-thead-th
                         span.th-content Tax currency
-                    th.portfolio-thead-th.row-end
+                    th.data-thead-th.row-end
                         span.th-content Residency
-            tbody.portfolio-tbody
+            tbody.data-tbody
                 template(is="dom-repeat", items="[[portfolioData]]")
-                    tr.mobile-portfolio-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
+                    tr.mobile-data-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
                         td
                             span.td-content [[item.name]]
-                    tr(on-tap="goToPortfolioItem", class$="portfolio-tbody-tr [[addClass(tabWidthScreen, 'mobile-portfolio-td')]]")
-                        td.portfolio-tbody-td.row-start
+                    tr(on-tap="goToPortfolioItem", class$="data-tbody-tr [[addClass(tabWidthScreen, 'mobile-data-td')]]")
+                        td.data-tbody-td.row-start
                             span.td-label(hidden="[[!tabWidthScreen]]") Code
                             span.td-content [[item.code]]
-                        td.portfolio-tbody-td(hidden="[[tabWidthScreen]]")
+                        td.data-tbody-td(hidden="[[tabWidthScreen]]")
                             span.td-content [[item.name]]
-                        td.portfolio-tbody-td
+                        td.data-tbody-td
                             span.td-label(hidden="[[!tabWidthScreen]]") Status
                             span.td-content [[item.status]]
-                        td.portfolio-tbody-td
+                        td.data-tbody-td
                             span.td-label(hidden="[[!tabWidthScreen]]") Tax currency
                             span.td-content [[item.taxCurrency]]
-                        td.portfolio-tbody-td.row-end
+                        td.data-tbody-td.row-end
                             span.td-label(hidden="[[!tabWidthScreen]]") Residency
                             span.td-content [[item.residency]]

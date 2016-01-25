@@ -1,0 +1,31 @@
+#general-page.general-page-wrapper
+    .page-header-wrapper
+        h2.page-header Design
+    .design-settings-wrapper
+        .design-settings-form.layout.vertical
+            .settings-row.layout.horizontal
+                span.settings-labels.self-center Theme
+                paper-radio-group.theme-options(selected="[[theme]]")
+                    paper-radio-button(name="light") light
+                    paper-radio-button(name="dark") dark
+            .settings-row.layout.horizontal
+                span.settings-labels.self-center Color
+                .color-selector-wrapper
+                    paper-input.color-selector(value="[[mainColor]]")
+            .settings-row.layout.horizontal
+                span.settings-labels.self-center Logo
+                .upload-logo-wrapper.layout.vertical
+                    paper-button.upload-logo-btn
+                        iron-icon.upload-logo-icon(icon="icons:file-upload")
+                        | Upload logo
+                    span.upload-logo-size 225px x 65px
+    .page-header-wrapper
+        h2.page-header Email
+    .email-settings-wrapper.layout.horizontal
+        .email-settings-form.flex
+            paper-input(label="SMTP Server Address")
+            paper-input(label="SMTP Server Port")
+            paper-input(label="SSL")
+            h3.page-subheader Optional
+            paper-input(label="Username")
+            paper-input(label="Password")

@@ -9,13 +9,13 @@
     app.openTableRow = function(e){
         var thisRow = e.currentTarget;
         var tbody = e.currentTarget.parentNode;
-        var allRows = tbody.getElementsByClassName('portfolio-tbody-tr');
+        var allRows = tbody.getElementsByClassName('data-tbody-tr');
         var openedRow = thisRow.nextSibling;
 
-        openedRow.classList.remove('mobile-portfolio-td');
+        openedRow.classList.remove('mobile-data-td');
         for(var i=0; i < allRows.length; i++){
             if(allRows[i] !== openedRow){
-                allRows[i].classList.add('mobile-portfolio-td');
+                allRows[i].classList.add('mobile-data-td');
             }
         }
     };
