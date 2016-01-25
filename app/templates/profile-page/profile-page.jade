@@ -3,13 +3,13 @@
         h2.profile-full-name Profile: [[userData.firstName]] [[userData.lastName]]
     div(class$="profile-form-wrapper layout horizontal[[addClass(mobileWidthScreen,' vertical-reverse')]]")
         .profile-filds.flex
-            paper-input(label="First Name", value="[[userData.firstName]]")
-            paper-input(label="Last Name", value="[[userData.lastName]]")
-            paper-input(label="Email", value="[[userData.email]]")
-            paper-input(label="Cellphone", value="[[userData.cellPhone]]")
-            paper-input(label="ID Number",value="[[userData.idNumber]]")
+            paper-input(label="First Name", value="[[userData.firstName]]", readonly$="[[!showEdit]]")
+            paper-input(label="Last Name", value="[[userData.lastName]]", readonly$="[[!showEdit]]")
+            paper-input(label="Email", value="[[userData.email]]", readonly$="[[!showEdit]]")
+            paper-input(label="Cellphone", value="[[userData.cellPhone]]", readonly$="[[!showEdit]]")
+            paper-input(label="ID Number",value="[[userData.idNumber]]", readonly$="[[!showEdit]]")
         .profile-image-wrapper.relative
-            iron-image.profile-image(src="[[userData.photo]]", sizing="cover")
+            iron-image.profile-image(src="[[setUserPhoto(userData.photo)]]", sizing="cover")
             #imageUploader.profile-change-image.fit(hidden="[[!showEdit]]")
                 img.edit-img(src="/assets/images/camera.png")
                 span.edit-label Change your Profile Photo

@@ -74,8 +74,9 @@
 @media screen and (max-width: $size-large) {
     .portfolio-table-wrapper {
         min-width: 100%;
-        padding-bottom: 5px;
+        padding-bottom: 0;
         border-bottom: 0;
+        border-radius: 0;
     }
 
     .portfolio-tbody-td {
