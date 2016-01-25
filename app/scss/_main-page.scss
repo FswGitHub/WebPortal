@@ -100,6 +100,16 @@ paper-tab {
     overflow-y: auto;
 }
 
+.no-item-message {
+    height: 100%;
+    width: 100%;
+}
+
+.no-data-text {
+    font-size: $font-size-20;
+    color: $color-grey-medium;
+}
+
 @media screen and (max-width: $size-small) {
     paper-tabs.title-aligned {
         margin: 0;

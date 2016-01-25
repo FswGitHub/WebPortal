@@ -26,6 +26,7 @@ Polymer({
     },
     _chartsChanged: function(){
         var self = this;
+        console.log(self.charts);
         setTimeout(function(){
             if(self.charts.length < self.listLength){
                 var difference = new Array(self.listLength - self.charts.length);

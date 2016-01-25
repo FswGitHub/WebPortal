@@ -1,6 +1,6 @@
 #portfolio-page.portfolio-page-wrapper
-    .portfolio-table-wrapper
-        table.portfolio-table(hidden="[[!portfolioData]]")
+    .portfolio-table-wrapper(hidden="[[!portfolioData]]")
+        table.portfolio-table
             thead.portfolio-thead(hidden="[[tabWidthScreen]]")
                 tr.portfolio-thead-tr
                     th.portfolio-thead-th.row-start
@@ -33,4 +33,3 @@
                         td.portfolio-tbody-td.row-end
                             span.td-label(hidden="[[!tabWidthScreen]]") Residency
                             span.td-content [[item.residency]]
-

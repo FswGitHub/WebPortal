@@ -35,10 +35,6 @@
     cursor: pointer;
 }
 
-.table-end {
-
-}
-
 .portfolio-tbody-td, .portfolio-thead-th {
     padding: 0;
     &.row-end  {
@@ -52,6 +48,7 @@
 .td-content, .th-content, .td-label {
     padding: 14px 24px;
     display: block;
+    min-height: 17px;
 }
 
 .td-content {
