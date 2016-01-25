@@ -124,9 +124,8 @@ Polymer({
         var self = this;
         var charts = self.charts;
         var chartIndex = e.target.getAttribute('data-index');
-        var newType = e.model.type;
 
-        charts[chartIndex].type = newType == 'polar' ? 'polar-area' : newType;
+        charts[chartIndex].type = e.model.type;
         return self.changeCharts(charts)
     },
     changeCharts: function(charts){
@@ -136,10 +135,15 @@ Polymer({
         var types = [];
 
         for(var i=0; i < charts.length; i++){
-            charts[i].type ? types.push(charts[i].type) : null;
+            if(charts[i].type) {
+                if(charts[i].type == 'polar-area'){
+                    charts[i].type = 'polar';
+                }
+                types.push(charts[i].type.capitalize());
+            }
         }
 
-        body = {'userId': app.sessionId, 'chartsLength': types.length, 'chartTypes': types};
+        body = {userId: app.sessionId, chartsLength: types.length, chartTypes: types};
         app.route.params && app.route.params.id ? body.portfolioId = app.route.params.id : null;
 
         sendRequest(url, 'POST', body, function(e){

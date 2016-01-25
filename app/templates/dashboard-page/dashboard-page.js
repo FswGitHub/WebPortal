@@ -1,5 +1,5 @@
-( function (e) {
-    app.dashboardCharts = (app.sessionId && localStorage.getItem(app.apiUrl +'dashboard_charts')) ? JSON.parse(localStorage.getItem(app.apiUrl +'dashboard_charts')) : getChartsData(app.apiUrl, app.sessionId);
+(function () {
+    app.dashboardCharts = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl +'dashboard_charts')) : null;
     app.openAnimationConfig = [
         {name: 'fade-in-animation', timing: {delay: 100, duration: 200}},
         //{name: 'paper-menu-grow-width-animation', timing: {duration: 300, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'both'}},

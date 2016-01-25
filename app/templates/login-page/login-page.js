@@ -72,7 +72,8 @@
                 app.theme = data[0].theme;
                 app.logo = 'assets/' + data[0].logo;
                 app.dashboardCharts = formatChartsDatasets(data[1].content);
-                app.portfolioData = data[2];
+                app.portfolioData = data[2].item;
+                app.userData = data[3].user;
                 getPortfolioItemsContent(data[0].content);
                 if(app.rememberMe){
                     localStorage.setItem(app.apiUrl + 'session_id', app.sessionId);
@@ -81,6 +82,7 @@
                     localStorage.setItem(app.apiUrl + 'logo', app.logo);
                     localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
                     localStorage.setItem(app.apiUrl+ 'portfolio', JSON.stringify(app.portfolioData));
+                    localStorage.setItem(app.apiUrl+ 'user', JSON.stringify(app.userData));
                 }
                 return (function (){
                     app.loader = false;

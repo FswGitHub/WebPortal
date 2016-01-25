@@ -14,7 +14,7 @@
                     th.portfolio-thead-th.row-end
                         span.th-content Residency
             tbody.portfolio-tbody
-                template(is="dom-repeat", items="[[portfolioData.item]]")
+                template(is="dom-repeat", items="[[portfolioData]]")
                     tr.mobile-portfolio-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
                         td
                             span.td-content [[item.name]]

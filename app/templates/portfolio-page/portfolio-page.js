@@ -1,5 +1,5 @@
 (function () {
-    app.portfolioData = (app.sessionId && localStorage.getItem(app.apiUrl +'portfolio')) ?  JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio')) : getPortfolioData(app.apiUrl, app.sessionId);
+    app.portfolioData = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio')) : null;
 
     app.goToPortfolioItem = function(e){
         var id = e.model.item.id;

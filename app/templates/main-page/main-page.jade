@@ -56,6 +56,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                             section.page-wrapper(data-tab="dashboard")
                             section.page-wrapper(data-tab="holdings")
                 section.page-wrapper(data-route='profile')
+                    include ../profile-page/profile-page
                 section(data-route='settings')
                         iron-pages(attr-for-selected='data-tab', selected='[[route.params.tab]]')
                             section.page-wrapper(data-tab="general")
