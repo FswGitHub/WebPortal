@@ -10,7 +10,7 @@ style(is="custom-style").
         --paper-yellow-a100: #ffffff;
         --paper-fab-background: #D8D8D8;
         --paper-fab-keyboard-focus-background: #D8D8D8;
-        --primary-text-color: #8e8e9a;
+        --inputs-text-color: #8e8e9a;
         --paper-button-raised-keyboard-focus: {  font-weight: normal};
     }
 
@@ -36,13 +36,6 @@ style(is="custom-style").
         border-left-color: var(--main-color);
     }
 
-    paper-input.color-selector {
-        --paper-input-container-input: {
-            font-size: 18px;
-        };
-        --paper-input-container-input-color: var(--main-color);
-    }
-
     paper-button.upload-logo-btn {
         color: var(--main-color);
     }
@@ -50,11 +43,30 @@ style(is="custom-style").
     .page-wrapper paper-input {
         --paper-input-container-label: {
             font-size: 18px;
-            color: var(--primary-text-color);
+            color: var(--inputs-text-color);
             font-weight: bold;
         };
         --paper-input-container-input: {
             font-size: 18px;
             color: var(--primary-text-color);
         };
+    }
+
+    .page-wrapper paper-input.color-selector {
+        --paper-input-container-input: {
+            font-size: 18px;
+            color: var(--main-color);;
+        };
+    }
+
+    .page-wrapper paper-radio-button {
+        --paper-radio-button-unchecked-color: var(--inputs-text-color);
+        --paper-radio-button-label-color: var(--inputs-text-color);
+        --paper-radio-button-unchecked-ink-color: var(--inputs-text-color);
+    }
+
+    .page-wrapper paper-checkbox {
+        --paper-checkbox-unchecked-color: var(--inputs-text-color);
+        --paper-checkbox-unchecked-ink-color: var(--inputs-text-color);
+        --paper-checkbox-label-color: var(--inputs-text-color);
     }
