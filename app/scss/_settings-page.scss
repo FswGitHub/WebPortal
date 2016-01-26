@@ -45,10 +45,18 @@ iron-icon.upload-logo-icon {
     text-align: center;
 }
 
+.settings-checkbox {
+    margin-left: $margin-large;
+}
+
+.configs-inputs-wrapper {
+    margin-bottom: 20px;
+}
+
 //------------media screen width-----------------
 
 @media screen and (min-width: $size-medium) {
-    .design-settings-wrapper, .email-settings-wrapper {
+    .design-settings-wrapper, .email-settings-wrapper, .configs-settings-wrapper {
         max-width: 450px;
     }
 
@@ -58,11 +66,11 @@ iron-icon.upload-logo-icon {
 }
 
 @media screen and (max-width: $size-medium - 1px) {
-    .design-settings-wrapper, .email-settings-wrapper {
+    .design-settings-wrapper, .email-settings-wrapper, .configs-settings-wrapper {
         max-width: 100%;
     }
 
     .settings-labels {
-        min-width: 100px;
+        min-width: 200px;
     }
 }

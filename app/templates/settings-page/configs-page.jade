@@ -1,0 +1,17 @@
+#configs-page.configs-page-wrapper
+    .page-header-wrapper
+        h2.page-header Configuration
+    .configs-settings-wrapper
+        .configs-settings-form.layout.vertical
+            .settings-row.layout.horizontal
+                span.settings-labels.self-center Domain Authentification
+                paper-checkbox.settings-checkbox(checked="[[]]")
+            .settings-row.layout.vertical.configs-inputs-wrapper
+                paper-input(label="DB Server Name")
+                paper-input(label="DB Name")
+                paper-input(label="SQL Username")
+                paper-input(label="SQL Password")
+                paper-input(label="SQL Port")
+            .settings-row.layout.horizontal
+                span.settings-labels.self-center SSL
+                paper-checkbox.settings-checkbox(checked="[[]]")
