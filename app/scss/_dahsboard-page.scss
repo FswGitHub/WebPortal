@@ -16,4 +16,15 @@ paper-menu-button.dropdown-menu {
     margin-bottom: $margin-small;
 }
 
+@media screen and (max-width: $size-large) {
+    .dashboard-options {
+        bottom: 13px;
+        top: auto;
+        z-index: 1;
+        right: 13px;
+        position: fixed;
+        margin-bottom: 0;
+    }
+}
+
 

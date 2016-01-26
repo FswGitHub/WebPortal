@@ -13,12 +13,12 @@
                         span.th-content Tax currency
                     th.data-thead-th.row-end
                         span.th-content Residency
-            tbody.data-tbody
+            tbody(class$="data-tbody [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
                 template(is="dom-repeat", items="[[portfolioData]]")
                     tr.mobile-data-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
                         td
                             span.td-content [[item.name]]
-                    tr(on-tap="goToPortfolioItem", class$="data-tbody-tr [[addClass(tabWidthScreen, 'mobile-data-td')]]")
+                    tr.data-tbody-tr.mobile-data-td(on-tap="goToPortfolioItem")
                         td.data-tbody-td.row-start
                             span.td-label(hidden="[[!tabWidthScreen]]") Code
                             span.td-content [[item.code]]

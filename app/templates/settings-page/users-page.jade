@@ -1,0 +1,49 @@
+#users-page.users-page-wrapper
+    .users-options
+        paper-menu-button#chartsMenu.dropdown-menu.charts-options(horizontal-align="right", horizontal-offset="36", open-animation-config='[[openAnimationConfig]]', vertical-offset$="[[addClass(tabWidthScreen, '-70')]]")
+            paper-fab.grey-button.dropdown-trigger(icon="add", unresolved)
+            paper-menu.dropdown-content
+                paper-item(on-tap="")
+                    iron-icon.options-icon(icon="social:group-add")
+                    | Bulk User Import
+                paper-item(on-tap="")
+                    iron-icon.options-icon(icon="social:person-add")
+                    | Add User
+                paper-item(on-tap="")
+                    iron-icon.options-icon(icon="file-download")
+                    | Bulk User Template
+    .data-table-wrapper(hidden="[[!users]]")
+        table.data-table
+            thead.data-thead(hidden="[[tabWidthScreen]]")
+                tr.data-thead-tr
+                    th.data-thead-th.row-start
+                        span.th-content Email Adress
+                    th.data-thead-th
+                        span.th-content First Name
+                    th.data-thead-th
+                        span.th-content Last Name
+                    th.data-thead-th
+                        span.th-content Status
+                    th.data-thead-th.row-end
+                        span.th-content Actions
+            tbody(class$="data-tbody [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
+                template(is="dom-repeat", items="[[users]]")
+                    tr.mobile-data-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
+                        td
+                            span.td-content [[item.firstName]] [[item.lastName]]
+                    tr.data-tbody-tr.mobile-data-td
+                        td.data-tbody-td.row-start
+                            span.td-label(hidden="[[!tabWidthScreen]]") Email
+                            span.td-content [[item.email]]
+                        td.data-tbody-td(hidden="[[tabWidthScreen]]")
+                            span.td-content [[item.firstName]]
+                        td.data-tbody-td(hidden="[[tabWidthScreen]]")
+                            span.td-content [[item.lastName]]
+                        td.data-tbody-td
+                            span.td-label(hidden="[[!tabWidthScreen]]") Status
+                            span.td-content [[item.status]]
+                        td.data-tbody-td.row-end
+                            span.td-label(hidden="[[!tabWidthScreen]]") Actions
+                            div.td-content.actions
+                                paper-icon-button(icon="visibility", hidden="[[!item.viewProfile]]", on-tap="")
+                                paper-icon-button(icon="refresh", hidden="[[!item.resendConfirmation]]", on-tap="")

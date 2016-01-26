@@ -12,12 +12,20 @@
         dashboardCharts: {
             type: Array,
             value: []
+        },
+        mainColor: {
+            type: Object,
+            value: {red: undefined, green: undefined, blue: undefined, alpha: undefined}
         }
     };
+    app.observers = [
+        '_mainColorChanged(mainColor.*)'
+    ];
+
     app.baseUrl = '/';
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
-    app.mainColor = '#DD1F29';
+    app.mainColor = {red: 221, green: 31, blue: 41};
 
     app.addClass = function(variable, classString){
         if(variable){
@@ -42,6 +50,11 @@
             }
         }
     }
+
+    window.onload = function() {
+        //open first tables rows for mobile and tab screens
+        openFirstRows();
+    };
 
     //app.addEventListener('dom-change', function() {});
     //window.addEventListener('WebComponentsReady', function (e) {});

@@ -11,12 +11,13 @@
             .settings-row.layout.horizontal
                 span.settings-labels.self-center Color
                 .color-selector-wrapper
-                    paper-input.color-selector(value="[[mainColor]]")
+                    paper-color-input.color-selector(shape="circle", type="hsl", value="{{mainColor}}", always-show-alpha)
+                    //paper-input.color-selector(value="[[mainColor]]")
             .settings-row.layout.horizontal
                 span.settings-labels.self-center Logo
                 .upload-logo-wrapper.layout.vertical
                     paper-button.upload-logo-btn
-                        iron-icon.upload-logo-icon(icon="icons:file-upload")
+                        iron-icon.upload-logo-icon(icon="file-upload")
                         | Upload logo
                     span.upload-logo-size 225px x 65px
     .page-header-wrapper
@@ -29,3 +30,4 @@
             h3.page-subheader Optional
             paper-input(label="Username")
             paper-input(label="Password")
+

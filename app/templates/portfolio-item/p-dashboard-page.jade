@@ -1,0 +1,7 @@
+#p-dasgboard-page.p-dashboard-page-wrapper
+    .layout.horizontal.end-justified.dashboard-options
+        paper-menu-button#portfolioChartsMenu.dropdown-menu.charts-options(horizontal-align="right", horizontal-offset="36", vertical-offset$="[[addClass(tabWidthScreen, '-36')]]",  open-animation-config='[[openAnimationConfig]]')
+        paper-fab.grey-button.dropdown-trigger(icon="add")
+            paper-menu.dropdown-content
+                paper-item(on-tap="addChart", data-type="bar") Bar Holdings Chart
+                paper-item(on-tap="addChart", data-type="pie") Pie Holdings Chart

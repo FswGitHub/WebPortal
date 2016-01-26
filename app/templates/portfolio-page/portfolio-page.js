@@ -21,6 +21,14 @@
     };
 })();
 
+function openFirstRows(){
+    var tables = document.getElementsByClassName('data-table');
+    for(var i = 0; i < tables.length; i++) {
+        var firstRow = tables[i].getElementsByClassName('data-tbody-tr')[0];
+        firstRow.classList.remove('mobile-data-td');
+    }
+}
+
 function getPortfolioData(apiUrl, sessionId){
     var url = apiUrl + 'resources/json/portfolio.json/' + sessionId;
     if(!apiUrl || !sessionId){

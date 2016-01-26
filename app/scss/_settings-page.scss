@@ -25,6 +25,14 @@
 }
 
 .color-selector {
+    paper-input-container.paper-color-input {
+        min-width: 150px;
+    }
+
+    paper-dialog {
+        max-width: none;
+        min-width: initial;
+    }
     .floated-label-placeholder.paper-input-container {
         display: none;
     }
@@ -32,10 +40,11 @@
 
 iron-icon.upload-logo-icon {
     color: $color-grey-medium-dark;
+    margin-right: 10px;
 }
 
 .upload-logo-btn {
-    font-size: $font-size-18;
+    font-size: $font-size-16;
     margin: 0;
 }
 
@@ -53,6 +62,33 @@ iron-icon.upload-logo-icon {
     margin-bottom: 20px;
 }
 
+
+.users-page-wrapper {
+    position: relative;
+    padding-top: 20px;
+    .actions {
+        padding: 3px 24px 2px;
+    }
+
+    .td-label {
+        padding: 14px 16px;
+    }
+
+    .data-thead, .mobile-data-thead {
+        font-size: 14px;
+    }
+}
+
+.users-options {
+    position: absolute;
+    z-index: 1;
+    right: 13px;
+    top: -16px;
+}
+
+.options-icon {
+   margin-right: 8px;
+}
 //------------media screen width-----------------
 
 @media screen and (min-width: $size-medium) {
@@ -71,6 +107,26 @@ iron-icon.upload-logo-icon {
     }
 
     .settings-labels {
-        min-width: 200px;
+        min-width: 100px;
+    }
+
+    .configs-page-wrapper {
+        .settings-labels {
+            min-width: 200px;
+        }
+    }
+}
+
+@media screen and (max-width: $size-large) {
+    .users-page-wrapper {
+        .actions {
+            padding: 3px 8px;
+        }
+    }
+
+    .users-options {
+        bottom: 13px;
+        top: auto;
+        position: fixed;
     }
 }

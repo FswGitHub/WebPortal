@@ -3,12 +3,14 @@
     background-color: #fff;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    min-width: 950px;
+    min-width: 900px;
     border-bottom: 1px solid $color-grey-medium;
 }
 .data-table {
     border-collapse: collapse;
     width: 100%;
+    table-layout: fixed;
+    overflow: hidden;
 }
 
 .data-thead, .mobile-data-thead {
@@ -49,6 +51,7 @@
     padding: 14px 24px;
     display: block;
     min-height: 17px;
+    overflow: hidden;
 }
 
 .td-content {
@@ -64,8 +67,10 @@
     }
 }
 
-.mobile-data-td {
-    display: none;
+.mobile-data-tbody {
+    .mobile-data-td {
+        display: none;
+    }
 }
 ////------------media screen width-----------------
 @media screen and (max-width: $size-large) {
