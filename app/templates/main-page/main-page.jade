@@ -2,7 +2,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
     // Drawer Scroll Header Panel
     paper-header-panel(drawer='', mode="seamed")
         // Drawer Toolbar
-        paper-toolbar#drawerToolbar(class$="menu-toolbar {{theme}}")
+        paper-toolbar#drawerToolbar(class$="menu-toolbar x-scope paper-toolbar-0 {{theme}}")
             img.main-logo(src="{{logo}}")
         // Drawer Content
         paper-menu#drawerMenu.main-menu(attr-for-selected="data-route", selected="[[route.name]]")
@@ -31,18 +31,25 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
             span.menu-item-text Logout
             paper-ripple
     // Main Area
-    paper-scroll-header-panel#headerPanelMain.main-wrapper(main='', condenses, keep-condensed-header, condensed-header-height="57", scroll-away-topbar)
+    paper-scroll-header-panel#headerPanelMain.main-wrapper(main='', condenses, keep-condensed-header, scroll-away-topbar, condensed-header-height$="{{condensedHeaderValue(route.name)}}")
         // Main Toolbar
-        paper-toolbar#mainToolbar(class$="x-scope paper-toolbar-0 main-toolbar {{showTabs(route.name, 'medium-tall')}}" )
+        paper-toolbar#mainToolbar(class$="x-scope paper-toolbar-0 main-toolbar {{setMode(route.name)}}" )
             paper-icon-button(icon="menu", paper-drawer-toggle)
             .title
                 template(is="dom-if", if="{{checkRoute(route.name, 'portfolio-item')}}")
                     a.portfolio-title-link(href='{{baseUrl}}portfolio') Portfolio
                     span  >
                 span  {{getAppTitle(route)}}
-            paper-tabs#tabs.title(hidden="{{!route.tabs}}", selected="[[route.params.tab]]", on-iron-items-changed="fixTabs", attr-for-selected="data-tab", class$="bottom self-end x-scope paper-tabs-0 {{addClass(responsiveWidth, 'title-aligned')}}")
-                template(is="dom-repeat", items="{{route.tabs}}", restamp)
-                        paper-tab(id="{{item}}Tab", data-tab$="{{item}}", on-tap="tabGo") {{getTabName(item)}}
+            template(is="dom-if", if="{{checkRoute(route.name, 'portfolio-item')}}")
+                paper-tabs#portfolio-tabs.main-tabs.title-aligned.self-end.middle(selected="{{portfolioTab}}", on-iron-items-changed="fixTabs", attr-for-selected="data-tab")
+                    paper-tab(data-tab="dashboard", on-tap="tabGo") dashboard
+                    paper-tab(data-tab="holdings", on-tap="tabGo") holdings
+                div.portfolio-item-toolbar.bottom Bottom
+            template(is="dom-if", if="{{checkRoute(route.name, 'settings)}}")
+                paper-tabs#settings-tabs.main-tabs.title-aligned.self-end.middle(selected="{{settingsTab}}", on-iron-items-changed="fixTabs", attr-for-selected="data-tab")
+                    paper-tab(data-tab="general", on-tap="tabGo") General
+                    paper-tab(data-tab="configs", on-tap="tabGo") FPM Configs
+                    paper-tab(data-tab="users", on-tap="tabGo") Users
         // Main Content
         #mainContent.main-content.layout.vertical
             iron-pages.main-pages(attr-for-selected='data-route', selected='[[route.name]]', class$="main-pages {{addClass(tabHeightScreen, 'flex page-scroll')}}")
@@ -52,7 +59,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                     include ../portfolio-page/portfolio-page
                 template(is="dom-repeat" items="{{menuSubItems}}", restamp)
                     section(data-route$='portfolio-item-{{item.id}}')
-                        iron-pages(attr-for-selected='data-tab', selected='[[route.params.tab]]')
+                        iron-pages(attr-for-selected='data-tab', selected='{{portfolioTab}}')
                             section.page-wrapper(data-tab="dashboard")
                                 include ../portfolio-item/p-dashboard-page
                             section.page-wrapper(data-tab="holdings")
@@ -60,7 +67,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                 section.page-wrapper(data-route='profile')
                     include ../profile-page/profile-page
                 section(data-route='settings')
-                        iron-pages(attr-for-selected='data-tab', selected='[[route.params.tab]]')
+                        iron-pages(attr-for-selected='data-tab', selected='{{settingsTab}}')
                             section.page-wrapper(data-tab="general")
                                 include ../settings-page/general-page
                             section.page-wrapper(data-tab="configs")

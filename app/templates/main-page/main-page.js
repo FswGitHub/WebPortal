@@ -2,6 +2,8 @@
     app.theme =  app.sessionId ? localStorage.getItem(app.apiUrl + 'theme') : 'dark';
     app.logo = app.sessionId ? localStorage.getItem(app.apiUrl + 'logo') : 'assets/images/logo-light.png';
     app.menuSubItems = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl +'portfolio_items')) : null;
+    app.portfolioTab = 'dashboard';
+    app.settingsTab = 'general';
 
     app.limitTo = function(items, numb){
         if(!items){
@@ -19,19 +21,21 @@
         }
     };
 
-    app.showTabs = function(name, className){
-        var tabs = name.indexOf('portfolio-item') == -1 && name.indexOf('settings') == -1;
-        if(!tabs){
-            return className;
+    app.setMode = function(name){
+        var portfolioItem = name.indexOf('portfolio-item') > -1;
+        var settings = name.indexOf('settings') > -1;
+        if(portfolioItem || settings){
+            return portfolioItem ? 'tall' : 'medium-tall';
         } else {
-            return true;
+            return null;
         }
     };
 
     app.tabGo = function(e){
-        var item = e.model.item;
+        var item = e.currentTarget.getAttribute('data-tab');
         var state = app.route.params.id ? 'portfolio/'+ app.route.params.id + '/' : 'settings/';
         var path = '/'+state+item;
+
         page(path);
     };
 
@@ -46,12 +50,19 @@
     app.fixTabs = function(){
         var tabs = document.getElementsByTagName('paper-tabs')[0];
         tabs.notifyResize();
-
     };
 
     app.checkRoute = function(name, value){
         if(name.indexOf(value) > -1){
             return true;
+        }
+    };
+
+    app.condensedHeaderValue = function(name){
+        if(name.indexOf('portfolio-item') > -1){
+            return 112;
+        } else {
+            return 56;
         }
     };
 

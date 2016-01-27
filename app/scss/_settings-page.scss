@@ -24,9 +24,17 @@
     padding-left: 8px;
 }
 
+
+//--------------paper-color-input styles-------------
+
 .color-selector {
     paper-input-container.paper-color-input {
         min-width: 150px;
+    }
+
+    .paper-input-container-2 .input-content.paper-input-container .paper-input-input {
+        font-size: $font-size-18;
+        color: $color-grey-medium-dark;
     }
 
     paper-dialog {
@@ -37,6 +45,31 @@
         display: none;
     }
 }
+
+.paper-progress-0 #primaryProgress.paper-progress {
+    background-color: $color-grey-medium-dark;
+}
+
+.paper-slider-0 #sliderKnobInner.paper-slider {
+    background-color: $color-grey-medium-dark;
+    border: 2px solid $color-grey-medium-dark;
+    &::before {
+        background-color: $color-grey-medium-dark;
+    }
+}
+.paper-progress-0 #progressContainer.paper-progress, .paper-progress-0 .indeterminate.paper-progress::after {
+    background-color: $color-grey-medium-light;
+}
+
+#dialog.paper-color-picker {
+    overflow: auto;
+}
+
+#color.paper-color-input {
+    border-radius: 2px;
+}
+
+//----------------------------------------------------------
 
 iron-icon.upload-logo-icon {
     color: $color-grey-medium-dark;
@@ -61,7 +94,6 @@ iron-icon.upload-logo-icon {
 .configs-inputs-wrapper {
     margin-bottom: 20px;
 }
-
 
 .users-page-wrapper {
     position: relative;
@@ -128,5 +160,10 @@ iron-icon.upload-logo-icon {
         bottom: 13px;
         top: auto;
         position: fixed;
+    }
+
+    #title.paper-color-picker {
+        font-size: $font-size-18;
+        line-height: 28px;
     }
 }

@@ -6,7 +6,21 @@ script.
             page.base(app.baseUrl.replace(/\/$/, ''));
         }
 
+        // Middleware
+        function scrollToTop(ctx, next) {
+            app.scrollPageToTop();
+            next();
+        }
+
+        function closeDrawer(ctx, next) {
+            app.closeDrawer();
+            next();
+        }
+
         // Routes
+        page('*', scrollToTop, closeDrawer, function (ctx, next) {
+            next();
+        });
 
         page('/', function () {
             page('/login');
@@ -45,7 +59,6 @@ script.
                     name: 'dashboard',
                     main: true
                 }
-                closeMenu();
             } else {
                 page('/login');
             }
@@ -56,20 +69,18 @@ script.
                     name: 'portfolio',
                     main: true
                 }
-                closeMenu();
             } else {
                 page('/login');
             }
         });
         page('/portfolio/:id/:tab', function (data) {
             if(app.sessionId){
+                app.portfolioTab = data.params.tab;
                 app.route = {
                     name: 'portfolio-item-'+data.params.id,
-                    tabs: ['dashboard', 'holdings'],
                     params: data.params,
                     main: true
                 }
-                closeMenu();
             } else {
                 page('/login');
             }
@@ -80,20 +91,18 @@ script.
                     name: 'profile',
                     main: true
                 }
-                closeMenu();
             } else {
                 page('/login');
             }
         });
         page('/settings/:tab', function (data) {
             if(app.sessionId){
+                app.settingsTab = data.params.tab;
                 app.route = {
                     name: 'settings',
                     main: true,
-                    tabs: ['general', 'configs', 'users'],
                     params: data.params
                 }
-                closeMenu();
             } else {
                 page('/login');
             }
@@ -112,12 +121,4 @@ script.
         page({
             hashbang: true
         });
-
-        function closeMenu(callback){
-            var drawer = document.getElementById('paperDrawerPanel');
-            drawer ? drawer.closeDrawer() : null;
-            if(callback){
-                return callback.call();
-            }
-        }
     });

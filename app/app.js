@@ -19,6 +19,7 @@
         }
     };
     app.observers = [
+        '_routeTabsChanged(route.params.tab)',
         '_mainColorChanged(mainColor.*)'
     ];
 
@@ -33,6 +34,9 @@
         }
     };
 
+    app._routeTabsChanged = function(newVal){
+        app.tabSelected = newVal;
+    };
     //Session timeout(5 minutes))
     document.onclick = function() {_idleSecondsCounter = 0;};
     document.onmousemove = function() {_idleSecondsCounter = 0;};
@@ -54,6 +58,19 @@
     window.onload = function() {
         //open first tables rows for mobile and tab screens
         openFirstRows();
+    };
+
+    // Scroll page to top and expand header
+
+    app.scrollPageToTop = function(e) {
+        var pages  = document.querySelector('iron-pages');
+        pages ? pages.scrollTop = 0 : null;
+
+    };
+
+    app.closeDrawer = function() {
+        var drawer = document.getElementById('paperDrawerPanel');
+        drawer ? drawer.closeDrawer() : null;
     };
 
     //app.addEventListener('dom-change', function() {});
