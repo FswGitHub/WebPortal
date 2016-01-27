@@ -1,0 +1,38 @@
+.bar-label {
+    text-transform: capitalize;
+    margin-right: 12px;
+}
+
+.bar-btn {
+    margin: 12px 32px 12px 0;
+    padding: 4px;
+
+    iron-icon {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+.bar-icon {
+    margin-right: 12px;
+}
+
+.category-selector {
+    margin: 0;
+    padding: 0;
+}
+
+.category-name {
+    width: 130px;
+}
+
+.category-btn {
+    .bar-label {
+        width: 77px;
+        text-align: left;
+    }
+}
+
+.calendar {
+    background-color: $color-white;
+}

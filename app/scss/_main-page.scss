@@ -119,10 +119,6 @@ paper-tab {
 }
 
 @media screen and (max-width: $size-small) {
-    paper-tabs.title-aligned {
-        margin: 0;
-    }
-
     paper-tab {
         min-width: 50px;
         max-width: 60px;
@@ -176,8 +172,8 @@ paper-tab {
     }
 }
 
-@media screen and (max-width: $size-large) {
-    paper-tabs.title-aligned {
+@media screen and (min-width: $size-small +1px) and (max-width: $size-x-large) {
+    .title-aligned {
         margin: 0 0 0 64px;
     }
 }

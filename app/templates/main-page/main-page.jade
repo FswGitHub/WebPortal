@@ -44,7 +44,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                 paper-tabs#portfolio-tabs.main-tabs.title-aligned.self-end.middle(selected="{{portfolioTab}}", on-iron-items-changed="fixTabs", attr-for-selected="data-tab")
                     paper-tab(data-tab="dashboard", on-tap="tabGo") dashboard
                     paper-tab(data-tab="holdings", on-tap="tabGo") holdings
-                div.portfolio-item-toolbar.bottom Bottom
+                include  ../portfolio-item/p-bar
             template(is="dom-if", if="{{checkRoute(route.name, 'settings)}}")
                 paper-tabs#settings-tabs.main-tabs.title-aligned.self-end.middle(selected="{{settingsTab}}", on-iron-items-changed="fixTabs", attr-for-selected="data-tab")
                     paper-tab(data-tab="general", on-tap="tabGo") General

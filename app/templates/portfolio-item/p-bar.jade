@@ -1,0 +1,21 @@
+div.portfolio-item-toolbar.bottom.title-aligned.layout.horizontal
+    paper-button.calendar-btn.layout.horizontal.center-center.bar-btn.relative(on-tap="openCalendar")
+        iron-icon.bar-icon(icon="event")
+        span.bar-label [[chosenDate]]
+        iron-icon(icon="arrow-drop-down")
+    iron-dropdown#calendar(horizontal-align="left" vertical-align="top", open-animation-config="[[openCalendarConf]]", close-animation-config="[[closeCalendarConf]]" vertical-offset="16", )
+        .dropdown-content.calendar
+            paper-date-picker(unresolved)
+    template(is="dom-if", if="{{checkRoute(portfolioTab, 'holdings')}}")
+        paper-menu-button.dropdown-menu.category-selector(open-animation-config='[[openAnimationConfig]]', vertical-offset="16")
+            paper-button.dropdown-trigger.bar-btn.category-btn.layout.horizontal.start.center
+                iron-icon.bar-icon(icon="description")
+                span.bar-label [[selectedValue]]
+                iron-icon(icon="arrow-drop-down")
+            paper-menu.dropdown-content(selected="{{selectedValue}}" attr-for-selected="category")
+                paper-item(category="1")
+                    span.category-name 1
+                paper-item(category="2")
+                    span.category-name 2
+                paper-item(category="3")
+                    span.category-name 3
