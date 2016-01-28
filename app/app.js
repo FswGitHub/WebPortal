@@ -16,6 +16,10 @@
         mainColor: {
             type: Object,
             value: {red: undefined, green: undefined, blue: undefined, alpha: undefined}
+        },
+        searchRequest: {
+            type: String,
+            value: null
         }
     };
     app.observers = [
@@ -162,6 +166,15 @@ function showConfirm(header, text, confirmCallback, closeCallback){
             return closeCallback ? closeCallback.call() : null;
         }
     });
+}
+
+
+function openFirstRows(){
+    var tables = document.getElementsByClassName('data-table');
+    for(var i = 0; i < tables.length; i++) {
+        var firstRow = tables[i].getElementsByClassName('data-tbody-tr')[0];
+        firstRow.classList.remove('mobile-data-td');
+    }
 }
 
 String.prototype.capitalize = function() {

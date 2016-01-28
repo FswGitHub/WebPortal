@@ -82,14 +82,3 @@ function formatChartsDatasets(items){
         return (RGB[0]+','+RGB[1]+','+ RGB[2]);
     }
 }
-
-function getChartsData(apiUrl, sessionId){
-    var url = apiUrl + 'resources/json/charts.json/' + sessionId;
-    if(!apiUrl || !sessionId){
-        return [];
-    } else {
-        sendRequest(url, 'GET', null, function(response){
-            return response;
-        });
-    }
-}

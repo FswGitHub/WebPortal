@@ -79,19 +79,19 @@
             return route.name;
         }
     };
+
+    app.logout = function(){
+        showConfirm('Confirm','Are you sure you want to log out?', function(){
+            app.sessionId = null;
+            localStorage.clear();
+            page('/login');
+        });
+    };
+
+    //function getMenuData(apiUrl, sessionId){
+    //    var url = apiUrl + 'resources/json/sidemenu.json/' + sessionId;
+    //    sendRequest(url, 'GET', null, function(response){
+    //        return response;
+    //    });
+    //}
 })();
-
-app.logout = function(){
-    showConfirm('Confirm','Are you sure you want to log out?', function(){
-        app.sessionId = null;
-        localStorage.clear();
-        page('/login');
-    });
-};
-
-function getMenuData(apiUrl, sessionId){
-    var url = apiUrl + 'resources/json/sidemenu.json/' + sessionId;
-    sendRequest(url, 'GET', null, function(response){
-        return response;
-    });
-}

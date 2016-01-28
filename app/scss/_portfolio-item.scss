@@ -1,15 +1,17 @@
 .bar-label {
     text-transform: capitalize;
     margin-right: 12px;
+    overflow: hidden;
 }
 
 .bar-btn {
-    margin: 12px 32px 12px 0;
     padding: 4px;
+    min-width: initial;
 
     iron-icon {
         width: 34px;
         height: 34px;
+        min-width: 34px;
     }
 }
 
@@ -28,11 +30,88 @@
 
 .category-btn {
     .bar-label {
-        width: 77px;
+        width: 78px;
         text-align: left;
     }
 }
 
 .calendar {
     background-color: $color-white;
+    box-shadow: 0 2px 5px -1px rgba(0,0,0,0.5);
+}
+
+.search-wrapper {
+    background-color: $color-white;
+    height: 32px;
+}
+
+.search-field {
+    outline: 0;
+    border: 0;
+    padding: 2px 8px;
+}
+
+.search-icon-wrapper {
+    background-color: $color-grey-medium-dark;
+    width: 30px;
+    border: 1px solid $color-white;
+}
+
+.calendar-actions {
+    padding: 8px;
+}
+
+@media screen and (max-width: $size-small){
+    .bar-icon, .bar-label {
+        margin-right: 0;
+    }
+
+    .category-btn {
+        .bar-label {
+            width: auto;
+            max-width: 78px;
+        }
+    }
+
+
+    .bar-btn {
+        iron-icon {
+            min-width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+@media screen and (max-width: $size-medium){
+    .bar-btn {
+        margin: 12px 8px 12px 0;
+    }
+
+    .search-field {
+        width: 0;
+        padding: 0;
+    }
+
+    .search-icon-wrapper {
+        border: none;
+    }
+}
+
+@media screen and (min-width: $size-medium + 1px) and (max-width: $size-large){
+    .bar-btn {
+        margin: 12px 24px 12px 0;
+    }
+    //
+    //.bar-btn {
+    //    iron-icon {
+    //        min-width: 24px;
+    //        height: 24px;
+    //    }
+    //}
+}
+
+@media screen and (min-width: $size-large + 1px){
+    .bar-btn {
+        margin: 12px 32px 12px 0;
+    }
 }

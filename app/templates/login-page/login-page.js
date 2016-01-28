@@ -154,15 +154,21 @@
                 app.passNotMatch = true;
             }
         }
-    }
+    };
 })();
 
 function getPortfolioItemsContent(content){
     var portfolioItemsRequestData = [];
+    app.portfolioItems = {};
     for(var i=0; i< content.length; i++){
         portfolioItemsRequestData.push({url: app.apiUrl + 'resources/json/portfolio-item' +  content[i].id + '/' + app.sessionId  + '.json', method: 'GET'});
     }
     sendMultipleRequest(portfolioItemsRequestData, function(data){
-        app.portfolioItems = data;
+        for(var i=0; i< data.length; i++){
+            if(data[i].item){
+                app.portfolioItems[data[i].item.id] = data[i].item;
+                localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
+            }
+        }
     });
 }

@@ -1,22 +1,29 @@
 (function (){
-    app.chosenDate = formatDate(new Date());
-    app.selectedValue = 1;
+    app.portfolioItems = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio_items_data')) : null;
+    //app.chosenDate = formatDate(new Date());
 
-    app.openCalendar = function(){
+    app.toggleCalendar = function(){
         var calendar = document.getElementById('calendar');
         calendar.toggle();
     };
 
-    app.openCalendarConf =  [
-        {name: 'fade-in-animation', timing: {delay: 150, duration: 200}},
-        {name: 'expand-animation', timing: {delay: 150, duration: 200}}
-    ];
+    app.closeAnimationConf = [{name: 'fade-out-animation', timing: {duration: 200}}];
 
-    app.closeCalendarConf = [
-        {name: 'fade-out-animation', timing: {duration: 200}}
-    ];
+    app.getCategories = function(items, id){
+        if(items[id]){
+            app.curClassification = items[id].classifications[0].name;
+            app.cleanSearch();
+            return items[id].classifications;
+        } else {
+            return null;
+        }
+    };
 
-    function formatDate(val){
+    app.cleanSearch = function(){
+        this.searchRequest = null;
+    };
+
+    app.formatDate = function(val){
         var monthNames = ["Jan", "Feb", "Mar",
             "Apr", "May", "Jun",
             "Jul", "Aug", "Sep",
@@ -27,5 +34,5 @@
         var year = date.getFullYear();
 
         return day+' '+monthNames[monthIndex]+' '+year;
-    }
+    };
 })();
