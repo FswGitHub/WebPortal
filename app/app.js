@@ -19,7 +19,7 @@
         },
         searchRequest: {
             type: String,
-            value: null
+            value: ''
         }
     };
     app.observers = [
@@ -171,10 +171,18 @@ function showConfirm(header, text, confirmCallback, closeCallback){
 
 function openFirstRows(){
     var tables = document.getElementsByClassName('data-table');
-    for(var i = 0; i < tables.length; i++) {
-        var firstRow = tables[i].getElementsByClassName('data-tbody-tr')[0];
-        firstRow.classList.remove('mobile-data-td');
-    }
+    setTimeout(function(){
+        for(var i = 0; i < tables.length; i++) {
+            var allRows = tables[i].getElementsByClassName('data-tbody-tr');
+            var firstRow = allRows[0];
+            firstRow.classList.remove('mobile-data-td');
+            for(var j=1; j < allRows.length; j++){
+                if(!allRows[j].classList.contains('mobile-data-td')){
+                    allRows[j].classList.add('mobile-data-td');
+                }
+            }
+        }
+    });
 }
 
 String.prototype.capitalize = function() {
