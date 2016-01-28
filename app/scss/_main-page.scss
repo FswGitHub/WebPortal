@@ -106,6 +106,8 @@ paper-tab {
 .portfolio-item-toolbar {
     color: $color-white;
     font-size: $font-size-14;
+    width: 100%;
+    //position: relative;
 }
 
 .no-item-message {

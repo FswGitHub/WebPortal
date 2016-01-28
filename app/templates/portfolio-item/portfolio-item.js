@@ -19,8 +19,25 @@
         }
     };
 
+    app.startSearch = function(){
+        if(this.mobileWidthScreen){
+            var bar = document.getElementsByClassName('portfolio-item-toolbar')[0];
+            if(bar.classList.contains('full-width-search')){
+                bar.classList.remove('full-width-search');
+            } else {
+                bar.classList.add('full-width-search');
+            }
+        }
+    };
+
     app.cleanSearch = function(){
-        this.searchRequest = null;
+        var bar = document.getElementsByClassName('portfolio-item-toolbar')[0];
+        if(bar.classList.contains('full-width-search') && !this.searchRequest){
+            bar.classList.remove('full-width-search');
+            this.searchRequest = null;
+        } else {
+            return this.searchRequest = null;
+        }
     };
 
     app.formatDate = function(val){
