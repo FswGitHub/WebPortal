@@ -1,6 +1,6 @@
 (function (){
     app.portfolioItems = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio_items_data')) : null;
-    //app.chosenDate = formatDate(new Date());
+    console.log(app.portfolioItems);
 
     app.toggleCalendar = function(){
         var calendar = document.getElementById('calendar');

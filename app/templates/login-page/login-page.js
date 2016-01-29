@@ -67,7 +67,6 @@
                 {url: app.apiUrl + 'resources/json/users.json', method: 'GET'}
             ];
             sendMultipleRequest(loadData, function(data){
-                //console.log(data);
                 app.menuSubItems = data[0].content;
                 app.theme = data[0].theme;
                 app.logo = 'assets/' + data[0].logo;
@@ -167,6 +166,26 @@ function getPortfolioItemsContent(content){
         for(var i=0; i< data.length; i++){
             if(data[i].item){
                 app.portfolioItems[data[i].item.id] = data[i].item;
+                if(data[i].item.classifications){
+                    getItemClassifications(data[i].item);
+                }
+                localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
+            }
+        }
+    });
+}
+
+function getItemClassifications(item){
+    var classificationsRequestData = [];
+    app.portfolioItems[item.id].classificationsContent = {};
+
+    for(var i=0; i < item.classifications.length; i++){
+        classificationsRequestData.push({url: app.apiUrl + 'resources/json/portfolio-item' +  item.id + 'classification'+ item.classifications[i].id + '.json', method: 'GET'});
+    }
+    sendMultipleRequest(classificationsRequestData, function(data){
+        for(var i=0; i< data.length; i++){
+            if(data[i].item){
+                app.portfolioItems[item.id].classificationsContent[data[i].item.id] = data[i].item;
                 localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
             }
         }

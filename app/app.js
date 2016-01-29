@@ -23,7 +23,6 @@
         }
     };
     app.observers = [
-        '_routeTabsChanged(route.params.tab)',
         '_mainColorChanged(mainColor.*)'
     ];
 
@@ -38,9 +37,6 @@
         }
     };
 
-    app._routeTabsChanged = function(newVal){
-        app.tabSelected = newVal;
-    };
     //Session timeout(5 minutes))
     document.onclick = function() {_idleSecondsCounter = 0;};
     document.onmousemove = function() {_idleSecondsCounter = 0;};
@@ -68,7 +64,9 @@
 
     app.scrollPageToTop = function(e) {
         var pages  = document.querySelector('iron-pages');
+        var header = document.querySelector('#headerPanelMain');
         pages ? pages.scrollTop = 0 : null;
+        header ? header.scrollToTop(true) : null;
 
     };
 
