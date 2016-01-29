@@ -13,12 +13,11 @@
         },
         currentPortfolioItem: {
             type: Object,
-            computed: 'getCurrentPortfolioItem(portfolioItems, route.params.id)',
-            observer: 'showCurrent'
+            computed: 'getCurrentPortfolioItem(portfolioItems, route.params.id)'
         },
         currentClassificationsData: {
             type: Object,
-            computed: ''
+            computed: 'getClassificationsData(currentPortfolioItem, selectedClassification.id)'
         },
         portfolioItemCharts: {
             type: Array,
@@ -26,15 +25,9 @@
         },
         selectedClassification: {
             type: Object,
-            value: {
-                name: 'None',
-                id: {type: Number}
-            }
+            value: {},
+            observer: '_classificationChanged'
         }
-    };
-
-    app.showCurrent = function(){
-        console.log(app.currentPortfolioItem);
     };
 
     app.toggleCalendar = function(){
@@ -43,7 +36,16 @@
     };
 
     app.getCurrentPortfolioItem = function(items, id){
+        app.selectedClassification = items[id] ? items[id].classifications[0] : null;
         return items[id] ? items[id] : null;
+    };
+
+    app.getClassificationsData = function(item, id){
+        return id ? item.classificationsContent[id] : null;
+    };
+
+    app._classificationChanged = function(){
+        app.scrollPageToTop();
     };
 
     app.startSearch = function(){

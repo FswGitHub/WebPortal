@@ -67,7 +67,7 @@
 
     window.onload = function() {
         //open first tables rows for mobile and tab screens
-        openFirstRows();
+       openFirstRows();
     };
 
     // Scroll page to top and expand header

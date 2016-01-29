@@ -54,7 +54,21 @@
     overflow: hidden;
 }
 
-.td-content {
+//.td-content {
+//    border-bottom: 1px solid $color-grey-light;
+//}
+
+//.data-tbody-td {
+//    &::after{
+//        content: '';
+//        height: 1px;
+//        width: 100%;
+//        background: $color-grey-light;
+//        display: block;
+//    }
+//}
+
+.data-tbody-tr {
     border-bottom: 1px solid $color-grey-light;
 }
 
@@ -84,7 +98,6 @@
     .data-tbody-td {
         display: table-row;
     }
-
 
     .data-tbody-td {
         .td-content {

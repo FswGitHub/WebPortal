@@ -65,6 +65,29 @@
     text-transform: uppercase;
 }
 
+.category-row {
+    background-color: $color-grey-medium-light;
+    .td-content {
+        border: none;
+    }
+    .data-tbody-td {
+        &::after{
+            content: none;
+        }
+    }
+}
+
+.p-holdings-page-wrapper {
+    .mobile-data-thead {
+        font-size: $font-size-14;
+    }
+}
+
+.mobile-data-row-thead {
+    background-color: $color-grey-medium-light;
+    border-bottom: 1px solid $color-grey-light;
+}
+
 @media screen and (max-width: $size-small){
     .bar-icon, .bar-label {
         margin-right: 0;
@@ -172,5 +195,33 @@
 @media screen and (min-width: $size-large + 1px){
     .bar-btn {
         margin: 12px 32px 12px 0;
+    }
+
+    .p-holdings-page-wrapper {
+        .data-thead-th {
+            font-size: $font-size-14;
+        }
+
+        .td-content, .th-content, .td-label {
+            padding: 14px 4px;
+        }
+
+        .row-end {
+            width: 170px;
+        }
+
+        .row-pre-end {
+            width: 80px;
+        }
+
+
+        .data-tbody-td, .data-thead-th {
+            &.row-end  {
+                padding-right: 4px;
+            }
+            &.row-start  {
+                padding-left: 4px;
+            }
+        }
     }
 }
