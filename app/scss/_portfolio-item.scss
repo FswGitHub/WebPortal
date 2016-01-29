@@ -61,6 +61,10 @@
     padding: 8px;
 }
 
+.classification-name {
+    text-transform: uppercase;
+}
+
 @media screen and (max-width: $size-small){
     .bar-icon, .bar-label {
         margin-right: 0;

@@ -1,22 +1,49 @@
 (function (){
-    app.portfolioItems = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio_items_data')) : null;
-    console.log(app.portfolioItems);
+    app.portfolioItems = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio_items_data')) : {};
+    app.closeAnimationConf = [{name: 'fade-out-animation', timing: {duration: 200}}];
+
+    app.properties = {
+        portfolioItems: {
+            type: Object,
+            value: {}
+        },
+        searchRequest: {
+            type: String,
+            value: ''
+        },
+        currentPortfolioItem: {
+            type: Object,
+            computed: 'getCurrentPortfolioItem(portfolioItems, route.params.id)',
+            observer: 'showCurrent'
+        },
+        currentClassificationsData: {
+            type: Object,
+            computed: ''
+        },
+        portfolioItemCharts: {
+            type: Array,
+            computed: ''
+        },
+        selectedClassification: {
+            type: Object,
+            value: {
+                name: 'None',
+                id: {type: Number}
+            }
+        }
+    };
+
+    app.showCurrent = function(){
+        console.log(app.currentPortfolioItem);
+    };
 
     app.toggleCalendar = function(){
         var calendar = document.getElementById('calendar');
         calendar.toggle();
     };
 
-    app.closeAnimationConf = [{name: 'fade-out-animation', timing: {duration: 200}}];
-
-    app.getCategories = function(items, id){
-        if(items[id]){
-            app.curClassification = items[id].classifications[0].name;
-            app.cleanSearch();
-            return items[id].classifications;
-        } else {
-            return null;
-        }
+    app.getCurrentPortfolioItem = function(items, id){
+        return items[id] ? items[id] : null;
     };
 
     app.startSearch = function(){
@@ -32,7 +59,7 @@
 
     app.cleanSearch = function(){
         var bar = document.getElementsByClassName('portfolio-item-toolbar')[0];
-        if(bar.classList.contains('full-width-search') && !this.searchRequest){
+        if(bar && bar.classList.contains('full-width-search') && !this.searchRequest){
             bar.classList.remove('full-width-search');
             this.searchRequest = null;
         } else {

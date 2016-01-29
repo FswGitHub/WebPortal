@@ -7,7 +7,15 @@
     app.properties = {
         route: {
             type: Object,
-            value: {}
+            value: {
+                params: {
+                    type: Object,
+                    value: {
+                        id: {type: Number},
+                        tab: {type: String}
+                    }
+                }
+            }
         },
         dashboardCharts: {
             type: Array,
@@ -16,13 +24,11 @@
         mainColor: {
             type: Object,
             value: {red: undefined, green: undefined, blue: undefined, alpha: undefined}
-        },
-        searchRequest: {
-            type: String,
-            value: ''
         }
     };
+
     app.observers = [
+        '_routeChanged(route)',
         '_mainColorChanged(mainColor.*)'
     ];
 
@@ -35,6 +41,10 @@
         if(variable){
             return classString;
         }
+    };
+
+    app._routeChanged = function(){
+        app.cleanSearch();
     };
 
     //Session timeout(5 minutes))
