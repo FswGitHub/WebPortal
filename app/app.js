@@ -14,6 +14,10 @@
                         id: {type: Number},
                         tab: {type: String}
                     }
+                },
+                name: {
+                    type: String,
+                    value: []
                 }
             }
         },
@@ -28,7 +32,7 @@
     };
 
     app.observers = [
-        '_routeChanged(route)',
+        '_routeNameChanged(route)',
         '_mainColorChanged(mainColor.*)'
     ];
 
@@ -47,7 +51,15 @@
         return variable ? class1 : class2;
     };
 
-    app._routeChanged = function(){
+    app._routeNameChanged = function(route){
+        if(route.name != 'dashboard'){
+            app.removeDashboardChartsList();
+        }
+        switch (route.name) {
+            case 'dashboard':
+                app.addDashboardChartsList();
+                break;
+        }
         app.cleanSearch();
     };
 

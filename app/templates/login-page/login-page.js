@@ -70,7 +70,7 @@
                 app.menuSubItems = data[0].content;
                 app.theme = data[0].theme;
                 app.logo = 'assets/' + data[0].logo;
-                app.dashboardCharts = formatChartsDatasets(data[1].content);
+                app.dashboardCharts = data[1].content;
                 app.portfolioData = data[2].item;
                 app.userData = data[3].user;
                 app.settings = data[4];

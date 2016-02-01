@@ -9,76 +9,36 @@
     ];
     app.addChart = function(e){
         var type = e.target.getAttribute('data-type');
-        var chartList = document.getElementsByClassName('dashboard-charts-list')[0];
+        var chartList = document.getElementById('chartsList');
         chartList.addChart(type);
     };
+
+    app.getDashboardCharts = function(){
+        sendRequest(app.apiUrl + 'resources/json/charts.json/' + app.sessionId, 'GET', null, function(e){
+            app.dashboardCharts = e.detail.response.content;
+            localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
+        });
+    };
+
+    app.addDashboardChartsList = function(){
+        setTimeout(function(){
+            var dahsboard = document.getElementsByClassName('dashboard-page-wrapper')[0];
+            var chartsList = document.createElement('charts-list');
+
+            chartsList.id = 'chartsList';
+            dahsboard.appendChild(chartsList);
+            return chartsList.charts = app.dashboardCharts;
+        });
+    };
+
+    app.removeDashboardChartsList = function(){
+        setTimeout(function(){
+            var dahsboard = document.getElementsByClassName('dashboard-page-wrapper')[0];
+            var oldChartslist = dahsboard.getElementsByTagName('charts-list')[0];
+
+            if(oldChartslist){
+                return oldChartslist.parentNode.removeChild(oldChartslist);
+            }
+        });
+    }
 })();
-
-function formatChartsDatasets(items){
-    var formatedData = [];
-
-    for(var i=0; i < items.length; i++) {
-        var item  = items[i];
-        var type = item.type.toLowerCase();
-        if(type == 'radar' || type == 'line' || type == 'bar'){
-            item.data = toBarType(item.data);
-            item.type = type;
-            formatedData.push(item);
-        } else {
-            item.data = toPieType(item.data);
-            item.type = type == 'polar'? 'polar-area' : type;
-            formatedData.push(item);
-        }
-    }
-    return formatedData;
-
-    function toBarType(data){
-        var formatted = {
-            labels: data.labels,
-            datasets: []
-        };
-        for(var i=0; i< data.datasets.length; i++) {
-            var barObject = {
-                fillColor: "rgba("+ hexToRGB(data.colors[i])+",0.2)",
-                strokeColor: "rgba("+ hexToRGB(data.colors[i])+",1)",
-                pointColor: "rgba("+ hexToRGB(data.colors[i])+",1)",
-                pointStrokeColor: "#fff",
-                pointHighlightFill: "#fff",
-                pointHighlightStroke: "rgba("+ hexToRGB(data.colors[i])+",1)",
-                data: data.datasets[i].data,
-                label: data.datasets[i].label
-            };
-            formatted.datasets.push(barObject);
-        }
-        return formatted;
-    }
-
-    function toPieType(data){
-        var formatted = [];
-        for(var i=0; i< data.datasets.length; i++) {
-            var barObject = {
-                value: data.datasets[i].data,
-                color: data.colors[i],
-                highlight: data.highlights[i],
-                label: data.labels[i]
-            };
-            formatted.push(barObject);
-        }
-        return formatted;
-    }
-
-    function hexToRGB(hex){
-        var RGB = [];
-
-        function toR(h) { return parseInt((cutHex(h)).substring(0,2),16) }
-        function toG(h) { return parseInt((cutHex(h)).substring(2,4),16) }
-        function toB(h) { return parseInt((cutHex(h)).substring(4,6),16) }
-        function cutHex(h) { return (h.charAt(0)=="#") ? h.substring(1,7) : h}
-
-        RGB[0] = toR(hex);
-        RGB[1] = toG(hex);
-        RGB[2] = toB(hex);
-
-        return (RGB[0]+','+RGB[1]+','+ RGB[2]);
-    }
-}

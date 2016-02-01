@@ -8,7 +8,8 @@
     app.properties = {
         portfolioItems: {
             type: Object,
-            value: {}
+            value: {},
+            notify: true
         },
         searchRequest: {
             type: String,
@@ -22,15 +23,17 @@
             type: Object,
             computed: 'getClassificationsData(currentPortfolioItem, selectedClassification.id)'
         },
-        portfolioItemCharts: {
-            type: Array,
-            computed: ''
-        },
         selectedClassification: {
             type: Object,
             value: {},
             observer: '_classificationChanged'
         }
+    };
+
+    app.addDashboardChart = function(e){
+        var type = e.target.getAttribute('data-type');
+        var chartList = document.getElementById('portfolioChartsList');
+        chartList.addChart(type);
     };
 
     app.toggleCalendar = function(){
@@ -44,7 +47,7 @@
     };
 
     app.getClassificationsData = function(item, id){
-        return id ? item.classificationsContent[id] : null;
+        return id && item ? item.classificationsContent[id] : null;
     };
 
     app._classificationChanged = function(){
@@ -70,6 +73,27 @@
         } else {
             return this.searchRequest = null;
         }
+    };
+
+    app.getPortfolioCharts = function(portfolioItems, id){
+        var current = portfolioItems[id];
+        if(current){
+            return current.charts && current.charts.length ? current.charts : [];
+        } else {
+            return [];
+        }
+    };
+
+    app.getPortfolioItemCharts = function(id){
+        sendRequest(app.apiUrl + 'resources/json/portfolio-item' + id + '/' + app.sessionId+ '.json', 'GET', null, function(e){
+            app.portfolioItems[id].charts = e.detail.response.item.charts;
+            if(parseInt(id) == app.route.params.id){
+                var chartList = document.getElementById('portfolioChartsList'+id);
+                chartList.charts =  e.detail.response.item.charts;
+            }
+            localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
+        });
+
     };
 
     app.formatDate = function(val){
