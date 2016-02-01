@@ -1,11 +1,46 @@
 #p-holdings-page.p-holdings-page-wrapper
-    .data-table-pagination
-        iron-selector(selected="{{pageSelected}}", attr-for-selected="data-page")
-            div(data-page='1') 1
-            div(data-page='2') 2
-            div(data-page='3') 3
-            div(data-page='4') 4
-    .data-table-wrapper(hidden="[[!currentClassificationsData]]")
+    div(class$="layout [[toggleClass(tabWidthScreen, 'vertical', 'horizontal start center')]]")
+        .pagination-wrapper.layout.horizontal.start.center
+            button.pagination-item First
+            button.pagination-item
+                span <<
+                span(hidden="[[mobileWidthScreen]]") Prev
+            .data-table-pagination
+                iron-selector(selected="{{pageSelected}}", attr-for-selected="data-page")
+                    button.pagination-item.page-button(data-page='1') 1
+                    button.pagination-item.page-button(data-page='2') 2
+                    button.pagination-item.page-button(data-page='3') 3
+                    button.pagination-item.page-button(data-page='4') 4
+            button.pagination-item
+                span(hidden="[[mobileWidthScreen]]") Next
+                span >>
+            button.pagination-item Last
+        .filters-wrapper.layout.horizontal.start.center(hidden="[[!tabWidthScreen]]")
+            span.size-label Filter by
+            paper-menu-button.dropdown-menu.data-table-size(open-animation-config='[[openAnimationConfig]]', vertical-offset="4", horizontal-offset="2")
+                paper-button.size-btn.dropdown-trigger
+                    span.size-label [[filter]]
+                    iron-icon(icon="arrow-drop-down")
+                paper-menu.dropdown-content(selected="{{filter}}" attr-for-selected="data-filter")
+                    paper-item(data-filter="name") Name
+                    paper-item(data-filter="nominal") Nominal
+                    paper-item(data-filter="cost price") Cost price
+                    paper-item(data-filter="book value") Book value (R)
+                    paper-item(data-filter="market value") Market price
+                    paper-item(data-filter="market value") Market value
+                    paper-item(data-filter="percentage MV") MV%
+                    paper-item(data-filter="exposure value") Exposure value (R)
+        .size-wrapper.layout.horizontal.start.center
+            span.size-label Size
+            paper-menu-button.dropdown-menu.data-table-size(open-animation-config='[[openAnimationConfig]]', vertical-offset="4", horizontal-offset="2")
+                paper-button.size-btn.dropdown-trigger
+                    span.size-label [[tableSize]]
+                    iron-icon(icon="arrow-drop-down")
+                paper-menu.dropdown-content(selected="{{tableSize}}" attr-for-selected="data-size")
+                    paper-item(data-size="50") 50
+                    paper-item(data-size="100") 100
+                    paper-item(data-size="200") 200
+    .data-table-wrapper(hidden="[[!currentPortfolioItem]]")
         table.data-table.secondary-table
             thead.data-thead(hidden="[[tabWidthScreen]]")
                 tr.data-thead-tr

@@ -43,6 +43,10 @@
         }
     };
 
+    app.toggleClass = function(variable, class1, class2){
+        return variable ? class1 : class2;
+    };
+
     app._routeChanged = function(){
         app.cleanSearch();
     };

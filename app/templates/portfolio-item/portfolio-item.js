@@ -1,6 +1,9 @@
 (function (){
     app.portfolioItems = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio_items_data')) : {};
     app.closeAnimationConf = [{name: 'fade-out-animation', timing: {duration: 200}}];
+    app.tableSize = 50;
+    app.pageSelected = 1;
+    app.filter = 'name';
 
     app.properties = {
         portfolioItems: {

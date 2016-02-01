@@ -88,6 +88,47 @@
     border-bottom: 1px solid $color-grey-light;
 }
 
+.pagination-item {
+    outline: 0;
+    background-color: $color-grey-medium-light;
+    margin-right: 2px;
+    border-width: 1px;
+}
+
+.page-button {
+    background-color: $color-grey-medium;
+    border: 1px solid $color-grey-medium;
+    &.iron-selected {
+        color: $color-white;
+    }
+}
+
+.pagination-wrapper {
+    margin-right: 16px;
+    margin-bottom: 10px;
+}
+
+.size-label {
+    text-transform: uppercase;
+    font-size: $font-size-14;
+    line-height: 1;
+}
+
+.size-btn {
+    padding: 5px;
+    margin: 0 4px;
+    min-width: 58px;
+}
+
+.data-table-size {
+    padding: 0;
+    margin-right: 16px;
+}
+
+.size-wrapper {
+    margin-bottom: 10px;
+}
+
 @media screen and (max-width: $size-small){
     .bar-icon, .bar-label {
         margin-right: 0;
