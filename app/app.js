@@ -56,6 +56,11 @@
             case 'dashboard':
                 app.addDashboardChartsList();
                 break;
+            case 'login':
+                app.removeAllCharts();
+                app.portfolioTab = null;
+                app.settingsTab = null;
+                break;
         }
 
         if(route.name.indexOf('portfolio-item') > -1 && route.params.id && route.params.tab == 'dashboard'){

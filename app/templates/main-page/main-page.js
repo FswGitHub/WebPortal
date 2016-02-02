@@ -53,7 +53,7 @@
     };
 
     app.checkRoute = function(name, value){
-        if(name.indexOf(value) > -1){
+        if(name && name.indexOf(value) > -1){
             return true;
         }
     };
@@ -86,6 +86,14 @@
             localStorage.clear();
             page('/login');
         });
+    };
+
+    app.removeAllCharts = function(){
+        var chartsLists = document.querySelectorAll('charts-list');
+        for(var i=0; i < chartsLists.length; i++){
+            console.log(chartsLists[i]);
+            chartsLists[i].parentNode.removeChild(chartsLists[i]);
+        }
     };
 
     //function getMenuData(apiUrl, sessionId){

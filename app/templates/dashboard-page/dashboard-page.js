@@ -27,7 +27,7 @@
             var chartsList = document.createElement('charts-list');
 
             if(!oldChartslist){
-                chartsList.id = 'chartsList';
+                //chartsList.id = 'chartsList';
                 dahsboard.appendChild(chartsList);
                 chartsList.charts = app.dashboardCharts;
                 return chartsList.buildCharts();
