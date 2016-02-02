@@ -94,4 +94,22 @@
     //        return response;
     //    });
     //}
+
+    var resizeTimer = null;
+
+    window.addEventListener('resize', function(){
+        if(resizeTimer) {
+            clearTimeout(resizeTimer);
+        }
+
+        resizeTimer = setTimeout(function() {
+            var currentSection = document.querySelectorAll('section[data-route].iron-selected')[0];
+            if(currentSection &&  ((app.route.name == 'dashboard') || (app.route.params && app.route.params.tab == 'dashboard'))){
+                var charts = currentSection.getElementsByTagName('chart-item');
+                for(var i=0; i<charts.length; i++){
+                    charts[i].setChart();
+                }
+            }
+        }, 250);
+    });
 })();

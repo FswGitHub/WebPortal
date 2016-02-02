@@ -1,8 +1,8 @@
-#p-dasgboard-page.p-dashboard-page-wrapper
+#p-dashboard-page.p-dashboard-page-wrapper
     .layout.horizontal.end-justified.dashboard-options
         paper-menu-button#portfolioChartsMenu.dropdown-menu.charts-options(horizontal-align="right", horizontal-offset="36", vertical-offset$="[[addClass(tabWidthScreen, '-36')]]",  open-animation-config='[[openAnimationConfig]]')
             paper-fab.grey-button.dropdown-trigger(icon="add")
             paper-menu.dropdown-content
                 paper-item(data-type="bar", on-tap="addDashboardChart") Bar Holdings Chart
                 paper-item(data-type="pie", on-tap="addDashboardChart") Pie Holdings Chart
-    charts-list(charts="{{getPortfolioCharts(portfolioItems, route.params.id)}}", id$="portfolioChartsList[[route.params.id]]")
+    //charts-list(charts="{{getPortfolioCharts(portfolioItems, route.params.id)}}", id$="portfolioChartsList[[route.params.id]]")

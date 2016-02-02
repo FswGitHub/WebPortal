@@ -32,7 +32,9 @@
 
     app.addDashboardChart = function(e){
         var type = e.target.getAttribute('data-type');
-        var chartList = document.getElementById('portfolioChartsList');
+        var section = document.getElementsByClassName('portfolio-item-'+app.route.params.id)[0];
+        var wrapper = section.getElementsByClassName('p-dashboard-page-wrapper')[0];
+        var chartList = wrapper.getElementsByTagName('charts-list')[0];
         chartList.addChart(type);
     };
 
@@ -42,7 +44,7 @@
     };
 
     app.getCurrentPortfolioItem = function(items, id){
-        app.selectedClassification = items[id] ? items[id].classifications[0] : null;
+        app.selectedClassification = items[id] &&  items[id].classifications? items[id].classifications[0] : null;
         return items[id] ? items[id] : null;
     };
 
@@ -84,16 +86,33 @@
         }
     };
 
-    app.getPortfolioItemCharts = function(id){
-        sendRequest(app.apiUrl + 'resources/json/portfolio-item' + id + '/' + app.sessionId+ '.json', 'GET', null, function(e){
-            app.portfolioItems[id].charts = e.detail.response.item.charts;
-            if(parseInt(id) == app.route.params.id){
-                var chartList = document.getElementById('portfolioChartsList'+id);
-                chartList.charts =  e.detail.response.item.charts;
-            }
-            localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
-        });
+    //app.getPortfolioItemCharts = function(id){
+    //    sendRequest(app.apiUrl + 'resources/json/portfolio-item' + id + '/' + app.sessionId+ '.json', 'GET', null, function(e){
+    //        app.portfolioItems[id].charts = e.detail.response.item.charts;
+    //        if(parseInt(id) == app.route.params.id){
+    //            var chartList = document.getElementById('portfolioChartsList'+id);
+    //            chartList.charts = e.detail.response.item.charts;
+    //            chartList.setChart();
+    //            console.log(chartList.charts);
+    //        }
+    //        localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
+    //    });
+    //
+    //};
 
+    app.addPortfolioChartsList = function(index){
+        setTimeout(function(){
+            var section = document.getElementsByClassName('portfolio-item-'+index)[0];
+            var wrapper = section.getElementsByClassName('p-dashboard-page-wrapper')[0];
+            var oldChartsList = wrapper.getElementsByTagName('charts-list')[0];
+            var chartsList = document.createElement('charts-list');
+
+            if(!oldChartsList){
+                wrapper.appendChild(chartsList);
+                chartsList.charts = app.portfolioItems[index] ? app.portfolioItems[index].charts : null;
+                return chartsList.buildCharts();
+            }
+        });
     };
 
     app.formatDate = function(val){

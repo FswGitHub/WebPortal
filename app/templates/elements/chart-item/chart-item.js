@@ -10,27 +10,21 @@ Polymer({
         }
     },
     ready: function(){
-        var resizeTimer = null;
-        var self = this;
 
-        window.addEventListener('resize', function(){
-            if(resizeTimer) {
-                clearTimeout(resizeTimer);
-            }
-            resizeTimer = setTimeout(function() {
-                self.setChart();
-            }, 100);
-        });
     },
     _chartChanged: function(){
-        return this.setChart();
     },
     setChart: function(){
         var me = this;
         if (me.chart) me.chart.destroy();
         if(this.chartData){
             setTimeout(function(){
-                me.options = {};
+                me.options = {
+                    onAnimationComplete: function() {
+                        me.fire('chartReady');
+                    }
+                };
+                //Chart.defaults.global.responsive = true;
                 Chart.defaults.global.animation = false;
                 me.ctx = me.$.canvas.getContext('2d');
                 switch (me.chartData.type){

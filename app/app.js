@@ -52,13 +52,14 @@
     };
 
     app._routeNameChanged = function(route){
-        if(route.name != 'dashboard'){
-            app.removeDashboardChartsList();
-        }
         switch (route.name) {
             case 'dashboard':
                 app.addDashboardChartsList();
                 break;
+        }
+
+        if(route.name.indexOf('portfolio-item') > -1 && route.params.id && route.params.tab == 'dashboard'){
+            app.addPortfolioChartsList(route.params.id);
         }
         app.cleanSearch();
     };
@@ -199,7 +200,7 @@ function openFirstRows(){
         for(var i = 0; i < tables.length; i++) {
             var allRows = tables[i].getElementsByClassName('data-tbody-tr');
             var firstRow = allRows[0];
-            firstRow.classList.remove('mobile-data-td');
+            firstRow ? firstRow.classList.remove('mobile-data-td') : null;
             for(var j=1; j < allRows.length; j++){
                 if(!allRows[j].classList.contains('mobile-data-td')){
                     allRows[j].classList.add('mobile-data-td');

@@ -1,7 +1,7 @@
 dom-module#charts-list
     template
         link(rel="stylesheet" href="../../../css/charts-list.css")
-        template(is="dom-repeat", items="[[chartsList]]")
+        template(is="dom-repeat", items="{{chartsList}}")
             div(class$="chart-item-wrapper [[addEmpty(item.data)]]")
                 .empty-chart-place
                     span.empty-place-text Drop chart here
@@ -10,8 +10,8 @@ dom-module#charts-list
                     paper-menu-button.dropdown-menu(horizontal-align="right", horizontal-offset="8", vertical-offset="32", open-animation-config='[[openAnimationConfig]]', hidden="[[loading]]")
                         paper-icon-button.dropdown-trigger(icon="settings")
                         paper-menu.dropdown-content
-                            template(is="dom-repeat", items="[[setTypes(item.type)]]", as="type", index-as="type_index")
+                            template(is="dom-repeat", items="{{setTypes(item.type)}}", as="type", index-as="type_index")
                                 paper-item.chart-type-change-btn(on-tap="changeTypeChart", data-index$="[[index]]") [[type]] Chart
                     paper-icon-button(on-tap="removeChart", icon="close", hidden="[[loading]]")
-                chart-item.chart-item.holding-chart(chart-data="[[item]]")
+                chart-item.chart-item.holding-chart(chart-data="{{item}}")
     script(src="charts-list.js", rel="text/javascript")
