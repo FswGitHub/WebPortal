@@ -1,4 +1,7 @@
-#p-holdings-page.p-holdings-page-wrapper
+div(hidden="{{holdings}}", class$="layout horizontal center-center no-holdings {{addClass(tabHeightScreen, 'fit')}}")
+    .layout.horizontal.start.center
+        span.no-data No holdings here
+#p-holdings-page.p-holdings-page-wrapper(hidden="[[!holdings]]")
     div(class$="layout [[toggleClass(tabWidthScreen, 'vertical', 'horizontal start center')]]")
         .pagination-wrapper.layout.horizontal.start.center
             button.pagination-item First
@@ -40,7 +43,7 @@
                     paper-item(data-size="50") 50
                     paper-item(data-size="100") 100
                     paper-item(data-size="200") 200
-    .data-table-wrapper(hidden="[[!currentPortfolioItem]]")
+    .data-table-wrapper
         table.data-table.secondary-table
             thead.data-thead(hidden="[[tabWidthScreen]]")
                 tr.data-thead-tr
@@ -60,8 +63,23 @@
                         span.th-content MV%
                     th.data-thead-th.row-end
                         span.th-content Exposure value (R)
+                tr.data-thead-tr.totals
+                    th.data-thead-th.row-start(colspan="3")
+                        span.th-content Total
+                    th.data-thead-th
+                        span.th-content [[currentClassificationsData.totalBookValue]]
+                    th.data-thead-th
+                        span.th-content [[currentClassificationsData.averageMarketPrice]]
+                    th.data-thead-th
+                        span.th-content [[currentClassificationsData.totalMarketValue]]
+                    th.data-thead-th.row-pre-end
+                        span.th-content [[currentClassificationsData.totalPercentageMV]]
+                    th.data-thead-th.row-end
+                        span.th-content [[currentClassificationsData.totalExposureValue]]
             tbody(class$="data-tbody [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
-                template(is="dom-repeat", items="[[currentClassificationsData.holdings]]", as="holding")
+                tr.empty-space-row
+                    td.empty-space(colspan="8")
+                template(is="dom-repeat", items="[[holdings]]", as="holding")
                     tr.mobile-data-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]")
                         td
                             span.td-content [[holding.category]]
@@ -104,3 +122,7 @@
                             td.data-tbody-td.row-end
                                 span.td-label(hidden="[[!tabWidthScreen]]") Exposure value (R)
                                 span.td-content [[item.exposureValue]]
+.loading-screen.fit.layout.horizontal.center-center(hidden="{{!loader}}")
+    .pre-loader.layout.horizontal.start.center
+        span Loading
+        img.loader(src="assets/images/FPM-loader.gif")

@@ -2,6 +2,7 @@
     var app = document.querySelector('#app');
     var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
     var _idleSecondsCounter = 0;
+    var resizeTimer = null;
 
     // Sets app default base URL and globals
     app.properties = {
@@ -63,8 +64,10 @@
                 break;
         }
 
-        if(route.name.indexOf('portfolio-item') > -1 && route.params.id && route.params.tab == 'dashboard'){
-            app.addPortfolioChartsList(route.params.id);
+        if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
+            if(route.params.tab == 'dashboard'){
+                app.addPortfolioChartsList(route.params.id);
+            }
         }
         app.cleanSearch();
     };
@@ -89,8 +92,27 @@
 
     window.onload = function() {
         //open first tables rows for mobile and tab screens
-       openFirstRows();
+        openFirstRows();
+        app.currentWidth = document.body.offsetWidth;
+        app.currentHeight = document.body.offsetHeight;
     };
+
+    window.addEventListener('resize', function(){
+        if(resizeTimer) {
+            clearTimeout(resizeTimer);
+        }
+
+        resizeTimer = setTimeout(function() {
+            var currentSection = document.querySelectorAll('section[data-route].iron-selected')[0];
+
+            if(currentSection &&  ((app.route.name == 'dashboard') || (app.route.params && app.route.params.tab == 'dashboard'))){
+                var charts = currentSection.getElementsByTagName('chart-item');
+                for(var i=0; i<charts.length; i++){
+                    charts[i].setChart();
+                }
+            }
+        }, 250);
+    });
 
     // Scroll page to top and expand header
 

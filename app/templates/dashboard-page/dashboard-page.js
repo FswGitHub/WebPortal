@@ -13,22 +13,14 @@
         chartList.addChart(type);
     };
 
-    //app.getDashboardCharts = function(){
-    //    sendRequest(app.apiUrl + 'resources/json/charts.json/' + app.sessionId, 'GET', null, function(e){
-    //        app.dashboardCharts = e.detail.response.content;
-    //        localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
-    //    });
-    //};
-
     app.addDashboardChartsList = function(){
         setTimeout(function(){
-            var dahsboard = document.getElementsByClassName('dashboard-page-wrapper')[0];
-            var oldChartslist = dahsboard.getElementsByTagName('charts-list')[0];
+            var dashboard = document.getElementsByClassName('dashboard-page-wrapper')[0];
+            var oldChartsList = dashboard.getElementsByTagName('charts-list')[0];
             var chartsList = document.createElement('charts-list');
 
-            if(!oldChartslist){
-                //chartsList.id = 'chartsList';
-                dahsboard.appendChild(chartsList);
+            if(!oldChartsList){
+                dashboard.appendChild(chartsList);
                 chartsList.charts = app.dashboardCharts;
                 return chartsList.buildCharts();
             }

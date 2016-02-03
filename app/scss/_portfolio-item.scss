@@ -129,6 +129,43 @@
     margin-bottom: 10px;
 }
 
+.loading-screen{
+    background-color: $color-grey-light;
+    .loader {
+        position: relative;
+        display: inline-block;
+        left: auto;
+        top: 0;
+        margin-left: 12px;
+        margin-top: 0;
+    }
+}
+
+.no-data {
+    color: $color-grey-medium;
+    font-size: $font-size-18;
+}
+
+.no-holdings {
+    min-height: 350px;
+}
+
+.totals {
+    background-color: $color-grey-medium-light;
+    padding-bottom: 10px;
+    .th-content {
+        color: $color-black;
+    }
+}
+
+.p-holdings-page-wrapper {
+
+}
+
+.empty-space-row {
+    display: none;
+}
+
 @media screen and (max-width: $size-small){
     .bar-icon, .bar-label {
         margin-right: 0;
@@ -264,5 +301,14 @@
                 padding-left: 4px;
             }
         }
+    }
+
+    .empty-space {
+        height: 5px;
+        background-color: $color-grey-light;
+    }
+
+    .empty-space-row {
+        display: table-row;
     }
 }

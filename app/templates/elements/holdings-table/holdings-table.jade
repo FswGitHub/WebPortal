@@ -1,0 +1,67 @@
+dom-module#holdings-table
+    template
+        .data-table-wrapper
+            table.data-table.secondary-table
+                thead.data-thead(hidden="[[tabWidthScreen]]")
+                    tr.data-thead-tr
+                        th.data-thead-th.row-start
+                            span.th-content Name
+                        th.data-thead-th
+                            span.th-content Nominal
+                        th.data-thead-th
+                            span.th-content Cost price
+                        th.data-thead-th
+                            span.th-content Book value (R)
+                        th.data-thead-th
+                            span.th-content Market price
+                        th.data-thead-th
+                            span.th-content Market value
+                        th.data-thead-th.row-pre-end
+                            span.th-content MV%
+                        th.data-thead-th.row-end
+                            span.th-content Exposure value (R)
+                tbody(class$="data-tbody [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
+                template(is="dom-repeat", items="[[holdings]]", as="holding")
+                    tr.mobile-data-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]")
+                        td
+                            span.td-content [[holding.category]]
+                    tr.data-tbody-tr.category-row(hidden="[[tabWidthScreen]]")
+                        td.data-tbody-td.row-start(colspan="3")
+                            span.td-content [[holding.category]]
+                        td.data-tbody-td(colspan="2")
+                            span.td-content [[holding.totalBookValue]]
+                        td.data-tbody-td
+                            span.td-content [[holding.totalMarketValue]]
+                        td.data-tbody-td.row-pre-end
+                            span.td-content [[holding.totalPercentageMV]]
+                        td.data-tbody-td.row-end
+                            span.td-content [[holding.totalExposureValue]]
+                    template(is="dom-repeat", items="[[holding.categoryItems]]")
+                        tr.mobile-data-row-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
+                            td
+                                span.td-content [[item.name]]
+                        tr.data-tbody-tr.mobile-data-td
+                            td.data-tbody-td.row-start(hidden="[[tabWidthScreen]]")
+                                span.td-content [[item.name]]
+                            td.data-tbody-td
+                                span.td-label(hidden="[[!tabWidthScreen]]") Nominal
+                                span.td-content [[item.nominal]]
+                            td.data-tbody-td
+                                span.td-label(hidden="[[!tabWidthScreen]]") Cost price
+                                span.td-content [[item.costPrice]]
+                            td.data-tbody-td
+                                span.td-label(hidden="[[!tabWidthScreen]]") Book value (R)
+                                span.td-content [[item.bookValue]]
+                            td.data-tbody-td
+                                span.td-label(hidden="[[!tabWidthScreen]]") Market price
+                                span.td-content [[item.marketPrice]]
+                            td.data-tbody-td
+                                span.td-label(hidden="[[!tabWidthScreen]]") Market value
+                                span.td-content [[item.marketValue]]
+                            td.data-tbody-td.row-pre-end
+                                span.td-label(hidden="[[!tabWidthScreen]]") MV%
+                                span.td-content [[item.percentageMV]]
+                            td.data-tbody-td.row-end
+                                span.td-label(hidden="[[!tabWidthScreen]]") Exposure value (R)
+                                span.td-content [[item.exposureValue]]
+    script(src="holdings-table.js", rel="text/javascript")

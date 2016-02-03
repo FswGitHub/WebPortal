@@ -27,6 +27,11 @@
             type: Object,
             value: {},
             observer: '_classificationChanged'
+        },
+        holdingsData: {
+            type: Array,
+            computed: 'getHoldings(route, portfolioItems, selectedClassification)',
+            observer: '_holdingsChanged'
         }
     };
 
@@ -54,6 +59,29 @@
 
     app._classificationChanged = function(){
         app.scrollPageToTop();
+    };
+
+    app.getHoldings = function(route, items, selected){
+
+        if(route.params && route.params.tab == 'holdings' && items[route.params.id]) {
+            if(items[route.params.id].classificationsContent[selected.id]){
+                app.loader = true;
+                return items[route.params.id].classificationsContent[selected.id].holdings;
+            } else {
+                return null;
+            }
+        }
+        else {
+            app.holdings = null;
+            return null;
+        }
+    };
+
+    app._holdingsChanged = function(newVal){
+        setTimeout(function(){
+            app.holdings = newVal;
+            app.loader = false;
+        }, 400);
     };
 
     app.startSearch = function(){
@@ -95,7 +123,6 @@
 
             if(!oldChartsList){
                 wrapper.appendChild(chartsList);
-                console.log(app.portfolioItems[index].charts);
                 chartsList.charts = app.portfolioItems[index] ? app.portfolioItems[index].charts : null;
                 return chartsList.buildCharts();
             }
