@@ -10,14 +10,14 @@ div.portfolio-item-toolbar.bottom.title-aligned.layout.horizontal.start.center
                 paper-button(on-tap="toggleCalendar") Ok
                 paper-button(on-tap="toggleCalendar") Cancel
     template(is="dom-if", if="[[checkRoute(portfolioTab, 'holdings')]]")
-        template(is="dom-if", if="{{currentPortfolioItem}}")
+        template(is="dom-if", if="[[getCurrentClassifications(portfolioItems, route)]]")
             paper-menu-button.dropdown-menu.category-selector(open-animation-config='[[openAnimationConfig]]', vertical-offset="16")
                 paper-button.dropdown-trigger.bar-btn.category-btn.layout.horizontal.start.center
                     iron-icon.bar-icon(icon="description")
-                    span.bar-label.classification-name [[selectedClassification.name]]
+                    span.bar-label.classification-name {{selectedClassification.name}}
                     iron-icon(icon="arrow-drop-down", hidden="[[mobileWidthScreen]]")
                 paper-menu.dropdown-content(selected="{{selectedClassification}}" attr-for-selected="category")
-                    template(is="dom-repeat", items="{{currentPortfolioItem.classifications}}")
+                    template(is="dom-repeat", items="{{getCurrentClassifications(portfolioItems, route)}}")
                         paper-item(category="[[item]]")
                             span.category-name [[item.name]]
         .search-wrapper.layout.horizontal

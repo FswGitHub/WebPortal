@@ -91,7 +91,6 @@
     app.removeAllCharts = function(){
         var chartsLists = document.querySelectorAll('charts-list');
         for(var i=0; i < chartsLists.length; i++){
-            console.log(chartsLists[i]);
             chartsLists[i].parentNode.removeChild(chartsLists[i]);
         }
     };

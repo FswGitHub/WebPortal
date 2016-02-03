@@ -8,16 +8,15 @@
     app.properties = {
         portfolioItems: {
             type: Object,
-            value: {},
-            notify: true
+            value: {}
         },
         searchRequest: {
             type: String,
             value: ''
         },
-        currentPortfolioItem: {
-            type: Object,
-            computed: 'getCurrentPortfolioItem(portfolioItems, route.params.id)'
+        currentClassifications: {
+            type: Array,
+            computed: 'getCurrentClassifications(portfolioItems, route)'
         },
         currentClassificationsData: {
             type: Object,
@@ -32,6 +31,9 @@
             type: Array,
             computed: 'getHoldings(route, portfolioItems, selectedClassification)',
             observer: '_holdingsChanged'
+        },
+        holdings: {
+            type: Array
         }
     };
 
@@ -48,9 +50,14 @@
         calendar.toggle();
     };
 
-    app.getCurrentPortfolioItem = function(items, id){
-        app.selectedClassification = items[id] &&  items[id].classifications? items[id].classifications[0] : null;
-        return items[id] ? items[id] : null;
+    app.getCurrentClassifications = function(items, route){
+        var id = route.params ? route.params.id : null;
+        if(id){
+            app.selectedClassification = items[id] && items[id].classifications ? items[id].classifications[0] : null;
+            return items[id] ? items[id].classifications : null;
+        } else {
+            return null;
+        }
     };
 
     app.getClassificationsData = function(item, id){
