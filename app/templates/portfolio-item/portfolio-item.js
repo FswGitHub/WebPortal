@@ -4,6 +4,7 @@
     app.tableSize = 50;
     app.pageSelected = 1;
     app.filter = 'name';
+    app.holdings = null;
 
     app.properties = {
         portfolioItems: {
@@ -20,17 +21,11 @@
         },
         currentClassificationsData: {
             type: Object,
-            computed: 'getClassificationsData(currentPortfolioItem, selectedClassification.id)'
+            computed: 'getClassificationsData(portfolioItems, route, selectedClassification)'
         },
         selectedClassification: {
             type: Object,
-            value: {},
-            observer: '_classificationChanged'
-        },
-        holdingsData: {
-            type: Array,
-            computed: 'getHoldings(route, portfolioItems, selectedClassification)',
-            observer: '_holdingsChanged'
+            value: {}
         },
         holdings: {
             type: Array
@@ -53,43 +48,48 @@
     app.getCurrentClassifications = function(items, route){
         var id = route.params ? route.params.id : null;
         if(id){
-            app.selectedClassification = items[id] && items[id].classifications ? items[id].classifications[0] : null;
             return items[id] ? items[id].classifications : null;
         } else {
             return null;
         }
     };
 
-    app.getClassificationsData = function(item, id){
-        return id && item ? item.classificationsContent[id] : null;
+    app.getClassificationsData = function(items, route, selected){
+        var id = route.params ? route.params.id : null;
+        if(id){
+            return selected && items[id] ? items[id].classificationsContent[selected.id] : null;
+        } else {
+            return null;
+        }
     };
 
     app._classificationChanged = function(){
+        app.loader = true;
+        setTimeout(function(){
+            app.holdings = app.getHoldings(app.route, app.portfolioItems, app.selectedClassification);
+            app.loader = false;
+        }, 400);
+
         app.scrollPageToTop();
     };
 
     app.getHoldings = function(route, items, selected){
-
-        if(route.params && route.params.tab == 'holdings' && items[route.params.id]) {
+        if(route && route.params && route.params.tab == 'holdings' && items[route.params.id]) {
             if(items[route.params.id].classificationsContent[selected.id]){
-                app.loader = true;
+
                 return items[route.params.id].classificationsContent[selected.id].holdings;
             } else {
                 return null;
             }
         }
         else {
-            app.holdings = null;
             return null;
         }
     };
-
-    app._holdingsChanged = function(newVal){
-        setTimeout(function(){
-            app.holdings = newVal;
-            app.loader = false;
-        }, 400);
-    };
+    //
+    //app._holdingsChanged = function(newVal){
+    //
+    //};
 
     app.startSearch = function(){
         if(this.mobileWidthScreen){

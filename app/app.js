@@ -30,11 +30,17 @@
             type: Object,
             value: {red: undefined, green: undefined, blue: undefined, alpha: undefined}
         }
+        //holdingsData: {
+        //    type: Array,
+        //    computed: ''
+        //}
     };
 
     app.observers = [
         '_routeNameChanged(route)',
-        '_mainColorChanged(mainColor.*)'
+        '_mainColorChanged(mainColor.*)',
+        '_classificationChanged(selectedClassification.*)'
+        //'_holdingsChanged(holdingsData)'
     ];
 
     app.baseUrl = '/';
@@ -67,6 +73,10 @@
         if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
             if(route.params.tab == 'dashboard'){
                 app.addPortfolioChartsList(route.params.id);
+            } else {
+                var items = app.portfolioItems;
+                var id = route.params.id;
+                app.selectedClassification = items[id] && items[id].classifications ? items[id].classifications[0] : null;
             }
         }
         app.cleanSearch();

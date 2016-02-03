@@ -6,7 +6,7 @@ div(hidden="{{holdings}}", class$="layout horizontal center-center no-holdings {
         .pagination-wrapper.layout.horizontal.start.center
             button.pagination-item First
             button.pagination-item
-                span <<
+                span &lsaquo;&lsaquo;
                 span(hidden="[[mobileWidthScreen]]") Prev
             .data-table-pagination
                 iron-selector(selected="{{pageSelected}}", attr-for-selected="data-page")
@@ -16,7 +16,7 @@ div(hidden="{{holdings}}", class$="layout horizontal center-center no-holdings {
                     button.pagination-item.page-button(data-page='4') 4
             button.pagination-item
                 span(hidden="[[mobileWidthScreen]]") Next
-                span >>
+                span &rsaquo;&rsaquo;
             button.pagination-item Last
         .filters-wrapper.layout.horizontal.start.center(hidden="[[!tabWidthScreen]]")
             span.size-label Filter by
