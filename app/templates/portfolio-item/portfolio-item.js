@@ -76,7 +76,6 @@
     app.getHoldings = function(route, items, selected){
         if(route && route.params && route.params.tab == 'holdings' && items[route.params.id]) {
             if(items[route.params.id].classificationsContent[selected.id]){
-
                 return items[route.params.id].classificationsContent[selected.id].holdings;
             } else {
                 return null;
@@ -86,10 +85,6 @@
             return null;
         }
     };
-    //
-    //app._holdingsChanged = function(newVal){
-    //
-    //};
 
     app.startSearch = function(){
         if(this.mobileWidthScreen){
@@ -125,13 +120,13 @@
         setTimeout(function(){
             var section = document.getElementsByClassName('portfolio-item-'+index)[0];
             var wrapper = section.getElementsByClassName('p-dashboard-page-wrapper')[0];
-            var oldChartsList = wrapper.getElementsByTagName('charts-list')[0];
-            //var chartsList = document.createElement('charts-list');
+            var chartsList = wrapper.getElementsByTagName('charts-list')[0];
 
-            if(oldChartsList && app.portfolioItems[index] && app.portfolioItems[index].charts.length && !oldChartsList.charts.length){
-                //wrapper.appendChild(chartsList);
-                oldChartsList.charts = app.portfolioItems[index] ? app.portfolioItems[index].charts : null;
-                return oldChartsList.buildCharts();
+            if(chartsList && app.portfolioItems[index] && app.portfolioItems[index].charts.length && !chartsList.charts.length){
+                chartsList.charts = app.portfolioItems[index] ? app.portfolioItems[index].charts : null;
+                return setTimeout(function(){
+                    chartsList.buildCharts();
+                });
             }
         });
     };

@@ -30,17 +30,12 @@
             type: Object,
             value: {red: undefined, green: undefined, blue: undefined, alpha: undefined}
         }
-        //holdingsData: {
-        //    type: Array,
-        //    computed: ''
-        //}
     };
 
     app.observers = [
         '_routeNameChanged(route)',
         '_mainColorChanged(mainColor.*)',
         '_classificationChanged(selectedClassification.*)'
-        //'_holdingsChanged(holdingsData)'
     ];
 
     app.baseUrl = '/';
