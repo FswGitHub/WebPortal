@@ -169,9 +169,9 @@ function getPortfolioItemsContent(content){
                 if(data[i].item.classifications){
                     getItemClassifications(data[i].item);
                 }
-                localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
             }
         }
+        return localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
     });
 }
 
@@ -186,8 +186,8 @@ function getItemClassifications(item){
         for(var i=0; i< data.length; i++){
             if(data[i].item){
                 app.portfolioItems[item.id].classificationsContent[data[i].item.id] = data[i].item;
-                localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
             }
         }
+        return localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
     });
 }

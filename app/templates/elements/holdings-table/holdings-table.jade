@@ -122,4 +122,6 @@ dom-module#holdings-table
                                 td.data-tbody-td.row-end
                                     span.td-label(hidden="[[!tabWidthScreen]]") Exposure value (R)
                                     span.td-content [[item.exposureValue]]
+        iron-media-query(query="(max-width: 599px)" query-matches="{{mobileWidthScreen}}")
+        iron-media-query(query="(max-width: 960px)" query-matches="{{tabWidthScreen}}")
     script(src="holdings-table.js", rel="text/javascript")

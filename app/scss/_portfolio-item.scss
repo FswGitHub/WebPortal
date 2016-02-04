@@ -162,6 +162,10 @@
     display: none;
 }
 
+.hidden-row {
+    display: none;
+}
+
 @media screen and (max-width: $size-small){
     .bar-icon, .bar-label {
         margin-right: 0;
