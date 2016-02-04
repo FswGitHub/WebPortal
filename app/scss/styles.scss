@@ -19,6 +19,10 @@ paper-dialog {
     min-width: 250px;
 }
 
+input::-ms-clear {
+    display: none;
+}
+
 @import "login-page";
 @import "main-page";
 @import "dahsboard-page";

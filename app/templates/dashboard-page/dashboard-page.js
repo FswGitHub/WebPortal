@@ -17,13 +17,13 @@
         setTimeout(function(){
             var dashboard = document.getElementsByClassName('dashboard-page-wrapper')[0];
             var oldChartsList = dashboard.getElementsByTagName('charts-list')[0];
-            var chartsList = document.createElement('charts-list');
+            //var chartsList = document.createElement('charts-list');
+            if(oldChartsList && app.dashboardCharts.length && !oldChartsList.charts.length){
+                //dashboard.appendChild(chartsList);
 
-            if(!oldChartsList){
-                dashboard.appendChild(chartsList);
-                chartsList.charts = app.dashboardCharts;
-                return chartsList.buildCharts();
+                oldChartsList.charts = app.dashboardCharts;
+                return oldChartsList.buildCharts();
             }
-        });
+        }, 400);
     };
 })();

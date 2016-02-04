@@ -126,12 +126,12 @@
             var section = document.getElementsByClassName('portfolio-item-'+index)[0];
             var wrapper = section.getElementsByClassName('p-dashboard-page-wrapper')[0];
             var oldChartsList = wrapper.getElementsByTagName('charts-list')[0];
-            var chartsList = document.createElement('charts-list');
+            //var chartsList = document.createElement('charts-list');
 
-            if(!oldChartsList){
-                wrapper.appendChild(chartsList);
-                chartsList.charts = app.portfolioItems[index] ? app.portfolioItems[index].charts : null;
-                return chartsList.buildCharts();
+            if(oldChartsList && app.portfolioItems[index] && app.portfolioItems[index].charts.length && !oldChartsList.charts.length){
+                //wrapper.appendChild(chartsList);
+                oldChartsList.charts = app.portfolioItems[index] ? app.portfolioItems[index].charts : null;
+                return oldChartsList.buildCharts();
             }
         });
     };
