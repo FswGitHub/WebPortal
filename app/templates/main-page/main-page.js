@@ -83,6 +83,7 @@
     app.logout = function(){
         showConfirm('Confirm','Are you sure you want to log out?', function(){
             app.sessionId = null;
+            app.holdings = null;
             localStorage.clear();
             page('/login');
         });
@@ -91,7 +92,6 @@
     app.removeAllCharts = function(){
         var chartsLists = document.querySelectorAll('charts-list');
         for(var i=0; i < chartsLists.length; i++){
-            //chartsLists[i].parentNode.removeChild(chartsLists[i]);
             chartsLists[i].data = [];
         }
     };

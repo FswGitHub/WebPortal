@@ -2,13 +2,24 @@ Polymer({
     is: 'holdings-table',
     properties: {
         holdings: {
-            type: Object,
-            computed: 'getHoldings(currentClassificationsData)'
+            type: Array,
+            value: []
+        },
+        tableSize: {
+            type: Number,
+            value: 50
+        },
+        pageSelected: {
+            type: Number,
+            value: 1
+        },
+        filter: {
+            type: String,
+            value: 'name'
         }
     },
     ready: function () {
         this.tabWidthScreen = app.tabWidthScreen;
-        this.currentClassificationsData = app.currentClassificationsData;
     },
     addClass: function(variable, classString){
         if(variable){
@@ -18,7 +29,7 @@ Polymer({
     openTableRow: function(){
 
     },
-    getHoldings: function(data){
-        return data.holdings ? data.holdings : null;
+    toggleClass: function(variable, class1, class2){
+        return variable ? class1 : class2;
     }
 });

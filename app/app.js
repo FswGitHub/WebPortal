@@ -42,6 +42,7 @@
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
     app.mainColor = {red: 221, green: 31, blue: 41};
+    app.mainThemeColor = 'orange';
 
     app.addClass = function(variable, classString){
         if(variable){

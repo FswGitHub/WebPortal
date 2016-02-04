@@ -1,9 +1,6 @@
 (function (){
     app.portfolioItems = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio_items_data')) : {};
     app.closeAnimationConf = [{name: 'fade-out-animation', timing: {duration: 200}}];
-    app.tableSize = 50;
-    app.pageSelected = 1;
-    app.filter = 'name';
     app.holdings = null;
 
     app.properties = {
@@ -64,13 +61,24 @@
     };
 
     app._classificationChanged = function(){
-        app.loader = true;
-        setTimeout(function(){
-            app.holdings = app.getHoldings(app.route, app.portfolioItems, app.selectedClassification);
-            app.loader = false;
-        }, 400);
+        if(app.sessionId){
+            app.loader = true;
+            var holdings = app.getHoldings(app.route, app.portfolioItems, app.selectedClassification);
 
-        app.scrollPageToTop();
+            setTimeout(function(){
+                if(app.route.params){
+                    var section = document.getElementsByClassName('portfolio-item-'+app.route.params.id)[0];
+                    var wrapper = section.getElementsByClassName('p-holdings-page-wrapper')[0];
+                    var holdingsTable = wrapper.getElementsByTagName('holdings-table')[0];
+
+                    app.holdings = holdings;
+                    holdingsTable.holdings = holdings;
+                    app.loader = false;
+                }
+            }, 500);
+
+            app.scrollPageToTop();
+        }
     };
 
     app.getHoldings = function(route, items, selected){
