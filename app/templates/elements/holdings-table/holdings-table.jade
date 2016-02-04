@@ -1,21 +1,23 @@
 dom-module#holdings-table
     template
+        style.
+            :host .page-button.iron-selected {
+                    background-color: var(--main-color);
+            }
         div(class$="layout [[toggleClass(tabWidthScreen, 'vertical', 'horizontal start center')]]")
             .pagination-wrapper.layout.horizontal.start.center
-                button.pagination-item First
-                button.pagination-item
+                button.pagination-item(on-tap="selectFirst") First
+                button.pagination-item(on-tap="selectPrev")
                     span &lsaquo;&lsaquo;
                     span(hidden="[[mobileWidthScreen]]") Prev
                 .data-table-pagination
-                    iron-selector(selected="{{pageSelected}}", attr-for-selected="data-page")
-                        button.pagination-item.page-button(data-page='1') 1
-                        button.pagination-item.page-button(data-page='2') 2
-                        button.pagination-item.page-button(data-page='3') 3
-                        button.pagination-item.page-button(data-page='4') 4
-                button.pagination-item
+                    iron-selector#pages(selected="{{pageSelected}}", attr-for-selected="data-page")
+                        template(is="dom-repeat", items="[[pages]]")
+                            button.pagination-item.page-button(data-page$='[[index]]') [[getPageNumber(index)]]
+                button.pagination-item(on-tap="selectNext")
                     span(hidden="[[mobileWidthScreen]]") Next
                     span &rsaquo;&rsaquo;
-                button.pagination-item Last
+                button.pagination-item(on-tap="selectLast") Last
             .filters-wrapper.layout.horizontal.start.center(hidden="[[!tabWidthScreen]]")
                 span.size-label Filter by
                 paper-menu-button.dropdown-menu.data-table-size(open-animation-config='[[openAnimationConfig]]', vertical-offset="4", horizontal-offset="2")
@@ -65,15 +67,15 @@ dom-module#holdings-table
                         th.data-thead-th.row-start(colspan="3")
                             span.th-content Total
                         th.data-thead-th
-                            span.th-content [[currentClassificationsData.totalBookValue]]
+                            span.th-content [[classification.totalBookValue]]
                         th.data-thead-th
-                            span.th-content [[currentClassificationsData.averageMarketPrice]]
+                            span.th-content [[classification.averageMarketPrice]]
                         th.data-thead-th
-                            span.th-content [[currentClassificationsData.totalMarketValue]]
+                            span.th-content [[classification.totalMarketValue]]
                         th.data-thead-th.row-pre-end
-                            span.th-content [[currentClassificationsData.totalPercentageMV]]
+                            span.th-content [[classification.totalPercentageMV]]
                         th.data-thead-th.row-end
-                            span.th-content [[currentClassificationsData.totalExposureValue]]
+                            span.th-content [[classification.totalExposureValue]]
                 tbody(class$="data-tbody [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
                     tr.empty-space-row
                         td.empty-space(colspan="8")
@@ -96,7 +98,7 @@ dom-module#holdings-table
                             tr.mobile-data-row-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
                                 td
                                     span.td-content [[item.name]]
-                            tr.data-tbody-tr.mobile-data-td
+                            tr.data-tbody-tr.mobile-data-td.category-item-row
                                 td.data-tbody-td.row-start(hidden="[[tabWidthScreen]]")
                                     span.td-content [[item.name]]
                                 td.data-tbody-td

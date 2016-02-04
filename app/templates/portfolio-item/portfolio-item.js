@@ -73,6 +73,7 @@
 
                     app.holdings = holdings;
                     holdingsTable.holdings = holdings;
+                    holdingsTable.classification = app.currentClassificationsData;
                     app.loader = false;
                 }
             }, 500);
