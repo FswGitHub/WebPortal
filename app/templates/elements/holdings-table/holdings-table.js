@@ -18,9 +18,20 @@ Polymer({
         filter: {
             type: String,
             value: 'name'
+        },
+        reverse: {
+            type: Boolean,
+            value: false
+        },
+        categoryFilter: {
+            type: String,
+            computed: 'getCategoryFilter(filter)'
+        },
+        searchString: {
+            type: String
         }
     },
-    observers: [
+    observers: [ //listeners
         '_holdingsChanged(holdings)',
         '_tableSizeChanged(tableSize)',
         '_pageChanged(pageSelected)'
@@ -33,9 +44,6 @@ Polymer({
             return classString;
         }
     },
-    //openTableRow: function(){
-    //
-    //},
     toggleClass: function(variable, class1, class2){
         return variable ? class1 : class2;
     },
@@ -47,24 +55,31 @@ Polymer({
                 this.setPages();
             }
         }
+        this.setUpHeaderDefault();
     },
     _tableSizeChanged: function(){
         this.setPages();
     },
-    setPages: function(){
+    setPages: function(page){
         var self = this;
-        setTimeout(function(){
-            var rows = self.getElementsByClassName('category-item-row');
-            var pages = Math.ceil(rows.length/self.tableSize);
+        if(this.holdings.length){
+            setTimeout(function(){
+                var rows = self.getElementsByClassName('category-item-row');
+                var pages = Math.ceil(rows.length/self.tableSize);
 
-            self.pages = new Array(pages);
+                self.pages = new Array(pages);
 
-            if(self.pageSelected  == 0){
-                self.showPage(self.pageSelected);
-            } else {
-                self.pageSelected = 0;
-            }
-        })
+                if(!page){
+                    if(self.pageSelected == 0){
+                        self.showPage(self.pageSelected);
+                    } else {
+                        self.pageSelected = 0;
+                    }
+                } else {
+                    self.showPage(page);
+                }
+            })
+        }
     },
     getPageNumber: function(index){
         return index+1;
@@ -115,5 +130,140 @@ Polymer({
     },
     _pageChanged: function(){
         this.showPage(this.pageSelected);
+    },
+    limitValue: function(value){
+        // Limit value to 2 symbols after point and add commas
+        if(!value){
+            return null;
+        } else {
+            var rounded = Math.round(value * 100) / 100;
+            var fixed = rounded.toFixed(2);
+            var stringValue = fixed.toString();
+            return stringValue.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
+        }
+    },
+    filterHoldings: function(e){
+        var self = this;
+        var element = e.currentTarget;
+        var value = element.getAttribute('data-filter');
+        var icon = element.querySelectorAll('iron-icon')[0];
+        var activeElement = this.querySelectorAll('.data-thead-th.active')[0];
+        var reverse = icon.classList.contains('arrow-up');
+
+        if(!element.classList.contains('active')){
+            element.classList.add('active');
+            activeElement.classList.remove('active');
+        }
+
+        if(reverse){
+            icon.classList.remove('arrow-up');
+            icon.classList.add('arrow-down');
+        } else {
+            icon.classList.remove('arrow-down');
+            icon.classList.add('arrow-up');
+        }
+
+        self.filter = value;
+        self.reverse = reverse;
+    },
+    filterBy: function(items, filed, reverse){
+        var filtered = [];
+        var selected = this.pageSelected;
+        if(!items) {
+            return null;
+        } else {
+            for(var i=0; i < items.length; i++){
+                filtered.push(items[i]);
+            }
+            filtered.sort(function (a, b) {
+                if (a[filed] > b[filed]) {
+                    return 1;
+                }
+                if (a[filed] < b[filed]) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
+        this.setPages(selected);
+        return reverse ? filtered.reverse() : filtered;
+    },
+    filterByName: function(string) {
+        if (!string) {
+            // set filter to null to disable filtering
+            this.setPages();
+            return null;
+        } else {
+            // return a filter function for the current search string
+            string = string.toLowerCase();
+            this.setPages();
+            return function(item) {
+                var name = item.name.toLowerCase();
+                return (name.indexOf(string) != -1);
+            };
+        }
+    },
+    getCategoryFilter: function(field){
+        if(field){
+            switch (field) {
+                case 'name':
+                    return 'category';
+                    break;
+                case 'bookValue':
+                    return 'totalBookValue';
+                    break;
+                case 'marketValue':
+                    return 'totalMarketValue';
+                    break;
+                case 'percentageMV':
+                    return 'totalPercentageMV';
+                    break;
+                case 'exposureValue':
+                    return 'totalExposureValue';
+                    break;
+            }
+        } else {
+            return null;
+        }
+
+    },
+    setUpHeaderDefault: function(){
+        var activeElement = this.querySelectorAll('.data-thead-th.active')[0];
+        var firstColl = this.querySelectorAll('.data-thead-th.row-start')[0];
+        var icon = firstColl.querySelectorAll('iron-icon')[0];
+
+        if(!activeElement.classList.contains('row-start')){
+            activeElement.classList.remove('active');
+            firstColl.classList.add('active');
+        }
+
+        icon.classList.remove('arrow-down');
+        icon.classList.add('arrow-up');
+    },
+    hideCategoryRow: function(query, search){
+        return query || search;
+    },
+    hideMobileCategoryRow: function(query, search){
+        return !query || search;
+    },
+    collapseCategory: function(e){
+        var row = e.currentTarget;
+        var rows = [];
+        var nextCategory = false;
+        var stepRow = row.nextSibling;
+
+        do {
+            if(stepRow.classList.contains('category-item-row')){
+                rows.push(stepRow);
+            }
+            if(stepRow.classList.contains('category-row')){
+                nextCategory = true;
+                break;
+            }
+            stepRow = stepRow.nextSibling;
+            nextCategory = false;
+        } while (!nextCategory);
+
+        console.log(rows);
     }
 });

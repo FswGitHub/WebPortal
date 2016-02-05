@@ -2,7 +2,7 @@ div(hidden="{{holdings}}", class$="layout horizontal center-center no-holdings {
     .layout.horizontal.start.center
         span.no-data No holdings here
 #p-holdings-page.p-holdings-page-wrapper(hidden="[[!holdings]]")
-    holdings-table
+    holdings-table(search-string="{{searchRequest}}")
 .loading-screen.fit.layout.horizontal.center-center(hidden="{{!loader}}")
     .pre-loader.layout.horizontal.start.center
         span Loading
