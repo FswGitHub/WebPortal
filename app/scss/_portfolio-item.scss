@@ -184,21 +184,25 @@
 
 .arrow-up {
     transform: rotate(0deg);
-    transition: transform 250ms;
+    transition: transform 150ms;
 }
 
 .arrow-down {
     transform: rotate(180deg);
-    transition: transform 250ms;
+    transition: transform 150ms;
 }
 
 .arrow-right {
-    transform: rotate(90deg);
-    transition-duration: 250ms;
+    transform: rotate(-90deg);
+    transition-duration: 150ms;
 }
 
 .reverse {
     margin-right: 5px;
+}
+
+.collapsed-row {
+    display: none;
 }
 
 @media screen and (max-width: $size-small){

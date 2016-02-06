@@ -75,9 +75,9 @@ dom-module#holdings-table
                             span.th-content Exposure value (R)
                                 iron-icon.toggle-arrow(icon="arrow-drop-up")
                     tr.data-thead-tr.totals
-                        th.data-thead-th.row-start(colspan="3")
+                        th.data-thead-th.row-start(colspan="3", on-tap="collapseAll")
                             span.th-content
-                                iron-icon.white-icon(icon="arrow-drop-up")
+                                iron-icon.white-icon.arrow-down(icon="arrow-drop-up")
                                 | Total
                         th.data-thead-th.book-value
                             span.th-content [[limitValue(classification.totalBookValue)]]
@@ -99,7 +99,7 @@ dom-module#holdings-table
                         tr.data-tbody-tr.category-row(hidden="[[hideCategoryRow(tabWidthScreen, searchString)]]", on-tap="collapseCategory")
                             td.data-tbody-td.row-start(colspan="3")
                                 span.td-content
-                                    iron-icon.white-icon(icon="arrow-drop-up")
+                                    iron-icon.white-icon(icon="arrow-drop-down")
                                     | [[holding.category]]
                             td.data-tbody-td(colspan="2")
                                 span.td-content [[limitValue(holding.totalBookValue)]]

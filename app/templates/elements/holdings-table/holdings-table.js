@@ -248,22 +248,65 @@ Polymer({
     },
     collapseCategory: function(e){
         var row = e.currentTarget;
-        var rows = [];
         var nextCategory = false;
         var stepRow = row.nextSibling;
+        var collapsed = row.classList.contains('collapsed');
+        var icon = row.getElementsByTagName('iron-icon')[0];
+
+        if(collapsed){
+            icon.classList.remove('arrow-right');
+            icon.classList.add('arrow-up');
+        } else {
+            icon.classList.remove('arrow-up');
+            icon.classList.add('arrow-right');
+        }
 
         do {
-            if(stepRow.classList.contains('category-item-row')){
-                rows.push(stepRow);
+            if(stepRow && stepRow.classList.contains('category-item-row')){
+                if(collapsed){
+                    stepRow.classList.remove('collapsed-row');
+                } else {
+                    stepRow.classList.add('collapsed-row');
+                }
             }
-            if(stepRow.classList.contains('category-row')){
+            if(!stepRow || stepRow.classList.contains('category-row')){
+                if(collapsed){
+                    row.classList.remove('collapsed');
+                } else {
+                    row.classList.add('collapsed');
+                }
                 nextCategory = true;
                 break;
             }
+
             stepRow = stepRow.nextSibling;
             nextCategory = false;
         } while (!nextCategory);
+    },
+    collapseAll: function(e){
+        var trigger = e.currentTarget;
+        var icon = trigger.getElementsByTagName('iron-icon')[0];
+        var allClosed = trigger.classList.contains('all-closed');
+        var rows = this.querySelectorAll('.data-tbody-tr');
 
-        console.log(rows);
+        if(allClosed){
+            icon.classList.remove('arrow-up');
+            icon.classList.add('arrow-down');
+            trigger.classList.remove('all-closed');
+        } else {
+            icon.classList.remove('arrow-down');
+            icon.classList.add('arrow-up');
+            trigger.classList.add('all-closed');
+        }
+
+        for(var i=0; i < rows.length; i++){
+            var type = rows[i].classList;
+            if(type.contains('category-row')){
+                allClosed ? type.add('collapsed') :  type.remove('collapsed');
+            }
+            if(type.contains('category-item-row')){
+                allClosed ? type.add('collapsed-row') : type.remove('collapsed-row') ;
+            }
+        }
     }
 });
