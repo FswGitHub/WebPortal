@@ -23,7 +23,7 @@ dom-module#holdings-table
                 paper-menu-button.dropdown-menu.data-table-size(open-animation-config='[[openAnimationConfig]]', vertical-offset="4", horizontal-offset="2")
                     paper-button.size-btn.dropdown-trigger
                         span.size-label [[filter]]
-                        iron-icon(icon="arrow-drop-up")
+                        iron-icon(icon="arrow-drop-down")
                     paper-menu.dropdown-content(selected="{{filter}}" attr-for-selected="data-filter")
                         paper-item(data-filter="name") Name
                         paper-item(data-filter="nominal") Nominal
@@ -93,9 +93,11 @@ dom-module#holdings-table
                     tr.empty-space-row
                         td.empty-space(colspan="8")
                     template(is="dom-repeat", items="{{filterBy(holdings, categoryFilter, reverse)]]", as="holding")
-                        tr.mobile-data-thead(hidden="[[hideMobileCategoryRow(tabWidthScreen, searchString)]]", data-index="[[index]]")
+                        tr.mobile-data-thead(hidden="[[hideMobileCategoryRow(tabWidthScreen, searchString)]]", data-index="[[index]]", on-tap="collapseCategory")
                             td
-                                span.td-content [[holding.category]]
+                                span.td-content
+                                    iron-icon.white-icon(icon="arrow-drop-down")
+                                    | [[holding.category]]
                         tr.data-tbody-tr.category-row(hidden="[[hideCategoryRow(tabWidthScreen, searchString)]]", on-tap="collapseCategory")
                             td.data-tbody-td.row-start(colspan="3")
                                 span.td-content

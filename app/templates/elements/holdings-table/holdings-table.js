@@ -98,34 +98,49 @@ Polymer({
     },
     showPage: function(page){
         var self = this;
-        var rowName = self.tabWidthScreen ? 'mobile-data-row-thead' : 'category-item-row';
-        var categoryRow = self.tabWidthScreen ?  'mobile-data-thead' : 'category-row';
+
         setTimeout(function(){
-            var rows = self.getElementsByClassName(rowName);
+            var rows = self.getElementsByClassName('category-item-row');
             var startIndex = parseInt(self.tableSize) * parseInt(page);
             var finishIndex = startIndex + parseInt(self.tableSize) - 1;
 
             for(var i=0; i < rows.length; i++){
                 var isCategory = rows[i].previousSibling.previousSibling;
+                var mobileHeader = rows[i].previousSibling;
+                //var isMobileRow = rows[i].nextSibling;
+                var sameMobileCategory = isCategory.previousSibling;
+
                 if(i < startIndex || i > finishIndex){
                     rows[i].classList.add('hidden-row');
-                    if(isCategory.classList.contains(categoryRow)){
+                    if(mobileHeader.classList.contains('mobile-data-row-thead')){
+                        mobileHeader.classList.add('hidden-row');
+                    }
+                    if(isCategory.classList.contains('category-row')){
                         isCategory.classList.add('hidden-row');
+                        sameMobileCategory.classList.add('hidden-row');
+                    }
+                    if(!rows[i].classList.contains('mobile-data-td')){
+                        rows[i].classList.add('mobile-data-td');
                     }
                 } else {
                     if(rows[i].classList.contains('hidden-row')){
                         rows[i].classList.remove('hidden-row');
-                        if(isCategory.classList.contains(categoryRow)){
+                        if(mobileHeader.classList.contains('mobile-data-row-thead')){
+                            mobileHeader.classList.remove('hidden-row');
+                        }
+                        if(isCategory.classList.contains('category-row')){
                             if(isCategory.classList.contains('hidden-row')){
                                 isCategory.classList.remove('hidden-row');
+                                sameMobileCategory.classList.remove('hidden-row');
                             }
                         }
                     }
+                }
 
+                if(i == startIndex){
+                    rows[i].classList.remove('mobile-data-td');
                 }
             }
-
-            //console.log(startIndex + '-' +finishIndex);
         })
     },
     _pageChanged: function(){
@@ -225,7 +240,6 @@ Polymer({
         } else {
             return null;
         }
-
     },
     setUpHeaderDefault: function(){
         var activeElement = this.querySelectorAll('.data-thead-th.active')[0];
@@ -252,28 +266,37 @@ Polymer({
         var stepRow = row.nextSibling;
         var collapsed = row.classList.contains('collapsed');
         var icon = row.getElementsByTagName('iron-icon')[0];
+        var mobile = this.tabWidthScreen;
+        var sameCategory = mobile ? row.nextSibling : row.previousSibling ;
+        var sameIcon = sameCategory.getElementsByTagName('iron-icon')[0];
 
         if(collapsed){
             icon.classList.remove('arrow-right');
+            sameIcon.classList.remove('arrow-right');
             icon.classList.add('arrow-up');
+            sameIcon.classList.add('arrow-up');
         } else {
             icon.classList.remove('arrow-up');
+            sameIcon.classList.remove('arrow-up');
             icon.classList.add('arrow-right');
+            sameIcon.classList.add('arrow-right');
         }
 
         do {
-            if(stepRow && stepRow.classList.contains('category-item-row')){
+            if(stepRow && stepRow.classList.contains('category-item-row') || stepRow.classList.contains('mobile-data-row-thead')){
                 if(collapsed){
                     stepRow.classList.remove('collapsed-row');
                 } else {
                     stepRow.classList.add('collapsed-row');
                 }
             }
-            if(!stepRow || stepRow.classList.contains('category-row')){
+            if(!stepRow || mobile ? stepRow.classList.contains('mobile-data-thead') : stepRow.classList.contains('category-row') ){
                 if(collapsed){
                     row.classList.remove('collapsed');
+                    sameCategory.classList.remove('collapsed');
                 } else {
                     row.classList.add('collapsed');
+                    sameCategory.classList.add('collapsed');
                 }
                 nextCategory = true;
                 break;
@@ -287,7 +310,8 @@ Polymer({
         var trigger = e.currentTarget;
         var icon = trigger.getElementsByTagName('iron-icon')[0];
         var allClosed = trigger.classList.contains('all-closed');
-        var rows = this.querySelectorAll('.data-tbody-tr');
+        var tableBody = this.getElementsByTagName('tbody')[0];
+        var rows = tableBody.querySelectorAll('tr');
 
         if(allClosed){
             icon.classList.remove('arrow-up');
@@ -301,11 +325,21 @@ Polymer({
 
         for(var i=0; i < rows.length; i++){
             var type = rows[i].classList;
-            if(type.contains('category-row')){
-                allClosed ? type.add('collapsed') :  type.remove('collapsed');
+            if(type.contains('category-row') || type.contains('mobile-data-thead')){
+                var categoryIcon = rows[i].getElementsByTagName('iron-icon')[0];
+
+                if(allClosed){
+                    categoryIcon.classList.remove('arrow-right');
+                    categoryIcon.classList.add('arrow-up');
+                } else {
+                    categoryIcon.classList.remove('arrow-up');
+                    categoryIcon.classList.add('arrow-right');
+                }
+
+                allClosed ? type.remove('collapsed') : type.add('collapsed');
             }
-            if(type.contains('category-item-row')){
-                allClosed ? type.add('collapsed-row') : type.remove('collapsed-row') ;
+            if(type.contains('category-item-row') || type.contains('mobile-data-row-thead')){
+                allClosed ? type.remove('collapsed-row') : type.add('collapsed-row');
             }
         }
     }
