@@ -30,6 +30,9 @@
 .color-selector {
     paper-input-container.paper-color-input {
         min-width: 150px;
+        .floated-label-placeholder.paper-input-container {
+            display: none;
+        }
     }
 
     .paper-input-container-2 .input-content.paper-input-container .paper-input-input {
@@ -41,9 +44,7 @@
         max-width: none;
         min-width: initial;
     }
-    .floated-label-placeholder.paper-input-container {
-        display: none;
-    }
+
 }
 
 .paper-progress-0 #primaryProgress.paper-progress {

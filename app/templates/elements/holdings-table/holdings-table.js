@@ -29,13 +29,21 @@ Polymer({
         },
         searchString: {
             type: String
+        },
+        activeColor: {
+            type: String
         }
     },
     observers: [ //listeners
         '_holdingsChanged(holdings)',
         '_tableSizeChanged(tableSize)',
-        '_pageChanged(pageSelected)'
+        '_pageChanged(pageSelected)',
+        '_colorChanged(activeColor)'
     ],
+    _colorChanged: function(newVal){
+        this.customStyle['--main-color'] = newVal;
+        Polymer.updateStyles();
+    },
     ready: function () {
         this.openTableRow = app.openTableRow;
     },

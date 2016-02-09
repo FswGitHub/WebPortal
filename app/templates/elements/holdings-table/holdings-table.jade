@@ -1,8 +1,8 @@
 dom-module#holdings-table
     template
-        style.
-            :host .page-button.iron-selected {
-                    background-color: var(--main-color);
+        style(is="custom-style").
+            .page-button.iron-selected {
+                background-color: var(--main-color);
             }
         div(class$="layout [[toggleClass(tabWidthScreen, 'vertical', 'horizontal start center')]]")
             .pagination-wrapper.layout.horizontal.start.center

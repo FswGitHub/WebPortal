@@ -4,55 +4,91 @@ style(is="custom-style").
         */
         --main-color: #DD1F29;
         --red-color: #DD1F29;
+        --white-color: #ffffff;
         --paper-yellow-a100: #ffffff;
         --paper-fab-background: #D8D8D8;
         --paper-fab-keyboard-focus-background: #D8D8D8;
         --inputs-text-color: #8e8e9a;
         --black-color: #000000;
-        --default-primary-color: var(--main-color);
+        --grey-color: #979797;
         --paper-button-raised-keyboard-focus: {  font-weight: normal};
         --paper-button-flat-keyboard-focus: {  font-weight: normal};
+
     }
 
-        /*login styles*/
-    paper-input.login-field {
-        --default-primary-color: var(--red-color);
+    /*---------------------------login styles------------------------------------*/
+
+    .login-page paper-input {
+        --paper-input-container-focus-color: var(--red-color);
         --primary-text-color: var(--black-color);
         --secondary-text-color: var(--black-color);
         --paper-input-container-label: {
             font-size: 20px;
+            color: var(--black-color);
         };
         --paper-input-container-input: {
             font-size: 20px;
-        }
+            color: var(--black-color);
+        };
     }
 
     paper-dialog {
         --paper-dialog-button-color: var(--red-color);
     }
 
-    .remember-me-wrapper paper-checkbox {
-        --default-primary-color: var(--red-color);
+    .login-page paper-checkbox {
+        --paper-checkbox-checked-color: var(--red-color);
+        --paper-checkbox-unchecked-color: var(--black-color);
+        --paper-checkbox-unchecked-ink-color: var(--black-color);
+        --paper-checkbox-label-color: var(--black-color);
     }
-        /*main styles*/
+
+    /*----------------------------main styles------------------------------------*/
 
     .main-menu-item:focus, .selectable-content.paper-menu > .main-menu-item.iron-selected {
         border-left-color: var(--main-color);
     }
 
+    /*-------checkbox color-------*/
+    .main-content paper-checkbox {
+        --paper-checkbox-checked-color: var(--main-color);
+        --paper-checkbox-unchecked-color: var(--inputs-text-color);
+        --paper-checkbox-unchecked-ink-color: var(--inputs-text-color);
+        --paper-checkbox-label-color: var(--inputs-text-color);
+    }
+    /*-------radio button color----*/
+    .main-content paper-radio-button {
+        --paper-radio-button-checked-color: var(--main-color);
+        --paper-radio-button-checked-ink-color: var(--main-color);
+        --paper-radio-button-unchecked-color: var(--inputs-text-color);
+        --paper-radio-button-label-color: var(--inputs-text-color);
+        --paper-radio-button-unchecked-ink-color: var(--inputs-text-color);
+    }
+
+    /*-------toolbar color---------*/
     paper-toolbar {
-        --paper-toolbar-background: var(--main-color);
+        background-color: var(--main-color);
+    }
+
+    paper-toolbar.menu-toolbar.dark {
+        background-color: var(--grey-color);
+    }
+
+    paper-toolbar.menu-toolbar.light {
+        background-color: var(--white-color);
     }
 
     paper-toolbar.portfolio-item-toolbar {
-        --paper-toolbar-background: var(--inputs-text-color);
+        --paper-toolbar-background: var(--grey-color);
     }
 
     paper-button.upload-logo-btn {
         color: var(--main-color);
+        font-weight: normal
     }
 
-    .page-wrapper paper-input {
+    .main-content paper-input {
+        --paper-input-container-focus-color: var(--main-color);
         --paper-input-container-label: {
             font-size: 18px;
             color: var(--inputs-text-color);
@@ -64,27 +100,17 @@ style(is="custom-style").
         };
     }
 
-    .page-wrapper paper-input.color-selector {
-        --paper-input-container-input: {
-            font-size: 18px;
-            color: var(--main-color);
-        };
-    }
-
-    .page-wrapper paper-radio-button {
-        --paper-radio-button-unchecked-color: var(--inputs-text-color);
-        --paper-radio-button-label-color: var(--inputs-text-color);
-        --paper-radio-button-unchecked-ink-color: var(--inputs-text-color);
-    }
-
-    .page-wrapper paper-checkbox {
-        --paper-checkbox-unchecked-color: var(--inputs-text-color);
-        --paper-checkbox-unchecked-ink-color: var(--inputs-text-color);
-        --paper-checkbox-label-color: var(--inputs-text-color);
-    }
-
-    .calendar-actions paper-button {
+    paper-color-input {
+        --default-primary-color: var(--main-color);
         --paper-button: {
             color: var(--main-color);
         }
+    }
+
+    paper-date-picker {
+        --default-primary-color: var(--main-color);
+    }
+
+    .calendar-actions paper-button {
+        color: var(--main-color);
     }

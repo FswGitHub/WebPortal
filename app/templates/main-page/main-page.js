@@ -84,6 +84,7 @@
         showConfirm('Confirm','Are you sure you want to log out?', function(){
             app.sessionId = null;
             app.holdings = null;
+            app.loader = false;
             localStorage.clear();
             page('/login');
         });

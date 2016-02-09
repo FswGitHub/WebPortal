@@ -29,20 +29,24 @@
         mainColor: {
             type: Object,
             value: {red: undefined, green: undefined, blue: undefined, alpha: undefined}
+        },
+        appColor: {
+            type: String,
+            value: '#DD1F29'
         }
     };
 
     app.observers = [
         '_routeNameChanged(route)',
         '_mainColorChanged(mainColor.*)',
-        '_classificationChanged(selectedClassification.*)'
+        '_classificationChanged(selectedClassification.*)',
+        '_appColorChanged(appColor)'
     ];
 
     app.baseUrl = '/';
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
     app.mainColor = {red: 221, green: 31, blue: 41};
-    app.mainThemeColor = 'orange';
 
     app.addClass = function(variable, classString){
         if(variable){
@@ -55,9 +59,20 @@
     };
 
     app._routeNameChanged = function(route){
+        app.showEdit = false;
+
         switch (route.name) {
             case 'dashboard':
                 app.addDashboardChartsList();
+                //setTimeout(function(){
+                //    app.appColor  = '#CE1884';
+                //}, 5000);
+                //setTimeout(function(){
+                //    app.appColor  = '#56CE18';
+                //}, 10000);
+                //setTimeout(function(){
+                //    app.appColor  = '#EBAA2D';
+                //}, 15000);
                 break;
             case 'login':
                 app.removeAllCharts();
@@ -76,6 +91,19 @@
             }
         }
         app.cleanSearch();
+    };
+
+    app._appColorChanged = function(newVal){
+        //This function update all custom styles for every element which need to be main color
+        var colorsStyle = document.querySelectorAll('style[is="custom-style"]')[0];
+        colorsStyle.customStyle['--main-color'] = newVal;
+        Polymer.updateStyles();
+
+        updateColors('paper-checkbox', ['--paper-checkbox-checked-color', '--paper-checkbox-checked-ink-color'], [newVal, newVal]);
+        updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal, newVal]);
+        updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
+        updateColors('paper-date-picker', ['--default-primary-color'], [newVal]);
+        updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
     };
 
     //Session timeout(5 minutes))
@@ -99,8 +127,6 @@
     window.onload = function() {
         //open first tables rows for mobile and tab screens
         openFirstRows();
-        app.currentWidth = document.body.offsetWidth;
-        app.currentHeight = document.body.offsetHeight;
     };
 
     window.addEventListener('resize', function(){
@@ -136,7 +162,9 @@
     };
 
     //app.addEventListener('dom-change', function() {});
-    //window.addEventListener('WebComponentsReady', function (e) {});
+    window.addEventListener('WebComponentsReady', function (e) {
+
+    });
 })();
 
 function sendRequest(url, method, body, callback){
@@ -246,3 +274,23 @@ function openFirstRows(){
 String.prototype.capitalize = function() {
     return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
 };
+
+function updateColors(selector, properties, values){
+    var main = document.getElementById('paperDrawerPanel');
+    var elements = main.querySelectorAll(selector);
+    console.log(elements);
+    for(var i=0; i < elements.length; i++){
+        var currentElement = elements[i];
+        for(var j = 0; j < properties.length; j++){
+            if(!currentElement.customStyle){
+                var colorsStyle = document.createElement('style', 'custom-style');
+                currentElement.appendChild(colorsStyle);
+                currentElement.customStyle[properties[j]] = values[j];
+                currentElement.updateStyles();
+            } else {
+                currentElement.customStyle[properties[j]] = values[j];
+                currentElement.updateStyles();
+            }
+        }
+    }
+}

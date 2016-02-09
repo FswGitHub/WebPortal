@@ -8,5 +8,16 @@
 
     app.toggleProfileChanging = function(){
         return app.showEdit = !app.showEdit;
-    }
+    };
+
+    window.addEventListener('WebComponentsReady', function () {
+        //Upload new user profile image
+        //
+        //var uploader  = document.querySelector('#uploader');
+        //
+        //uploader.addEventListener('change', function(e){
+        //
+        //}, false);
+    });
+
 })();

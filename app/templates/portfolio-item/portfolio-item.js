@@ -61,7 +61,7 @@
     };
 
     app._classificationChanged = function(){
-        if(app.sessionId){
+        if(app.route && app.route.name.indexOf('portfolio-item') > -1 && app.sessionId){
             app.loader = true;
             var holdings = app.getHoldings(app.route, app.portfolioItems, app.selectedClassification);
 

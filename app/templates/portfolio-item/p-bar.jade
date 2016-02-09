@@ -5,7 +5,7 @@ div.portfolio-item-toolbar.bottom.title-aligned.layout.horizontal.start.center
         iron-icon(icon="arrow-drop-down", hidden="[[mobileWidthScreen]]")
     iron-dropdown#calendar(horizontal-align="left" vertical-align="top", open-animation-config="[[openAnimationConfig]]", close-animation-config="[[closeAnimationConf]]" vertical-offset="16", )
         .dropdown-content.calendar
-            paper-date-picker(unresolved, date="{{chosenDate}}")
+            paper-date-picker(date="{{chosenDate}}")
             .calendar-actions.layout.horizontal-reverse
                 paper-button(on-tap="toggleCalendar") Ok
                 paper-button(on-tap="toggleCalendar") Cancel

@@ -2,7 +2,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
     // Drawer Scroll Header Panel
     paper-header-panel(drawer='', mode="seamed")
         // Drawer Toolbar
-        paper-toolbar#drawerToolbar(class$="menu-toolbar x-scope paper-toolbar-0 {{theme}}")
+        paper-toolbar#drawerToolbar.logo-toolbar(class$="menu-toolbar x-scope paper-toolbar-0 {{theme}}")
             img.main-logo(src="{{logo}}")
         // Drawer Content
         paper-menu#drawerMenu.main-menu(attr-for-selected="data-route", selected="[[route.name]]")
