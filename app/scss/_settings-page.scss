@@ -33,6 +33,77 @@
     }
 }
 
+.import-dialog-content {
+
+}
+
+.dialog-label {
+    font-size: $font-size-16;
+    color: $color-grey-medium-dark;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.or-label {
+    text-align: center;
+}
+
+.chose-file-place {
+    position: relative;
+    border: 1px solid $color-grey-medium-dark;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.file-label {
+    border: 0;
+    outline: 0;
+}
+
+.chose-file-btn {
+    outline: 0;
+    background-color: $color-grey-medium-light;
+    border-width: 1px;
+    height: 30px;
+    width: 150px;
+    font-size: $font-size-14;
+    color: $color-grey-dark;
+    position: relative;
+    &::before{
+        content: ' ';
+        display: inline-block;
+        width: 1px;
+        height: 32px;
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        background-color: $color-grey-medium-dark;
+    }
+}
+
+.drag-and-drop-place {
+    position: relative;
+    height: 80px;
+    border-radius: 5px;
+    border: 1px solid $color-grey-medium-dark;
+}
+
+.drag-and-drop-label {
+    color: $color-grey-medium-light;
+    font-size: $font-size-14;
+}
+
+.file-place {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+}
+
 //--------------paper-color-input styles-------------
 
 .color-selector {
