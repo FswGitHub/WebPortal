@@ -24,6 +24,14 @@
     padding-left: 8px;
 }
 
+.download-link-item {
+    pointer-events: none;
+    .download-link {
+        pointer-events: auto;
+        text-decoration: none;
+        color: $color-black;
+    }
+}
 
 //--------------paper-color-input styles-------------
 

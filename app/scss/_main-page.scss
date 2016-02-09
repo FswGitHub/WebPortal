@@ -47,8 +47,7 @@
 paper-tabs.main-tabs {
     text-transform: uppercase;
     user-select: none;
-    max-width: 400px;
-    min-width: 275px;
+    width: 400px;
 }
 
 paper-tab {
@@ -112,6 +111,10 @@ paper-tab {
 }
 
 @media screen and (max-width: $size-small) {
+    paper-tabs.main-tabs {
+        width: 275px;
+    }
+
     paper-tab {
         min-width: 50px;
         max-width: 60px;

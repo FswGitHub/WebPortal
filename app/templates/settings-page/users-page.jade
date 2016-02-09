@@ -3,15 +3,16 @@
         paper-menu-button#chartsMenu.dropdown-menu.charts-options(horizontal-align="right", horizontal-offset="36", open-animation-config='[[openAnimationConfig]]', vertical-offset$="[[addClass(tabWidthScreen, '-70')]]")
             paper-fab.grey-button.dropdown-trigger(icon="add", unresolved)
             paper-menu.dropdown-content
-                paper-item(on-tap="")
+                paper-item(on-tap="openImportDialog")
                     iron-icon.options-icon(icon="social:group-add")
                     | Bulk User Import
-                paper-item(on-tap="")
+                paper-item(on-tap="openAddUserDialog")
                     iron-icon.options-icon(icon="social:person-add")
                     | Add User
-                paper-item(on-tap="")
-                    iron-icon.options-icon(icon="file-download")
-                    | Bulk User Template
+                paper-item.download-link-item
+                    a.download-link(download, href="assets/files/users.xlsx")
+                        iron-icon.options-icon(icon="file-download")
+                        | Bulk User Template
     .data-table-wrapper(hidden="[[!users]]")
         table.data-table.secondary-table
             thead.data-thead(hidden="[[tabWidthScreen]]")
@@ -47,3 +48,25 @@
                             div.td-content.actions
                                 paper-icon-button(icon="visibility", hidden="[[!item.viewProfile]]", on-tap="")
                                 paper-icon-button(icon="refresh", hidden="[[!item.resendConfirmation]]", on-tap="")
+    paper-dialog#importDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop)
+        h2 Import
+        .dialog-content
+            span Upload a file
+            button Choose a file
+                input(type="file", value="")
+            span Or
+            .drag-and-drop-place
+                span Drag and drop file here
+                input(type="file", value="")
+        .dialog-actions.buttons
+            paper-button(dialog-dismiss) Cancel
+            paper-button(dialog-confirm) Upload
+    paper-dialog#addUserDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-closed="cleanDialog")
+        h2 Add user
+        .dialog-content.add-user-form
+            paper-input#newEmail(label="Email", type="email", error-message="Please enter user Email", required)
+            paper-input#newFirstName(label="First Name", type="text", error-message="Please enter user First Name", required)
+            paper-input#newLastName(label="Last Name", type="text", error-message="Please enter user Last Name", required)
+        .dialog-actions.buttons
+            paper-button(dialog-dismiss) Cancel
+            paper-button(on-tap="addConfirmed") Add
