@@ -88,6 +88,7 @@
             app.loader = false;
             app.rememberMe = false;
             localStorage.clear();
+            cleanCharts();
             page('/login');
         });
     };

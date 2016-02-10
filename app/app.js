@@ -149,10 +149,8 @@
                 var section = sections[i];
                 if(section.classList.contains('iron-selected')){
                     if(app.route.name.indexOf('dashboard') > -1 || (app.route.name.indexOf('portfolio-item') > -1 && app.route.params.tab == 'dashboard')) {
-                        var charts = section.querySelectorAll('chart-item');
-                        for(var j=0; j < charts.length; j++){
-                            charts[j].setChart();
-                        }
+                        var chartsList = section.querySelectorAll('charts-list')[0];
+                        chartsList.buildCharts();
                     }
                     if(app.route.name.indexOf('portfolio-item') > -1 && app.route.params.tab == 'holdings'){
                         clearCharts(section);
@@ -300,7 +298,7 @@ String.prototype.capitalize = function() {
 
 function updateColors(selector, properties, values){
     setTimeout(function(){
-        var main = document.getElementById('paperDrawerPanel');
+        var main = document.querySelector('#paperDrawerPanel');
         var elements = main.querySelectorAll(selector);
 
         for(var i=0; i < elements.length; i++){
