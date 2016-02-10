@@ -143,13 +143,28 @@
         }
 
         resizeTimer = setTimeout(function() {
-            var currentSection = document.querySelectorAll('section[data-route].iron-selected')[0];
+            var sections = document.querySelectorAll('section[data-route]');
 
-            if(currentSection &&  ((app.route.name == 'dashboard') || (app.route.params && app.route.params.tab == 'dashboard'))){
-                var charts = currentSection.getElementsByTagName('chart-item');
-                for(var i=0; i<charts.length; i++){
-                    charts[i].setChart();
+            for(var i=0; i < sections.length; i++){
+                var section = sections[i];
+                if(section.classList.contains('iron-selected')){
+                    if(app.route.name.indexOf('dashboard') > -1 || (app.route.name.indexOf('portfolio-item') > -1 && app.route.params.tab == 'dashboard')) {
+                        var charts = section.querySelectorAll('chart-item');
+                        for(var j=0; j < charts.length; j++){
+                            charts[j].setChart();
+                        }
+                    }
+                    if(app.route.name.indexOf('portfolio-item') > -1 && app.route.params.tab == 'holdings'){
+                        clearCharts(section);
+                    }
+                } else {
+                    clearCharts(section);
                 }
+            }
+
+            function clearCharts(section){
+                var chartsList = section.querySelectorAll('charts-list')[0];
+                chartsList ? chartsList.charts = [] : null;
             }
         }, 250);
     });
