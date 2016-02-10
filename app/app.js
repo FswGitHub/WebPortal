@@ -28,13 +28,28 @@
         },
         mainColor: {
             type: Object,
-            value: {red: undefined, green: undefined, blue: undefined, alpha: undefined}
+            value: {
+                red: {
+                    type: Number,
+                    value: 221
+                },
+                green: {
+                    type: Number,
+                    value: 31
+                },
+                blue: {
+                    type: Number,
+                    value: 41
+                }
+            }
         },
         appColor: {
             type: String
             //value: '#DD1F29'
         }
     };
+
+
 
     app.observers = [
         '_routeNameChanged(route)',
@@ -47,7 +62,7 @@
     app.baseUrl = '/';
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
-    app.mainColor = {red: 221, green: 31, blue: 41};
+    //app.mainColor = {red: 221, green: 31, blue: 41};
     app.rememberMe = localStorage.getItem(app.apiUrl + 'remember_me');
 
     app.addClass = function(variable, classString){
@@ -84,6 +99,9 @@
                 app.portfolioTab = null;
                 app.settingsTab = null;
                 break;
+            case 'settings':
+                app.setColorPicker();
+                //.color-selector(shape="circle", type="hsl", value="{{mainColor}}")'
         }
 
         if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
@@ -110,7 +128,7 @@
             updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal, newVal]);
             updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
             updateColors('paper-date-picker', ['--default-primary-color'], [newVal]);
-            updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
+            //updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
         }
     };
 

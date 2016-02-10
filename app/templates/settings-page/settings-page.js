@@ -172,6 +172,23 @@
         var body = {email: user.email, password: user.password};
         sendRequest(url, 'POST', body, signInResponse);
     };
+
+    app.setColorPicker = function(){
+        //setTimeout(function(){
+        //    var wrapper = document.querySelectorAll('.color-selector-wrapper')[0];
+        //    var oldPicker = wrapper.querySelectorAll('paper-color-input')[0];
+        //
+        //    if(!oldPicker){
+        //        var colorPicker = document.createElement('paper-color-input');
+        //        colorPicker.classList.add('color-selector');
+        //        colorPicker.shape = 'circle';
+        //        colorPicker.type = 'hsv';
+        //        colorPicker.value = {red: 221, green: 31, blue: 41};
+        //        console.log(colorPicker);
+        //        return wrapper.appendChild(colorPicker);
+        //    }
+        //})
+    };
 })();
 
 function cleanCharts(){
