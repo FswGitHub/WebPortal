@@ -83,8 +83,10 @@
     app.logout = function(){
         showConfirm('Confirm','Are you sure you want to log out?', function(){
             app.sessionId = null;
+            app.appColor = null;
             app.holdings = null;
             app.loader = false;
+            app.rememberMe = false;
             localStorage.clear();
             page('/login');
         });

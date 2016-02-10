@@ -46,23 +46,22 @@
                         td.data-tbody-td.row-end
                             span.td-label(hidden="[[!tabWidthScreen]]") Actions
                             div.td-content.actions
-                                paper-icon-button(icon="visibility", hidden="[[!item.viewProfile]]", on-tap="")
-                                paper-icon-button(icon="refresh", hidden="[[!item.resendConfirmation]]", on-tap="")
-    paper-dialog#importDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop)
+                                paper-icon-button(icon="visibility", hidden="[[!item.viewProfile]]", on-tap="loginAsUser")
+                                paper-icon-button(icon="refresh", hidden="[[!item.resendConfirmation]]", on-tap="resendConfirmation")
+    paper-dialog#importDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-opened="listenForFile", on-iron-overlay-closed="cleanFile")
         h2 Import
         .dialog-content.import-dialog-content
             label.dialog-label Upload a file
             .chose-file-place.layout.horizontal.start.center
-                input.file-label(type="text", readonly)
+                input#output.file-label(type="text", readonly)
                 button.chose-file-btn Browse
-                    input.file-place(type="file", value="")
+                    input#fileInput.file-place(type="file", value="", accept=".xlsx, .xls")
             label.dialog-label.or-label Or
-            .drag-and-drop-place.layout.horizontal.center-center
+            #dropZone.drag-and-drop-place.layout.horizontal.center-center
                 span.drag-and-drop-label Drag and drop file here
-                input.file-place(type="file", value="")
         .dialog-actions.buttons
             paper-button(dialog-dismiss) Cancel
-            paper-button(dialog-confirm) Upload
+            paper-button(on-tap="uploadUsers") Upload
     paper-dialog#addUserDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-closed="cleanDialog")
         h2 Add user
         .dialog-content.add-user-form

@@ -31,8 +31,8 @@
             value: {red: undefined, green: undefined, blue: undefined, alpha: undefined}
         },
         appColor: {
-            type: String,
-            value: '#DD1F29'
+            type: String
+            //value: '#DD1F29'
         }
     };
 
@@ -40,13 +40,15 @@
         '_routeNameChanged(route)',
         '_mainColorChanged(mainColor.*)',
         '_classificationChanged(selectedClassification.*)',
-        '_appColorChanged(appColor)'
+        '_appColorChanged(appColor)',
+        '_rememberMeChanged(rememberMe)'
     ];
 
     app.baseUrl = '/';
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
     app.mainColor = {red: 221, green: 31, blue: 41};
+    app.rememberMe = localStorage.getItem(app.apiUrl + 'remember_me');
 
     app.addClass = function(variable, classString){
         if(variable){
@@ -63,6 +65,9 @@
 
         switch (route.name) {
             case 'dashboard':
+                if(!app.appColor){
+                    app.appColor = localStorage.getItem(app.apiUrl+ 'app_colour');
+                }
                 app.addDashboardChartsList();
                 //setTimeout(function(){
                 //    app.appColor  = '#CE1884';
@@ -95,15 +100,18 @@
 
     app._appColorChanged = function(newVal){
         //This function update all custom styles for every element which need to be main color
-        var colorsStyle = document.querySelectorAll('style[is="custom-style"]')[0];
-        colorsStyle.customStyle['--main-color'] = newVal;
-        Polymer.updateStyles();
+        if(newVal){
+            console.log(newVal);
+            var colorsStyle = document.querySelectorAll('style[is="custom-style"]')[0];
+            colorsStyle.customStyle['--main-color'] = newVal;
+            Polymer.updateStyles();
 
-        updateColors('paper-checkbox', ['--paper-checkbox-checked-color', '--paper-checkbox-checked-ink-color'], [newVal, newVal]);
-        updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal, newVal]);
-        updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
-        updateColors('paper-date-picker', ['--default-primary-color'], [newVal]);
-        updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
+            updateColors('paper-checkbox', ['--paper-checkbox-checked-color', '--paper-checkbox-checked-ink-color'], [newVal, newVal]);
+            updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal, newVal]);
+            updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
+            updateColors('paper-date-picker', ['--default-primary-color'], [newVal]);
+            updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
+        }
     };
 
     //Session timeout(5 minutes))
@@ -163,7 +171,7 @@
 
     //app.addEventListener('dom-change', function() {});
     window.addEventListener('WebComponentsReady', function (e) {
-
+        app.appColor = app.sessionId ? localStorage.getItem(app.apiUrl+ 'app_colour') : null;
     });
 })();
 
@@ -276,21 +284,24 @@ String.prototype.capitalize = function() {
 };
 
 function updateColors(selector, properties, values){
-    var main = document.getElementById('paperDrawerPanel');
-    var elements = main.querySelectorAll(selector);
-    console.log(elements);
-    for(var i=0; i < elements.length; i++){
-        var currentElement = elements[i];
-        for(var j = 0; j < properties.length; j++){
-            if(!currentElement.customStyle){
-                var colorsStyle = document.createElement('style', 'custom-style');
-                currentElement.appendChild(colorsStyle);
-                currentElement.customStyle[properties[j]] = values[j];
-                currentElement.updateStyles();
-            } else {
-                currentElement.customStyle[properties[j]] = values[j];
-                currentElement.updateStyles();
+    setTimeout(function(){
+        var main = document.getElementById('paperDrawerPanel');
+        var elements = main.querySelectorAll(selector);
+
+        for(var i=0; i < elements.length; i++){
+            var currentElement = elements[i];
+            for(var j = 0; j < properties.length; j++){
+                if(!currentElement.customStyle){
+                    var colorsStyle = document.createElement('style', 'custom-style');
+                    currentElement.appendChild(colorsStyle);
+                    currentElement.customStyle[properties[j]] = values[j];
+                    currentElement.updateStyles();
+                } else {
+                    currentElement.customStyle[properties[j]] = values[j];
+                    currentElement.updateStyles();
+                }
             }
         }
-    }
+    });
+
 }
