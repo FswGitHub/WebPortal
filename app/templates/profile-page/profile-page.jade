@@ -3,9 +3,9 @@
         h2.page-header Profile: [[userData.firstName]] [[userData.lastName]]
     div(class$="profile-form-wrapper layout horizontal[[addClass(mobileWidthScreen,' vertical-reverse')]]")
         .profile-fields.flex
-            paper-input(label="First Name", type="text", name="firstName", value="[[userData.firstName]]", error-message="Please enter your First Name" readonly$="[[!showEdit]]", require)
-            paper-input(label="Last Name", type="text", name="lastName", value="[[userData.lastName]]", error-message="Please enter your Last Name" readonly$="[[!showEdit]]", require)
-            paper-input(label="Email", type="email", name="email", value="[[userData.email]]", error-message="Please enter your Email", readonly$="[[!showEdit]]", require)
+            paper-input(label="First Name", type="text", name="firstName", value="[[userData.firstName]]", error-message="Please enter your First Name", required,  readonly$="[[!showEdit]]")
+            paper-input(label="Last Name", type="text", name="lastName", value="[[userData.lastName]]", error-message="Please enter your Last Name", required, readonly$="[[!showEdit]]")
+            paper-input(label="Email", type="email", name="email", value="[[userData.email]]", error-message="Please enter your Email", required,  readonly$="[[!showEdit]]")
             paper-input(label="Cellphone", type="text", name="cellPhone", value="[[userData.cellPhone]]", readonly$="[[!showEdit]]")
             paper-input(label="ID Number", type="text", name="idNumber", value="[[userData.idNumber]]", readonly$="[[!showEdit]]")
         .profile-image-wrapper.relative
