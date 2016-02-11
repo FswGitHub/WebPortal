@@ -119,7 +119,7 @@
     app._appColorChanged = function(newVal){
         //This function update all custom styles for every element which need to be main color
         if(newVal){
-            console.log(newVal);
+            console.log('app color changed to ' +newVal);
             var colorsStyle = document.querySelectorAll('style[is="custom-style"]')[0];
             colorsStyle.customStyle['--main-color'] = newVal;
             Polymer.updateStyles();

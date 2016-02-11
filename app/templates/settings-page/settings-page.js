@@ -168,9 +168,10 @@
 
     app.loginAsUser = function(e){
         var user = e.model.item;
-        var url = app.apiUrl + 'resources/json/login.json';
-        var body = {email: user.email, password: user.password};
-        sendRequest(url, 'POST', body, signInResponse);
+        //var url = app.apiUrl + 'resources/json/login.json';
+        //var body = {email: user.email, password: user.password};
+        //sendRequest(url, 'POST', body, signInResponse);
+        loadAllData(user.userId);
     };
 
     app.setColorPicker = function(){

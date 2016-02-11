@@ -120,6 +120,60 @@
     };
 })();
 
+function signInResponse(e){
+    if(e.detail.response.success){
+        var appColor = e.detail.response.user.colour;
+        app.sessionId = e.detail.response.user.userId;
+        loadAllData(app.sessionId, appColor);
+    } else {
+        app.loader = false;
+        showAlert('Error', 'Wrong login, password or your account has not been verified. Please check the verification email that was sent.');
+    }
+}
+
+function loadAllData(userId, appColor){
+    var loadData = [
+        {url: app.apiUrl + 'resources/json/sidemenu.json/' + userId, method: 'GET'},
+        {url: app.apiUrl + 'resources/json/charts.json/' + userId, method: 'GET'},
+        {url: app.apiUrl + 'resources/json/portfolio.json/' + userId, method: 'GET'},
+        {url: app.apiUrl + 'resources/json/user.json/' + userId, method: 'GET'},
+        {url: app.apiUrl + 'resources/json/settings.json', method: 'GET'},
+        {url: app.apiUrl + 'resources/json/users.json', method: 'GET'}
+    ];
+    sendMultipleRequest(loadData, function(data){
+        app.menuSubItems = data[0].content;
+        app.theme = data[0].theme;
+        app.logo = 'assets/' + data[0].logo;
+        app.dashboardCharts = data[1].content;
+        app.portfolioData = data[2].item;
+        app.userData = data[3].user;
+        app.settings = data[4];
+        app.users = data[5].users;
+        getPortfolioItemsContent(data[0].content);
+        if(app.rememberMe){
+            localStorage.setItem(app.apiUrl + 'session_id', userId);
+            localStorage.setItem(app.apiUrl+ 'app_colour', appColor ? appColor : '#DD1F29');
+            localStorage.setItem(app.apiUrl + 'portfolio_items', JSON.stringify(app.menuSubItems));
+            localStorage.setItem(app.apiUrl + 'theme', app.theme);
+            localStorage.setItem(app.apiUrl + 'logo', app.logo);
+            localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
+            localStorage.setItem(app.apiUrl+ 'portfolio', JSON.stringify(app.portfolioData));
+            localStorage.setItem(app.apiUrl+ 'user', JSON.stringify(app.userData));
+            localStorage.setItem(app.apiUrl+ 'settings', JSON.stringify(app.settings));
+            localStorage.setItem(app.apiUrl+ 'users', JSON.stringify(app.users));
+        }
+        return (function (){
+            if(app.route.main){
+                showAlert('Success', 'You login as ' + app.userData.firstName + ' ' + app.userData.lastName);
+                cleanCharts();
+            } else {
+                app.loader = false;
+                page('/dashboard');
+            }
+        })();
+    });
+}
+
 function getPortfolioItemsContent(content){
     var portfolioItemsRequestData = [];
     app.portfolioItems = {};
@@ -154,56 +208,4 @@ function getItemClassifications(item){
         }
         return localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
     });
-}
-
-
-function signInResponse(e){
-    var loadData;
-    if(e.detail.response.success){
-        var appColor = e.detail.response.user.colour;
-        app.sessionId = e.detail.response.user.userId;
-        loadData = [
-            {url: app.apiUrl + 'resources/json/sidemenu.json/' + app.sessionId, method: 'GET'},
-            {url: app.apiUrl + 'resources/json/charts.json/' + app.sessionId, method: 'GET'},
-            {url: app.apiUrl + 'resources/json/portfolio.json/' + app.sessionId, method: 'GET'},
-            {url: app.apiUrl + 'resources/json/user.json/' + app.sessionId, method: 'GET'},
-            {url: app.apiUrl + 'resources/json/settings.json', method: 'GET'},
-            {url: app.apiUrl + 'resources/json/users.json', method: 'GET'}
-        ];
-        sendMultipleRequest(loadData, function(data){
-            app.menuSubItems = data[0].content;
-            app.theme = data[0].theme;
-            app.logo = 'assets/' + data[0].logo;
-            app.dashboardCharts = data[1].content;
-            app.portfolioData = data[2].item;
-            app.userData = data[3].user;
-            app.settings = data[4];
-            app.users = data[5].users;
-            getPortfolioItemsContent(data[0].content);
-            if(app.rememberMe){
-                localStorage.setItem(app.apiUrl + 'session_id', app.sessionId);
-                localStorage.setItem(app.apiUrl+ 'app_colour', appColor ? appColor : '#DD1F29');
-                localStorage.setItem(app.apiUrl + 'portfolio_items', JSON.stringify(app.menuSubItems));
-                localStorage.setItem(app.apiUrl + 'theme', app.theme);
-                localStorage.setItem(app.apiUrl + 'logo', app.logo);
-                localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
-                localStorage.setItem(app.apiUrl+ 'portfolio', JSON.stringify(app.portfolioData));
-                localStorage.setItem(app.apiUrl+ 'user', JSON.stringify(app.userData));
-                localStorage.setItem(app.apiUrl+ 'settings', JSON.stringify(app.settings));
-                localStorage.setItem(app.apiUrl+ 'users', JSON.stringify(app.users));
-            }
-            return (function (){
-                if(app.route.main){
-                    showAlert('Success', 'You login as ' + app.userData.firstName + ' ' + app.userData.lastName);
-                    cleanCharts();
-                } else {
-                    app.loader = false;
-                    page('/dashboard');
-                }
-            })();
-        });
-    } else {
-        app.loader = false;
-        showAlert('Error', 'Wrong login, password or your account has not been verified. Please check the verification email that was sent.');
-    }
 }
