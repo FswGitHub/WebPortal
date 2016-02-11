@@ -168,10 +168,16 @@
 
     app.loginAsUser = function(e){
         var user = e.model.item;
+        if(user.userId == app.sessionId){
+            showAlert('Error', 'You already login!');
+        } else {
+            app.sessionId = user.userId;
+            loadAllData(user.userId);
+        }
         //var url = app.apiUrl + 'resources/json/login.json';
         //var body = {email: user.email, password: user.password};
         //sendRequest(url, 'POST', body, signInResponse);
-        loadAllData(user.userId);
+
     };
 
     app.setColorPicker = function(){
