@@ -56,7 +56,8 @@
         '_mainColorChanged(mainColor.*)',
         '_classificationChanged(selectedClassification.*)',
         '_appColorChanged(appColor)',
-        '_rememberMeChanged(rememberMe)'
+        '_rememberMeChanged(rememberMe)',
+        '_showEditChanged(showEdit)'
     ];
 
     app.baseUrl = '/';

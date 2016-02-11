@@ -2,15 +2,15 @@
     .page-header-wrapper
         h2.page-header Profile: [[userData.firstName]] [[userData.lastName]]
     div(class$="profile-form-wrapper layout horizontal[[addClass(mobileWidthScreen,' vertical-reverse')]]")
-        .profile-filds.flex
-            paper-input(label="First Name", value="[[userData.firstName]]", readonly$="[[!showEdit]]")
-            paper-input(label="Last Name", value="[[userData.lastName]]", readonly$="[[!showEdit]]")
-            paper-input(label="Email", value="[[userData.email]]", readonly$="[[!showEdit]]")
-            paper-input(label="Cellphone", value="[[userData.cellPhone]]", readonly$="[[!showEdit]]")
-            paper-input(label="ID Number",value="[[userData.idNumber]]", readonly$="[[!showEdit]]")
+        .profile-fields.flex
+            paper-input(label="First Name", type="text", name="firstName", value="[[userData.firstName]]", error-message="Please enter your First Name" readonly$="[[!showEdit]]", require)
+            paper-input(label="Last Name", type="text", name="lastName", value="[[userData.lastName]]", error-message="Please enter your Last Name" readonly$="[[!showEdit]]", require)
+            paper-input(label="Email", type="email", name="email", value="[[userData.email]]", error-message="Please enter your Email", readonly$="[[!showEdit]]", require)
+            paper-input(label="Cellphone", type="text", name="cellPhone", value="[[userData.cellPhone]]", readonly$="[[!showEdit]]")
+            paper-input(label="ID Number", type="text", name="idNumber", value="[[userData.idNumber]]", readonly$="[[!showEdit]]")
         .profile-image-wrapper.relative
-            iron-image.profile-image(src="[[setUserPhoto(userData.photo)]]", sizing="cover")
-            #imageUploader.profile-change-image.fit(hidden="[[!showEdit]]")
+            iron-image#profileImage.profile-image(src="{{userPhoto}}", sizing="cover")
+            #imageUploader.profile-change-image(hidden="[[!showEdit]]")
                 img.edit-img(src="/assets/images/camera.png")
                 span.edit-label Change your Profile Photo
                 span.edit-size 200px x 200px
@@ -18,5 +18,5 @@
     .profile-edit-wrapper
         paper-button.profile-edit-btn(raised, hidden="[[showEdit]]", on-tap="toggleProfileChanging") Edit profile
         .profile-save-changes.layout.horizontal(hidden="[[!showEdit]]")
-            paper-button.profile-edit-btn(raised) Save changes
+            paper-button.profile-edit-btn(raised, on-tap="saveProfileChanges") Save changes
             paper-button.profile-edit-btn(raised, on-tap="toggleProfileChanging") Cancel

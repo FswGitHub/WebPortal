@@ -51,17 +51,19 @@
     };
 
     app.cleanDialog = function(e){
-        var dialog = e.currentTarget;
-        var email = dialog.querySelector('#newEmail');
-        var first = dialog.querySelector('#newFirstName');
-        var last = dialog.querySelector('#newLastName');
+        //var dialog = e.currentTarget;
 
-        email.invalid = false;
-        first.invalid = false;
-        last.invalid = false;
-        email.value = null;
-        first.value = null;
-        last.value = null;
+        cleanForm('.add-user-form', true);
+        //var email = dialog.querySelector('#newEmail');
+        //var first = dialog.querySelector('#newFirstName');
+        //var last = dialog.querySelector('#newLastName');
+        //
+        //email.invalid = false;
+        //first.invalid = false;
+        //last.invalid = false;
+        //email.value = null;
+        //first.value = null;
+        //last.value = null;
     };
 
     app.listenForFile = function(e){
@@ -73,7 +75,6 @@
             var file = e.target.files[0];
             readFile(file, output, function(u){
                 usersToUpload = u;
-                console.log(usersToUpload);
             });
         }, false);
 
@@ -89,7 +90,6 @@
             var file = e.dataTransfer.files[0];
             readFile(file, output, function(u){
                 usersToUpload = u;
-                console.log(usersToUpload);
             });
         }, false);
 

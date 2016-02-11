@@ -147,6 +147,7 @@ function loadAllData(userId, appColor){
         app.dashboardCharts = data[1].content;
         app.portfolioData = data[2].item;
         app.userData = data[3].user;
+        app.userPhoto = app.userData && app.userData.photo ? 'assets/' + app.userData.photo : null;
         app.settings = data[4];
         app.users = data[5].users;
         getPortfolioItemsContent(data[0].content);
