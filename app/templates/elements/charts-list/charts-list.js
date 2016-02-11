@@ -118,7 +118,6 @@ Polymer({
                 //self.loading = false;
                 switch (action){
                     case 'add':
-                        console.log(action);
                         if(id){
                             self.getPortfolioItemCharts(id);
                         } else {
@@ -126,7 +125,6 @@ Polymer({
                         }
                         break;
                     case 'remove':
-                        console.log(action);
                         if(id){
                             self.getPortfolioItemCharts(id);
                         } else {
@@ -165,7 +163,6 @@ Polymer({
     },
     getDashboardCharts: function(){
         var self = this;
-        console.log('load charts');
         sendRequest(app.apiUrl + 'resources/json/charts.json/' + app.sessionId, 'GET', null, function(e){
             if(e.detail.response.success){
                 app.dashboardCharts = e.detail.response.content;
