@@ -44,9 +44,10 @@
             RGB.red = toR(hex);
             RGB.green = toG(hex);
             RGB.blue = toB(hex);
+            return RGB;
+        } else {
+            return {red: 221, green: 31, blue: 41};
         }
-
-        return RGB;
     };
 
     app.listenForLogoChange = function(){

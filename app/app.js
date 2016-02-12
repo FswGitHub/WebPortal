@@ -26,9 +26,6 @@
             type: Array,
             value: []
         },
-        mainColor: {
-            type: Object
-        },
         appColor: {
             type: String
         },
@@ -49,7 +46,6 @@
     app.baseUrl = '/';
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
-    app.mainColor = {red: 221, green: 31, blue: 41};
     app.rememberMe = localStorage.getItem(app.apiUrl + 'remember_me');
 
     app.addClass = function(variable, classString){
@@ -71,18 +67,10 @@
                     app.appColor = localStorage.getItem(app.apiUrl+ 'app_colour');
                 }
                 app.addDashboardChartsList();
-                //setTimeout(function(){
-                //    app.appColor  = '#CE1884';
-                //}, 5000);
-                //setTimeout(function(){
-                //    app.appColor  = '#56CE18';
-                //}, 10000);
-                //setTimeout(function(){
-                //    app.appColor  = '#EBAA2D';
-                //}, 15000);
                 break;
             case 'login':
                 app.removeAllCharts();
+                updateColors('paper-dialog', ['--paper-dialog-button-color'], ['#DD1F29']);
                 app.portfolioTab = null;
                 app.settingsTab = null;
                 break;
@@ -114,8 +102,10 @@
             updateColors('paper-checkbox', ['--paper-checkbox-checked-color', '--paper-checkbox-checked-ink-color'], [newVal, newVal]);
             updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal, newVal]);
             updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
+            updateColors('paper-toggle-button', ['--paper-toggle-button-checked-bar-color', '--paper-toggle-button-checked-button-color', '--paper-toggle-button-checked-ink-color'], [newVal, newVal, newVal]);
             updateColors('paper-date-picker', ['--default-primary-color'], [newVal]);
             updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
+            updateColors('paper-dialog', ['--paper-dialog-button-color'], [newVal]);
         }
     };
 
@@ -303,7 +293,7 @@ String.prototype.capitalize = function() {
 
 function updateColors(selector, properties, values){
     setTimeout(function(){
-        var main = document.querySelector('#paperDrawerPanel');
+        var main = selector == 'paper-dialog' ? document : document.querySelector('#paperDrawerPanel');
         var elements = main.querySelectorAll(selector);
 
         for(var i=0; i < elements.length; i++){
