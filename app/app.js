@@ -101,8 +101,8 @@
                 app.settingsTab = null;
                 break;
             case 'settings':
-                app.setColorPicker();
-                //.color-selector(shape="circle", type="hsl", value="{{mainColor}}")'
+                app.listenForLogoChange();
+                break;
         }
 
         if(route.name.indexOf('portfolio-item') > -1 && route.params.id){

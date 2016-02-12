@@ -1,4 +1,5 @@
 (function(){
+    var newLogo;
     var usersToUpload;
 
     app.settings = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'settings')) : null;
@@ -17,6 +18,31 @@
 
     app._mainColorChanged = function(newVal, oldVal){
 
+    };
+
+    app.listenForLogoChange = function(){
+        setTimeout(function(){
+            var logoUploader = document.querySelector('#logoUploader');
+
+            logoUploader.addEventListener('change', function(e){
+                var image = e.target.files[0];
+                var reader = new FileReader();
+
+                reader.onload = function(img) {
+                    newLogo = new Image();
+                    newLogo.src = img.target.result;
+                    if(newLogo.width <= 224 && newLogo.height <= 64){
+                        app.logo = newLogo.src;
+                        logoUploader.value = null;
+                        //should be logo upload here!
+                        // newLogo = upload.response.url;
+                    } else {
+                        showAlert('Wrong size', 'Please choose image with max size 224px x 64px');
+                    }
+                };
+                reader.readAsDataURL(image);
+            });
+        });
     };
 
     app.openImportDialog = function(){
@@ -50,20 +76,8 @@
         }
     };
 
-    app.cleanDialog = function(e){
-        //var dialog = e.currentTarget;
-
+    app.cleanDialog = function(){
         cleanForm('.add-user-form', true);
-        //var email = dialog.querySelector('#newEmail');
-        //var first = dialog.querySelector('#newFirstName');
-        //var last = dialog.querySelector('#newLastName');
-        //
-        //email.invalid = false;
-        //first.invalid = false;
-        //last.invalid = false;
-        //email.value = null;
-        //first.value = null;
-        //last.value = null;
     };
 
     app.listenForFile = function(e){
@@ -174,27 +188,6 @@
             app.sessionId = user.userId;
             loadAllData(user.userId);
         }
-        //var url = app.apiUrl + 'resources/json/login.json';
-        //var body = {email: user.email, password: user.password};
-        //sendRequest(url, 'POST', body, signInResponse);
-
-    };
-
-    app.setColorPicker = function(){
-        //setTimeout(function(){
-        //    var wrapper = document.querySelectorAll('.color-selector-wrapper')[0];
-        //    var oldPicker = wrapper.querySelectorAll('paper-color-input')[0];
-        //
-        //    if(!oldPicker){
-        //        var colorPicker = document.createElement('paper-color-input');
-        //        colorPicker.classList.add('color-selector');
-        //        colorPicker.shape = 'circle';
-        //        colorPicker.type = 'hsv';
-        //        colorPicker.value = {red: 221, green: 31, blue: 41};
-        //        console.log(colorPicker);
-        //        return wrapper.appendChild(colorPicker);
-        //    }
-        //})
     };
 })();
 
