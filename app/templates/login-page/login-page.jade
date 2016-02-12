@@ -3,7 +3,7 @@
         .login-logo-wrapper
             img.fundamental-logo(src="assets/images/logo-light.png")
         .login-form-wrapper.flex(hidden="{{showSignInForm(signUp, forgotPass, confirm, route.reset)}}")
-            form#signInForm.login-form(is="iron-form")
+            form#signInForm.login-form
                 p.login-text(hidden="{{!route.verify}}") Thanks you for confirmed your email. Please sign in.
                 div(class$="fields-wrapper {{addClass(route.verify, 'login-verify')}}")
                     paper-input#signInEmail.login-field(type="email", label="Email", value="{{login.signIn.email}}", error-message="Please enter valid Email", required)
@@ -20,7 +20,7 @@
                 span.have-not-account Don`t have an account?
                 paper-button.submit-button(on-tap="toggleSignUp") Sign up here
         .login-form-wrapper.flex(hidden="{{showSignUpForm(signUp, confirm, route.reset)}}")
-            form#signUpForm.login-form(is="iron-form")
+            form#signUpForm.login-form
                 .fields-wrapper.sign-up
                     paper-input#signUpFirstName.login-field(type="text", value="{{login.signUp.firstName}}", label="First Name", error-message="Please enter your First Name", required)
                     paper-input#signUpLastName.login-field(type="text", value="{{login.signUp.lastName}}", label="Last Name", error-message="Please enter your Last Name",  required)
@@ -32,7 +32,7 @@
                 span.have-not-account Already have an account?
                 paper-button.submit-button(on-tap="toggleSignUp") Login
         .login-form-wrapper.flex(hidden="{{!forgotPass}}")
-            form#forgotPassword.login-form(is="iron-form")
+            form#forgotPassword.login-form
                 p.login-text Please enter your email address and we`ll send you a link to reset your password.
                 .fields-wrapper.forgot-pass
                     paper-input#forgotPassEmail.login-field(type="email", value="{{login.forgotPassEmail}}", label="Email", error-message="Please enter valid Email", required)

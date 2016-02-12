@@ -37,12 +37,17 @@ gulp.task('js-watch', function(){
 });
 
 gulp.task('copy-bower-components', function(){
-    return gulp.src('./app/bower_components/**')
+    var bcPath = './app/bower_components/';
+    return gulp.src([bcPath+'**', '!'+bcPath+'**/docs/', '!'+bcPath+'**/docs/**', '!'+bcPath+'**/samples/', '!'+bcPath+'**/samples/**',
+        '!'+bcPath+'**/.bower.json', '!'+bcPath+'**/bower.json', '!'+bcPath+'**/.gitignore', '!'+bcPath+'**/**.md', '!'+bcPath+'**/package.json',
+        '!'+bcPath+'**/demo/', '!'+bcPath+'**/demo/**', '!'+bcPath+'**/test/', '!'+bcPath+'**/test/**', '!'+bcPath+'**/index.html',
+        '!'+bcPath+'**/examples/', '!'+bcPath+'**/examples/**', '!'+bcPath+'**/tests/', '!'+bcPath+'**/tests/**'])
         .pipe(gulp.dest('./dist/bower_components/'));
 });
 
 gulp.task('copy-assets', function(){
-    return gulp.src(['./app/assets/**', '!./app/assets/components/**', '!./app/assets/components/'])
+    var assetsPath = './app/assets/';
+    return gulp.src([assetsPath +'**', '!'+assetsPath +'components/**', '!'+ assetsPath +'components/'])
         .pipe(gulp.dest('./dist/assets/'));
 });
 
