@@ -27,36 +27,18 @@
             value: []
         },
         mainColor: {
-            type: Object,
-            value: {
-                red: {
-                    type: Number,
-                    value: 221
-                },
-                green: {
-                    type: Number,
-                    value: 31
-                },
-                blue: {
-                    type: Number,
-                    value: 41
-                }
-            }
+            type: Object
         },
         appColor: {
             type: String
-            //value: '#DD1F29'
         },
         theme: {
             type: String
         }
     };
 
-
-
     app.observers = [
         '_routeNameChanged(route)',
-        '_mainColorChanged(mainColor.*)',
         '_classificationChanged(selectedClassification.*)',
         '_appColorChanged(appColor)',
         '_rememberMeChanged(rememberMe)',
@@ -133,7 +115,7 @@
             updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal, newVal]);
             updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
             updateColors('paper-date-picker', ['--default-primary-color'], [newVal]);
-            //updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
+            updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
         }
     };
 

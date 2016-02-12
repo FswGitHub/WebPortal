@@ -160,7 +160,7 @@ There are three different main configurations all 3 elements allow: `circle`, `s
 				/**
 				 * Show alpha slider always instead of only in the advanced settings
 				 */
-				alwaysShowAlpha: Boolean,
+				alwaysShowAlpha: Boolean
 			},
 			behaviors: [
 				/* Polymer.IronFormElementBehavior */ // disabled till https://github.com/Polymer/polymer/issues/3167 gets fixed
@@ -195,7 +195,7 @@ There are three different main configurations all 3 elements allow: `circle`, `s
 				}
 				return 'background: rgba('+this.value.red+', '+this.value.green+','+this.value.blue+', '+this.value.alpha+')';
 			},
-			_isValueDefined: function(){
+			_isValueDefined: function(){;
 				return this.value.red >= 0 && this.value.green >= 0 && this.value.blue >= 0;
 			},
 			_setValueAsHexFromValue: function(){
@@ -226,6 +226,7 @@ There are three different main configurations all 3 elements allow: `circle`, `s
 				this.set('value.red', parseInt(result[1], 16));
 				this.set('value.green', parseInt(result[2], 16));
 				this.set('value.blue', parseInt(result[3], 16));
+                return this.fire('color-changed', {color: this.valueAsHex});
 			}
 		});
 	</script>

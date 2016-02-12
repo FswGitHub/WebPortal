@@ -27,8 +27,26 @@
         saveSettings();
     };
 
-    app._mainColorChanged = function(newVal, oldVal){
+    app.recolorApp = function(e){
+        app.appColor = e.detail.color;
+        return saveSettings();
+    };
 
+    app.convertColor = function(hex){
+        var RGB = {};
+
+        function toR(h) { return parseInt((cutHex(h)).substring(0,2),16) }
+        function toG(h) { return parseInt((cutHex(h)).substring(2,4),16) }
+        function toB(h) { return parseInt((cutHex(h)).substring(4,6),16) }
+        function cutHex(h) { return (h.charAt(0)=="#") ? h.substring(1,7) : h}
+
+        if(hex){
+            RGB.red = toR(hex);
+            RGB.green = toG(hex);
+            RGB.blue = toB(hex);
+        }
+
+        return RGB;
     };
 
     app.listenForLogoChange = function(){
