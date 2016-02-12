@@ -42,8 +42,13 @@ gulp.task('copy-bower-components', function(){
 });
 
 gulp.task('copy-assets', function(){
-    return gulp.src('./app/assets/**')
+    return gulp.src(['./app/assets/**', '!./app/assets/components/**', '!./app/assets/components/'])
         .pipe(gulp.dest('./dist/assets/'));
+});
+
+gulp.task('copy-components', function(){
+    return gulp.src('./app/assets/components/**')
+        .pipe(gulp.dest('./dist/bower_components/'));
 });
 
 gulp.task('copy-js', function(){
@@ -51,7 +56,7 @@ gulp.task('copy-js', function(){
         .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('copy', ['copy-bower-components', 'copy-assets', 'copy-js']);
+gulp.task('copy', ['copy-bower-components', 'copy-assets', 'copy-js', 'copy-components']);
 
 // Clean output directory
 gulp.task('clean', function() {
