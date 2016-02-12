@@ -5,13 +5,13 @@
         .configs-settings-form.layout.vertical
             .settings-row.layout.horizontal
                 span.settings-labels.self-center Domain Authentification
-                paper-checkbox.settings-checkbox
+                paper-checkbox.settings-checkbox(checked="{{settings.domAutent}}", on-blur="saveSettings")
             .settings-row.layout.vertical.configs-inputs-wrapper
-                paper-input(label="DB Server Name")
-                paper-input(label="DB Name")
-                paper-input(label="SQL Username")
-                paper-input(label="SQL Password")
-                paper-input(label="SQL Port")
+                paper-input(label="DB Server Name", value="{{settings.dbServName}}", on-blur="saveSettings")
+                paper-input(label="DB Name", value="{{settings.dbName}}", on-blur="saveSettings")
+                paper-input(label="SQL Username", value="{{settings.sqlUserName}}", on-blur="saveSettings")
+                paper-input(label="SQL Password", value="{{settings.sqlPassword}}", on-blur="saveSettings")
+                paper-input(label="SQL Port", value="{{settings.sqlPort}}", on-blur="saveSettings")
             .settings-row.layout.horizontal
                 span.settings-labels.self-center SSL
-                paper-checkbox.settings-checkbox
+                paper-checkbox.settings-checkbox(checked="{{settings.fpmSsl}}", on-blur="saveSettings")

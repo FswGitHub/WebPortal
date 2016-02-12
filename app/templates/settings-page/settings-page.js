@@ -16,6 +16,17 @@
         }
     };
 
+    app._themeChanged = function(newVal){
+        var saved = localStorage.getItem(app.apiUrl + 'theme');
+        if(newVal != saved){
+            saveSettings();
+        }
+    };
+
+    app.saveSettings = function(){
+        saveSettings();
+    };
+
     app._mainColorChanged = function(newVal, oldVal){
 
     };
@@ -196,4 +207,25 @@ function cleanCharts(){
     for(var i=0; i< chartsList.length; i++){
         chartsList[i].charts = [];
     }
+}
+
+function saveSettings(){
+    var url = app.apiUrl + 'resources/json/savesettings.json';
+    var body = {colour: app.color, logo: app.logo, theme: app.theme};
+    for (var key in app.settings){
+        body[key] = app.settings[key];
+    }
+
+    sendRequest(url, 'POST', body, function(e){
+        if(e.detail.response.success){
+            if(app.rememberMe){
+                localStorage.setItem(app.apiUrl+ 'app_colour', app.appColor ? app.appColor : '#DD1F29');
+                localStorage.setItem(app.apiUrl + 'theme', app.theme);
+                localStorage.setItem(app.apiUrl + 'logo', app.logo);
+                localStorage.setItem(app.apiUrl+ 'settings', JSON.stringify(app.settings));
+            }
+        } else {
+            showAlert('Server error', 'There was an error saving the data.');
+        }
+    })
 }

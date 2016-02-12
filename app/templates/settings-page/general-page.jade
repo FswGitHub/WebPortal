@@ -25,10 +25,9 @@
         h2.page-header Email
     .email-settings-wrapper.layout.horizontal
         .email-settings-form.flex
-            paper-input(label="SMTP Server Address")
-            paper-input(label="SMTP Server Port")
-            paper-input(label="SSL")
+            paper-input(label="SMTP Server Address", value="{{settings.servAddres}}", on-blur="saveSettings")
+            paper-input(label="SMTP Server Port", value="{{settings.servPort}}", on-blur="saveSettings")
+            paper-input(label="SSL", value="{{settings.ssl}}", on-blur="saveSettings")
             h3.page-subheader Optional
-            paper-input(label="Username")
-            paper-input(label="Password")
-
+            paper-input(label="Username", value="{{settings.userName}}", on-blur="saveSettings")
+            paper-input(label="Password", value="{{settings.password}}", on-blur="saveSettings")

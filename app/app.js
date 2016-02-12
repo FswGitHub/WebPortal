@@ -46,6 +46,9 @@
         appColor: {
             type: String
             //value: '#DD1F29'
+        },
+        theme: {
+            type: String
         }
     };
 
@@ -57,7 +60,8 @@
         '_classificationChanged(selectedClassification.*)',
         '_appColorChanged(appColor)',
         '_rememberMeChanged(rememberMe)',
-        '_showEditChanged(showEdit)'
+        '_showEditChanged(showEdit)',
+        '_themeChanged(theme)'
     ];
 
     app.baseUrl = '/';
