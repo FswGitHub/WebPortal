@@ -10,7 +10,7 @@
             paper-input(label="ID Number", type="text", name="idNumber", value="[[userData.idNumber]]", readonly$="[[!showEdit]]")
         .profile-image-wrapper.relative
             iron-image#profileImage.profile-image(src="{{userPhoto}}", sizing="cover")
-            #imageUploader.profile-change-image(hidden="[[!showEdit]]")
+            #imageUploader.profile-change-image(hidden$="[[!showEdit]]")
                 img.edit-img(src="/assets/images/camera.png")
                 span.edit-label Change your Profile Photo
                 span.edit-size 200px x 200px
