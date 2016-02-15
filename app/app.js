@@ -59,8 +59,6 @@
     };
 
     app._routeNameChanged = function(route){
-        app.showEdit = false;
-
         switch (route.name) {
             case 'dashboard':
                 if(!app.appColor){
@@ -77,6 +75,15 @@
             case 'settings':
                 app.listenForLogoChange();
                 break;
+            case 'signup':
+                app.sessionId ? page('/login') : null;
+                break;
+            case 'forgotpass':
+                app.sessionId ? page('/login') : null;
+                break;
+            case 'confirm':
+                app.sessionId ? page('/login') : null;
+                break;
         }
 
         if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
@@ -88,6 +95,8 @@
                 app.selectedClassification = items[id] && items[id].classifications ? items[id].classifications[0] : null;
             }
         }
+
+        app.showEdit = false;
         app.cleanSearch();
     };
 
@@ -119,9 +128,7 @@
         if (app.sessionId) {
             _idleSecondsCounter++;
             if (_idleSecondsCounter >= IDLE_TIMEOUT) {
-                app.sessionId = null;
-                localStorage.clear();
-                page('/login');
+                logOut();
                 showAlert(null, 'Time expired!');
             }
         }
@@ -130,9 +137,6 @@
     window.onload = function() {
         //open first tables rows for mobile and tab screens
         openFirstRows();
-        if(!app.sessionId && app.route.name != 'login' && app.route.name != 'reset'){
-            page('/login');
-        }
     };
 
     window.addEventListener('resize', function(){

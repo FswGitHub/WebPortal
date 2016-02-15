@@ -16,7 +16,7 @@
                 span.edit-size 200px x 200px
                 input#uploader.edit-button.fit(type="file", accept=".jpg,.png")
     .profile-edit-wrapper
-        paper-button.profile-edit-btn(raised, hidden="[[showEdit]]", on-tap="toggleProfileChanging") Edit profile
-        .profile-save-changes.layout.horizontal(hidden="[[!showEdit]]")
+        paper-button.profile-edit-btn(raised, hidden$="[[showEdit]]", on-tap="toggleProfileChanging") Edit profile
+        .profile-save-changes.layout.horizontal(hidden$="[[!showEdit]]")
             paper-button.profile-edit-btn(raised, on-tap="saveProfileChanges") Save changes
             paper-button.profile-edit-btn(raised, on-tap="toggleProfileChanging") Cancel
