@@ -2,44 +2,24 @@
     app.signUp = false;
     app.forgotPass = false;
     app.confirm = false;
-    app.login = {
-        signIn: {email: 'alan.ball@outlook.com', pass: 'pass13245'},
-        signUp: {}
-    };
+    app.testEmail = 'alan.ball@outlook.com';
+    app.testPass = 'pass13245';
     app.loader = false;
 
     app.toggleSignUp = function(){
-        app.signUp = !app.signUp;
+        if(app.route.name == 'login'){
+            page('/signup');
+        } else {
+            page('/login');
+        }
     };
 
     app.toggleConfirm = function(){
-        app.confirm = !app.confirm;
-        if(app.confirm){
-            setTimeout(function(){
-                app.confirm = false;
-                app.signUp = false;
-            }, 5000);
-        }
+        page('/confirm');
     };
 
     app.toggleForgotPass = function(){
-        app.forgotPass = !app.forgotPass;
-    };
-
-    app.showSignInForm = function(signIn, forgotPass, confirm, reset){
-        return signIn || forgotPass || confirm || reset;
-    };
-
-    app.showSignUpForm = function(signIn, confirm, reset){
-        return !signIn || confirm || reset;
-    };
-
-    app.forgotPassButtonText = function(text){
-        if(text && text.length > 0){
-            return 'Submit';
-        } else {
-            return 'Go back';
-        }
+        page('/forgotpass');
     };
 
     app._rememberMeChanged = function(newVal){
@@ -58,7 +38,7 @@
 
         if(email.validate() && pass.validate()){
             var url = app.apiUrl + 'resources/json/login.json';
-            sendRequest(url, 'POST', {email: app.login.signIn.email, password: app.login.signIn.pass}, signInResponse);
+            sendRequest(url, 'POST', {email: email.value, password: pass.value}, signInResponse);
         }
     };
 
@@ -71,10 +51,10 @@
         if(first.validate() && last.validate() && email.validate() && pass.validate()){
             var url = app.apiUrl + 'resources/json/signup.json';
             var body = {
-                firstName: app.login.signUp.firstName,
-                lastName: app.login.signUp.lastName,
-                email: app.login.signUp.email,
-                password: app.login.signUp.pass
+                firstName: first.value,
+                lastName: last.value,
+                email: email.value,
+                password: pass.value
             };
             sendRequest(url, 'POST', body, signUpResponse);
         }
@@ -91,26 +71,27 @@
 
     app.sentForgotPass = function(){
         var forgotPassEmail = document.getElementById('forgotPassEmail');
+        var email = forgotPassEmail.value;
 
-        if(app.login.forgotPassEmail && app.login.forgotPassEmail.length > 0){
-            if(forgotPassEmail.validate()){
-                showAlert(null, 'Please check your email and click the verification link to reset your password.', app.toggleForgotPass);
-            }
-        } else {
-            app.login.forgotPassEmail = null;
-            forgotPassEmail.invalid = false;
-            app.toggleForgotPass();
+        if(forgotPassEmail.validate()){
+            //request should be here
+            showAlert(null, 'Please check your email and click the verification link to reset your password.', function(){
+                page('login');
+            });
         }
     };
 
     app.submitNewPass = function(){
         var newPass = document.getElementById('newPass');
-
+        var confirmPass = document.getElementById('newPassConfirm');
         app.passNotMatch = false;
 
         if(newPass.validate()){
-            if(app.login.newPassConfirm == app.login.newPass){
+            if(newPass.value == confirmPass.value){
+                //request should be here, but first get value from query sting
+                //app.route.resetValue
                 showAlert(null, 'Your password is update.', function(){
+                    cleanForm('.reset-form');
                     page('/login');
                 });
             } else {

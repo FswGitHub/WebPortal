@@ -130,6 +130,9 @@
     window.onload = function() {
         //open first tables rows for mobile and tab screens
         openFirstRows();
+        if(!app.sessionId && app.route.name != 'login' && app.route.name != 'reset'){
+            page('/login');
+        }
     };
 
     window.addEventListener('resize', function(){
@@ -311,5 +314,15 @@ function updateColors(selector, properties, values){
             }
         }
     });
+}
 
+
+function cleanForm(wrapper, value){
+    var form = document.querySelectorAll(wrapper)[0];
+    var fields =  form.querySelectorAll('paper-input');
+
+    for(var i = 0; i < fields.length; i++){
+        fields[i].invalid ? fields[i].invalid = false : null;
+        value ? fields[i].value = null : null;
+    }
 }

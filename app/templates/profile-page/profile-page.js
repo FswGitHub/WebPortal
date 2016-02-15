@@ -72,12 +72,3 @@
         }
     };
 })();
-
-function cleanForm(wrapper, value){
-    var form = document.querySelectorAll(wrapper)[0];
-    var fields =  form.querySelectorAll('paper-input');
-    for(var i = 0; i < fields.length; i++){
-        fields[i].invalid ? fields[i].invalid = false : null;
-        value ? fields[i].value = null : null;
-    }
-}

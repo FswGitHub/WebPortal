@@ -28,7 +28,7 @@ script.
 
         page('/login', function (ctx) {
             var token = false;
-            var reset = false;
+            //var reset = false;
             var queryString = ctx.querystring;
 
             if(app.sessionId){
@@ -39,20 +39,74 @@ script.
                         token = queryString.replace('token=', '');
                         //token validation here
                     }
-                    if (queryString.match(new RegExp('^reset='))) {
-                        reset = queryString.replace('reset=', '');
-                        //token validation here
-                    }
                 }
 
                 app.route = {
                     name: 'login',
                     main: false,
-                    verify: token,
-                    reset: reset
+                    verify: token
+                    //reset: reset
+                }
+            }
+            setTimeout(function () {
+                cleanForm('.forgot-pass');
+                cleanForm('.sign-up');
+            });
+        });
+
+        page('/signup', function () {
+            if (app.sessionId) {
+                page('/dashboard');
+            } else {
+                app.route = {
+                    name: 'signup',
+                    main: false
                 }
             }
         });
+
+        page('/forgotpass', function () {
+            if (app.sessionId) {
+                page('/dashboard');
+            } else {
+                app.route = {
+                    name: 'forgotpass',
+                    main: false
+                }
+            }
+        });
+
+        page('/reset', function (ctx) {
+            var resetValue = false;
+            var queryString = ctx.querystring;
+            if (queryString.match(new RegExp('^resetValue='))) {
+                resetValue = queryString.replace('resetValue=', '');
+            }
+            if (app.sessionId) {
+                page('/dashboard');
+            } else {
+                app.route = {
+                    name: 'reset',
+                    main: false,
+                    resetValue: resetValue
+                }
+            }
+        });
+
+        page('/confirm', function () {
+            if (app.sessionId) {
+                page('/dashboard');
+            } else {
+                app.route = {
+                    name: 'confirm',
+                    main: false
+                }
+            }
+            setTimeout(function () {
+                page('/login');
+            }, 5000);
+        });
+
         page('/dashboard', function () {
             if (app.sessionId) {
                 app.route = {

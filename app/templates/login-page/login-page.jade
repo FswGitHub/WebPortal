@@ -2,53 +2,54 @@
     #loginPageContent(class$="login-page-content layout vertical {{addClass(tabHeightScreen, 'fit')}}")
         .login-logo-wrapper
             img.fundamental-logo(src="assets/images/logo-light.png")
-        .login-form-wrapper.flex(hidden="{{showSignInForm(signUp, forgotPass, confirm, route.reset)}}")
-            form#signInForm.login-form
-                p.login-text(hidden="{{!route.verify}}") Thanks you for confirmed your email. Please sign in.
-                div(class$="fields-wrapper {{addClass(route.verify, 'login-verify')}}")
-                    paper-input#signInEmail.login-field(type="email", label="Email", value="{{login.signIn.email}}", error-message="Please enter valid Email", required)
-                    paper-input#signInPass.login-field(type="password", label="Password", value="{{login.signIn.pass}}", error-message="Please enter Password", required)
-                .submit-wrapper.layout.horizontal.center-center
-                    paper-button.submit-button(on-tap="signInSubmit") Submit
-                    .remember-me-wrapper
-                        span.remember-me-text Remember me
-                        paper-checkbox(active="{{rememberMe}}")
-                    img.loader(src="assets/images/FPM-loader.gif", hidden="{{!loader}}")
-                .fogrot-pass-wrapper.layout.horizontal.center-center
-                    a.forgot-pass-link(on-tap="toggleForgotPass") Help, I forgot my password
-            .sign-up-link-wrapper.layout.vertical.center-center(hidden="{{route.verify}}")
-                span.have-not-account Don`t have an account?
-                paper-button.submit-button(on-tap="toggleSignUp") Sign up here
-        .login-form-wrapper.flex(hidden="{{showSignUpForm(signUp, confirm, route.reset)}}")
-            form#signUpForm.login-form
-                .fields-wrapper.sign-up
-                    paper-input#signUpFirstName.login-field(type="text", value="{{login.signUp.firstName}}", label="First Name", error-message="Please enter your First Name", required)
-                    paper-input#signUpLastName.login-field(type="text", value="{{login.signUp.lastName}}", label="Last Name", error-message="Please enter your Last Name",  required)
-                    paper-input#signUpEmail.login-field(type="email", value="{{login.signUp.email}}", label="Email", error-message="Please enter valid Email", required)
-                    paper-input#signUpPass.login-field(type="password", value="{{login.signUp.pass}}", label="Password", ,error-message="Please enter Password", required)
-                .submit-wrapper.layout.horizontal.center-center
-                    paper-button.submit-button(on-tap="signUpSubmit") Sign Up
-            .sign-up-link-wrapper.layout.vertical.center-center
-                span.have-not-account Already have an account?
-                paper-button.submit-button(on-tap="toggleSignUp") Login
-        .login-form-wrapper.flex(hidden="{{!forgotPass}}")
-            form#forgotPassword.login-form
-                p.login-text Please enter your email address and we`ll send you a link to reset your password.
-                .fields-wrapper.forgot-pass
-                    paper-input#forgotPassEmail.login-field(type="email", value="{{login.forgotPassEmail}}", label="Email", error-message="Please enter valid Email", required)
-                .submit-wrapper.layout.horizontal.center-center
-                    paper-button.submit-button(on-tap="sentForgotPass") {{forgotPassButtonText(login.forgotPassEmail)}}
-        .login-form-wrapper.flex(hidden="{{!route.reset}}")
-            form#resetPassForm.login-form
-                p.login-text Please create your new password.
-                .fields-wrapper
-                    paper-input#newPass.login-field(type="password", value="{{login.newPass}}", label="New Password", error-message="Please enter Password", required)
-                    paper-input#newPassConfirm.login-field(type="password", value="{{login.newPassConfirm}}", label="Confirm Password", error-message="Passwords are not same",  invalid="{{passNotMatch}}")
-                .submit-wrapper.layout.horizontal.center-center
-                    paper-button.submit-button(on-tap="submitNewPass") Submit
-        .login-form-wrapper.flex(hidden="{{!confirm}}")
-            form#confirmForm.login-form
-                p.login-text Thanks you for signing up.
-                    br
-                    | Please check your email and click the verification link to confirm your email.
+        iron-pages#loginPages.login-pages.flex(attr-for-selected='data-route', selected='[[route.name]]')
+            section.login-form-wrapper.flex(data-route="login")
+                form#signInForm.login-form
+                    p.login-text(hidden="{{!route.verify}}") Thanks you for confirmed your email. Please sign in.
+                    div(class$="fields-wrapper {{addClass(route.verify, 'login-verify')}}")
+                        paper-input#signInEmail.login-field(type="email", label="Email", value="{{testEmail}}", error-message="Please enter valid Email", required)
+                        paper-input#signInPass.login-field(type="password", label="Password", value="{{testPass}}", error-message="Please enter Password", required)
+                    .submit-wrapper.layout.horizontal.center-center
+                        paper-button.submit-button(on-tap="signInSubmit") Submit
+                        .remember-me-wrapper
+                            span.remember-me-text Remember me
+                            paper-checkbox(active="{{rememberMe}}")
+                        img.loader(src="assets/images/FPM-loader.gif", hidden="{{!loader}}")
+                    .fogrot-pass-wrapper.layout.horizontal.center-center
+                        a.forgot-pass-link(on-tap="toggleForgotPass") Help, I forgot my password
+                .sign-up-link-wrapper.layout.vertical.center-center(hidden="{{route.verify}}")
+                    span.have-not-account Don`t have an account?
+                    paper-button.submit-button(on-tap="toggleSignUp") Sign up here
+            section.login-form-wrapper.flex(data-route="signup")
+                form#signUpForm.login-form
+                    .fields-wrapper.sign-up
+                        paper-input#signUpFirstName.login-field(type="text", value="{{login.signUp.firstName}}", label="First Name", error-message="Please enter your First Name", required)
+                        paper-input#signUpLastName.login-field(type="text", value="{{login.signUp.lastName}}", label="Last Name", error-message="Please enter your Last Name",  required)
+                        paper-input#signUpEmail.login-field(type="email", value="{{login.signUp.email}}", label="Email", error-message="Please enter valid Email", required)
+                        paper-input#signUpPass.login-field(type="password", value="{{login.signUp.pass}}", label="Password", ,error-message="Please enter Password", required)
+                    .submit-wrapper.layout.horizontal.center-center
+                        paper-button.submit-button(on-tap="signUpSubmit") Sign Up
+                .sign-up-link-wrapper.layout.vertical.center-center
+                    span.have-not-account Already have an account?
+                    paper-button.submit-button(on-tap="toggleSignUp") Login
+            section.login-form-wrapper.flex(data-route="forgotpass")
+                form#forgotPassword.login-form
+                    p.login-text Please enter your email address and we`ll send you a link to reset your password.
+                    .fields-wrapper.forgot-pass
+                        paper-input#forgotPassEmail.login-field(type="email", label="Email", error-message="Please enter valid Email", required)
+                    .submit-wrapper.layout.horizontal.center-center
+                        paper-button.submit-button(on-tap="sentForgotPass") Submit
+            section.login-form-wrapper.flex(data-route="reset")
+                form#resetPassForm.login-form
+                    p.login-text Please create your new password.
+                    .fields-wrapper.reset-form
+                        paper-input#newPass.login-field(type="password", value="{{login.newPass}}", label="New Password", error-message="Please enter Password", required)
+                        paper-input#newPassConfirm.login-field(type="password", value="{{login.newPassConfirm}}", label="Confirm Password", error-message="Passwords are not same",  invalid="{{passNotMatch}}")
+                    .submit-wrapper.layout.horizontal.center-center
+                        paper-button.submit-button(on-tap="submitNewPass") Submit
+            section.login-form-wrapper.flex(data-route="confirm")
+                form#confirmForm.login-form
+                    p.login-text Thanks you for signing up.
+                        br
+                        | Please check your email and click the verification link to confirm your email.
         footer-element
