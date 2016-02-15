@@ -5,7 +5,8 @@
         iron-pages#loginPages.login-pages.flex(attr-for-selected='data-route', selected='[[route.name]]')
             section.login-form-wrapper.flex(data-route="login")
                 form#signInForm.login-form
-                    p.login-text(hidden="{{!route.verify}}") Thanks you for confirmed your email. Please sign in.
+                    template(is="dom-if", if="{{route.verify}}")
+                        p.login-text Thanks you for confirmed your email. Please sign in.
                     div(class$="fields-wrapper {{addClass(route.verify, 'login-verify')}}")
                         paper-input#signInEmail.login-field(type="email", label="Email", value="{{testEmail}}", error-message="Please enter valid Email", required)
                         paper-input#signInPass.login-field(type="password", label="Password", value="{{testPass}}", error-message="Please enter Password", required)
@@ -14,7 +15,8 @@
                         .remember-me-wrapper
                             span.remember-me-text Remember me
                             paper-checkbox(active="{{rememberMe}}")
-                        img.loader(src="assets/images/FPM-loader.gif", hidden="{{!loader}}")
+                        template(is="dom-if", if="{{loader}}")
+                            img.loader(src="assets/images/FPM-loader.gif")
                     .fogrot-pass-wrapper.layout.horizontal.center-center
                         a.forgot-pass-link(on-tap="toggleForgotPass") Help, I forgot my password
                 .sign-up-link-wrapper.layout.vertical.center-center(hidden="{{route.verify}}")
