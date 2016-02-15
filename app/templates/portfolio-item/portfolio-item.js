@@ -16,10 +16,6 @@
             type: Array,
             computed: 'getCurrentClassifications(portfolioItems, route)'
         },
-        currentClassificationsData: {
-            type: Object,
-            computed: 'getClassificationsData(portfolioItems, route, selectedClassification)'
-        },
         selectedClassification: {
             type: Object,
             value: {}
@@ -64,6 +60,7 @@
         if(app.route && app.route.name.indexOf('portfolio-item') > -1 && app.sessionId){
             app.loader = true;
             var holdings = app.getHoldings(app.route, app.portfolioItems, app.selectedClassification);
+            var classification = app.getClassificationsData(app.portfolioItems, app.route, app.selectedClassification);
 
             setTimeout(function(){
                 if(app.route.params){
@@ -73,7 +70,7 @@
 
                     app.holdings = holdings;
                     holdingsTable.holdings = holdings;
-                    holdingsTable.classification = app.currentClassificationsData;
+                    holdingsTable.classification = classification;
                     app.loader = false;
                 }
             }, 500);
