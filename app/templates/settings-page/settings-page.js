@@ -28,8 +28,12 @@
     };
 
     app.recolorApp = function(e){
+        var saved = localStorage.getItem(app.apiUrl+ 'app_colour');
         app.appColor = e.detail.color;
-        return saveSettings();
+
+        if(e.detail.color != saved){
+            return saveSettings();
+        }
     };
 
     app.convertColor = function(hex){
@@ -230,7 +234,8 @@ function cleanCharts(){
 
 function saveSettings(){
     var url = app.apiUrl + 'resources/json/savesettings.json';
-    var body = {colour: app.color, logo: app.logo, theme: app.theme};
+    //var body = {colour: app.appColor, logo: app.logo, theme: app.theme};
+    var body = {logo: app.logo, theme: app.theme};
     for (var key in app.settings){
         body[key] = app.settings[key];
     }
