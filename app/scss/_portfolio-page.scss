@@ -63,15 +63,9 @@
 
 .mobile-data-thead {
     cursor: pointer;
-    .white-icon {
-        margin-left: -24px;
-    }
-}
-
-.mobile-data-tbody {
-    .data-tbody-tr.mobile-data-td {
-        display: none;
-    }
+    //.white-icon {
+    //    margin-left: -24px;
+    //}
 }
 
 ////------------media screen width-----------------
@@ -97,6 +91,7 @@
         padding: 14px 24px;
         min-height: 17px;
         overflow: hidden;
+        display: block;
     }
 
     .data-tbody-td {
@@ -138,5 +133,23 @@
 
     .without-label {
         display: none;
+    }
+
+
+    .data-tbody-tr.layout.horizontal.mobile-data-td {
+        display: none;
+    }
+
+    //--------------IE10 huck---------------
+    /* because this block in "dom-repeat" and
+    computed class function works earlier than
+    block is ready
+    */
+
+    .data-tbody-tr.layout.horizontal {
+        -ms-flex-direction: initial;
+        -webkit-flex-direction: initial;
+        flex-direction: initial;
+        display: block;
     }
 }

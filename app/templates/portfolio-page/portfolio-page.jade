@@ -14,9 +14,9 @@
                     span.th-content Residency
         div(class$="data-tbody layout vertical [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
             template(is="dom-repeat", items="[[portfolioData]]")
-                .mobile-data-thead.layout.horizontal(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
+                .mobile-data-thead(hidden$="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
                     span.mobile-th-content [[item.name]]
-                div(on-tap="goToPortfolioItem", class$="data-tbody-tr mobile-data-td [[toggleClass(tabWidthScreen, '', 'layout horizontal')]]")
+                div.data-tbody-tr.mobile-data-td.layout.horizontal(on-tap="goToPortfolioItem")
                     .data-tbody-td.flex.layout.horizontal.start.center
                         span.td-label Code
                         span.td-content.flex [[item.code]]
