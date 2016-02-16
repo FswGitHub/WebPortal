@@ -19,4 +19,27 @@
             }
         }
     };
+
+    app._tabWidthChanged = function(newVal){
+        if(newVal){
+            openFirstRows();
+        }
+    }
 })();
+
+//open first tables rows for mobile and tab screens
+function openFirstRows(){
+    var tables = document.getElementsByClassName('data-table');
+    setTimeout(function(){
+        for(var i = 0; i < tables.length; i++) {
+            var allRows = tables[i].getElementsByClassName('data-tbody-tr');
+            var firstRow = allRows[0];
+            firstRow ? firstRow.classList.remove('mobile-data-td') : null;
+            for(var j=1; j < allRows.length; j++){
+                if(!allRows[j].classList.contains('mobile-data-td')){
+                    allRows[j].classList.add('mobile-data-td');
+                }
+            }
+        }
+    });
+}

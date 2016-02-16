@@ -9,6 +9,7 @@
     app.toggleSignUp = function(){
         if(app.route.name == 'login'){
             page('/signup');
+            cleanForm('.sign-up', true);
         } else {
             page('/login');
         }
@@ -19,6 +20,7 @@
     };
 
     app.toggleForgotPass = function(){
+        cleanForm('.forgot-pass', true);
         page('/forgotpass');
     };
 
@@ -91,7 +93,7 @@
                 //request should be here, but first get value from query sting
                 //app.route.resetValue
                 showAlert(null, 'Your password is update.', function(){
-                    cleanForm('.reset-form');
+                    cleanForm('.reset-form', true);
                     page('/login');
                 });
             } else {

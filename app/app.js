@@ -40,7 +40,8 @@
         '_appColorChanged(appColor)',
         '_rememberMeChanged(rememberMe)',
         '_showEditChanged(showEdit)',
-        '_themeChanged(theme)'
+        '_themeChanged(theme)',
+        '_tabWidthChanged(tabWidthScreen)'
     ];
 
     app.baseUrl = '/';
@@ -134,10 +135,7 @@
         }
     }
 
-    window.onload = function() {
-        //open first tables rows for mobile and tab screens
-        openFirstRows();
-    };
+    //window.onload = function() {};
 
     window.addEventListener('resize', function(){
         if(resizeTimer) {
@@ -273,23 +271,6 @@ function showConfirm(header, text, confirmCallback, closeCallback){
             return confirmCallback ? confirmCallback.call() : null;
         } else {
             return closeCallback ? closeCallback.call() : null;
-        }
-    });
-}
-
-
-function openFirstRows(){
-    var tables = document.getElementsByClassName('data-table');
-    setTimeout(function(){
-        for(var i = 0; i < tables.length; i++) {
-            var allRows = tables[i].getElementsByClassName('data-tbody-tr');
-            var firstRow = allRows[0];
-            firstRow ? firstRow.classList.remove('mobile-data-td') : null;
-            for(var j=1; j < allRows.length; j++){
-                if(!allRows[j].classList.contains('mobile-data-td')){
-                    allRows[j].classList.add('mobile-data-td');
-                }
-            }
         }
     });
 }
