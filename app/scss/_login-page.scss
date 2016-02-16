@@ -121,20 +121,21 @@ paper-button.submit-button {
     .remember-me-text {
         margin-right: 8px;
     }
+
+    .login-form {
+        max-width: 256px;
+    }
+}
+
+@media screen and (min-width: $size-small + 1px) and (max-width: $size-medium) {
+    .login-form {
+        max-width: 300px;
+    }
 }
 
 @media screen and (max-width: $size-medium) {
     .login-page-content {
         margin: 0 $margin-small;
-    }
-
-    .loader {
-        top: auto;
-        bottom: -27px;
-        width: 24px;
-        margin-top: auto;
-        margin-left: -12px;
-        left: 50%;
     }
 }
 
@@ -144,7 +145,7 @@ paper-button.submit-button {
     }
 
     .login-form {
-        max-width: $size-small;
+        max-width: 300px;
     }
 }
 
@@ -152,11 +153,21 @@ paper-button.submit-button {
     .login-logo-wrapper {
         padding: $padding-medium 0 $padding-small;
     }
+
     .fundamental-logo {
         width: 100%;
         max-width: 288px;
         margin: 0 auto;
         display: block;
+    }
+
+    .loader {
+        top: auto;
+        bottom: -27px;
+        width: 24px;
+        margin-top: auto;
+        margin-left: -12px;
+        left: 50%;
     }
 }
 
