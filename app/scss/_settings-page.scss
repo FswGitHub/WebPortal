@@ -180,16 +180,9 @@ iron-icon.upload-logo-icon {
 .users-page-wrapper {
     position: relative;
     padding-top: 20px;
-    .actions {
-        padding: 3px 24px 2px;
-    }
-
-    .td-label {
-        padding: 14px 16px;
-    }
 
     .data-thead, .mobile-data-thead {
-        font-size: 14px;
+        font-size: $font-size-14;
     }
 }
 
@@ -202,6 +195,10 @@ iron-icon.upload-logo-icon {
 
 .options-icon {
    margin-right: 8px;
+}
+
+.actions {
+    padding: 3px 24px 2px;
 }
 //------------media screen width-----------------
 
@@ -232,9 +229,9 @@ iron-icon.upload-logo-icon {
 }
 
 @media screen and (max-width: $size-large) {
-    .users-page-wrapper {
-        .actions {
-            padding: 3px 8px;
+    .actions {
+        .td-content {
+            padding: 3px 16px;
         }
     }
 

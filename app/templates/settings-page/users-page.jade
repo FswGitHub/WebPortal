@@ -13,61 +13,36 @@
                     a.download-link(download, href="assets/files/users.xlsx")
                         iron-icon.options-icon(icon="file-download")
                         | Bulk User Template
-    .data-table-wrapper(hidden="[[!users]]")
-        table.data-table.secondary-table
-            thead.data-thead(hidden="[[tabWidthScreen]]")
-                tr.data-thead-tr
-                    th.data-thead-th.row-start
-                        span.th-content Email Adress
-                    th.data-thead-th
-                        span.th-content First Name
-                    th.data-thead-th
-                        span.th-content Last Name
-                    th.data-thead-th
-                        span.th-content Status
-                    th.data-thead-th.row-end
-                        span.th-content Actions
-            tbody(class$="data-tbody [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
-                template(is="dom-repeat", items="[[users]]")
-                    tr.mobile-data-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
-                        td
-                            span.td-content [[item.firstName]] [[item.lastName]]
-                    tr.data-tbody-tr.mobile-data-td
-                        td.data-tbody-td.row-start
-                            span.td-label(hidden="[[!tabWidthScreen]]") Email
-                            span.td-content [[item.email]]
-                        td.data-tbody-td(hidden="[[tabWidthScreen]]")
-                            span.td-content [[item.firstName]]
-                        td.data-tbody-td(hidden="[[tabWidthScreen]]")
-                            span.td-content [[item.lastName]]
-                        td.data-tbody-td
-                            span.td-label(hidden="[[!tabWidthScreen]]") Status
-                            span.td-content [[item.status]]
-                        td.data-tbody-td.row-end
-                            span.td-label(hidden="[[!tabWidthScreen]]") Actions
-                            div.td-content.actions
-                                paper-icon-button(icon="visibility", hidden="[[!item.viewProfile]]", on-tap="loginAsUser")
-                                paper-icon-button(icon="refresh", hidden="[[!item.resendConfirmation]]", on-tap="resendConfirmation")
-    paper-dialog#importDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-opened="listenForFile", on-iron-overlay-closed="cleanFile")
-        h2 Import
-        .dialog-content.import-dialog-content
-            label.dialog-label Upload a file
-            .chose-file-place.layout.horizontal.start.center
-                input#output.file-label(type="text", readonly)
-                button.chose-file-btn Browse
-                    input#fileInput.file-place(type="file", value="", accept=".xlsx, .xls")
-            label.dialog-label.or-label Or
-            #dropZone.drag-and-drop-place.layout.horizontal.center-center
-                span.drag-and-drop-label Drag and drop file here
-        .dialog-actions.buttons
-            paper-button(dialog-dismiss) Cancel
-            paper-button(on-tap="uploadUsers") Upload
-    paper-dialog#addUserDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-closed="cleanDialog")
-        h2 Add user
-        .dialog-content.add-user-form
-            paper-input#newEmail(label="Email", type="email", error-message="Please enter user Email", required)
-            paper-input#newFirstName(label="First Name", type="text", error-message="Please enter user First Name", required)
-            paper-input#newLastName(label="Last Name", type="text", error-message="Please enter user Last Name", required)
-        .dialog-actions.buttons
-            paper-button(dialog-dismiss) Cancel
-            paper-button(on-tap="addConfirmed") Add
+    .data-table.users-table(hidden$="[[!users]]")
+        .data-thead.layout.vertical
+            .data-thead-tr.layout.horizontal
+                .data-thead-th.flex
+                    span.th-content Email Adress
+                .data-thead-th.flex
+                    span.th-content First Name
+                .data-thead-th.flex
+                    span.th-content Last Name
+                .data-thead-th.flex
+                    span.th-content Status
+                .data-thead-th.flex
+                    span.th-content Actions
+        div(class$="data-tbody layout vertical [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
+            template(is="dom-repeat", items="[[users]]")
+                .mobile-data-thead(data-index="[[index]]", on-tap="openTableRow")
+                    span.mobile-th-content [[item.firstName]] [[item.lastName]]
+                .data-tbody-tr.mobile-data-td.layout.horizontal
+                    .data-tbody-td.flex.layout.horizontal.start
+                        span.td-label Email
+                        span.td-content [[item.email]]
+                    .data-tbody-td.flex.without-label
+                        span.td-content [[item.firstName]]
+                    .data-tbody-td.flex.without-label
+                        span.td-content [[item.lastName]]
+                    .data-tbody-td.flex.layout.horizontal.start
+                        span.td-label Status
+                        span.td-content [[item.status]]
+                    .data-tbody-td.flex.layout.horizontal.start.actions
+                        span.td-label Actions
+                        div.td-content
+                            paper-icon-button(icon="visibility", hidden="[[!item.viewProfile]]", on-tap="loginAsUser")
+                            paper-icon-button(icon="refresh", hidden="[[!item.resendConfirmation]]", on-tap="resendConfirmation")

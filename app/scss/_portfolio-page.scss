@@ -63,6 +63,7 @@
 
 .mobile-data-thead {
     cursor: pointer;
+    display: none;
     //.white-icon {
     //    margin-left: -24px;
     //}
@@ -91,6 +92,10 @@
         padding: 14px 24px;
         min-height: 17px;
         overflow: hidden;
+        display: block;
+    }
+
+    .mobile-data-thead {
         display: block;
     }
 
@@ -127,6 +132,7 @@
         display: inline-block;
         padding: 14px 16px;
         width: 90px;
+        min-width: 90px;
         font-weight: bold;
         text-transform: uppercase;
     }

@@ -30,12 +30,14 @@ html
             //If user already signed in, open main page
             template(is="dom-if", if="{{route.main}}")
                 include templates/main-page/main-page
+            //Alert Dialog
             paper-dialog#alertDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop)
                 h2#alertHeader
                 .dialog-content
                     p#alertText
                 .dialog-actions.buttons
                     paper-button(dialog-dismiss) OK
+            //Confirm Dialog
             paper-dialog#confirmDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop)
                 h2#confirmHeader
                 .dialog-content
@@ -43,6 +45,32 @@ html
                 .dialog-actions.buttons
                     paper-button#confirmButton(dialog-confirm) Ok
                     paper-button(dialog-dismiss) Cancel
+            //This is settings dialog for users file import
+            paper-dialog#importDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-opened="listenForFile", on-iron-overlay-closed="cleanFile")
+                h2 Import
+                .dialog-content.import-dialog-content
+                    label.dialog-label Upload a file
+                    .chose-file-place.layout.horizontal.start.center
+                        input#output.file-label(type="text", readonly)
+                        button.chose-file-btn Browse
+                            input#fileInput.file-place(type="file", value="", accept=".xlsx, .xls")
+                    label.dialog-label.or-label Or
+                    #dropZone.drag-and-drop-place.layout.horizontal.center-center
+                        span.drag-and-drop-label Drag and drop file here
+                .dialog-actions.buttons
+                    paper-button(dialog-dismiss) Cancel
+                    paper-button(on-tap="uploadUsers") Upload
+            //This is settings dialog which add new user to table
+            paper-dialog#addUserDialog(entry-animation="scale-up-animation", exit-animation="fade-out-animation", with-backdrop, on-iron-overlay-closed="cleanDialog")
+                h2 Add user
+                .dialog-content.add-user-form
+                    paper-input#newEmail(label="Email", type="email", error-message="Please enter user Email", required)
+                    paper-input#newFirstName(label="First Name", type="text", error-message="Please enter user First Name", required)
+                    paper-input#newLastName(label="Last Name", type="text", error-message="Please enter user Last Name", required)
+                .dialog-actions.buttons
+                    paper-button(dialog-dismiss) Cancel
+                    paper-button(on-tap="addConfirmed") Add
+        //'template id="app"' script separated for pages
         script(src="app.js", rel="text/javascript")
         script(src="templates/login-page/login-page.js", rel="text/javascript")
         script(src="templates/main-page/main-page.js", rel="text/javascript")

@@ -14,20 +14,20 @@
                     span.th-content Residency
         div(class$="data-tbody layout vertical [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
             template(is="dom-repeat", items="[[portfolioData]]")
-                .mobile-data-thead(hidden$="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
+                .mobile-data-thead(data-index="[[index]]", on-tap="openTableRow")
                     span.mobile-th-content [[item.name]]
                 div.data-tbody-tr.mobile-data-td.layout.horizontal(on-tap="goToPortfolioItem")
-                    .data-tbody-td.flex.layout.horizontal.start.center
+                    .data-tbody-td.flex.layout.horizontal.start
                         span.td-label Code
                         span.td-content.flex [[item.code]]
                     .data-tbody-td.flex.without-label
                         span.td-content.flex [[item.name]]
-                    .data-tbody-td.flex.layout.horizontal.start.center
+                    .data-tbody-td.flex.layout.horizontal.start
                         span.td-label Status
                         span.td-content.flex [[item.status]]
-                    .data-tbody-td.flex.layout.horizontal.start.start
+                    .data-tbody-td.flex.layout.horizontal.start
                         span.td-label Tax currency
                         span.td-content.flex [[item.taxCurrency]]
-                    .data-tbody-td.flex.layout.horizontal.start.center
+                    .data-tbody-td.flex.layout.horizontal.start
                         span.td-label Residency
                         span.td-content.flex [[item.residency]]
