@@ -1,4 +1,6 @@
 #portfolio-page.portfolio-page-wrapper
+        // Imitation of <table> because IE doesn't support dom-repeat
+        // for tables (Polymer 1.0 bug) https://github.com/Polymer/polymer/issues/1567
     .data-table.portfolio-table(hidden&="[[!portfolioData]]")
         .data-thead.layout.vertical
             .data-thead-tr.layout.horizontal
