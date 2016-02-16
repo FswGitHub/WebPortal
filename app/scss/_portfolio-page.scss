@@ -1,16 +1,32 @@
-.data-table-wrapper {
+.data-table {
     padding-bottom: 40px;
     background-color: #fff;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    min-width: 900px;
     border-bottom: 1px solid $color-grey-medium;
 }
-.data-table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout: fixed;
+
+.portfolio-table {
+    min-width: 896px;
+    .data-thead-tr, .data-tbody-tr {
+        margin: 0 32px;
+    }
+}
+
+.data-thead-tr, .data-tbody-tr {
+    margin: 0 16px;
+}
+
+.data-thead-th, .data-tbody-td {
+    padding: 14px 24px;
+    min-height: 17px;
     overflow: hidden;
+    &:first-child {
+        padding-left: 8px;
+    }
+    &:last-child {
+        padding-right: 8px;
+    }
 }
 
 .data-thead, .mobile-data-thead {
@@ -37,106 +53,90 @@
     cursor: pointer;
 }
 
-.data-tbody-td, .data-thead-th {
-    padding: 0;
-    &.row-end  {
-        padding-right: $padding-medium;
-    }
-    &.row-start  {
-        padding-left: $padding-medium;
-    }
+.td-label {
+    display: none;
 }
-
-.td-content, .th-content, .td-label {
-    padding: 14px 24px;
-    display: block;
-    min-height: 17px;
-    overflow: hidden;
-}
-
-//.td-content {
-//    border-bottom: 1px solid $color-grey-light;
-//}
-
-//.data-tbody-td {
-//    &::after{
-//        content: '';
-//        height: 1px;
-//        width: 100%;
-//        background: $color-grey-light;
-//        display: block;
-//    }
-//}
 
 .data-tbody-tr {
     border-bottom: 1px solid $color-grey-light;
 }
 
 .mobile-data-thead {
-    .data-tbody-td {
-        display: table-cell;
-    }
-    .td-content {
-        border-bottom: none;
-    }
+    cursor: pointer;
     .white-icon {
         margin-left: -24px;
     }
 }
 
 .mobile-data-tbody {
-    .mobile-data-td {
+    .data-tbody-tr.mobile-data-td {
         display: none;
     }
 }
+
 ////------------media screen width-----------------
+
 @media screen and (max-width: $size-large) {
-    .data-table-wrapper {
-        min-width: 100%;
+    .data-table {
         padding-bottom: 0;
         border-bottom: 0;
-        border-radius: 0;
+        .data-thead.layout {
+            display: none;
+        }
+    }
+
+    .portfolio-table {
+        min-width: 100%;
+    }
+
+    .data-tbody-tr, .portfolio-table .data-tbody-tr {
+        margin: 0;
+    }
+
+    .mobile-th-content {
+        padding: 14px 24px;
+        min-height: 17px;
+        overflow: hidden;
     }
 
     .data-tbody-td {
-        display: table-row;
-    }
-
-    .data-tbody-td {
+        padding: 0;
+        position: relative;
+        &::after {
+            content: " ";
+            position: absolute;
+            height: 1px;
+            display: inline-block;
+            background: $color-grey-light;
+            bottom: 1px;
+            right: 14px;
+            left: 132px;
+        }
         .td-content {
-            display: table-cell;
-            width: 100%;
+            display: inline-block;
             padding: 14px 16px;
-            border-bottom: none;
-            position: relative;
-            &:after {
-                content: " ";
-                position: absolute;
-                height: 1px;
-                display: inline-block;
-                background: $color-grey-light;
-                bottom: 0;
-                left: 16px;
-                right: 16px;
+            border-left: 1px solid $color-grey-light;
+        }
+        &:first-child {
+            padding: 0;
+        }
+        &:last-child {
+            padding: 0;
+            &::after {
+                content: none;
             }
-        }
-        &.row-end .td-content:after {
-            content: none;
-        }
-    }
-
-    .data-tbody-td {
-        &.row-end  {
-            padding: 0;
-        }
-        &.row-start  {
-            padding: 0;
         }
     }
 
     .td-label {
-        display: table-cell;
-        border-right: 1px solid $color-grey-light;
-        padding-bottom: 15px;
+        display: inline-block;
+        padding: 14px 16px;
+        width: 90px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .without-label {
+        display: none;
     }
 }

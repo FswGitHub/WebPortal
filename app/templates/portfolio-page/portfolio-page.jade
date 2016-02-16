@@ -1,35 +1,33 @@
 #portfolio-page.portfolio-page-wrapper
-    .data-table-wrapper(hidden="[[!portfolioData]]")
-        table.data-table
-            thead.data-thead(hidden="[[tabWidthScreen]]")
-                tr.data-thead-tr
-                    th.data-thead-th.row-start
-                        span.th-content Code
-                    th.data-thead-th
-                        span.th-content Name
-                    th.data-thead-th
-                        span.th-content Status
-                    th.data-thead-th
-                        span.th-content Tax currency
-                    th.data-thead-th.row-end
-                        span.th-content Residency
-            tbody(class$="data-tbody [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
-                template(is="dom-repeat", items="[[portfolioData]]")
-                    tr.mobile-data-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
-                        td
-                            span.td-content [[item.name]]
-                    tr.data-tbody-tr.mobile-data-td(on-tap="goToPortfolioItem")
-                        td.data-tbody-td.row-start
-                            span.td-label(hidden="[[!tabWidthScreen]]") Code
-                            span.td-content [[item.code]]
-                        td.data-tbody-td(hidden="[[tabWidthScreen]]")
-                            span.td-content [[item.name]]
-                        td.data-tbody-td
-                            span.td-label(hidden="[[!tabWidthScreen]]") Status
-                            span.td-content [[item.status]]
-                        td.data-tbody-td
-                            span.td-label(hidden="[[!tabWidthScreen]]") Tax currency
-                            span.td-content [[item.taxCurrency]]
-                        td.data-tbody-td.row-end
-                            span.td-label(hidden="[[!tabWidthScreen]]") Residency
-                            span.td-content [[item.residency]]
+    .data-table.portfolio-table(hidden&="[[!portfolioData]]")
+        .data-thead.layout.vertical
+            .data-thead-tr.layout.horizontal
+                .data-thead-th.flex
+                    span.th-content Code
+                .data-thead-th.flex
+                    span.th-content Name
+                .data-thead-th.flex
+                    span.th-content Status
+                .data-thead-th.flex
+                    span.th-content Tax currency
+                .data-thead-th.flex
+                    span.th-content Residency
+        div(class$="data-tbody layout vertical [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
+            template(is="dom-repeat", items="[[portfolioData]]")
+                .mobile-data-thead.layout.horizontal(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
+                    span.mobile-th-content [[item.name]]
+                div(on-tap="goToPortfolioItem", class$="data-tbody-tr mobile-data-td [[toggleClass(tabWidthScreen, '', 'layout horizontal')]]")
+                    .data-tbody-td.flex.layout.horizontal.start.center
+                        span.td-label Code
+                        span.td-content.flex [[item.code]]
+                    .data-tbody-td.flex.without-label
+                        span.td-content.flex [[item.name]]
+                    .data-tbody-td.flex.layout.horizontal.start.center
+                        span.td-label Status
+                        span.td-content.flex [[item.status]]
+                    .data-tbody-td.flex.layout.horizontal.start.start
+                        span.td-label Tax currency
+                        span.td-content.flex [[item.taxCurrency]]
+                    .data-tbody-td.flex.layout.horizontal.start.center
+                        span.td-label Residency
+                        span.td-content.flex [[item.residency]]
