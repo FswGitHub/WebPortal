@@ -70,6 +70,7 @@
                         logoUploader.value = null;
                         //should be logo upload here!
                         // newLogo = upload.response.url;
+                        showAlert('Success', 'Logo uploaded');
                     } else {
                         showAlert('Wrong size', 'Please choose image with max size 224px x 64px');
                     }
@@ -122,7 +123,37 @@
         fileInput.addEventListener('change', function(e){
             var file = e.target.files[0];
             readFile(file, output, function(u){
-                usersToUpload = u;
+                var hasEmail = false;
+                var hasFirstName = false;
+                var hasLastName = false;
+                var keys = Object.keys(u[0]);
+                var last = keys[keys.length-1];
+                for(var key in u[0]){
+                    switch (key) {
+                        case 'email':
+                            hasEmail = true;
+                            break;
+                        case 'firstName':
+                            hasFirstName = true;
+                            break;
+                        case 'lastName':
+                            hasLastName = true;
+                            break;
+                    }
+
+
+                    if(key == last){
+                        if(hasEmail && hasFirstName && hasLastName){
+                            usersToUpload = u;
+                        } else {
+                            showAlert('Error', 'This file has no users. Choose another file', function(){
+                                fileInput.value = null;
+                                output.value = null;
+                                usersToUpload = null;
+                            });
+                        }
+                    }
+                }
             });
         }, false);
 
@@ -186,6 +217,8 @@
                     showAlert('Error', 'Uploading error');
                 }
             });
+        } else {
+            dialog.close();
         }
     };
 
