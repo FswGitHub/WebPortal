@@ -154,6 +154,32 @@
     min-height: 350px;
 }
 
+.holdings-table-data {
+    padding-bottom: 0;
+    border: 0;
+    border-radius: 0;
+    background-color: $color-grey-light;
+    .data-thead {
+        margin-bottom: 15px;
+    }
+    .data-tbody {
+        .collapsed-row {
+            display: none;
+        }
+        .hidden-row {
+            display: none;
+        }
+    }
+    .mobile-data-thead {
+        .mobile-th-content {
+            padding: 14px 16px 14px 4px;
+        }
+    }
+    .th-label {
+        line-height: 24px;
+    }
+}
+
 .totals {
     background-color: $color-grey-medium-light;
     .th-content {
@@ -161,16 +187,15 @@
     }
 }
 
-.empty-space-row {
-    display: none;
-}
-
-.hidden-row {
-    display: none;
+.totals, .category-row {
+    padding: 0 16px 0 0;
+    margin: 0;
+    color: $color-black;
 }
 
 .white-icon {
     color: $color-white;
+    min-width: 24px;
 }
 
 .toggle-arrow {
@@ -202,10 +227,6 @@
     margin-right: 5px;
 }
 
-.collapsed-row {
-    display: none;
-}
-
 @media screen and (max-width: $size-small){
     .bar-icon, .bar-label {
         margin-right: 0;
@@ -224,6 +245,10 @@
             min-width: 24px;
             height: 24px;
         }
+    }
+
+    .prev, .next {
+        display: none;
     }
 }
 
@@ -301,13 +326,6 @@
     .bar-btn {
         margin: 12px 24px 12px 0;
     }
-    //
-    //.bar-btn {
-    //    iron-icon {
-    //        min-width: 24px;
-    //        height: 24px;
-    //    }
-    //}
 }
 
 @media screen and (min-width: $size-large + 1px){
@@ -327,12 +345,8 @@
         height: auto;
     }
 
-    .p-holdings-page-wrapper {
-        .data-table-wrapper {
-            padding: 0;
-            overflow: hidden;
-        }
-
+    .holdings-table-data {
+        min-width: 960px;
         .data-thead-th {
             font-size: $font-size-14;
             cursor: pointer;
@@ -341,67 +355,36 @@
                 @extend .no-selection;
             }
         }
-
         .data-tbody {
             border-top: none;
         }
-
         .data-thead {
             border-bottom: none;
         }
-
-        .td-content, .th-content, .td-label {
-            padding: 14px 4px;
+        .data-thead-th, .data-tbody-td {
+            padding:  14px 4px;
         }
 
-        .row-end {
-            width: 170px;
+        //------- Make grid system look like <table> ------
+        .data-thead-th, .data-tbody-td {
+            &.flex-3 {
+                padding-right: 36px;
+            }
+            &.flex-2 {
+                padding-right: 12px;
+            }
         }
-
+        .exposure-value {
+            max-width: 165px;
+            min-width: 165px;
+        }
         .percentage-mv {
-            width: 65px;
+            max-width: 60px;
+            min-width: 60px;
         }
-
-        .market-value {
-            width: 135px;
-        }
-
-        .market-price {
-            width: 130px;
-        }
-
-        .book-value {
-            width: 140px;
-        }
-
-        .cost-price {
-            width: 110px;
-        }
-
-        .data-tbody-td, .data-thead-th {
-            &.row-end  {
-                padding-right: 4px;
-            }
-            &.row-start  {
-                padding-left: 4px;
-            }
-        }
+        //----------------------------------------------------
     }
-
-    .empty-space {
-        height: 5px;
-        background-color: $color-grey-light;
-    }
-
-    .empty-space-row {
-        display: table-row;
-    }
-}
-
-@media screen and (min-width: $size-x-large + 256px){
-    .p-holdings-page-wrapper {
-        .market-value, .market-price, .book-value, .cost-price {
-            width: auto;
-        }
+    .mobile-data-row-thead {
+        display: none;
     }
 }

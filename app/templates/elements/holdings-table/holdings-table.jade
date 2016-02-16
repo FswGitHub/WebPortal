@@ -9,16 +9,16 @@ dom-module#holdings-table
                 button.pagination-item(on-tap="selectFirst") First
                 button.pagination-item(on-tap="selectPrev")
                     span &lsaquo;&lsaquo;
-                    span(hidden="[[mobileWidthScreen]]") Prev
+                    span.prev Prev
                 .data-table-pagination
                     iron-selector#pages(selected="{{pageSelected}}", attr-for-selected="data-page")
                         template(is="dom-repeat", items="[[pages]]")
                             button.pagination-item.page-button(data-page$='[[index]]') [[getPageNumber(index)]]
                 button.pagination-item(on-tap="selectNext")
-                    span(hidden="[[mobileWidthScreen]]") Next
+                    span.next Next
                     span &rsaquo;&rsaquo;
                 button.pagination-item(on-tap="selectLast") Last
-            .filters-wrapper.layout.horizontal.start.center(hidden="[[!tabWidthScreen]]")
+            .filters-wrapper.layout.horizontal.start.center(hidden$="[[!tabWidthScreen]]")
                 span.size-label Filter by
                 paper-menu-button.dropdown-menu.data-table-size(open-animation-config='[[openAnimationConfig]]', vertical-offset="4", horizontal-offset="2")
                     paper-button.size-btn.dropdown-trigger
@@ -33,7 +33,7 @@ dom-module#holdings-table
                         paper-item(data-filter="marketValue") Market value
                         paper-item(data-filter="percentageMV") MV%
                         paper-item(data-filter="exposureValue") Exposure value (R)
-            .reverse-wrapper.layout.horizontal.start.center(hidden="[[!tabWidthScreen]]")
+            .reverse-wrapper.layout.horizontal.start.center(hidden$="[[!tabWidthScreen]]")
                 span.size-label.reverse Reverse
                 paper-toggle-button(checked="{{reverse}}")
             .size-wrapper.layout.horizontal.start.center
@@ -46,99 +46,100 @@ dom-module#holdings-table
                         paper-item(data-size="50") 50
                         paper-item(data-size="100") 100
                         paper-item(data-size="200") 200
-        .data-table-wrapper
-            table.data-table.secondary-table
-                thead.data-thead(hidden="[[tabWidthScreen]]")
-                    tr.data-thead-tr
-                        th.data-thead-th.row-start.active(on-tap="filterHoldings", data-filter="name")
-                            span.th-content Name
-                                iron-icon.toggle-arrow.arrow-up(icon="arrow-drop-up")
-                        th.data-thead-th(on-tap="filterHoldings", data-filter="nominal")
-                            span.th-content Nominal
-                                iron-icon.toggle-arrow(icon="arrow-drop-up")
-                        th.data-thead-th.cost-price(on-tap="filterHoldings", data-filter="costPrice")
-                            span.th-content Cost price
-                                iron-icon.toggle-arrow(icon="arrow-drop-up")
-                        th.data-thead-th.book-value(on-tap="filterHoldings", data-filter="bookValue")
-                            span.th-content Book value (R)
-                                iron-icon.toggle-arrow(icon="arrow-drop-up")
-                        th.data-thead-th.market-price(on-tap="filterHoldings", data-filter="marketPrice")
-                            span.th-content Market price
-                                iron-icon.toggle-arrow(icon="arrow-drop-up")
-                        th.data-thead-th.market-value(on-tap="filterHoldings", data-filter="marketValue")
-                            span.th-content Market value
-                                iron-icon.toggle-arrow(icon="arrow-drop-up")
-                        th.data-thead-th.percentage-mv(on-tap="filterHoldings", data-filter="percentageMV")
-                            span.th-content MV%
-                                iron-icon.toggle-arrow(icon="arrow-drop-up")
-                        th.data-thead-th.row-end(on-tap="filterHoldings", data-filter="exposureValue")
-                            span.th-content Exposure value (R)
-                                iron-icon.toggle-arrow(icon="arrow-drop-up")
-                    tr.data-thead-tr.totals
-                        th.data-thead-th.row-start(colspan="3", on-tap="collapseAll")
-                            span.th-content
-                                iron-icon.white-icon.arrow-down(icon="arrow-drop-up")
-                                | Total
-                        th.data-thead-th.book-value
-                            span.th-content [[limitValue(classification.totalBookValue)]]
-                        th.data-thead-th.market-price
-                            span.th-content [[limitValue(classification.averageMarketPrice)]]
-                        th.data-thead-th.market-value
-                            span.th-content [[limitValue(classification.totalMarketValue)]]
-                        th.data-thead-th.percentage-mv
-                            span.th-content [[limitValue(classification.totalPercentageMV)]]
-                        th.data-thead-th.row-end
-                            span.th-content [[limitValue(classification.totalExposureValue)]]
-                tbody(class$="data-tbody [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
-                    tr.empty-space-row
-                        td.empty-space(colspan="8")
-                    template(is="dom-repeat", items="{{filterBy(holdings, categoryFilter, reverse)]]", as="holding")
-                        tr.mobile-data-thead(hidden="[[hideMobileCategoryRow(tabWidthScreen, searchString)]]", data-index="[[index]]", on-tap="collapseCategory")
-                            td
-                                span.td-content
-                                    iron-icon.white-icon(icon="arrow-drop-down")
-                                    | [[holding.category]]
-                        tr.data-tbody-tr.category-row(hidden="[[hideCategoryRow(tabWidthScreen, searchString)]]", on-tap="collapseCategory")
-                            td.data-tbody-td.row-start(colspan="3")
-                                span.td-content
-                                    iron-icon.white-icon(icon="arrow-drop-down")
-                                    | [[holding.category]]
-                            td.data-tbody-td(colspan="2")
-                                span.td-content [[limitValue(holding.totalBookValue)]]
-                            td.data-tbody-td.market-value
-                                span.td-content [[limitValue(holding.totalMarketValue)]]
-                            td.data-tbody-td.percentage-mv
-                                span.td-content [[limitValue(holding.totalPercentageMV)]]
-                            td.data-tbody-td.row-end
-                                span.td-content [[limitValue(holding.totalExposureValue)]]
-                        template(is="dom-repeat", items="{{filterBy(holding.categoryItems, filter, reverse)}}", filter="{{filterByName(searchString)}}")
-                            tr.mobile-data-row-thead(hidden="[[!tabWidthScreen]]", data-index="[[index]]", on-tap="openTableRow")
-                                td
-                                    span.td-content [[item.name]]
-                            tr.data-tbody-tr.mobile-data-td.category-item-row
-                                td.data-tbody-td.row-start(hidden="[[tabWidthScreen]]")
-                                    span.td-content [[item.name]]
-                                td.data-tbody-td
-                                    span.td-label(hidden="[[!tabWidthScreen]]") Nominal
-                                    span.td-content [[limitValue(item.nominal)]]
-                                td.data-tbody-td.cost-price
-                                    span.td-label(hidden="[[!tabWidthScreen]]") Cost price
-                                    span.td-content [[limitValue(item.costPrice)]]
-                                td.data-tbody-td.book-value
-                                    span.td-label(hidden="[[!tabWidthScreen]]") Book value (R)
-                                    span.td-content [[limitValue(item.bookValue)]]
-                                td.data-tbody-td.market-price
-                                    span.td-label(hidden="[[!tabWidthScreen]]") Market price
-                                    span.td-content [[limitValue(item.marketPrice)]]
-                                td.data-tbody-td.market-value
-                                    span.td-label(hidden="[[!tabWidthScreen]]") Market value
-                                    span.td-content [[limitValue(item.marketValue)]]
-                                td.data-tbody-td.percentage-mv
-                                    span.td-label(hidden="[[!tabWidthScreen]]") MV%
-                                    span.td-content [[limitValue(item.percentageMV)]]
-                                td.data-tbody-td.row-end
-                                    span.td-label(hidden="[[!tabWidthScreen]]") Exposure value (R)
-                                    span.td-content [[limitValue(item.exposureValue)]]
+        .data-table.holdings-table-data
+            .data-thead.layout.vertical
+                .data-thead-tr.layout.horizontal
+                    .data-thead-th.flex.active.start-coll(on-tap="filterHoldings", data-filter="name")
+                        span.th-content.layout.horizontal.start
+                            span.th-label.flex Name
+                            iron-icon.toggle-arrow.arrow-up(icon="arrow-drop-up")
+                    .data-thead-th.flex(on-tap="filterHoldings", data-filter="nominal")
+                        span.th-content.layout.horizontal.start
+                            span.th-label.flex Nominal
+                            iron-icon.toggle-arrow(icon="arrow-drop-up")
+                    .data-thead-th.flex.cost-price(on-tap="filterHoldings", data-filter="costPrice")
+                        span.th-content.layout.horizontal.start
+                            span.th-label.flex Cost price
+                            iron-icon.toggle-arrow(icon="arrow-drop-up")
+                    .data-thead-th.flex.book-value(on-tap="filterHoldings", data-filter="bookValue")
+                        span.th-content.layout.horizontal.start
+                            span.th-label.flex Book value (R)
+                            iron-icon.toggle-arrow(icon="arrow-drop-up")
+                    .data-thead-th.flex.market-price(on-tap="filterHoldings", data-filter="marketPrice")
+                        span.th-content.layout.horizontal.start
+                            span.th-label.flex Market price
+                            iron-icon.toggle-arrow(icon="arrow-drop-up")
+                    .data-thead-th.flex.market-value(on-tap="filterHoldings", data-filter="marketValue")
+                        span.th-content.layout.horizontal.start
+                            span.th-label.flex Market value
+                            iron-icon.toggle-arrow(icon="arrow-drop-up")
+                    .data-thead-th.flex.percentage-mv(on-tap="filterHoldings", data-filter="percentageMV")
+                        span.th-content.layout.horizontal.start
+                            span.th-label.flex MV%
+                            iron-icon.toggle-arrow(icon="arrow-drop-up")
+                    .data-thead-th.flex.exposure-value(on-tap="filterHoldings", data-filter="exposureValue")
+                        span.th-content.layout.horizontal.start
+                            span.th-label.flex Exposure value (R)
+                            iron-icon.toggle-arrow(icon="arrow-drop-up")
+                .data-thead-tr.layout.horizontal.totals(on-tap="collapseAll")
+                    .data-thead-th.flex-3.layout.horizontal.start
+                        iron-icon.white-icon.arrow-down(icon="arrow-drop-up")
+                        span Total
+                    .data-thead-th.flex.book-value
+                        span.th-content [[limitValue(classification.totalBookValue)]]
+                    .data-thead-th.flex.market-price
+                        span.th-content [[limitValue(classification.averageMarketPrice)]]
+                    .data-thead-th.flex.market-value
+                        span.th-content [[limitValue(classification.totalMarketValue)]]
+                    .data-thead-th.flex.percentage-mv
+                        span.th-content [[limitValue(classification.totalPercentageMV)]]
+                    .data-thead-th.flex.exposure-value
+                        span.th-content [[limitValue(classification.totalExposureValue)]]
+            div(class$="data-tbody layout vertical [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
+                template(is="dom-repeat", items="{{filterBy(holdings, categoryFilter, reverse)]]", as="holding")
+                    .tr.mobile-data-thead(data-index="[[index]]", on-tap="collapseCategory", hidden$="[[searchString]]")
+                        span.mobile-th-content.layout.horizontal.start
+                            iron-icon.white-icon(icon="arrow-drop-down")
+                            span.th-label [[holding.category]]
+                    .tr.data-tbody-tr.layout.horizontal.category-row(on-tap="collapseCategory", hidden$="[[hideCategoryRow(tabWidthScreen, searchString)]]")
+                        .data-tbody-td.flex-3.layout.horizontal.center
+                            iron-icon.white-icon(icon="arrow-drop-down")
+                            span [[holding.category]]
+                        .data-tbody-td.flex-2.layout.horizontal.start
+                            span.td-content [[limitValue(holding.totalBookValue)]]
+                        .data-tbody-td.flex.layout.horizontal.start.market-value
+                            span.td-content [[limitValue(holding.totalMarketValue)]]
+                        .data-tbody-td.flex.layout.horizontal.start.percentage-mv
+                            span.td-content [[limitValue(holding.totalPercentageMV)]]
+                        .data-tbody-td.flex.layout.horizontal.start.exposure-value
+                            span.td-content [[limitValue(holding.totalExposureValue)]]
+                    template(is="dom-repeat", items="{{filterBy(holding.categoryItems, filter, reverse)}}", filter="{{filterByName(searchString)}}")
+                        .tr.mobile-data-row-thead(data-index="[[index]]", on-tap="openTableRow")
+                            span.mobile-th-content [[item.name]]
+                        .tr.data-tbody-tr.mobile-data-td.layout.horizontal.category-item-row
+                            .data-tbody-td.flex.without-label
+                                span.td-content [[item.name]]
+                            .data-tbody-td.flex.layout.horizontal.start
+                                span.td-label Nominal
+                                span.td-content [[limitValue(item.nominal)]]
+                            .data-tbody-td.flex.layout.horizontal.start.cost-price
+                                span.td-label Cost price
+                                span.td-content [[limitValue(item.costPrice)]]
+                            .data-tbody-td.flex.layout.horizontal.start.book-value
+                                span.td-label Book value (R)
+                                span.td-content [[limitValue(item.bookValue)]]
+                            .data-tbody-td.flex.layout.horizontal.start.market-price
+                                span.td-label Market price
+                                span.td-content [[limitValue(item.marketPrice)]]
+                            .data-tbody-td.flex.layout.horizontal.start.market-value
+                                span.td-label Market value
+                                span.td-content [[limitValue(item.marketValue)]]
+                            .data-tbody-td.flex.layout.horizontal.start.percentage-mv
+                                span.td-label MV%
+                                span.td-content [[limitValue(item.percentageMV)]]
+                            .data-tbody-td.flex.layout.horizontal.start.exposure-value
+                                span.td-label Exposure value (R)
+                                span.td-content [[limitValue(item.exposureValue)]]
         iron-media-query(query="(max-width: 599px)" query-matches="{{mobileWidthScreen}}")
         iron-media-query(query="(max-width: 960px)" query-matches="{{tabWidthScreen}}")
     script(src="holdings-table.js", rel="text/javascript")

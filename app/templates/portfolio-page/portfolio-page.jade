@@ -18,7 +18,7 @@
             template(is="dom-repeat", items="[[portfolioData]]")
                 .mobile-data-thead(data-index="[[index]]", on-tap="openTableRow")
                     span.mobile-th-content [[item.name]]
-                div.data-tbody-tr.mobile-data-td.layout.horizontal(on-tap="goToPortfolioItem")
+                .data-tbody-tr.mobile-data-td.layout.horizontal(on-tap="goToPortfolioItem")
                     .data-tbody-td.flex.layout.horizontal.start
                         span.td-label Code
                         span.td-content.flex [[item.code]]

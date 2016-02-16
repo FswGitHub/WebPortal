@@ -57,6 +57,11 @@
     display: none;
 }
 
+.td-content {
+    width: 100%;
+    display: inline-block;
+}
+
 .data-tbody-tr {
     border-bottom: 1px solid $color-grey-light;
 }
@@ -64,9 +69,6 @@
 .mobile-data-thead {
     cursor: pointer;
     display: none;
-    //.white-icon {
-    //    margin-left: -24px;
-    //}
 }
 
 ////------------media screen width-----------------
@@ -102,6 +104,16 @@
     .data-tbody-td {
         padding: 0;
         position: relative;
+        &::before {
+            content: " ";
+            position: absolute;
+            width: 1px;
+            display: inline-block;
+            background: $color-grey-light;
+            bottom: 0;
+            top: 0;
+            left: 122px;
+        }
         &::after {
             content: " ";
             position: absolute;
@@ -110,12 +122,11 @@
             background: $color-grey-light;
             bottom: 1px;
             right: 14px;
-            left: 132px;
+            left: 138px;
         }
         .td-content {
             display: inline-block;
             padding: 14px 16px;
-            border-left: 1px solid $color-grey-light;
         }
         &:first-child {
             padding: 0;

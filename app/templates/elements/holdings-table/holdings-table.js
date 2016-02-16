@@ -251,10 +251,10 @@ Polymer({
     },
     setUpHeaderDefault: function(){
         var activeElement = this.querySelectorAll('.data-thead-th.active')[0];
-        var firstColl = this.querySelectorAll('.data-thead-th.row-start')[0];
+        var firstColl = this.querySelectorAll('.data-thead-th.start-coll')[0];
         var icon = firstColl.querySelectorAll('iron-icon')[0];
 
-        if(!activeElement.classList.contains('row-start')){
+        if(!activeElement.classList.contains('start-coll')){
             activeElement.classList.remove('active');
             firstColl.classList.add('active');
         }
@@ -318,8 +318,8 @@ Polymer({
         var trigger = e.currentTarget;
         var icon = trigger.getElementsByTagName('iron-icon')[0];
         var allClosed = trigger.classList.contains('all-closed');
-        var tableBody = this.getElementsByTagName('tbody')[0];
-        var rows = tableBody.querySelectorAll('tr');
+        var tableBody = this.querySelectorAll('.data-tbody')[0];
+        var rows = tableBody.querySelectorAll('.tr');
 
         if(allClosed){
             icon.classList.remove('arrow-up');
