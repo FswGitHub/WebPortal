@@ -51,20 +51,19 @@ Polymer({
         });
     },
     setTypes: function(type){
+        var types = [], kind;
+        var barTypes = ['Line', 'Bar', 'Radar'];
+        var pieTypes = ['Pie', 'Doughnut', 'Polar'];
         if(!type) {
             return null;
         } else {
-            var types = ['Line', 'Bar', 'Radar', 'Pie', 'Doughnut', 'Polar'];
-            var index = types.indexOf(type);
-            if(index > -1 && index < 3){
-                types.splice(index, 1).splice(2, 3);
-                types.splice(2, 3);
-                return types;
-            } else if(index > -1 && index > 2){
-                types.splice(index, 1);
-                types.splice(0, 3);
-                return types;
+            kind = barTypes.indexOf(type) > -1 ? barTypes : pieTypes;
+            for(var i=0; i < kind.length; i++){
+                if(kind[i] != type){
+                    types.push(kind[i]);
+                }
             }
+            return types;
         }
     },
     removeChart: function(e){
