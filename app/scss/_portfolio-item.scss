@@ -41,6 +41,18 @@
     overflow: auto;
 }
 
+//------------ calendar style fixes ------------
+
+.day-item.paper-calendar {
+    max-width: 35px;
+}
+
+.month-col.paper-calendar {
+    max-width: 35px;
+    min-height: 35px;
+}
+
+//-----------------------------------------------
 .search-wrapper {
     background-color: $color-white;
     height: 32px;

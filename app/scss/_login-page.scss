@@ -57,6 +57,7 @@ paper-button.submit-button {
     border-bottom-right-radius: 30px;
     background-color: $color-grey-medium;
     color: $color-white;
+    position: relative;
 }
 
 .remember-me-text {
@@ -99,12 +100,12 @@ paper-button.submit-button {
 }
 
 .loader {
-    margin-left: 10px;
     width: 24px;
     height: 24px;
     position: absolute;
     top: 50%;
     margin-top: -12px;
+    right: -34px;
 }
 
 //------------media screen width-----------------
@@ -159,6 +160,10 @@ paper-button.submit-button {
         max-width: 288px;
         margin: 0 auto;
         display: block;
+    }
+
+    .remember-me-wrapper {
+        position: initial;
     }
 
     .loader {

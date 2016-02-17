@@ -15,10 +15,10 @@
                         .remember-me-wrapper
                             span.remember-me-text Remember me
                             paper-checkbox(active="{{rememberMe}}")
-                        img.loader(src="assets/images/FPM-loader.gif", hidden$="[[!loader]]")
+                            img.loader(src="assets/images/FPM-loader.gif", hidden$="[[!loader]]")
                     .fogrot-pass-wrapper.layout.horizontal.center-center
                         a.forgot-pass-link(on-tap="toggleForgotPass") Help, I forgot my password
-                .sign-up-link-wrapper.layout.vertical.center-center(hidden="{{route.verify}}")
+                .sign-up-link-wrapper.layout.vertical.center-center(hidden$="{{route.verify}}")
                     span.have-not-account Don`t have an account?
                     paper-button.submit-button(on-tap="toggleSignUp") Sign up here
             section.login-form-wrapper.flex(data-route="signup")
