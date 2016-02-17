@@ -37,6 +37,10 @@
     app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
     app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
     app.rememberMe = localStorage.getItem(app.apiUrl + 'remember_me');
+    app.openAnimationConfig = [
+        {name: 'fade-in-animation', timing: {delay: 100, duration: 200}},
+        {name: 'paper-menu-grow-height-animation', timing: {duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'both'}}
+    ];
 
     app.addClass = function(variable, classString){
         if(variable){
@@ -58,8 +62,6 @@
                 break;
             case 'login':
                 updateColors('paper-dialog', ['--paper-dialog-button-color'], ['#DD1F29']);
-                app.portfolioTab = null;
-                app.settingsTab = null;
                 break;
             case 'settings':
                 app.listenForLogoChange();
@@ -123,8 +125,6 @@
         }
     }
 
-    //window.onload = function() {};
-
     window.addEventListener('resize', function(){
         if(resizeTimer) {
             clearTimeout(resizeTimer);
@@ -172,8 +172,11 @@
 
     //app.addEventListener('dom-change', function() {});
     window.addEventListener('WebComponentsReady', function (e) {
+        //console.log('WebComponentsReady event, time spend ' + timeSpend);
         app.appColor = app.sessionId ? localStorage.getItem(app.apiUrl+ 'app_colour') : null;
     });
+    //window.onload = function(){};
+    //app.ready = function(){};
 })();
 
 function sendRequest(url, method, body, callback){

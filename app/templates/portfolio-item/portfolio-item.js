@@ -134,7 +134,7 @@
                     chartsList.buildCharts();
                 });
             }
-        });
+        },400);
     };
 
     app.formatDate = function(val){

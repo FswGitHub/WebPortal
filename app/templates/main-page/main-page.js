@@ -91,6 +91,8 @@ function logOut(){
     app.holdings = null;
     app.loader = false;
     app.rememberMe = false;
+    app.portfolioTab = null;
+    app.settingsTab = null;
     localStorage.clear();
     cleanCharts();
     page('/login');
