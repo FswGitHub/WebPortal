@@ -261,7 +261,7 @@
 function cleanCharts(){
     var chartsList = document.querySelectorAll('charts-list');
     for(var i=0; i< chartsList.length; i++){
-        chartsList[i].charts = [];
+        chartsList[i].set('charts', []);
     }
 }
 

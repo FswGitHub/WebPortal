@@ -83,13 +83,6 @@
     app.logout = function(){
         showConfirm('Confirm','Are you sure you want to log out?', logOut);
     };
-
-    app.removeAllCharts = function(){
-        var chartsLists = document.querySelectorAll('charts-list');
-        for(var i=0; i < chartsLists.length; i++){
-            chartsLists[i].data = [];
-        }
-    };
 })();
 
 function logOut(){

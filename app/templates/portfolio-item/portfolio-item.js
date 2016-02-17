@@ -129,7 +129,7 @@
             var chartsList = wrapper.getElementsByTagName('charts-list')[0];
 
             if(chartsList && app.portfolioItems[index] && app.portfolioItems[index].charts.length && !chartsList.charts.length){
-                chartsList.charts = app.portfolioItems[index] ? app.portfolioItems[index].charts : null;
+                chartsList.set('charts', app.portfolioItems[index] ? app.portfolioItems[index].charts : null);
                 return setTimeout(function(){
                     chartsList.buildCharts();
                 });

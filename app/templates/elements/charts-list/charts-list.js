@@ -3,15 +3,17 @@ Polymer({
     properties: {
         charts: {
             type: Array,
-            value: []
+            value: function(){
+                return [];
+            },
+            notify: true
         },
         chartsList: {
             type: Array,
-            computed: 'setChartsList(charts)'
+            computed: 'setChartsList(charts.*)'
         },
         openAnimationConfig: {
-            type: Object,
-            value: {}
+            type: Object
         },
         loading: {
             type: Boolean,
@@ -24,9 +26,10 @@ Polymer({
     setChartsList: function(charts){
         var chartsList = [];
         var listLength = 4;
+
         for(var i=0; i < listLength; i++) {
-            if(charts && charts[i]){
-                chartsList.push(charts[i]);
+            if(charts.base && charts.base[i]){
+                chartsList.push(charts.base[i]);
             } else {
                 chartsList.push({});
             }
@@ -50,8 +53,10 @@ Polymer({
             return  self.loading ? self.loading = false : self.loading;
         });
     },
-    setTypes: function(type){
-        var types = [], kind;
+    setTypes: function(item, ind, path){
+        var types = [],
+            type = this.get(path, item.base[ind]),
+            kind;
         var barTypes = ['Line', 'Bar', 'Radar'];
         var pieTypes = ['Pie', 'Doughnut', 'Polar'];
         if(!type) {
@@ -131,7 +136,8 @@ Polymer({
                         }
                         break;
                     case 'change':
-                        self.chartsList[index].type = charts[index].type;
+                        self.set('charts.'+index+'.type', charts[index].type);
+                        console.log(self.get('charts.'+index+'.type'));
                         if(id){
                             app.portfolioItems[id].charts = charts;
                             localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
@@ -152,7 +158,7 @@ Polymer({
         sendRequest(app.apiUrl + 'resources/json/portfolio-item' + id + '/' + app.sessionId+ '.json', 'GET', null, function(e){
             if(e.detail.response.success){
                 app.portfolioItems[id].charts = e.detail.response.item.charts;
-                self.charts = app.portfolioItems[id].charts;
+                self.set('charts', app.portfolioItems[id].charts);
                 localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
                 return self.buildCharts();
             } else {
@@ -166,7 +172,7 @@ Polymer({
             if(e.detail.response.success){
                 app.dashboardCharts = e.detail.response.content;
                 localStorage.setItem(app.apiUrl+ 'dashboard_charts', JSON.stringify(app.dashboardCharts));
-                self.charts = app.dashboardCharts;
+                self.set('charts', app.dashboardCharts);
                 return self.buildCharts();
             } else {
                 showAlert('Error', 'Server error');

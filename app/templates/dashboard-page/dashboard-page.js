@@ -17,8 +17,10 @@
         setTimeout(function(){
             var dashboard = document.getElementsByClassName('dashboard-page-wrapper')[0];
             var chartsList = dashboard.getElementsByTagName('charts-list')[0];
+
             if(chartsList && app.dashboardCharts && app.dashboardCharts.length && !chartsList.charts.length){
-                chartsList.charts = app.dashboardCharts;
+                chartsList.set('charts', app.dashboardCharts);
+
                 return setTimeout(function(){
                     chartsList.buildCharts();
                 });

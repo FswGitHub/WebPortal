@@ -7,24 +7,13 @@
     // Sets app default base URL and globals
     app.properties = {
         route: {
-            type: Object,
-            value: {
-                params: {
-                    type: Object,
-                    value: {
-                        id: {type: Number},
-                        tab: {type: String}
-                    }
-                },
-                name: {
-                    type: String,
-                    value: []
-                }
-            }
+            type: Object
         },
         dashboardCharts: {
             type: Array,
-            value: []
+            value: function(){
+                return [];
+            }
         },
         appColor: {
             type: String
@@ -68,7 +57,6 @@
                 app.addDashboardChartsList();
                 break;
             case 'login':
-                app.removeAllCharts();
                 updateColors('paper-dialog', ['--paper-dialog-button-color'], ['#DD1F29']);
                 app.portfolioTab = null;
                 app.settingsTab = null;
@@ -104,7 +92,7 @@
     app._appColorChanged = function(newVal){
         //This function update all custom styles for every element which need to be main color
         if(newVal){
-            console.log('app color changed to ' +newVal);
+            //console.log('app color changed to ' +newVal);
             var colorsStyle = document.querySelectorAll('style[is="custom-style"]')[0];
             colorsStyle.customStyle['--main-color'] = newVal;
             Polymer.updateStyles();
@@ -162,7 +150,7 @@
 
             function clearCharts(section){
                 var chartsList = section.querySelectorAll('charts-list')[0];
-                chartsList ? chartsList.charts = [] : null;
+                chartsList ? chartsList.set('charts', []) : null;
             }
         }, 250);
     });
