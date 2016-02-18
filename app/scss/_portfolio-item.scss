@@ -354,7 +354,11 @@
 
     .pagination-item {
         min-width: initial;
-        height: auto;
+        height: 22px;
+    }
+
+    .page-button {
+        width: 22px;
     }
 
     .holdings-table-data {

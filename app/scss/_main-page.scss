@@ -56,6 +56,15 @@ paper-tab {
     text-transform: capitalize;
 }
 
+.toolbar-tools.paper-toolbar .title {
+    pointer-events: auto;
+    line-height: 30px;
+}
+
+.portfolio-title-arrow {
+    font-size: 25px;
+}
+
 .portfolio-title-link {
     pointer-events: initial;
     color: $color-white;
