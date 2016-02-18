@@ -5,19 +5,19 @@
         var chartList = document.getElementById('chartsList');
         chartList.addChart(type);
     };
-
-    app.addDashboardChartsList = function(){
-        setTimeout(function(){
-            var dashboard = document.getElementsByClassName('dashboard-page-wrapper')[0];
-            var chartsList = dashboard.getElementsByTagName('charts-list')[0];
-
-            if(chartsList && app.dashboardCharts && app.dashboardCharts.length && !chartsList.charts.length){
-                chartsList.set('charts', app.dashboardCharts);
-
-                return setTimeout(function(){
-                    chartsList.buildCharts();
-                });
-            }
-        }, 2000); //while find another way to fix Firefox bug
-    };
 })();
+
+function addDashboardChartsList(){
+    //setTimeout(function(){
+        var dashboard = document.getElementsByClassName('dashboard-page-wrapper')[0];
+        var chartsList = dashboard.getElementsByTagName('charts-list')[0];
+
+        if(chartsList && app.dashboardCharts && app.dashboardCharts.length && !chartsList.charts.length){
+            chartsList.set('charts', app.dashboardCharts);
+
+            return setTimeout(function(){
+                chartsList.buildCharts();
+            });
+        }
+    //});
+}

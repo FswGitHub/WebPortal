@@ -114,6 +114,7 @@
 .page-button {
     background-color: $color-grey-medium;
     border: 1px solid $color-grey-medium;
+    padding: 0;
     &.iron-selected {
         color: $color-white;
     }
@@ -359,6 +360,7 @@
 
     .page-button {
         width: 22px;
+        min-width: 22px;
     }
 
     .holdings-table-data {

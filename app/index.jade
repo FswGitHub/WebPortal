@@ -20,6 +20,13 @@ html
         link(rel='shortcut icon', href='assets/images/favicon.ico', type='image/x-icon')
         include templates/imports
     body.relative(unresolved, fullbleed)
+        .loading-screen
+            .loading-wrapper
+                span.loading-text Loading
+                    span.dot.one
+                    span.dot.two
+                    span.dot.three
+                //img.loading-spinner(src="assets/images/FPM-loader.gif")
         span#browser-sync-binding
         template(is="dom-bind", id="app")
             include templates/custom-style

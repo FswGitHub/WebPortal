@@ -122,21 +122,6 @@
         }
     };
 
-    app.addPortfolioChartsList = function(index){
-        setTimeout(function(){
-            var section = document.getElementsByClassName('portfolio-item-'+index)[0];
-            var wrapper = section.getElementsByClassName('p-dashboard-page-wrapper')[0];
-            var chartsList = wrapper.getElementsByTagName('charts-list')[0];
-
-            if(chartsList && app.portfolioItems[index] && app.portfolioItems[index].charts.length && !chartsList.charts.length){
-                chartsList.set('charts', app.portfolioItems[index] ? app.portfolioItems[index].charts : null);
-                return setTimeout(function(){
-                    chartsList.buildCharts();
-                });
-            }
-        },400);
-    };
-
     app.formatDate = function(val){
         var monthNames = ["Jan", "Feb", "Mar",
             "Apr", "May", "Jun",
@@ -150,3 +135,18 @@
         return day+' '+monthNames[monthIndex]+' '+year;
     };
 })();
+
+addPortfolioChartsList = function(index){
+    //setTimeout(function(){
+        var section = document.getElementsByClassName('portfolio-item-'+index)[0];
+        var wrapper = section.getElementsByClassName('p-dashboard-page-wrapper')[0];
+        var chartsList = wrapper.getElementsByTagName('charts-list')[0];
+
+        if(chartsList && app.portfolioItems[index] && app.portfolioItems[index].charts.length && !chartsList.charts.length){
+            chartsList.set('charts', app.portfolioItems[index] ? app.portfolioItems[index].charts : null);
+            return setTimeout(function(){
+                chartsList.buildCharts();
+            });
+        }
+    //});
+};

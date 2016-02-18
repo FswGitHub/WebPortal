@@ -10,6 +10,110 @@ html, body {
     background-color: $color-grey-light;
 }
 
+body[unresolved] {
+    opacity: 1;
+    .loading-screen {
+        display: block;
+    }
+}
+
+.loading-screen {
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-color: $color-grey-light;
+    position: relative;
+}
+
+.loading-wrapper {
+    color: $color-black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 115px;
+    height: 28px;
+    margin: -58px -28px;
+    clear: both;
+}
+
+.loading-text {
+    line-height: 28px;
+    display: inline-block;
+    font-size: 18px;
+}
+
+.loading-spinner {
+    width: 28px;
+    height: 28px;
+    float: right;
+}
+
+.dot {
+    display: inline-block;
+    background-color: $color-black;
+    width: 2px;
+    height: 2px;
+    border-radius: 5px;
+    margin: 2px;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.one {
+    margin-left: 7px;
+    -webkit-animation: scale .75s .12s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale .75s .12s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.two {
+    -webkit-animation: scale .75s .24s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale .75s .24s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+.three {
+    -webkit-animation: scale .75s .36s infinite cubic-bezier(.2, .68, .18, 1.08);
+    animation: scale .75s .36s infinite cubic-bezier(.2, .68, .18, 1.08);
+}
+
+@-webkit-keyframes scale {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    45% {
+        -webkit-transform: scale(0.1);
+        transform: scale(0.1);
+        opacity: 0.7;
+    }
+
+    80% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes scale {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    45% {
+        -webkit-transform: scale(0.1);
+        transform: scale(0.1);
+        opacity: 0.7;
+    }
+
+    80% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
 paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
     pointer-events: none;
 }

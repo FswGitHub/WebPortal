@@ -3,6 +3,7 @@
     var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
     var _idleSecondsCounter = 0;
     var resizeTimer = null;
+    var windowLoaded = false;
 
     // Sets app default base URL and globals
     app.properties = {
@@ -53,42 +54,45 @@
     };
 
     app._routeNameChanged = function(route){
-        switch (route.name) {
-            case 'dashboard':
-                if(!app.appColor){
-                    app.appColor = localStorage.getItem(app.apiUrl+ 'app_colour');
-                }
-                app.addDashboardChartsList();
-                break;
-            case 'login':
-                updateColors('paper-dialog', ['--paper-dialog-button-color'], ['#DD1F29']);
-                break;
-            case 'settings':
-                app.listenForLogoChange();
-                break;
-            case 'signup':
-                app.sessionId ? page('/login') : null;
-                break;
-            case 'forgotpass':
-                app.sessionId ? page('/login') : null;
-                break;
-            case 'confirm':
-                app.sessionId ? page('/login') : null;
-                break;
-        }
-
-        if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
-            if(route.params.tab == 'dashboard'){
-                app.addPortfolioChartsList(route.params.id);
-            } else {
-                var items = app.portfolioItems;
-                var id = route.params.id;
-                app.selectedClassification = items[id] && items[id].classifications ? items[id].classifications[0] : null;
+        setTimeout(function(){
+            switch (route.name) {
+                case 'dashboard':
+                    if(!app.appColor){
+                        app.appColor = localStorage.getItem(app.apiUrl+ 'app_colour');
+                    }
+                    addDashboardChartsList();
+                    break;
+                case 'login':
+                    updateColors('paper-dialog', ['--paper-dialog-button-color'], ['#DD1F29']);
+                    break;
+                case 'settings':
+                    app.listenForLogoChange();
+                    break;
+                case 'signup':
+                    app.sessionId ? page('/login') : null;
+                    break;
+                case 'forgotpass':
+                    app.sessionId ? page('/login') : null;
+                    break;
+                case 'confirm':
+                    app.sessionId ? page('/login') : null;
+                    break;
             }
-        }
 
-        app.showEdit = false;
-        app.cleanSearch();
+            if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
+                if(route.params.tab == 'dashboard'){
+                    addPortfolioChartsList(route.params.id);
+                } else {
+                    var items = app.portfolioItems;
+                    var id = route.params.id;
+                    app.selectedClassification = items[id] && items[id].classifications ? items[id].classifications[0] : null;
+                }
+            }
+
+            app.showEdit = false;
+            app.cleanSearch();
+
+        });
     };
 
     app._appColorChanged = function(newVal){
@@ -170,13 +174,17 @@
         drawer ? drawer.closeDrawer() : null;
     };
 
-    //app.addEventListener('dom-change', function() {});
+
     window.addEventListener('WebComponentsReady', function (e) {
-        //console.log('WebComponentsReady event, time spend ' + timeSpend);
+        //console.log('WebComponentsReady');
         app.appColor = app.sessionId ? localStorage.getItem(app.apiUrl+ 'app_colour') : null;
     });
-    //window.onload = function(){};
+
+    //app.addEventListener('dom-change', function() {console.log('dom-change' );});
+    //window.onload = function(){console.log('window load' );};
     //app.ready = function(){};
+    //document.addEventListener('DOMContentLoaded', function(){console.log('DOMContentLoaded' );});
+
 })();
 
 function sendRequest(url, method, body, callback){
