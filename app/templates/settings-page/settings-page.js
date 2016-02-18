@@ -29,9 +29,9 @@
 
     app.recolorApp = function(e){
         var saved = localStorage.getItem(app.apiUrl+ 'app_colour');
-        app.appColor = e.detail.color;
 
         if(e.detail.color != saved){
+            app.appColor = e.detail.color;
             return saveSettings();
         }
     };

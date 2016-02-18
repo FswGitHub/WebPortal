@@ -3,7 +3,6 @@
     var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
     var _idleSecondsCounter = 0;
     var resizeTimer = null;
-    var windowLoaded = false;
 
     // Sets app default base URL and globals
     app.properties = {
@@ -302,11 +301,13 @@ function updateColors(selector, properties, values){
 
 
 function cleanForm(wrapper, value){
-    var form = document.querySelectorAll(wrapper)[0];
-    var fields =  form.querySelectorAll('paper-input');
+    setTimeout(function(){
+        var form = document.querySelectorAll(wrapper)[0];
+        var fields =  form.querySelectorAll('paper-input');
 
-    for(var i = 0; i < fields.length; i++){
-        fields[i].invalid ? fields[i].invalid = false : null;
-        value ? fields[i].value = null : null;
-    }
+        for(var i = 0; i < fields.length; i++){
+            fields[i].invalid ? fields[i].invalid = false : null;
+            value ? fields[i].value = null : null;
+        }
+    });
 }

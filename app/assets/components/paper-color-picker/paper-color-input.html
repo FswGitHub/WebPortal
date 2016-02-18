@@ -69,7 +69,7 @@ There are three different main configurations all 3 elements allow: `circle`, `s
 		<paper-input-container id="input" always-float-label="{{_isValueDefined(value.*)}}">
 			<label>{{label}}</label>
 			<div class="paper-input-input">
-				<span>{{colorName}}</span>&nbsp;<!--
+				<span>{{valueAsHex}}</span>&nbsp;<!--
 				--><template is="dom-if" if="{{withDescription}}"><!--
 					--><span class="light">rgb<template is="dom-if" if="{{allowAlpha}}">a</template>(</span><span class="dark">{{value.red}}</span><span class="light">, </span><span class="dark">{{value.green}}</span><span class="light">, </span><span class="dark">{{value.blue}}</span><template is="dom-if" if="{{allowAlpha}}"><span class="light">, </span><span class="dark">{{value.alpha}}</span></template><span class="light">)</span>
 			</template>
@@ -223,9 +223,13 @@ There are three different main configurations all 3 elements allow: `circle`, `s
 				if(typeof this.value === 'undefined'){
 					this.set('value', {});
 				}
-				this.set('value.red', parseInt(result[1], 16));
-				this.set('value.green', parseInt(result[2], 16));
-				this.set('value.blue', parseInt(result[3], 16));
+
+                if(result){
+                    this.set('value.red', parseInt(result[1], 16));
+                    this.set('value.green', parseInt(result[2], 16));
+                    this.set('value.blue', parseInt(result[3], 16));
+                }
+
                 return this.fire('color-changed', {color: this.valueAsHex});
 			}
 		});
