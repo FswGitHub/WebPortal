@@ -235,10 +235,9 @@
         if(!userId){
             showAlert('Error', 'User has no id');
         } else {
-
+            app.loader = true;
             sendRequest(url, 'POST', body, function(e){
                 if(e.detail.response.success){
-                    console.log(e.detail.response);
                     showAlert('Email sent', 'Confirmation email sent');
                 } else {
                     showAlert('Error', 'There was an error in sending the confirmation email');
@@ -252,6 +251,7 @@
         if(user.userId == app.sessionId){
             showAlert('Error', 'You already login!');
         } else {
+            app.loader = true;
             app.sessionId = user.userId;
             loadAllData(user.userId);
         }

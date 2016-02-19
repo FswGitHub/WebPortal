@@ -46,5 +46,5 @@
                     .data-tbody-td.flex.layout.horizontal.start.actions
                         span.td-label Actions
                         div.td-content
-                            paper-icon-button(icon="visibility", hidden="[[!item.viewProfile]]", on-tap="loginAsUser")
-                            paper-icon-button(icon="refresh", hidden="[[!item.resendConfirmation]]", on-tap="resendConfirmation")
+                            paper-icon-button(icon="visibility", hidden$="[[!item.viewProfile]]", on-tap="loginAsUser", disabled$="[[loader]]")
+                            paper-icon-button(icon="refresh", hidden$="[[!item.resendConfirmation]]", on-tap="resendConfirmation", disabled$="[[loader]]")

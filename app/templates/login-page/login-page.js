@@ -172,9 +172,9 @@ function getPortfolioItemsContent(content){
             showAlert('Success', 'You login as ' + app.userData.firstName + ' ' + app.userData.lastName);
             cleanCharts();
         } else {
-            app.loader = false;
             page('/dashboard');
         }
+        app.loader = false;
     })();
 }
 
