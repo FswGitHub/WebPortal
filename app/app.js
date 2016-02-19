@@ -1,4 +1,7 @@
 (function (){
+    //var browser = navigator.sayswho;
+    //var compabilityString = 'chrome	firefox	ie 10/11 ie edge safari 8 SAFARI (IOS 8.1)';
+
     var app = document.querySelector('#app');
     var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
     var _idleSecondsCounter = 0;
@@ -311,3 +314,73 @@ function cleanForm(wrapper, value){
         }
     });
 }
+
+detectBrowser();
+
+function detectBrowser(){
+    //var browser = {};
+    //// Opera 8.0+
+    //browser.isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    //// Firefox 1.0+
+    //browser.isFirefox = typeof InstallTrigger !== 'undefined';
+    //// At least Safari 3+: "[object HTMLElementConstructor]"
+    //browser.isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    //// Internet Explorer 6-11
+    //browser.isIE = /*@cc_on!@*/false || !!document.documentMode;
+    //// Edge 20+
+    //browser.isEdge = !browser.isIE && !!window.StyleMedia;
+    //// Chrome 1+
+    //browser.isChrome = !!window.chrome && !!window.chrome.webstore;
+    //// Blink engine detection
+    //browser.isBlink = (browser.isChrome || browser.isOpera) && !!window.CSS;
+    //
+    //for(var key in browser){
+    //    if(browser[key] == true){
+    //        console.log(key);
+    //    }
+    //}
+
+    //alert('USER AGENT: ' + window.navigator.userAgent + ', APP NAME: ' +window.navigator.appName);
+
+    //function GetIEVersion() {
+    //    var sAgent = window.navigator.userAgent;
+    //    var Idx = sAgent.indexOf("MSIE");
+    //
+    //    // If IE, return version number.
+    //    if (Idx > 0) {
+    //        return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
+    //        //} else if (!!navigator.userAgent.match(/Trident\/7\./)){
+    //        //    // If IE 11 then look for Updated user agent string.
+    //        //    return ie;
+    //        //} else {
+    //        //    return notIe; //It is not IE
+    //    } else {
+    //        return false;
+    //    }
+    //}
+
+    //if (GetIEVersion() > 0){
+    //    alert("This is IE " + GetIEVersion());
+    //} else {
+    //    alert("This is not IE.");
+    //}
+}
+
+navigator.sayswho= (function(){
+    var ua= navigator.userAgent, tem,
+        M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE '+(tem[1] || '');
+    }
+    if(M[1]=== 'Chrome'){
+        tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+    return M.join(' ');
+})();
+
+//alert(navigator.sayswho);
+

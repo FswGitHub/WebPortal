@@ -192,6 +192,7 @@ Polymer({
     filterBy: function(items, filed, reverse){
         var filtered = [];
         var selected = this.pageSelected;
+
         if(!items) {
             return null;
         } else {
@@ -208,6 +209,7 @@ Polymer({
                 return 0;
             });
         }
+
         this.setPages(selected);
         return reverse ? filtered.reverse() : filtered;
     },
@@ -350,5 +352,8 @@ Polymer({
                 allClosed ? type.remove('collapsed-row') : type.add('collapsed-row');
             }
         }
+    },
+    showNoResults: function(pages, search){
+        return search && !pages.length;
     }
 });

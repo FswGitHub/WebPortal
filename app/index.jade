@@ -61,9 +61,10 @@ html
                         input#output.file-label(type="text", readonly)
                         button.chose-file-btn Browse
                             input#fileInput.file-place(type="file", value="", accept=".xlsx, .xls")
-                    label.dialog-label.or-label Or
-                    #dropZone.drag-and-drop-place.layout.horizontal.center-center
-                        span.drag-and-drop-label Drag and drop file here
+                    div(hidden$="[[tabWidthScreen]]")
+                        label.dialog-label.or-label Or
+                        #dropZone.drag-and-drop-place.layout.horizontal.center-center
+                            span.drag-and-drop-label Drag and drop file here
                 .dialog-actions.buttons
                     paper-button(dialog-dismiss) Cancel
                     paper-button(on-tap="uploadUsers") Upload

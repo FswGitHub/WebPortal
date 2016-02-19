@@ -167,6 +167,15 @@
     min-height: 350px;
 }
 
+.no-search-results {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 215px;
+    height: 22px;
+    margin: -11px -108px;
+}
+
 .holdings-table-data {
     padding-bottom: 0;
     border: 0;
@@ -338,6 +347,15 @@
 @media screen and (min-width: $size-medium + 1px) and (max-width: $size-large){
     .bar-btn {
         margin: 12px 24px 12px 0;
+    }
+}
+
+@media screen and (max-width: $size-large){
+    .page-button {
+        display: none;
+        &.iron-selected {
+            display: block;
+        }
     }
 }
 
