@@ -7,6 +7,7 @@
     var _idleSecondsCounter = 0;
     var resizeTimer = null;
 
+
     // Sets app default base URL and globals
     app.properties = {
         route: {

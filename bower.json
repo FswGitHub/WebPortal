@@ -47,7 +47,6 @@
     "iron-image": "PolymerElements/iron-image#~1.2.1",
     "paper-radio-group": "PolymerElements/paper-radio-group#~1.0.9",
     "paper-radio-button": "PolymerElements/paper-radio-button#~1.0.12",
-    "paper-date-picker": "polymer-paper-date-picker#~1.1.2",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#~1.1.2",
     "iron-selector": "PolymerElements/iron-selector#^1.1.0",
     "paper-toggle-button": "PolymerElements/paper-toggle-button#^1.0.14",
@@ -58,6 +57,8 @@
     "paper-styles": "PolymerElements/paper-styles#~1.0.13",
     "whenever.js": "David-Mulder/whenever.js#~0.0.1",
     "iron-form-element-behavior": "PolymerElements/iron-form-element-behavior#~1.0.6",
-    "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#~1.0.2"
+    "iron-resizable-behavior": "PolymerElements/iron-resizable-behavior#~1.0.2",
+    "jv-datepicker": "^2.1.9",
+    "lodash": "^4.5.0"
   }
 }
