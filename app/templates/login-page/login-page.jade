@@ -1,5 +1,5 @@
 #loginPage.login-page.fit.layout.vertical(style$="{{addClass(mobileHeightScreen, 'overflow-y: auto')}}")
-    #loginPageContent(class$="login-page-content layout vertical {{addClass(tabHeightScreen, 'fit')}}")
+    #loginPageContent(class$="login-page-content {{addClass(tabHeightScreen, 'layout vertical fit')}}")
         .login-logo-wrapper
             img.fundamental-logo(src="assets/images/logo-light.png")
         iron-pages#loginPages.login-pages.flex(attr-for-selected='data-route', selected='[[route.name]]')

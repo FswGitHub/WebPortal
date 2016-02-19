@@ -85,10 +85,6 @@ paper-tab {
     background-color: $color-grey-light;
 }
 
-.main-content {
-    height: 100%;
-}
-
 .main-toolbar {
     box-shadow: 0 -8px 6px 10px rgba(0, 0, 0, 0.4);
 }
@@ -96,6 +92,10 @@ paper-tab {
 .page-scroll {
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+.full-height {
+    height: 100%;
 }
 
 .portfolio-item-toolbar {
@@ -151,7 +151,7 @@ paper-tab {
 @media screen and (min-width: $size-large+1) and (max-width: $size-x-large) {
     .main-wrapper {
         .footer-wrapper {
-            padding: $padding-large;
+            padding: $padding-small $padding-large;
         }
     }
 

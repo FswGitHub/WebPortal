@@ -51,7 +51,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                     paper-tab(data-tab="configs", on-tap="tabGo") FPM Configs
                     paper-tab(data-tab="users", on-tap="tabGo") Users
         // Main Content
-        #mainContent.main-content.layout.vertical
+        #mainContent(class$="main-content layout vertical {{addClass(tabHeightScreen, 'full-height')}}")
             iron-pages#pages.main-pages(attr-for-selected='data-route', selected='[[route.name]]', class$="main-pages {{addClass(tabHeightScreen, 'flex page-scroll')}}")
                 section#dashboard.page-wrapper(data-route='dashboard')
                     include ../dashboard-page/dashboard-page
