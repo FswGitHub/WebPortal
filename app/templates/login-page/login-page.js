@@ -146,15 +146,6 @@ function loadAllData(userId, appColor){
             localStorage.setItem(app.apiUrl+ 'settings', JSON.stringify(app.settings));
             localStorage.setItem(app.apiUrl+ 'users', JSON.stringify(app.users));
         }
-        return (function (){
-            if(app.route.name == 'settings'){
-                showAlert('Success', 'You login as ' + app.userData.firstName + ' ' + app.userData.lastName);
-                cleanCharts();
-            } else {
-                app.loader = false;
-                page('/dashboard');
-            }
-        })();
     });
 }
 
@@ -175,6 +166,16 @@ function getPortfolioItemsContent(content){
         }
         return localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
     });
+
+    return (function (){
+        if(app.route.name == 'settings'){
+            showAlert('Success', 'You login as ' + app.userData.firstName + ' ' + app.userData.lastName);
+            cleanCharts();
+        } else {
+            app.loader = false;
+            page('/dashboard');
+        }
+    })();
 }
 
 function getItemClassifications(item){
