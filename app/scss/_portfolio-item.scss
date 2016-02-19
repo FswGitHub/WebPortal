@@ -163,6 +163,10 @@
     font-size: $font-size-18;
 }
 
+holdings-table {
+    min-height: 350px;
+}
+
 .no-holdings {
     min-height: 350px;
 }
@@ -424,3 +428,14 @@
         display: none;
     }
 }
+
+//------------- fix IE and EDGE---------
+
+@media all and (orientation:landscape) {
+    div.datepicker.jv-datepicker {
+        height: 315px !important;
+    }
+}
+
+//--------------------------------------
+

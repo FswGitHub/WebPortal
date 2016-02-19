@@ -83,6 +83,7 @@
             }
 
             if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
+                updateColors('jv-datepicker', ['--jv-datepicker-button-color', '--jv-datepicker-selected-year-color', '--jv-datepicker-today-color', '--jv-datepicker-selected-day-bg', '--jv-datepicker-selection-bg'], [app.appColor, app.appColor, app.appColor, app.appColor, app.appColor]);
                 if(route.params.tab == 'dashboard'){
                     addPortfolioChartsList(route.params.id);
                 } else {
@@ -110,7 +111,7 @@
             updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal, newVal]);
             updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
             updateColors('paper-toggle-button', ['--paper-toggle-button-checked-bar-color', '--paper-toggle-button-checked-button-color', '--paper-toggle-button-checked-ink-color'], [newVal, newVal, newVal]);
-            updateColors('paper-date-picker', ['--default-primary-color'], [newVal]);
+            //updateColors('jv-datepicker', ['--jv-datepicker-button-color', '--jv-datepicker-selected-year-color', '--jv-datepicker-today-color', '--jv-datepicker-selected-day-bg', '--jv-datepicker-selection-bg'], [newVal, newVal, newVal, newVal, newVal]);
             updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
             updateColors('paper-dialog', ['--paper-dialog-button-color'], [newVal]);
         }

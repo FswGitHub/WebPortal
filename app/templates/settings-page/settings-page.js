@@ -122,39 +122,7 @@
 
         fileInput.addEventListener('change', function(e){
             var file = e.target.files[0];
-            readFile(file, output, function(u){
-                var hasEmail = false;
-                var hasFirstName = false;
-                var hasLastName = false;
-                var keys = Object.keys(u[0]);
-                var last = keys[keys.length-1];
-                for(var key in u[0]){
-                    switch (key) {
-                        case 'email':
-                            hasEmail = true;
-                            break;
-                        case 'firstName':
-                            hasFirstName = true;
-                            break;
-                        case 'lastName':
-                            hasLastName = true;
-                            break;
-                    }
-
-
-                    if(key == last){
-                        if(hasEmail && hasFirstName && hasLastName){
-                            usersToUpload = u;
-                        } else {
-                            showAlert('Error', 'This file has no users. Choose another file', function(){
-                                fileInput.value = null;
-                                output.value = null;
-                                usersToUpload = null;
-                            });
-                        }
-                    }
-                }
-            });
+            readFile(file, output, checkUsers);
         }, false);
 
         dropZone.addEventListener('dragover', function(e){
@@ -167,9 +135,7 @@
             e.preventDefault();
 
             var file = e.dataTransfer.files[0];
-            readFile(file, output, function(u){
-                usersToUpload = u;
-            });
+            readFile(file, output, checkUsers);
         }, false);
 
         function readFile(file, output, callback){
@@ -199,6 +165,40 @@
                 reader.readAsBinaryString(file);
             } else {
                 showAlert('Error', 'Please, choose a .xlsx or .xls file with users!');
+            }
+        }
+
+        function checkUsers(u){
+            var hasEmail = false;
+            var hasFirstName = false;
+            var hasLastName = false;
+            var keys = Object.keys(u[0]);
+            var last = keys[keys.length-1];
+            for(var key in u[0]){
+                switch (key) {
+                    case 'email':
+                        hasEmail = true;
+                        break;
+                    case 'firstName':
+                        hasFirstName = true;
+                        break;
+                    case 'lastName':
+                        hasLastName = true;
+                        break;
+                }
+
+
+                if(key == last){
+                    if(hasEmail && hasFirstName && hasLastName){
+                        usersToUpload = u;
+                    } else {
+                        showAlert('Error', 'This file has no users. Choose another file', function(){
+                            fileInput.value = null;
+                            output.value = null;
+                            usersToUpload = null;
+                        });
+                    }
+                }
             }
         }
     };

@@ -2,6 +2,7 @@
     app.portfolioItems = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio_items_data')) : {};
     app.closeAnimationConf = [{name: 'fade-out-animation', timing: {duration: 200}}];
     app.holdings = null;
+    app.chosenDate = new Date();
 
     app.properties = {
         portfolioItems: {
