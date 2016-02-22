@@ -58,7 +58,7 @@
 
     app._routeNameChanged = function(route){
         setTimeout(function(){
-            console.log('route change callback');
+            //console.log('route change callback');
             switch (route.name) {
                 case 'dashboard':
                     if(!app.appColor){
@@ -181,14 +181,14 @@
 
 
     window.addEventListener('WebComponentsReady', function (e) {
-        console.log('WebComponentsReady');
+        //console.log('WebComponentsReady');
         app.appColor = app.sessionId ? localStorage.getItem(app.apiUrl+ 'app_colour') : null;
     });
 
-    app.addEventListener('dom-change', function() {console.log('dom-change' );});
-    window.onload = function(){console.log('window load' );};
-    app.ready = function(){};
-    document.addEventListener('DOMContentLoaded', function(){console.log('DOMContentLoaded' );});
+    //app.addEventListener('dom-change', function() {console.log('dom-change' );});
+    //window.onload = function(){console.log('window load' );};
+    //app.ready = function(){};
+    //document.addEventListener('DOMContentLoaded', function(){console.log('DOMContentLoaded' );});
 
 })();
 

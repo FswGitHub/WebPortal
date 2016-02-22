@@ -1,12 +1,12 @@
 (function (){
-    var newImage;
+    var newImage, userDataCopy;
     app.userData = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'user')) : null;
     app.userPhoto = app.userData && app.userData.photo ? 'assets/' + app.userData.photo : null;
     app.showEdit = false;
 
     app.toggleProfileChanging = function(){
         if(app.showEdit){
-            app.userData = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'user')) : null;
+            app.userData = userDataCopy;
             app.userPhoto = app.userData && app.userData.photo ? 'assets/' + app.userData.photo : null;
             cleanForm('.profile-fields');
         }
@@ -16,6 +16,8 @@
     app._showEditChanged = function(newVal){
         if(newVal){
             var uploader  = document.querySelector('#uploader');
+            userDataCopy = Object.assign({}, app.userData);
+            console.log(userDataCopy);
 
             uploader.addEventListener('change', function(e){
                 var image = e.target.files[0];
