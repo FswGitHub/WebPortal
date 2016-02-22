@@ -79,6 +79,7 @@ html
                 .dialog-actions.buttons
                     paper-button(dialog-dismiss) Cancel
                     paper-button(on-tap="addConfirmed") Add
+            paper-color-picker#picker(shape="circle", type="hsl", color="{{convertColorRoRGB(appColor)}}", on-new-color="recolorApp")
         //'template id="app"' script separated for pages
         script(src="app.js", rel="text/javascript")
         script(src="templates/routing.js", rel="text/javascript")

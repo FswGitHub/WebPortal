@@ -108,15 +108,30 @@ style(is="custom-style").
     }
 
     .add-user-form paper-input {
-        --paper-input-container-focus-color: var(--main-color);
         --paper-input-container-label: {
             font-size: 16px;
         };
     }
 
-    paper-color-input {
+    paper-color-picker {
         --default-primary-color: var(--main-color);
         --paper-button: {
             color: var(--main-color);
         }
     }
+
+    paper-input.color-selector {
+        --paper-input-container-input: {
+            font-size: 18px;
+            color: var(--main-color);
+            text-transform: uppercase;
+        };
+    }
+
+    /*paper-date-picker {*/
+        /*--default-primary-color: var(--main-color);*/
+    /*}*/
+
+    /*.calendar-actions paper-button {*/
+        /*color: var(--main-color);*/
+    /*}*/

@@ -121,7 +121,7 @@ paper-menu a > *, paper-menu paper-item > *, paper-menu paper-icon-item > * {
     pointer-events: none;
 }
 
-paper-dialog {
+paper-dialog:not(.color-picker-dialog) {
     max-width: 300px;
     min-width: 250px;
 }

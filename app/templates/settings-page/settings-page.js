@@ -27,16 +27,21 @@
         saveSettings();
     };
 
+    app.openPicker = function(){
+        this.$.picker.open();
+    };
+
     app.recolorApp = function(e){
+        var newColor = app.convertColorToHex(e.detail.color);
         var saved = localStorage.getItem(app.apiUrl+ 'app_colour');
 
-        if(e.detail.color != saved){
-            app.appColor = e.detail.color;
+        if(newColor != saved){
+            app.appColor = newColor;
             return saveSettings();
         }
     };
 
-    app.convertColor = function(hex){
+    app.convertColorRoRGB = function(hex){
         var RGB = {};
 
         function toR(h) { return parseInt((cutHex(h)).substring(0,2),16) }
@@ -52,6 +57,18 @@
         } else {
             return {red: 221, green: 31, blue: 41};
         }
+    };
+
+    app.convertColorToHex = function(rgb){
+        function componentToHex(c) {
+            var hex = c.toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+        }
+
+        function rgbToHex(r, g, b) {
+            return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+        }
+        return rgbToHex(rgb.red, rgb.green, rgb.blue);
     };
 
     app.listenForLogoChange = function(){

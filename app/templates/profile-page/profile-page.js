@@ -17,8 +17,6 @@
         if(newVal){
             var uploader  = document.querySelector('#uploader');
             userDataCopy = Object.assign({}, app.userData);
-            console.log(userDataCopy);
-
             uploader.addEventListener('change', function(e){
                 var image = e.target.files[0];
                 var reader = new FileReader();

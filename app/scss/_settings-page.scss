@@ -117,11 +117,16 @@
 //--------------paper-color-input styles-------------
 
 .color-selector {
-    paper-input-container.paper-color-input {
-        min-width: 150px;
-        .floated-label-placeholder.paper-input-container {
-            display: none;
-        }
+    width: 170px;
+    //paper-input-container.paper-color-input {
+    //    min-width: 150px;
+    //    .floated-label-placeholder.paper-input-container {
+    //        display: none;
+    //    }
+    //}
+
+    .floated-label-placeholder.paper-input-container {
+        display: none;
     }
 
     .input-content.paper-input-container .paper-input-input {
