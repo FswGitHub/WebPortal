@@ -265,10 +265,20 @@ Polymer({
         icon.classList.add('arrow-up');
     },
     hideCategoryRow: function(query, search){
-        return query || search;
+        if(search && search.length > 0){
+            return true;
+        }
+        if(query){
+            return true;
+        }
     },
     hideMobileCategoryRow: function(query, search){
-        return !query || search;
+        if(search && search.length > 0){
+            return true;
+        }
+        if(!query){
+            return true;
+        }
     },
     collapseCategory: function(e){
         var row = e.currentTarget;

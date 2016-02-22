@@ -141,11 +141,10 @@ dom-module#holdings-table
                             .data-tbody-td.flex.layout.horizontal.start.exposure-value
                                 span.td-label Exposure value (R)
                                 span.td-content [[limitValue(item.exposureValue)]]
-        //template(is="dom-if", if="[[showNoResults(pages, searchString)]]")
-        //    span.no-data.no-search-results No results for your request
-        div(hidden$="[[!showNoResults(pages, searchString)]]", class$="layout horizontal center-center no-holdings {{addClass(tabHeightScreen, 'fit')}}")
-            .layout.horizontal.start.center
+        .layout.horizontal.no-holdings.relative(hidden$="[[!showNoResults(pages, searchString)]]")
+            .layout.horizontal.center-center.fit
                 span.no-data No results for your request
         iron-media-query(query="(max-width: 599px)" query-matches="{{mobileWidthScreen}}")
         iron-media-query(query="(max-width: 960px)" query-matches="{{tabWidthScreen}}")
+        iron-media-query(query="(min-height: 701px)" query-matches="{{tabHeightScreen}}")
     script(src="holdings-table.js", rel="text/javascript")

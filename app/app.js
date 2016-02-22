@@ -250,8 +250,8 @@ function showAlert(header, text, callback){
     var alertText = alert.querySelector('#alertText');
     var drawer = document.getElementById('paperDrawerPanel');
 
-    alertHeader.innerHTML = header ? header : null;
-    alertText.innerHTML = text ? text : null;
+    alertHeader.innerHTML = header ? header : '';
+    alertText.innerHTML = text ? text : '';
     drawer ? drawer.closeDrawer() : null;
     alert.open();
 

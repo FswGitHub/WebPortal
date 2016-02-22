@@ -10,6 +10,10 @@ paper-menu-button.dropdown-menu {
     .selectable-content.paper-menu > .iron-selected {
         font-weight: normal;
     }
+
+    paper-item {
+        line-height: 49px;
+    }
 }
 
 .dashboard-options {

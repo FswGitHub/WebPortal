@@ -5,7 +5,7 @@ div.portfolio-item-toolbar.bottom.title-aligned.layout.horizontal.start.center
         iron-icon(icon="arrow-drop-down", hidden$="[[mobileWidthScreen]]")
     iron-dropdown#calendar(horizontal-align="left" vertical-align="top", open-animation-config="[[openAnimationConfig]]", close-animation-config="[[closeAnimationConf]]" vertical-offset="16")
         .dropdown-content.calendar
-            jv-datepicker(date="{{chosenDate}}")
+            jv-datepicker(date="{{chosenDate}}", disable-days="[]")
                 div.buttons
                     paper-button(on-tap="toggleCalendar", dialog-confirm) Ok
                     paper-button(on-tap="toggleCalendar") Cancel
