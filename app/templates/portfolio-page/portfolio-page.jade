@@ -1,7 +1,7 @@
 #portfolio-page.portfolio-page-wrapper
-        // Imitation of <table> because IE doesn't support dom-repeat
-        // for tables (Polymer 1.0 bug) https://github.com/Polymer/polymer/issues/1567
-    .data-table.portfolio-table(hidden&="[[!portfolioData]]")
+    // Imitation of <table> because IE doesn't support dom-repeat
+    // for tables (Polymer 1.0 bug) https://github.com/Polymer/polymer/issues/1567
+    .data-table.portfolio-table
         .data-thead.layout.vertical
             .data-thead-tr.layout.horizontal
                 .data-thead-th.flex
@@ -15,7 +15,7 @@
                 .data-thead-th.flex
                     span.th-content Residency
         div(class$="data-tbody layout vertical [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
-            template(is="dom-repeat", items="[[portfolioData]]")
+            template(is="dom-repeat", items="[[setDefaultRows(portfolioData, tabWidthScreen)]]")
                 .mobile-data-thead(data-index="[[index]]", on-tap="openTableRow")
                     span.mobile-th-content [[item.name]]
                 .data-tbody-tr.mobile-data-td.layout.horizontal(on-tap="goToPortfolioItem")

@@ -46,10 +46,6 @@ window.addEventListener('WebComponentsReady', function () {
                 //reset: reset
             }
         }
-        setTimeout(function () {
-            cleanForm('.forgot-pass');
-            cleanForm('.sign-up');
-        });
     });
 
     page('/signup', function () {

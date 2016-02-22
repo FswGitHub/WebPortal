@@ -1,7 +1,5 @@
 (function (){
     //var browser = navigator.sayswho;
-    //var compabilityString = 'chrome	firefox	ie 10/11 ie edge safari 8 SAFARI (IOS 8.1)';
-
     var app = document.querySelector('#app');
     var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
     var _idleSecondsCounter = 0;
@@ -112,6 +110,7 @@
             updateColors('paper-checkbox', ['--paper-checkbox-checked-color', '--paper-checkbox-checked-ink-color'], [newVal]);
             updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal]);
             updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
+            updateColors('paper-dialog paper-input', ['--paper-input-container-focus-color'], [newVal]);
             updateColors('paper-toggle-button', ['--paper-toggle-button-checked-bar-color', '--paper-toggle-button-checked-button-color', '--paper-toggle-button-checked-ink-color'], [newVal]);
             updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
             updateColors('paper-dialog', ['--paper-dialog-button-color'], [newVal]);
@@ -285,7 +284,7 @@ String.prototype.capitalize = function() {
 
 function updateColors(selector, properties, values){
     setTimeout(function(){
-        var main = selector == 'paper-dialog' ? document : document.querySelector('#paperDrawerPanel');
+        var main = selector.indexOf('paper-dialog') > -1 ? document : document.querySelector('#paperDrawerPanel');
         var elements = main.querySelectorAll(selector);
 
         for(var i=0; i < elements.length; i++){
@@ -369,21 +368,21 @@ function detectBrowser(){
     //}
 }
 
-navigator.sayswho= (function(){
-    var ua= navigator.userAgent, tem,
-        M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-    if(/trident/i.test(M[1])){
-        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
-        return 'IE '+(tem[1] || '');
-    }
-    if(M[1]=== 'Chrome'){
-        tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
-        if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
-    }
-    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
-    return M.join(' ');
-})();
+//navigator.sayswho= (function(){
+//    var ua= navigator.userAgent, tem,
+//        M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+//    if(/trident/i.test(M[1])){
+//        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+//        return 'IE '+(tem[1] || '');
+//    }
+//    if(M[1]=== 'Chrome'){
+//        tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+//        if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+//    }
+//    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+//    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+//    return M.join(' ');
+//})();
 
 //alert(navigator.sayswho);
 

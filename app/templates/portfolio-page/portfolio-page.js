@@ -6,6 +6,21 @@
         return page('/portfolio/'+id+'/dashboard');
     };
 
+    app.setDefaultRows = function(data, tabWidth){
+        if(!data){
+            return tabWidth ? new Array(1) : new Array(10);
+        } else {
+            var rows = data.length;
+            if(tabWidth && !rows){
+                return new Array(1);
+            } else if(!tabWidth && rows < 10){
+                return data.concat(new Array(10-rows));
+            } else {
+                return data;
+            }
+        }
+    };
+
     app.openTableRow = function(e){
         var thisRow = e.currentTarget;
         var tbody = e.currentTarget.parentNode;
