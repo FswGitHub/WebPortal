@@ -120,9 +120,14 @@ paper-tab {
         width: 275px;
     }
 
+    .tab-content.paper-tab {
+        min-width: 90px;
+    }
+
     paper-tab {
         min-width: 50px;
-        max-width: 60px;
+        max-width: 95px;
+        box-sizing: border-box;
     }
 
     .main-wrapper {
