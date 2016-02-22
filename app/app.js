@@ -1,10 +1,8 @@
 (function (){
-    //var browser = navigator.sayswho;
     var app = document.querySelector('#app');
     var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
     var _idleSecondsCounter = 0;
     var resizeTimer = null;
-
 
     // Sets app default base URL and globals
     app.properties = {
@@ -197,7 +195,21 @@
     //window.onload = function(){console.log('window load' );};
     //app.ready = function(){};
     //document.addEventListener('DOMContentLoaded', function(){console.log('DOMContentLoaded' );});
-
+    app.browser = (function(){
+        var ua= navigator.userAgent, tem,
+            M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+        if(/trident/i.test(M[1])){
+            tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+            return 'IE '+(tem[1] || '');
+        }
+        if(M[1]=== 'Chrome'){
+            tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+            if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+        }
+        M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+        if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+        return M.join(' ');
+    })();
 })();
 
 function sendRequest(url, method, body, callback){
@@ -376,22 +388,6 @@ function detectBrowser(){
     //    alert("This is not IE.");
     //}
 }
-
-//navigator.sayswho= (function(){
-//    var ua= navigator.userAgent, tem,
-//        M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-//    if(/trident/i.test(M[1])){
-//        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
-//        return 'IE '+(tem[1] || '');
-//    }
-//    if(M[1]=== 'Chrome'){
-//        tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
-//        if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
-//    }
-//    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-//    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
-//    return M.join(' ');
-//})();
 
 //alert(navigator.sayswho);
 

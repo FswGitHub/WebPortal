@@ -1,5 +1,5 @@
 (function (){
-    var newImage, userDataCopy;
+    var userDataCopy;
     app.userData = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'user')) : null;
     app.userPhoto = app.userData && app.userData.photo ? 'assets/' + app.userData.photo : null;
     app.showEdit = false;
@@ -16,15 +16,19 @@
     app._showEditChanged = function(newVal){
         if(newVal){
             var uploader  = document.querySelector('#uploader');
-            userDataCopy = Object.assign({}, app.userData);
+            userDataCopy = (JSON.parse(JSON.stringify(app.userData))); //create a copy of object
             uploader.addEventListener('change', function(e){
                 var image = e.target.files[0];
                 var reader = new FileReader();
+                var dataUrl = reader.readAsDataURL(image);
 
                 reader.onload = function(img) {
-                    newImage = new Image();
+                    var newImage = new Image();
                     newImage.src = img.target.result;
-                    if(newImage.width == 200 && newImage.height == 200){
+                    var imgWidth = newImage.width;
+                    var imageHeight = newImage.height;
+
+                    if(imgWidth == 200 && imageHeight == 200){
                         app.userPhoto = newImage.src;
                         uploader.value = null;
                         //should be image upload here!
@@ -33,8 +37,6 @@
                         showAlert('Wrong size', 'Please choose image 200px x 200px');
                     }
                 };
-                reader.readAsDataURL(image);
-
             }, false);
         }
     };

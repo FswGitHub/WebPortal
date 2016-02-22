@@ -1,5 +1,4 @@
 (function(){
-    var newLogo;
     var usersToUpload;
 
     app.settings = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'settings')) : null;
@@ -78,11 +77,14 @@
             logoUploader.addEventListener('change', function(e){
                 var image = e.target.files[0];
                 var reader = new FileReader();
+                var dataUrl = reader.readAsDataURL(image);
 
                 reader.onload = function(img) {
-                    newLogo = new Image();
+                    var newLogo = new Image();
                     newLogo.src = img.target.result;
-                    if(newLogo.width <= 224 && newLogo.height <= 64){
+                    var logoWidth = newLogo.width;
+                    var logoHeight = newLogo.height;
+                    if(logoWidth  <= 224 &&  logoHeight <= 64){
                         app.logo = newLogo.src;
                         logoUploader.value = null;
                         //should be logo upload here!
@@ -92,7 +94,7 @@
                         showAlert('Wrong size', 'Please choose image with max size 224px x 64px');
                     }
                 };
-                reader.readAsDataURL(image);
+
             });
         });
     };
