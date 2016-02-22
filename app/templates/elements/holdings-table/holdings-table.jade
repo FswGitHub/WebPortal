@@ -18,6 +18,7 @@ dom-module#holdings-table
                     span.next Next
                     span &rsaquo;&rsaquo;
                 button.pagination-item(on-tap="selectLast") Last
+                    span(hidden$="[[!tabWidthScreen]]")  ([[pages.length]])
             .filters-wrapper.layout.horizontal.start.center(hidden$="[[!tabWidthScreen]]")
                 span.size-label Filter by
                 paper-menu-button.dropdown-menu.data-table-size(open-animation-config='[[openAnimationConfig]]', vertical-offset="4", horizontal-offset="2")

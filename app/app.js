@@ -58,6 +58,7 @@
 
     app._routeNameChanged = function(route){
         setTimeout(function(){
+            console.log('route change callback');
             switch (route.name) {
                 case 'dashboard':
                     if(!app.appColor){
@@ -83,7 +84,9 @@
             }
 
             if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
-                updateColors('jv-datepicker', ['--jv-datepicker-button-color', '--jv-datepicker-selected-year-color', '--jv-datepicker-today-color', '--jv-datepicker-selected-day-bg', '--jv-datepicker-selection-bg'], [app.appColor, app.appColor, app.appColor, app.appColor, app.appColor]);
+                updateColors('jv-datepicker', ['--jv-datepicker-button-color', '--jv-datepicker-selected-year-color',
+                    '--jv-datepicker-today-color', '--jv-datepicker-selected-day-bg', '--jv-datepicker-selection-bg'],
+                    [app.appColor]);
                 if(route.params.tab == 'dashboard'){
                     addPortfolioChartsList(route.params.id);
                 } else {
@@ -95,7 +98,6 @@
 
             app.showEdit = false;
             app.cleanSearch();
-
         });
     };
 
@@ -107,11 +109,10 @@
             colorsStyle.customStyle['--main-color'] = newVal;
             Polymer.updateStyles();
 
-            updateColors('paper-checkbox', ['--paper-checkbox-checked-color', '--paper-checkbox-checked-ink-color'], [newVal, newVal]);
-            updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal, newVal]);
+            updateColors('paper-checkbox', ['--paper-checkbox-checked-color', '--paper-checkbox-checked-ink-color'], [newVal]);
+            updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal]);
             updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
-            updateColors('paper-toggle-button', ['--paper-toggle-button-checked-bar-color', '--paper-toggle-button-checked-button-color', '--paper-toggle-button-checked-ink-color'], [newVal, newVal, newVal]);
-            //updateColors('jv-datepicker', ['--jv-datepicker-button-color', '--jv-datepicker-selected-year-color', '--jv-datepicker-today-color', '--jv-datepicker-selected-day-bg', '--jv-datepicker-selection-bg'], [newVal, newVal, newVal, newVal, newVal]);
+            updateColors('paper-toggle-button', ['--paper-toggle-button-checked-bar-color', '--paper-toggle-button-checked-button-color', '--paper-toggle-button-checked-ink-color'], [newVal]);
             updateColors('paper-color-input', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
             updateColors('paper-dialog', ['--paper-dialog-button-color'], [newVal]);
         }
@@ -180,14 +181,14 @@
 
 
     window.addEventListener('WebComponentsReady', function (e) {
-        //console.log('WebComponentsReady');
+        console.log('WebComponentsReady');
         app.appColor = app.sessionId ? localStorage.getItem(app.apiUrl+ 'app_colour') : null;
     });
 
-    //app.addEventListener('dom-change', function() {console.log('dom-change' );});
-    //window.onload = function(){console.log('window load' );};
-    //app.ready = function(){};
-    //document.addEventListener('DOMContentLoaded', function(){console.log('DOMContentLoaded' );});
+    app.addEventListener('dom-change', function() {console.log('dom-change' );});
+    window.onload = function(){console.log('window load' );};
+    app.ready = function(){};
+    document.addEventListener('DOMContentLoaded', function(){console.log('DOMContentLoaded' );});
 
 })();
 
@@ -293,10 +294,10 @@ function updateColors(selector, properties, values){
                 if(!currentElement.customStyle){
                     var colorsStyle = document.createElement('style', 'custom-style');
                     currentElement.appendChild(colorsStyle);
-                    currentElement.customStyle[properties[j]] = values[j];
+                    currentElement.customStyle[properties[j]] = values.length > 1 ? values[j] : values[0];
                     currentElement.updateStyles();
                 } else {
-                    currentElement.customStyle[properties[j]] = values[j];
+                    currentElement.customStyle[properties[j]] = values.length > 1 ? values[j] : values[0];
                     currentElement.updateStyles();
                 }
             }

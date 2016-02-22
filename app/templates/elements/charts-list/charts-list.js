@@ -137,7 +137,6 @@ Polymer({
                         break;
                     case 'change':
                         self.set('charts.'+index+'.type', charts[index].type);
-                        console.log(self.get('charts.'+index+'.type'));
                         if(id){
                             app.portfolioItems[id].charts = charts;
                             localStorage.setItem(app.apiUrl+ 'portfolio_items_data', JSON.stringify(app.portfolioItems));
