@@ -67,7 +67,15 @@
                 case 'login':
                     updateColors('paper-dialog', ['--paper-dialog-button-color'], ['#DD1F29']);
                     break;
+                case 'portfolio':
+                    if(app.tabWidthScreen){
+                        openFirstRows('.portfolio-table');
+                    }
+                    break;
                 case 'settings':
+                    if(app.tabWidthScreen){
+                        openFirstRows('.users-table');
+                    }
                     app.listenForLogoChange();
                     break;
                 case 'signup':

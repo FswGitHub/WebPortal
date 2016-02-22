@@ -65,22 +65,28 @@
 .chose-file-btn {
     outline: 0;
     background-color: $color-grey-medium-light;
-    border-width: 1px;
     height: 30px;
     width: 80px;
     font-size: $font-size-14;
     color: $color-grey-dark;
     position: relative;
-    &::before{
-        content: ' ';
-        display: inline-block;
-        width: 1px;
-        height: 32px;
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        background-color: $color-grey-medium-dark;
+    text-align: center;
+    border-left: 1px solid $color-grey-medium-dark;
+    border-bottom: 1px solid $color-grey-dark;
+    line-height: 30px;
+    &:hover {
+        background-color: $color-grey-light;
     }
+    //&::before{
+    //    content: ' ';
+    //    display: inline-block;
+    //    width: 1px;
+    //    height: 32px;
+    //    position: absolute;
+    //    top: -2px;
+    //    left: -2px;
+    //    background-color: $color-grey-medium-dark;
+    //}
 }
 
 .drag-and-drop-place {
@@ -102,7 +108,10 @@
     height: 100%;
     left: 0;
     top: 0;
+    right: 0;
+    bottom: 0;
     z-index: 1;
+    cursor: pointer;
 }
 
 //--------------paper-color-input styles-------------

@@ -242,6 +242,7 @@
                 } else {
                     showAlert('Error', 'There was an error in sending the confirmation email');
                 }
+                app.loader = false;
             });
         }
     };
