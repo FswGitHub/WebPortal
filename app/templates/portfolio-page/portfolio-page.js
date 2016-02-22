@@ -2,8 +2,10 @@
     app.portfolioData = app.sessionId ? JSON.parse(localStorage.getItem(app.apiUrl+ 'portfolio')) : null;
 
     app.goToPortfolioItem = function(e){
-        var id = e.model.item.id;
-        return page('/portfolio/'+id+'/dashboard');
+        if(e.model.item){
+            var id = e.model.item.id;
+            return page('/portfolio/'+id+'/dashboard');
+        }
     };
 
     app.setDefaultRows = function(data, tabWidth){
