@@ -12,7 +12,7 @@
                 span.settings-labels.self-center Color
                 .color-selector-wrapper
                     //paper-color-input.color-selector(shape="circle", type="hsl", value="{{convertColor(appColor)}}", on-color-changed="recolorApp")
-                    paper-input.color-selector(value="[[appColor]]", on-focus="openPicker")
+                    paper-input.color-selector(value="[[appColor]]", on-focus="openPicker", readonly)
             .settings-row.layout.horizontal
                 span.settings-labels.self-center Logo
                 .upload-logo-wrapper.layout.vertical
