@@ -71,6 +71,7 @@
                     }
                     break;
                 case 'settings':
+                    app.settingsTab = route.params.tab;
                     if(app.tabWidthScreen){
                         openFirstRows('.users-table');
                     }
@@ -88,6 +89,7 @@
             }
 
             if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
+                app.portfolioTab = route.params.tab;
                 updateColors('jv-datepicker', ['--jv-datepicker-button-color', '--jv-datepicker-selected-year-color',
                     '--jv-datepicker-today-color', '--jv-datepicker-selected-day-bg', '--jv-datepicker-selection-bg'],
                     [app.appColor]);
@@ -267,7 +269,7 @@ function showAlert(header, text, callback){
     drawer ? drawer.closeDrawer() : null;
     alert.open();
 
-    alert.addEventListener('iron-overlay-closed', function(){
+    return alert.addEventListener('iron-overlay-closed', function(){
         return callback ? callback.call() : null;
     });
 }
@@ -289,7 +291,7 @@ function showConfirm(header, text, confirmCallback, closeCallback){
         confirmed = true;
     });
 
-    confirm.addEventListener('iron-overlay-closed', function(){
+    return confirm.addEventListener('iron-overlay-closed', function(){
         if(confirmed){
             confirmed = false;
             return confirmCallback ? confirmCallback.call() : null;

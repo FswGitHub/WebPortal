@@ -1,9 +1,11 @@
-div(hidden$="{{holdings.length}}", class$="layout horizontal center-center no-holdings {{addClass(tabHeightScreen, 'fit')}}")
-    .layout.horizontal.start.center
+.layout.horizontal.no-holdings.relative(hidden$="{{holdings.length}}")
+    .layout.horizontal.center-center.fit
         span.no-data No holdings here
 #p-holdings-page.p-holdings-page-wrapper(hidden$="[[!holdings.length]]")
     holdings-table(search-string="{{searchRequest}}", active-color="[[appColor]]")
 .loading-screen.fit.layout.horizontal.center-center(hidden$="{{!loader}}")
     .pre-loader.layout.horizontal.start.center
         span Loading
-        img.loader(src="assets/images/FPM-loader.gif")
+            span.dot.one
+            span.dot.two
+            span.dot.three

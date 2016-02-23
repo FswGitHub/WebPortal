@@ -46,6 +46,12 @@ paper-tabs.main-tabs {
     width: 400px;
 }
 
+paper-toolbar.medium-tall {
+    #bottomBar {
+        display: none;
+    }
+}
+
 paper-tab {
     padding: 0 $padding-small;
     min-width: 100px;

@@ -123,12 +123,11 @@ window.addEventListener('WebComponentsReady', function () {
     });
     page('/portfolio/:id/:tab', function (data) {
         if(app.sessionId){
-            app.portfolioTab = data.params.tab;
             app.route = {
                 name: 'portfolio-item-'+data.params.id,
                 params: data.params,
                 main: true
-            }
+            };
             app.cleanSearch();
         } else {
             page('/login');
@@ -146,7 +145,6 @@ window.addEventListener('WebComponentsReady', function () {
     });
     page('/settings/:tab', function (data) {
         if(app.sessionId){
-            app.settingsTab = data.params.tab;
             app.route = {
                 name: 'settings',
                 main: true,

@@ -97,7 +97,7 @@ dom-module#holdings-table
                     .data-thead-th.flex.exposure-value
                         span.th-content [[limitValue(classification.totalExposureValue)]]
             div(class$="data-tbody layout vertical [[addClass(tabWidthScreen, 'mobile-data-tbody')]]")
-                template(is="dom-repeat", items="{{filterBy(holdings, categoryFilter, reverse)]]", as="holding")
+                template(id="template", is="dom-repeat", items="{{filterBy(holdings, categoryFilter, reverse)]]", as="holding")
                     .tr.mobile-data-thead(data-index="[[index]]", on-tap="collapseCategory", hidden$="[[searchString]]")
                         span.mobile-th-content.layout.horizontal.start
                             iron-icon.white-icon(icon="arrow-drop-down")

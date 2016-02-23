@@ -45,7 +45,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                     paper-tab(data-tab="dashboard", on-tap="tabGo") dashboard
                     paper-tab(data-tab="holdings", on-tap="tabGo") holdings
                 include  ../portfolio-item/p-bar
-            template(is="dom-if", if="{{checkRoute(route.name, 'settings)}}")
+            template(is="dom-if", if="{{checkRoute(route.name, 'settings')}}")
                 paper-tabs#settings-tabs.main-tabs.title-aligned.self-end.middle(selected="{{settingsTab}}", on-iron-items-changed="fixTabs", attr-for-selected="data-tab")
                     paper-tab(data-tab="general", on-tap="tabGo") General
                     paper-tab(data-tab="configs", on-tap="tabGo") FPM Configs
@@ -59,7 +59,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                     include ../portfolio-page/portfolio-page
                 template(is="dom-repeat" items="{{menuSubItems}}", restamp)
                     section(data-route$='portfolio-item-{{item.id}}', class$="portfolio-item-{{item.id}}")
-                        iron-pages(attr-for-selected='data-tab', selected='{{portfolioTab}}')
+                        iron-pages(attr-for-selected='data-tab', selected='{{route.params.tab}}')
                             section.page-wrapper(data-tab="dashboard")
                                 include ../portfolio-item/p-dashboard-page
                             section.page-wrapper(data-tab="holdings")
@@ -67,7 +67,7 @@ paper-drawer-panel#paperDrawerPanel(responsive-width="1280px")
                 section.page-wrapper(data-route='profile')
                     include ../profile-page/profile-page
                 section(data-route='settings')
-                        iron-pages(attr-for-selected='data-tab', selected='{{settingsTab}}')
+                        iron-pages(attr-for-selected='data-tab', selected='{{route.params.tab}}')
                             section.page-wrapper(data-tab="general")
                                 include ../settings-page/general-page
                             section.page-wrapper(data-tab="configs")
