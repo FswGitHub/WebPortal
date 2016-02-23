@@ -169,6 +169,12 @@
                 output.value = name;
                 reader.onload = function(e) {
                     var data = e.target.result;
+
+                    if(app.browser.indexOf('IE') > -1){
+                        var base64 = data.replace(/^data:[^,]+,/, '');
+                        data = window.atob(base64); // bingo!
+                    }
+
                     var workbook = type.read(data, {type: 'binary'});
                     var pages = workbook.Sheets;
                     var page = null;
@@ -181,7 +187,14 @@
                     }
                     return callback.call(this, page);
                 };
-                reader.readAsBinaryString(file);
+
+                if(app.browser.indexOf('IE') > -1){
+                    var dataUrl = reader.readAsDataURL(file);
+                } else {
+                    reader.readAsBinaryString(file);
+                }
+
+
             } else {
                 showAlert('Error', 'Please, choose a .xlsx or .xls file with users!');
             }
