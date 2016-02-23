@@ -1,221 +1,232 @@
+var browser = (function(){
+    var ua= navigator.userAgent, tem,
+        M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+    if(/trident/i.test(M[1])){
+        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+        return 'IE '+(tem[1] || '');
+    }
+    if(M[1]=== 'Chrome'){
+        tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+        if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+    }
+    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+    return M.join(' ');
+})();
+
+addLoadEvent(function() {
+    outdatedBrowser({
+        bgColor: '#f25648',
+        color: '#ffffff',
+        lowerThan: 'transform',
+        languagePath: 'your_path/outdatedbrowser/lang/en.html'
+    });
+});
+
+
+
 (function (){
-    var app = document.querySelector('#app');
-    var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
-    var _idleSecondsCounter = 0;
-    var resizeTimer = null;
+        var app = document.querySelector('#app');
+        var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
+        var _idleSecondsCounter = 0;
+        var resizeTimer = null;
 
-    // Sets app default base URL and globals
-    app.properties = {
-        route: {
-            type: Object
-        },
-        dashboardCharts: {
-            type: Array,
-            value: function(){
-                return [];
+        // Sets app default base URL and globals
+        app.properties = {
+            route: {
+                type: Object
+            },
+            dashboardCharts: {
+                type: Array,
+                value: function(){
+                    return [];
+                }
+            },
+            appColor: {
+                type: String
+            },
+            theme: {
+                type: String
             }
-        },
-        appColor: {
-            type: String
-        },
-        theme: {
-            type: String
-        }
-    };
+        };
 
-    app.observers = [
-        '_routeNameChanged(route)',
-        '_classificationChanged(selectedClassification.*)',
-        '_appColorChanged(appColor)',
-        '_rememberMeChanged(rememberMe)',
-        '_showEditChanged(showEdit)',
-        '_themeChanged(theme)',
-        '_tabWidthChanged(tabWidthScreen)'
-    ];
+        app.observers = [
+            '_routeNameChanged(route)',
+            '_classificationChanged(selectedClassification.*)',
+            '_appColorChanged(appColor)',
+            '_rememberMeChanged(rememberMe)',
+            '_showEditChanged(showEdit)',
+            '_themeChanged(theme)',
+            '_tabWidthChanged(tabWidthScreen)'
+        ];
 
-    app.baseUrl = '/';
-    app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
-    app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
-    app.rememberMe = localStorage.getItem(app.apiUrl + 'remember_me');
-    app.openAnimationConfig = [
-        {name: 'fade-in-animation', timing: {delay: 100, duration: 200}},
-        {name: 'paper-menu-grow-height-animation', timing: {duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'both'}}
-    ];
+        app.baseUrl = '/';
+        app.apiUrl = 'http://fundamentalwebportal.azurewebsites.net/WebPortalService.svc/';
+        app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
+        app.rememberMe = localStorage.getItem(app.apiUrl + 'remember_me');
+        app.IE = browser.indexOf('IE') > -1;
+        app.openAnimationConfig = [
+            {name: 'fade-in-animation', timing: {delay: 100, duration: 200}},
+            {name: 'paper-menu-grow-height-animation', timing: {duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'both'}}
+        ];
 
-    app.addClass = function(variable, classString){
-        if(variable){
-            return classString;
-        }
-    };
-
-    app.toggleClass = function(variable, class1, class2){
-        return variable ? class1 : class2;
-    };
-
-    app._routeNameChanged = function(route){
-        setTimeout(function(){
-            //console.log('route change callback');
-            switch (route.name) {
-                case 'dashboard':
-                    if(!app.appColor){
-                        app.appColor = localStorage.getItem(app.apiUrl+ 'app_colour');
-                    }
-                    addDashboardChartsList();
-                    break;
-                case 'login':
-                    updateColors('paper-dialog', ['--paper-dialog-button-color'], ['#DD1F29']);
-                    break;
-                case 'portfolio':
-                    if(app.tabWidthScreen){
-                        openFirstRows('.portfolio-table');
-                    }
-                    break;
-                case 'settings':
-                    app.settingsTab = route.params.tab;
-                    if(app.tabWidthScreen){
-                        openFirstRows('.users-table');
-                    }
-                    app.listenForLogoChange();
-                    break;
-                case 'signup':
-                    app.sessionId ? page('/login') : null;
-                    break;
-                case 'forgotpass':
-                    app.sessionId ? page('/login') : null;
-                    break;
-                case 'confirm':
-                    app.sessionId ? page('/login') : null;
-                    break;
+        app.addClass = function(variable, classString){
+            if(variable){
+                return classString;
             }
+        };
 
-            if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
-                app.portfolioTab = route.params.tab;
-                updateColors('jv-datepicker', ['--jv-datepicker-button-color', '--jv-datepicker-selected-year-color',
-                    '--jv-datepicker-today-color', '--jv-datepicker-selected-day-bg', '--jv-datepicker-selection-bg'],
-                    [app.appColor]);
-                if(route.params.tab == 'dashboard'){
-                    addPortfolioChartsList(route.params.id);
-                } else {
-                    var items = app.portfolioItems;
-                    var id = route.params.id;
-                    app.selectedClassification = items[id] && items[id].classifications ? items[id].classifications[0] : null;
+        app.toggleClass = function(variable, class1, class2){
+            return variable ? class1 : class2;
+        };
+
+        app._routeNameChanged = function(route){
+            setTimeout(function(){
+                //console.log('route change callback');
+                switch (route.name) {
+                    case 'dashboard':
+                        if(!app.appColor){
+                            app.appColor = localStorage.getItem(app.apiUrl+ 'app_colour');
+                        }
+                        addDashboardChartsList();
+                        break;
+                    case 'login':
+                        updateColors('paper-dialog', ['--paper-dialog-button-color'], ['#DD1F29']);
+                        break;
+                    case 'portfolio':
+                        if(app.tabWidthScreen){
+                            openFirstRows('.portfolio-table');
+                        }
+                        break;
+                    case 'settings':
+                        app.settingsTab = route.params.tab;
+                        if(app.tabWidthScreen){
+                            openFirstRows('.users-table');
+                        }
+                        app.listenForLogoChange();
+                        break;
+                    case 'signup':
+                        app.sessionId ? page('/login') : null;
+                        break;
+                    case 'forgotpass':
+                        app.sessionId ? page('/login') : null;
+                        break;
+                    case 'confirm':
+                        app.sessionId ? page('/login') : null;
+                        break;
+                }
+
+                if(route.name.indexOf('portfolio-item') > -1 && route.params.id){
+                    app.portfolioTab = route.params.tab;
+                    updateColors('jv-datepicker', ['--jv-datepicker-button-color', '--jv-datepicker-selected-year-color',
+                            '--jv-datepicker-today-color', '--jv-datepicker-selected-day-bg', '--jv-datepicker-selection-bg'],
+                        [app.appColor]);
+                    if(route.params.tab == 'dashboard'){
+                        addPortfolioChartsList(route.params.id);
+                    } else {
+                        var items = app.portfolioItems;
+                        var id = route.params.id;
+                        app.selectedClassification = items[id] && items[id].classifications ? items[id].classifications[0] : null;
+                    }
+                }
+
+                app.showEdit = false;
+                app.cleanSearch();
+            });
+        };
+
+        app._appColorChanged = function(newVal){
+            //This function update all custom styles for every element which need to be main color
+            if(newVal){
+                //console.log('app color changed to ' +newVal);
+                var colorsStyle = document.querySelectorAll('style[is="custom-style"]')[0];
+                colorsStyle.customStyle['--main-color'] = newVal;
+                Polymer.updateStyles();
+
+                updateColors('paper-checkbox', ['--paper-checkbox-checked-color', '--paper-checkbox-checked-ink-color'], [newVal]);
+                updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal]);
+                updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
+                updateColors('paper-dialog paper-input', ['--paper-input-container-focus-color'], [newVal]);
+                updateColors('paper-toggle-button', ['--paper-toggle-button-checked-bar-color', '--paper-toggle-button-checked-button-color', '--paper-toggle-button-checked-ink-color'], [newVal]);
+                updateColors('paper-input.color-selector', ['--paper-input-container-input'], ['color:'+newVal + ';font-size: 18px;text-transform: uppercase;']);
+                updateColors('paper-color-picker', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
+                updateColors('paper-dialog', ['--paper-dialog-button-color'], [newVal]);
+            }
+        };
+
+        //Session timeout(5 minutes))
+        document.onclick = function() {_idleSecondsCounter = 0;};
+        document.onmousemove = function() {_idleSecondsCounter = 0;};
+        document.onkeypress = function() {_idleSecondsCounter = 0;};
+        window.setInterval(CheckIdleTime, 1000);
+
+        function CheckIdleTime() {
+            if (app.sessionId) {
+                _idleSecondsCounter++;
+                if (_idleSecondsCounter >= IDLE_TIMEOUT) {
+                    logOut();
+                    showAlert(null, 'Time expired!');
                 }
             }
-
-            app.showEdit = false;
-            app.cleanSearch();
-        });
-    };
-
-    app._appColorChanged = function(newVal){
-        //This function update all custom styles for every element which need to be main color
-        if(newVal){
-            //console.log('app color changed to ' +newVal);
-            var colorsStyle = document.querySelectorAll('style[is="custom-style"]')[0];
-            colorsStyle.customStyle['--main-color'] = newVal;
-            Polymer.updateStyles();
-
-            updateColors('paper-checkbox', ['--paper-checkbox-checked-color', '--paper-checkbox-checked-ink-color'], [newVal]);
-            updateColors('paper-radio-button', ['--paper-radio-button-checked-color', '--paper-radio-button-checked-ink-color'], [newVal]);
-            updateColors('paper-input', ['--paper-input-container-focus-color'], [newVal]);
-            updateColors('paper-dialog paper-input', ['--paper-input-container-focus-color'], [newVal]);
-            updateColors('paper-toggle-button', ['--paper-toggle-button-checked-bar-color', '--paper-toggle-button-checked-button-color', '--paper-toggle-button-checked-ink-color'], [newVal]);
-            updateColors('paper-input.color-selector', ['--paper-input-container-input'], ['color:'+newVal + ';font-size: 18px;text-transform: uppercase;']);
-            updateColors('paper-color-picker', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
-            updateColors('paper-dialog', ['--paper-dialog-button-color'], [newVal]);
         }
-    };
 
-    //Session timeout(5 minutes))
-    document.onclick = function() {_idleSecondsCounter = 0;};
-    document.onmousemove = function() {_idleSecondsCounter = 0;};
-    document.onkeypress = function() {_idleSecondsCounter = 0;};
-    window.setInterval(CheckIdleTime, 1000);
-
-    function CheckIdleTime() {
-        if (app.sessionId) {
-            _idleSecondsCounter++;
-            if (_idleSecondsCounter >= IDLE_TIMEOUT) {
-                logOut();
-                showAlert(null, 'Time expired!');
+        window.addEventListener('resize', function(){
+            if(resizeTimer) {
+                clearTimeout(resizeTimer);
             }
-        }
-    }
 
-    window.addEventListener('resize', function(){
-        if(resizeTimer) {
-            clearTimeout(resizeTimer);
-        }
+            resizeTimer = setTimeout(function() {
+                var sections = document.querySelectorAll('section[data-route]');
 
-        resizeTimer = setTimeout(function() {
-            var sections = document.querySelectorAll('section[data-route]');
-
-            for(var i=0; i < sections.length; i++){
-                var section = sections[i];
-                if(section.classList.contains('iron-selected')){
-                    if(app.route.name.indexOf('dashboard') > -1 || (app.route.name.indexOf('portfolio-item') > -1 && app.route.params.tab == 'dashboard')) {
-                        var chartsList = section.querySelectorAll('charts-list')[0];
-                        chartsList.buildCharts();
-                    }
-                    if(app.route.name.indexOf('portfolio-item') > -1 && app.route.params.tab == 'holdings'){
+                for(var i=0; i < sections.length; i++){
+                    var section = sections[i];
+                    if(section.classList.contains('iron-selected')){
+                        if(app.route.name.indexOf('dashboard') > -1 || (app.route.name.indexOf('portfolio-item') > -1 && app.route.params.tab == 'dashboard')) {
+                            var chartsList = section.querySelectorAll('charts-list')[0];
+                            chartsList.buildCharts();
+                        }
+                        if(app.route.name.indexOf('portfolio-item') > -1 && app.route.params.tab == 'holdings'){
+                            clearCharts(section);
+                        }
+                    } else {
                         clearCharts(section);
                     }
-                } else {
-                    clearCharts(section);
                 }
-            }
 
-            function clearCharts(section){
-                var chartsList = section.querySelectorAll('charts-list')[0];
-                chartsList ? chartsList.set('charts', []) : null;
-            }
-        }, 250);
-    });
+                function clearCharts(section){
+                    var chartsList = section.querySelectorAll('charts-list')[0];
+                    chartsList ? chartsList.set('charts', []) : null;
+                }
+            }, 250);
+        });
 
-    // Scroll page to top and expand header
+        // Scroll page to top and expand header
 
-    app.scrollPageToTop = function(e) {
-        var pages  = document.querySelector('iron-pages');
-        var header = document.querySelector('#headerPanelMain');
-        pages ? pages.scrollTop = 0 : null;
-        header ? header.scrollToTop(true) : null;
+        app.scrollPageToTop = function(e) {
+            var pages  = document.querySelector('iron-pages');
+            var header = document.querySelector('#headerPanelMain');
+            pages ? pages.scrollTop = 0 : null;
+            header ? header.scrollToTop(true) : null;
 
-    };
+        };
 
-    app.closeDrawer = function() {
-        var drawer = document.getElementById('paperDrawerPanel');
-        drawer ? drawer.closeDrawer() : null;
-    };
+        app.closeDrawer = function() {
+            var drawer = document.getElementById('paperDrawerPanel');
+            drawer ? drawer.closeDrawer() : null;
+        };
 
 
-    window.addEventListener('WebComponentsReady', function (e) {
-        //console.log('WebComponentsReady');
-        app.appColor = app.sessionId ? localStorage.getItem(app.apiUrl+ 'app_colour') : null;
-    });
+        window.addEventListener('WebComponentsReady', function (e) {
+            //console.log('WebComponentsReady');
+            app.appColor = app.sessionId ? localStorage.getItem(app.apiUrl+ 'app_colour') : null;
+        });
 
-    //app.addEventListener('dom-change', function() {console.log('dom-change' );});
-    //window.onload = function(){console.log('window load' );};
-    //app.ready = function(){};
-    //document.addEventListener('DOMContentLoaded', function(){console.log('DOMContentLoaded' );});
-
-    app.browser = (function(){
-        var ua= navigator.userAgent, tem,
-            M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
-        if(/trident/i.test(M[1])){
-            tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
-            return 'IE '+(tem[1] || '');
-        }
-        if(M[1]=== 'Chrome'){
-            tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
-            if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
-        }
-        M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-        if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
-        return M.join(' ');
+        //app.addEventListener('dom-change', function() {console.log('dom-change' );});
+        //window.onload = function(){console.log('window load' );};
+        //app.ready = function(){};
+        //document.addEventListener('DOMContentLoaded', function(){console.log('DOMContentLoaded' );});
     })();
-
-    app.IE = app.browser.indexOf('IE') > -1;
-})();
+//}
 
 function sendRequest(url, method, body, callback){
     var requester = document.createElement('iron-ajax');
@@ -341,4 +352,18 @@ function cleanForm(wrapper, value){
             value ? fields[i].value = null : null;
         }
     });
+}
+
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function() {
+            if (oldonload) {
+                oldonload();
+            }
+            func();
+        }
+    }
 }

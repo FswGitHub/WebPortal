@@ -20,6 +20,26 @@ body[unresolved] {
     }
 }
 
+#outdated {
+    height: 100%;
+    h6 {
+        margin-top: 230px;
+    }
+
+    #btnCloseUpdateBrowser {
+        display: none;
+    }
+}
+
+@media all and (orientation:portrait) {
+    #outdated {
+        h6 {
+            margin-top: 130px;
+        }
+    }
+}
+
+
 .loading-screen {
     display: none;
     width: 100%;
