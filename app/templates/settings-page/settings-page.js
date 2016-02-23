@@ -77,23 +77,26 @@
             logoUploader.addEventListener('change', function(e){
                 var image = e.target.files[0];
                 var reader = new FileReader();
-                var dataUrl = reader.readAsDataURL(image);
+                //var dataUrl = reader.readAsDataURL(image);
 
                 reader.onload = function(img) {
                     var newLogo = new Image();
                     newLogo.src = img.target.result;
-                    var logoWidth = newLogo.width;
-                    var logoHeight = newLogo.height;
-                    if(logoWidth  <= 224 &&  logoHeight <= 64){
-                        app.logo = newLogo.src;
-                        logoUploader.value = null;
-                        //should be logo upload here!
-                        // newLogo = upload.response.url;
-                        showAlert('Success', 'Logo uploaded');
-                    } else {
-                        showAlert('Wrong size', 'Please choose image with max size 224px x 64px');
-                    }
+                    newLogo.onload = function () {
+                        if(newLogo.width  <= 224 &&  newLogo.height <= 64){
+                            app.logo = newLogo.src;
+                            logoUploader.value = null;
+                            //should be logo upload here!
+                            // newLogo = upload.response.url;
+                            showAlert('Success', 'Logo uploaded');
+                        } else {
+                            newLogo = null;
+                            showAlert('Wrong size', 'Please choose image with max size 224px x 64px');
+                        }
+                    };
                 };
+
+                reader.readAsDataURL(image);
 
             });
         });
@@ -170,7 +173,7 @@
                 reader.onload = function(e) {
                     var data = e.target.result;
 
-                    if(app.browser.indexOf('IE') > -1){
+                    if(app.IE){
                         var base64 = data.replace(/^data:[^,]+,/, '');
                         data = window.atob(base64); // bingo!
                     }
@@ -188,7 +191,7 @@
                     return callback.call(this, page);
                 };
 
-                if(app.browser.indexOf('IE') > -1){
+                if(app.IE){
                     var dataUrl = reader.readAsDataURL(file);
                 } else {
                     reader.readAsBinaryString(file);

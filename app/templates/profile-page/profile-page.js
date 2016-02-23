@@ -25,17 +25,16 @@
                 reader.onload = function(img) {
                     var newImage = new Image();
                     newImage.src = img.target.result;
-                    var imgWidth = newImage.width;
-                    var imageHeight = newImage.height;
-
-                    if(imgWidth == 200 && imageHeight == 200){
-                        app.userPhoto = newImage.src;
-                        uploader.value = null;
-                        //should be image upload here!
-                        // newImage = upload.response.url;
-                   } else {
-                        showAlert('Wrong size', 'Please choose image 200px x 200px');
-                    }
+                    newImage.onload = function () {
+                        if(newImage.width == 200 && newImage.height == 200){
+                            app.userPhoto = newImage.src;
+                            uploader.value = null;
+                            //should be image upload here!
+                            // newImage = upload.response.url;
+                        } else {
+                            showAlert('Wrong size', 'Please choose image 200px x 200px');
+                        }
+                    };
                 };
             }, false);
         }

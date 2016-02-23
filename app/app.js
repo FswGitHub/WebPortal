@@ -197,6 +197,7 @@
     //window.onload = function(){console.log('window load' );};
     //app.ready = function(){};
     //document.addEventListener('DOMContentLoaded', function(){console.log('DOMContentLoaded' );});
+
     app.browser = (function(){
         var ua= navigator.userAgent, tem,
             M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
@@ -212,6 +213,8 @@
         if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
         return M.join(' ');
     })();
+
+    app.IE = app.browser.indexOf('IE') > -1;
 })();
 
 function sendRequest(url, method, body, callback){
@@ -339,57 +342,3 @@ function cleanForm(wrapper, value){
         }
     });
 }
-
-detectBrowser();
-
-function detectBrowser(){
-    //var browser = {};
-    //// Opera 8.0+
-    //browser.isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
-    //// Firefox 1.0+
-    //browser.isFirefox = typeof InstallTrigger !== 'undefined';
-    //// At least Safari 3+: "[object HTMLElementConstructor]"
-    //browser.isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
-    //// Internet Explorer 6-11
-    //browser.isIE = /*@cc_on!@*/false || !!document.documentMode;
-    //// Edge 20+
-    //browser.isEdge = !browser.isIE && !!window.StyleMedia;
-    //// Chrome 1+
-    //browser.isChrome = !!window.chrome && !!window.chrome.webstore;
-    //// Blink engine detection
-    //browser.isBlink = (browser.isChrome || browser.isOpera) && !!window.CSS;
-    //
-    //for(var key in browser){
-    //    if(browser[key] == true){
-    //        console.log(key);
-    //    }
-    //}
-
-    //alert('USER AGENT: ' + window.navigator.userAgent + ', APP NAME: ' +window.navigator.appName);
-
-    //function GetIEVersion() {
-    //    var sAgent = window.navigator.userAgent;
-    //    var Idx = sAgent.indexOf("MSIE");
-    //
-    //    // If IE, return version number.
-    //    if (Idx > 0) {
-    //        return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
-    //        //} else if (!!navigator.userAgent.match(/Trident\/7\./)){
-    //        //    // If IE 11 then look for Updated user agent string.
-    //        //    return ie;
-    //        //} else {
-    //        //    return notIe; //It is not IE
-    //    } else {
-    //        return false;
-    //    }
-    //}
-
-    //if (GetIEVersion() > 0){
-    //    alert("This is IE " + GetIEVersion());
-    //} else {
-    //    alert("This is not IE.");
-    //}
-}
-
-//alert(navigator.sayswho);
-
