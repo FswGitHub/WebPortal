@@ -64,7 +64,7 @@ html
                         input#output.file-label(type="text", readonly)
                         .chose-file-btn Browse
                             input#fileInput.file-place(type="file", value="", accept=".xlsx, .xls")
-                    div(hidden$="[[tabWidthScreen]]")
+                    div(hidden$="[[hideDragAndDrop(IE, isMobile)]]")
                         label.dialog-label.or-label Or
                         #dropZone.drag-and-drop-place.layout.horizontal.center-center
                             span.drag-and-drop-label Drag and drop file here

@@ -112,6 +112,14 @@
         dialog.open();
     };
 
+    app.getMenuPosition = function(width, mobile){
+        if(!width || mobile){
+            return 24;
+        } else {
+            return -70;
+        }
+    };
+
     app.addConfirmed = function(e){
         var dialog = e.currentTarget.parentNode.parentNode;
         var email = dialog.querySelector('#newEmail');

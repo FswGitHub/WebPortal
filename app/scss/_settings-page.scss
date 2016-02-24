@@ -260,3 +260,10 @@ iron-icon.upload-logo-icon {
         line-height: 28px;
     }
 }
+
+@media screen and (min-height: 701px) {
+    .users-options {
+        bottom: 80px;
+        right: 23px;
+    }
+}

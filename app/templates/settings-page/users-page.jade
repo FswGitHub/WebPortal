@@ -1,15 +1,15 @@
 #users-page.users-page-wrapper
     .users-options
-        paper-menu-button.dropdown-menu.charts-options(horizontal-align="right", horizontal-offset="36", open-animation-config='[[openAnimationConfig]]', vertical-offset$="[[addClass(tabWidthScreen, '-70')]]")
+        paper-menu-button.dropdown-menu.charts-options(horizontal-align="right", horizontal-offset="36", open-animation-config='[[openAnimationConfig]]', vertical-offset$="[[getMenuPosition(tabWidthScreen, isMobile)]]")
             paper-fab.grey-button.dropdown-trigger(icon="add", unresolved)
             paper-menu.dropdown-content
                 paper-item(on-tap="openImportDialog")
                     iron-icon.options-icon(icon="social:group-add")
                     | Bulk User Import
-                paper-item(on-tap="openAddUserDialog")
+                paper-item(on-tap="openAddUserDialog", hidden$="[[isMobile]]")
                     iron-icon.options-icon(icon="social:person-add")
                     | Add User
-                paper-item.download-link-item
+                paper-item.download-link-item(hidden$="[[isMobile]]")
                     a.download-link(download, href="assets/files/users.xlsx")
                         iron-icon.options-icon(icon="file-download")
                         | Bulk User Template

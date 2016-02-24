@@ -23,8 +23,6 @@ addLoadEvent(function() {
     });
 });
 
-
-
 (function (){
         var app = document.querySelector('#app');
         var IDLE_TIMEOUT = 300; //seconds (5min-300sec)
@@ -65,6 +63,7 @@ addLoadEvent(function() {
         app.sessionId = localStorage.getItem(app.apiUrl + 'session_id');
         app.rememberMe = localStorage.getItem(app.apiUrl + 'remember_me');
         app.IE = browser.indexOf('IE') > -1;
+        app.isMobile = detectmob();
         app.openAnimationConfig = [
             {name: 'fade-in-animation', timing: {delay: 100, duration: 200}},
             {name: 'paper-menu-grow-height-animation', timing: {duration: 500, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'both'}}
@@ -215,6 +214,9 @@ addLoadEvent(function() {
             drawer ? drawer.closeDrawer() : null;
         };
 
+        app.hideDragAndDrop = function(ie, mobile){
+            return ie || mobile;
+        };
 
         window.addEventListener('WebComponentsReady', function (e) {
             //console.log('WebComponentsReady');
@@ -365,5 +367,21 @@ function addLoadEvent(func) {
             }
             func();
         }
+    }
+}
+
+function detectmob() {
+    if( navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+    ){
+        return true;
+    }
+    else {
+        return false;
     }
 }
