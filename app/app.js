@@ -148,7 +148,7 @@ addLoadEvent(function() {
                 updateColors('paper-dialog paper-input', ['--paper-input-container-focus-color'], [newVal]);
                 updateColors('paper-toggle-button', ['--paper-toggle-button-checked-bar-color', '--paper-toggle-button-checked-button-color', '--paper-toggle-button-checked-ink-color'], [newVal]);
                 updateColors('paper-input.color-selector', ['--paper-input-container-input'], ['color:'+newVal + ';font-size: 18px;text-transform: uppercase;']);
-                updateColors('paper-color-picker', ['--default-primary-color', '--paper-button'], [newVal, 'color:'+newVal]);
+                updateColors('paper-color-picker', ['--default-primary-color', '--paper-button','--paper-input-container-focus-color'], [newVal, 'color:'+newVal, newVal]);
                 updateColors('paper-dialog', ['--paper-dialog-button-color'], [newVal]);
             }
         };
